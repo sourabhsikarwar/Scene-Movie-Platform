@@ -1,0 +1,4 @@
+.bggradient{
+    background: linear-gradient(90deg, rgb(2, 0, 32) 40%, rgba(255, 255, 255, 0) 100%);
+    background-blend-mode: overlay;
+}
