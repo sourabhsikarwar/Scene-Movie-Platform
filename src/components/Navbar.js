@@ -1,29 +1,21 @@
 import React from "react";
-import logo from "../img/mLogo.png";
+// import logo from "../assets/img/mLogo";
 import { Link } from "react-router-dom";
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'Favourites', href: '/favourites', current: false },
-]
+  { name: "Home", href: "/", current: false },
+  { name: "Categories", href: "#", current: false },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 function Navbar() {
   return (
-    // <div className="flex px-12 py-2 space-x-8 items-center">
-    //   <Link to="/"><img src={logo} alt="logo" className='w-[60px] md:w-[90px]'/></Link>
-    //   <div className="text-gray-900 font-medium text-md md:text-xl"><Link to="/">Movies</Link></div>
-    //   <div className="text-gray-900 font-medium text-md md:text-xl"><Link to="favourites">Favourites</Link></div>
-    // </div>
-
-    // ================= 
-
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
@@ -42,16 +34,40 @@ function Navbar() {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src={logo}
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                    alt="Workflow"
-                  />
+                  <svg
+                    id="logo-15"
+                    width="42"
+                    height="42"
+                    viewBox="0 0 49 48"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {" "}
+                    <path
+                      d="M24.5 12.75C24.5 18.9632 19.4632 24 13.25 24H2V12.75C2 6.53679 7.03679 1.5 13.25 1.5C19.4632 1.5 24.5 6.53679 24.5 12.75Z"
+                      class="ccustom"
+                      fill="#b086e4"
+                      stop-color="#b086e4"
+                    ></path>{" "}
+                    <path
+                      d="M24.5 35.25C24.5 29.0368 29.5368 24 35.75 24H47V35.25C47 41.4632 41.9632 46.5 35.75 46.5C29.5368 46.5 24.5 41.4632 24.5 35.25Z"
+                      class="ccustom"
+                      fill="#b086e4"
+                      stop-color="#b086e4"
+                    ></path>{" "}
+                    <path
+                      d="M2 35.25C2 41.4632 7.03679 46.5 13.25 46.5H24.5V35.25C24.5 29.0368 19.4632 24 13.25 24C7.03679 24 2 29.0368 2 35.25Z"
+                      class="ccustom"
+                      fill="#b086e4"
+                      stop-color="#b086e4"
+                    ></path>{" "}
+                    <path
+                      d="M47 12.75C47 6.53679 41.9632 1.5 35.75 1.5H24.5V12.75C24.5 18.9632 29.5368 24 35.75 24C41.9632 24 47 18.9632 47 12.75Z"
+                      class="ccustom"
+                      fill="#b086e4"
+                      stop-color="#b086e4"
+                    ></path>{" "}
+                  </svg>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
@@ -60,10 +76,12 @@ function Navbar() {
                         key={item.name}
                         to={item.href}
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </Link>
@@ -71,15 +89,8 @@ function Navbar() {
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
 
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 z-10 relative">
                   <div>
@@ -105,8 +116,11 @@ function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            to="/profile"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             Your Profile
                           </Link>
@@ -115,18 +129,24 @@ function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            to="/favourites"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
-                            Settings
+                            Favourites
                           </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            to="/login"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
                           >
                             Sign out
                           </Link>
@@ -147,10 +167,12 @@ function Navbar() {
                   as="a"
                   to={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "block px-3 py-2 rounded-md text-base font-medium"
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>

@@ -5,8 +5,15 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Favourites from "./components/Favourites";
 import Trending from "./components/Trending";
+import Login from "./components/Login";
+import Footer from "./components/Footer";
+import Signup from "./components/Signup";
+import Profile from "./components/Profile";
+import Home from "./pages/Home"
+import Movie from "./pages/Movie";
 
 function App() {
+  // const apiKey = process.env.REACT_APP_IMDB;
   return (
     <BrowserRouter>
       <Navbar />
@@ -16,9 +23,10 @@ function App() {
           path="/"
           element={
             <>
-              <Banner />
+              {/* <Banner />
               <Movies />
-              <Trending/>
+              <Trending/> */}
+              <Home/>
             </>
           }
         />
@@ -31,7 +39,44 @@ function App() {
             </>
           }
         />
+        <Route
+          exact
+          path="/profile"
+          element={
+            <>
+              <Profile />
+            </>
+          }
+        />
+        <Route
+          exact
+          path="/login"
+          element={
+            <>
+              <Login />
+            </>
+          }
+        />
+        <Route
+          exact
+          path="/signup"
+          element={
+            <>
+              <Signup />
+            </>
+          }
+        />
+        <Route
+          exact
+          path="/movie"
+          element={
+            <>
+              <Movie />
+            </>
+          }
+        />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }

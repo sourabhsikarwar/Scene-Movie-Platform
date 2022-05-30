@@ -86,7 +86,7 @@ function Movies() {
                   key={movie.id}
                 >
                   <div
-                    className={`bg-[url(https://image.tmdb.org/t/p/w500/${movie.poster_path})] h-[350px] md:h-[280px] w-[250px] md:w-[220px] bg-center bg-cover rounded-md text-center flex items-end hover:scale-105 ease-out duration-300 drop-shadow drop-shadow`}
+                    className={`bg-[url(https://image.tmdb.org/t/p/w500/${movie.poster_path})] h-[350px] md:h-[280px] w-[250px] md:w-[220px] bg-center bg-cover rounded-md text-center flex items-end hover:scale-105 ease-out duration-300 drop-shadow`}
                   >
                     {Hover === movie.id && (
                       <>
