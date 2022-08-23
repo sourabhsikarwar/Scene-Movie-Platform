@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Profile = () => {
   return (
     <section className="text-gray-600 body-font">
-      <div className="container px-5 py-8 mx-auto flex flex-col">
+      <div className="container max-w-7xl px-5 py-8 mx-auto flex flex-col">
         <div className="flex flex-col sm:flex-row mt-10">
           <div className="sm:w-1/3 text-center sm:pr-8 sm:py-8">
             <div className="w-48 h-56 rounded-md inline-flex items-center justify-center bg-gray-200 text-gray-400">

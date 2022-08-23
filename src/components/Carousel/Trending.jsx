@@ -1,9 +1,9 @@
-// import logo from "../assets/img/mLogo";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import styles from "../../style";
 
 const Trending = (props) => {
   const [Movies, setMovies] = useState([]);
@@ -34,23 +34,20 @@ const Trending = (props) => {
   });
 
   return (
-    <div className="container mx-auto my-8">
-      <div className="flex justify-between">
-        <p className="md:text-2xl text-xl font-medium my-2 mx-4">
-          {props.title}
+    <div className={`${styles.boxWidth} my-8`}>
+      <div className="flex justify-between items-center px-6">
+        <h2 className={`${styles.heading3}`}>{props.title}</h2>
+        <p className="">
+          <Link className={`${styles.paragraph}`} to="/category">
+            Show all
+          </Link>
         </p>
-        <Link className="md:text-md text-sm mx-4 my-auto" to="#">
-          Show all
-        </Link>
       </div>
       <Splide
         options={{
-          // rewind: true,
           type: "loop",
           gap: "1rem",
           perPage: "5",
-          // autoplay: true,
-          trimSpace: true,
           pagination: false,
           breakpoints: {
             500: {
@@ -76,10 +73,15 @@ const Trending = (props) => {
         {Movies.map((movie) => {
           return (
             <SplideSlide>
-              <div className="flex m-4 bg-gray-200" key={movie.id}>
+              <div className="flex m-4" key={movie.id}>
                 <div
-                  className={`bg-[url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path})] h-[350px] md:h-[280px] w-[250px] md:w-[220px] bg-center bg-cover rounded-md text-center flex items-end hover:scale-105 ease-out duration-300 drop-shadow`}
+                  className={`h-[350px] md:h-[280px] w-[250px] md:w-[220px] bg-center bg-cover mx-auto rounded-md text-center flex items-end hover:scale-105 ease-out duration-300 drop-shadow`}
                   alt="poster"
+                  style={{
+                    backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
                 >
                   {
                     <>
@@ -100,6 +102,10 @@ const Trending = (props) => {
       </Splide>
     </div>
   );
+};
+
+Trending.defaultProps = {
+  title: "Trending",
 };
 
 export default Trending;

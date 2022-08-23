@@ -1,14 +1,12 @@
 import React from "react";
-// import Navbar from '../components/Navbar'
-import Banner from "../components/Banner";
-import Trending from "../components/Trending";
-import Footer from "../components/Footer";
+import Banner from "../components/Banner/Banner";
+import Trending from "../components/Carousel/Trending";
 
 const Home = () => {
   return (
     <div>
-      <Banner />
-      <Trending title="Trending"/>
+      <Banner/>
+      <Trending />
       <Trending title="TV Shows"/>
       <Trending title="Action"/>
       <Trending title="Drama"/>

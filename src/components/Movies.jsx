@@ -27,7 +27,7 @@ function Movies() {
   const upload = async () => {
     await axios
     .get(
-      `https://api.themoviedb.org/3/trending/movie/day?api_key=ebf3974135e4e887c96fc16d0e3024b1&page=${page}`
+      `https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=12`
     )
     .then((res) => {
       setMovies(res.data.results);
@@ -61,8 +61,8 @@ function Movies() {
 
   return (
     <>
-      <div className="container-xl mx-auto items-center">
-        <div className="flex justify-center mt-8 font-medium text-3xl">
+      <div className="container max-w-7xl mx-auto my-8">
+        <div className="flex md:text-2xl text-xl font-medium my-2 mx-4">
           Trending Movies
         </div>
         {Movies.length === 0 ? (
@@ -76,7 +76,7 @@ function Movies() {
             />
           </div>
         ) : (
-          <div className="flex justify-center flex-wrap my-8">
+          <div className="flex justify-between flex-wrap my-4 mx-auto">
             {Movies.map((movie) => {
               return (
                 <div
@@ -85,8 +85,14 @@ function Movies() {
                   onMouseLeave={() => setHover("")}
                   key={movie.id}
                 >
+                  {/* bg-[url(https://image.tmdb.org/t/p/w500/${movie.poster_path})] */}
                   <div
-                    className={`bg-[url(https://image.tmdb.org/t/p/w500/${movie.poster_path})] h-[350px] md:h-[280px] w-[250px] md:w-[220px] bg-center bg-cover rounded-md text-center flex items-end hover:scale-105 ease-out duration-300 drop-shadow`}
+                    className={`h-[350px] md:h-[280px] w-[250px] md:w-[220px] bg-center bg-cover rounded-md text-center flex items-end hover:scale-105 ease-out duration-300 drop-shadow`} 
+                    style={{
+                      backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
                   >
                     {Hover === movie.id && (
                       <>

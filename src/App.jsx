@@ -1,31 +1,24 @@
-import "./App.css";
-import Banner from "./components/Banner";
-import Movies from "./components/Movies";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Favourites from "./components/Favourites";
-import Trending from "./components/Trending";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
 import Signup from "./components/Signup";
 import Profile from "./components/Profile";
 import Home from "./pages/Home"
 import Movie from "./pages/Movie";
+import Categories from "./pages/Categories";
 
 function App() {
-  // const apiKey = process.env.REACT_APP_IMDB;
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar/>
       <Routes>
         <Route
           exact
           path="/"
           element={
             <>
-              {/* <Banner />
-              <Movies />
-              <Trending/> */}
               <Home/>
             </>
           }
@@ -72,6 +65,15 @@ function App() {
           element={
             <>
               <Movie />
+            </>
+          }
+        />
+        <Route
+          exact
+          path="/categories"
+          element={
+            <>
+              <Categories />
             </>
           }
         />
