@@ -8,37 +8,39 @@ import Profile from "./components/Profile";
 import Home from "./pages/Home"
 import Movie from "./pages/Movie";
 import Categories from "./pages/Categories";
+import { UserAuthContextProvider } from "./context/authContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
+    <UserAuthContextProvider>
       <Navbar/>
       <Routes>
         <Route
-          exact
           path="/"
           element={
-            <>
+            <ProtectedRoute>
               <Home/>
-            </>
+            </ProtectedRoute>
           }
         />
         <Route
           exact
           path="/favourites"
           element={
-            <>
-              <Favourites />
-            </>
+            <ProtectedRoute>
+              <Favourites/>
+            </ProtectedRoute>
           }
         />
         <Route
           exact
           path="/profile"
           element={
-            <>
-              <Profile />
-            </>
+            <ProtectedRoute>
+              <Profile/>
+            </ProtectedRoute>
           }
         />
         <Route
@@ -63,22 +65,23 @@ function App() {
           exact
           path="/movie"
           element={
-            <>
-              <Movie />
-            </>
+            <ProtectedRoute>
+              <Movie/>
+            </ProtectedRoute>
           }
         />
         <Route
           exact
           path="/categories"
           element={
-            <>
-              <Categories />
-            </>
+            <ProtectedRoute>
+              <Categories/>
+            </ProtectedRoute>
           }
         />
       </Routes>
       <Footer/>
+      </UserAuthContextProvider>
     </BrowserRouter>
   );
 }

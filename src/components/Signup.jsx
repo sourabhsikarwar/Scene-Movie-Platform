@@ -1,9 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/image/bg2.jpg"
 import styles from "../style";
+import { useUserAuth } from "../context/authContext";
 
 const Signup = () => {
+
+  const [data, setData] = useState({
+    name : '',
+    email : '',
+    password : ''
+  })
+  const [error, setError] = useState('')
+  
+  const { signUp } = useUserAuth();
+  const navigate = useNavigate();
+
+  const handleInputs = async (event) => {
+    let inputs = {[event.target.name] : event.target.value}
+    setData({...data, ...inputs})
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('')
+    try{
+      await signUp(data.email,data.password)
+      navigate('/login')
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
   return (
     <section className="text-gray-600 body-font"
     style={{
@@ -16,6 +44,7 @@ const Signup = () => {
           <h2 className={`text-gradient ${styles.heading3} mb-4`}>
             Sign Up
           </h2>
+          {error && <p className="text-red-500">{error}</p>}
           <div className="relative mb-4">
             <label
               htmlFor="full-name"
@@ -28,6 +57,7 @@ const Signup = () => {
               id="full-name"
               name="full-name"
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              onChange={event => handleInputs(event)}
             />
           </div>
           <div className="relative mb-4">
@@ -39,6 +69,7 @@ const Signup = () => {
               id="email"
               name="email"
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              onChange={event => handleInputs(event)}
             />
           </div>
           <div className="relative mb-4">
@@ -53,9 +84,10 @@ const Signup = () => {
               id="password"
               name="password"
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              onChange={event => handleInputs(event)}
             />
           </div>
-          <button className="text-black bg-blue-gradient border-0 mt-2 py-2 px-8 focus:outline-none rounded text-lg">
+          <button className={`${styles.button1} my-2`} onClick={handleSubmit}>
             Sign Up
           </button>
           <p className="leading-8 text-xs text-white">

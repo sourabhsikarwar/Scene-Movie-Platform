@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Oval } from "react-loader-spinner";
 import Pagination from "./Pagination";
+import Card from "./Cards/Card";
+import styles from "../style"
 
 function Movies() {
   const [Movies, setMovies] = useState([]);
@@ -27,7 +29,7 @@ function Movies() {
   const upload = async () => {
     await axios
     .get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=12`
+      `https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=12&page=${page}`
     )
     .then((res) => {
       setMovies(res.data.results);
@@ -61,8 +63,8 @@ function Movies() {
 
   return (
     <>
-      <div className="container max-w-7xl mx-auto my-8">
-        <div className="flex md:text-2xl text-xl font-medium my-2 mx-4">
+      <div className={`${styles.boxWidth} my-8`}>
+        <div className={`${styles.heading2} my-2 mx-2"`}>
           Trending Movies
         </div>
         {Movies.length === 0 ? (
@@ -79,51 +81,7 @@ function Movies() {
           <div className="flex justify-between flex-wrap my-4 mx-auto">
             {Movies.map((movie) => {
               return (
-                <div
-                  className="flex m-4 bg-gray-200"
-                  onMouseEnter={() => setHover(movie.id)}
-                  onMouseLeave={() => setHover("")}
-                  key={movie.id}
-                >
-                  {/* bg-[url(https://image.tmdb.org/t/p/w500/${movie.poster_path})] */}
-                  <div
-                    className={`h-[350px] md:h-[280px] w-[250px] md:w-[220px] bg-center bg-cover rounded-md text-center flex items-end hover:scale-105 ease-out duration-300 drop-shadow`} 
-                    style={{
-                      backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  >
-                    {Hover === movie.id && (
-                      <>
-                        {!fav.find((m) => m.id === movie.id) ? (
-                          <div
-                            className="absolute top-2 right-2 p-2 bg-gray-800 text-red-600 rounded-md cursor-pointer"
-                            onClick={() => {
-                              add(movie);
-                            }}
-                          >
-                            {" "}
-                            &#10084;
-                          </div>
-                        ) : (
-                          <div
-                            className="absolute top-2 right-2 p-2 bg-gray-800 text-red-600 rounded-md cursor-pointer"
-                            onClick={() => {
-                              del(movie);
-                            }}
-                          >
-                            {" "}
-                            &#10060;
-                          </div>
-                        )}
-                      </>
-                    )}
-                    <div className="w-full bg-gray-800 opacity-90 p-2 text-white rounded-b-md">
-                      {movie.title}
-                    </div>
-                  </div>
-                </div>
+                <Card movie={movie}/>
               );
             })}
           </div>

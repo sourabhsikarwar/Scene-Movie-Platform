@@ -23,15 +23,15 @@ function Banner() {
       <section
         className={`text-gray-600 body-font`}
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path}), linear-gradient(90deg, #161616 0%, #161B22 10%, #0D1117 20%, #161B22 25%, transparent 100%)`,
+          backgroundImage: `url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
           backgroundSize: "cover",
           backgroundPositionX: "center",
           backgroundBlendMode : "multiply"
         }}
       >
-        <div className={`${styles.boxWidth} mx-auto flex px-8 py-24 md:flex-row flex-col items-center md:h-[75vh] h-[90vh]`}>
-          <div className="md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left md:mb-0 items-center text-center">
-            <h1 className={`${styles.heading1} mb-4 text-gray-100`}>
+        <div className={`${styles.boxWidth} mx-auto flex px-8 py-8 flex-row md:items-end items-end md:h-[85vh] h-[90vh]`}>
+          <div className="md:w-full lg:pr-24 md:pr-16 flex flex-col md:items-center md:text-center md:mb-0 items-center text-center">
+            <h1 className={`${styles.heading1} mb-2 text-gray-100`}>
               {Movies.title}
             </h1>
             <div className="flex justify-center my-4">
