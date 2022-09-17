@@ -1,8 +1,10 @@
 import React from 'react'
 import styles from '../../style'
+import { Link } from 'react-router-dom'
 
 const TvCard = (props) => {
   return (
+    <Link to={"/tv/" + props.movie.name + "/" + props.movie.id}>
     <div className="flex my-4 p-3 shadow group">
       <div
         className={`${styles.TvCard} relative flex justify-start items-end duration-200 p-4 rounded-[6px]`}
@@ -23,6 +25,7 @@ const TvCard = (props) => {
           </div>
       </div>
     </div>
+    </Link>
   )
 }
 

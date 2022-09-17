@@ -6,21 +6,46 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
 } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig";
+import { auth, database } from "../firebase/firebaseConfig";
+import { collection, addDoc, getDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState("");
+  // const userId = user.uid;
+  const [userData, setUserData] = useState({
+    name:"",
+    email:"",
+    contact:"",
+    Dob:"",
+    Favourites:[]
+  })
+  const dbInstance = collection(database, "users");
+
+  function addUserData(userName, userEmail){
+    setUserData({name:userName, email:userEmail})
+    // console.log(userData)
+    addDoc(dbInstance, userData)
+      .then(() => {
+        alert("Data Sent Successfully");
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
   function signUp(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+     return createUserWithEmailAndPassword(auth, email, password)
   }
   function login(email, password) {
+    // localStorage.setItem("userId", userId);
     return signInWithEmailAndPassword(auth, email, password);
   }
   function logout() {
+    // localStorage.removeItem("userId");
     return signOut(auth);
   }
   function googleSignIn(){
@@ -41,7 +66,7 @@ export function UserAuthContextProvider({ children }) {
   }, [])
 
   return (
-    <userAuthContext.Provider value={{user, signUp, login, logout, googleSignIn, passwordReset}}> {children} </userAuthContext.Provider>
+    <userAuthContext.Provider value={{user, signUp, login, logout, googleSignIn, passwordReset, addUserData, userData}}> {children} </userAuthContext.Provider>
   );
 }
 

@@ -13,9 +13,9 @@ const Trending = (props) => {
     await axios
       .get(
         props.title === "Trending"
-          ? 
-            `https://api.themoviedb.org/3/discover/tv?api_key=ebf3974135e4e887c96fc16d0e3024b1&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York`
-          : `https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=18`
+          ? `https://api.themoviedb.org/3/trending/tv/day?api_key=ebf3974135e4e887c96fc16d0e3024b1&sort_by=popularity.desc&page=1`
+          : `https://api.themoviedb.org/3/discover/tv?api_key=ebf3974135e4e887c96fc16d0e3024b1&sort_by=popularity.desc&page=1&with_genres=
+          ${props.id}`
       )
       .then((res) => {
         setMovies(res.data.results);
@@ -41,7 +41,7 @@ const Trending = (props) => {
         <p className="">
           <Link
             className={`${styles.paragraph} hover:text-white duration-200`}
-            to="/category"
+            to={"/category/tv/" + props.id}
           >
             Show all
           </Link>
@@ -72,10 +72,10 @@ const Trending = (props) => {
         }}
         className="justify-center"
       >
-        {Movies.map((movie) => {
+       {Movies.map((movie) => {
           return (
             <SplideSlide>
-              <TvCard movie={movie} key={movie.id}/>
+              <TvCard movie={movie} key={movie.id} />
             </SplideSlide>
           );
         })}

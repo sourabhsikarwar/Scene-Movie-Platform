@@ -2,7 +2,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "../../style";
 import MovieCard from "../Cards/MovieCard";
 
@@ -14,7 +14,7 @@ const Trending = (props) => {
       .get(
         props.title === "Trending"
           ? `https://api.themoviedb.org/3/trending/movie/day?api_key=ebf3974135e4e887c96fc16d0e3024b1`
-          : `https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=99`
+          : `https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=${props.id}`
       )
       .then((res) => {
         setMovies(res.data.results);
@@ -38,7 +38,7 @@ const Trending = (props) => {
       <div className="flex justify-between items-center px-4">
         <h2 className={`${styles.heading3}`}>{props.title}</h2>
         <p className="">
-          <Link className={`${styles.paragraph} hover:text-white duration-200`} to="/category">
+          <Link className={`${styles.paragraph} hover:text-white duration-200`} to={"/category/movie/" + props.title + "/" + props.id}>
             Show all
           </Link>
         </p>

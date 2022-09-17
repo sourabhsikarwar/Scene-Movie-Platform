@@ -63,7 +63,7 @@ function App() {
         />
         <Route
           exact
-          path="/movie"
+          path="/movie/:title/:movieId"
           element={
             <ProtectedRoute>
               <Movie/>
@@ -72,13 +72,31 @@ function App() {
         />
         <Route
           exact
-          path="/categories"
+          path="/tv/:title/:tvId"
+          element={
+            <ProtectedRoute>
+              <Movie/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/category/:content/:title/:id"
           element={
             <ProtectedRoute>
               <Categories/>
             </ProtectedRoute>
           }
         />
+        {/* <Route
+          exact
+          path="/category/movie/:title/:id"
+          element={
+            <ProtectedRoute>
+              <Categories/>
+            </ProtectedRoute>
+          }
+        /> */}
       </Routes>
       <Footer/>
       </UserAuthContextProvider>

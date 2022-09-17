@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../style";
-import { auth } from '../firebase/firebaseConfig'
+import { auth, database } from '../firebase/firebaseConfig'
+import { collection, addDoc, getDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { useUserAuth } from "../context/authContext";
 
 const Profile = () => {
 
-  const userData = auth.currentUser;
+  const { userData } = useUserAuth()
 
   const [data, setData] = useState({
-    name: "",
+    name: userData.name,
     email: userData.email,
     phone_no: "",
     birthday: "",
+    favourites: "",
   });
 
   const handleInputs = (e) => {
@@ -19,7 +22,7 @@ const Profile = () => {
     let inputs = { [e.target.name]: e.target.value };
     setData({ ...data, ...inputs });
   };
-  
+
   const handleSubmit = () => {
 
   }
@@ -73,6 +76,7 @@ const Profile = () => {
                     id="name"
                     name="name"
                     className="w-full bg-gray-100 rounded border border-gray-300 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    value={userData.name}
                   />
                 </div>
                 <div className="my-2 w-full">

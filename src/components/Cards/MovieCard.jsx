@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "../../style";
+import { Link } from "react-router-dom";
 
 const MovieCard = (props) => {
   return (
+    <Link to={"/movie/" + props.movie.title + "/" + props.movie.id}>
     <div className={`shadow flex my-4 p-3 group`} key={props.movie.id}>
       <div
         className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
@@ -25,6 +27,7 @@ const MovieCard = (props) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 

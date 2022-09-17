@@ -13,7 +13,7 @@ const Signup = () => {
   })
   const [error, setError] = useState('')
   
-  const { signUp } = useUserAuth();
+  const { signUp, addUserData } = useUserAuth();
   const navigate = useNavigate();
 
   const handleInputs = async (event) => {
@@ -25,6 +25,7 @@ const Signup = () => {
     e.preventDefault();
     setError('')
     try{
+      await addUserData(data.name, data.email)
       await signUp(data.email,data.password)
       navigate('/login')
     } catch (err) {

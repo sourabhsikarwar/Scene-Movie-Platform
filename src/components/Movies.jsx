@@ -5,7 +5,7 @@ import Pagination from "./Pagination";
 import Card from "./Cards/Card";
 import styles from "../style"
 
-function Movies() {
+function Movies(props) {
   const [Movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const isMounted = useRef(true);
@@ -29,7 +29,7 @@ function Movies() {
   const upload = async () => {
     await axios
     .get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=12&page=${page}`
+      `https://api.themoviedb.org/3/discover/${props.content}?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=${props.id}&page=${page}`
     )
     .then((res) => {
       setMovies(res.data.results);
@@ -65,7 +65,7 @@ function Movies() {
     <>
       <div className={`${styles.boxWidth} my-8`}>
         <div className={`${styles.heading2} my-2 mx-2"`}>
-          Trending Movies
+          {props.title}
         </div>
         {Movies.length === 0 ? (
           <div className="flex justify-center m-8">
