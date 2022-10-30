@@ -1,7 +1,7 @@
 import React from "react";
 import MovieBanner from "../components/Banner/MovieBanner";
-import Trending from "../components/Carousel/Trending";
 import { useParams } from "react-router-dom"
+import Similiar from "../components/Carousel/Similiar";
 
 const Movie = () => {
   const { movieId, title } = useParams();
@@ -9,8 +9,7 @@ const Movie = () => {
   return (
     <>
       <MovieBanner id={movieId} title={title}/>
-      <Trending title={movieId} id={12}/>
-      <Trending />
+      <Similiar title="movie" id={movieId}/>
     </>
   );
 };

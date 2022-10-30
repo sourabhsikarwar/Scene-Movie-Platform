@@ -67,7 +67,14 @@ const NavLinks = () => {
                         key={sLink.id}
                         className="text-sm text-gray-300 font-light my-2.5"
                       >
-                        <Link to={sLink.name} className="hover:text-white">
+                        <Link
+                          to={
+                            link.name === "Movies"
+                              ? `/category/movie/${sLink.name}/${sLink.id}`
+                              : `/category/movie/${sLink.name}/${sLink.id}`
+                          }
+                          className="hover:text-white"
+                        >
                           {sLink.name}
                         </Link>
                       </li>
@@ -81,13 +88,13 @@ const NavLinks = () => {
           {/* Mobile Devices */}
 
           <div className={`${heading === link.name ? "md:hidden" : "hidden"}`}>
-          <div className="grid grid-cols-2">
-            {link.genres.map((sLinks) => (
-              <li className="py-3 pl-7 font-light">
-                <Link to={sLinks.id}>{sLinks.name}</Link>
-              </li>
-            ))}
-          </div>
+            <div className="grid grid-cols-2">
+              {link.genres.map((sLinks) => (
+                <li className="py-3 pl-7 font-light">
+                  <Link to={sLinks.id}>{sLinks.name}</Link>
+                </li>
+              ))}
+            </div>
           </div>
         </div>
       ))}

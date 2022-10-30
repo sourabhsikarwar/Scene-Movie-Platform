@@ -7,6 +7,8 @@ import Signup from "./components/Signup";
 import Profile from "./components/Profile";
 import Home from "./pages/Home"
 import Movie from "./pages/Movie";
+import Search from "./pages/Search";
+import Tv from "./pages/Tv";
 import Categories from "./pages/Categories";
 import { UserAuthContextProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -75,7 +77,7 @@ function App() {
           path="/tv/:title/:tvId"
           element={
             <ProtectedRoute>
-              <Movie/>
+              <Tv/>
             </ProtectedRoute>
           }
         />
@@ -86,6 +88,15 @@ function App() {
             <ProtectedRoute>
               <Categories/>
             </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/search/:query"
+          element={
+            // <ProtectedRoute>
+              <Search/>
+            // </ProtectedRoute>
           }
         />
         {/* <Route

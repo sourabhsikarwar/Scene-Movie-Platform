@@ -29,7 +29,9 @@ function Movies(props) {
   const upload = async () => {
     await axios
     .get(
-      `https://api.themoviedb.org/3/discover/${props.content}?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=${props.id}&page=${page}`
+      props.title === 'search' 
+      ? `https://api.themoviedb.org/3/search/company?api_key=ebf3974135e4e887c96fc16d0e3024b1&query=${props.query}&page=1`
+      : `https://api.themoviedb.org/3/discover/${props.content}?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=${props.id}&page=${page}`
     )
     .then((res) => {
       setMovies(res.data.results);

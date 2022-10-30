@@ -2,23 +2,18 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import styles from "../../style";
-import TvCard from "../Cards/TvCard";
+import TvGeneralCard from "../Cards/TvGeneralCard";
 
-const Trending = (props) => {
-  const [tv, setTv] = useState([]);
+const General = (props) => {
+  const [tvDetail, setTvDetail] = useState([]);
   const isMounted = useRef(true);
   const upload = async () => {
     await axios
-      .get(
-        props.title === "Trending"
-          ? `https://api.themoviedb.org/3/trending/tv/day?api_key=ebf3974135e4e887c96fc16d0e3024b1&sort_by=popularity.desc&page=1`
-          : `https://api.themoviedb.org/3/discover/tv?api_key=ebf3974135e4e887c96fc16d0e3024b1&sort_by=popularity.desc&page=1&with_genres=
-          ${props.id}`
+      .get(`https://api.themoviedb.org/3/tv/${props.id}/season/1?api_key=ebf3974135e4e887c96fc16d0e3024b1&language=en-US`
       )
       .then((res) => {
-        setTv(res.data.results);
+        setTvDetail(res.data.episodes);
       })
       .catch((e) => {
         console.log(e.message);
@@ -37,45 +32,38 @@ const Trending = (props) => {
   return (
     <div className={`${styles.boxWidth} my-8`}>
       <div className="flex justify-between items-center px-4">
-        <h2 className={`${styles.heading3}`}>{props.title}</h2>
-        <p className="">
-          <Link
-            className={`${styles.paragraph} hover:text-white duration-200`}
-            to={"/category/tv/" + props.id}
-          >
-            Show all
-          </Link>
-        </p>
+        <h2 className={`${styles.heading3}`}>Episodes</h2>
       </div>
       <Splide
         options={{
           type: "loop",
-          perPage: "4",
+          perPage: "6",
           pagination: false,
           breakpoints: {
-            500: {
-              perPage: 1.5,
-            },
-            764: {
+            400: {
               perPage: 2,
             },
-            1024: {
+            764: {
               perPage: 3,
             },
-            1280: {
+            1024: {
               perPage: 4,
             },
-            1400: {
+            1280: {
               perPage: 5,
+            },
+            1400: {
+              perPage: 6,
             },
           },
         }}
+        aria-label="My Favorite Images"
         className="justify-center"
       >
-       {tv.map((tvShow) => {
+        {tvDetail.map((tv) => {
           return (
             <SplideSlide>
-              <TvCard movie={tvShow} key={tvShow.id} />
+              <TvGeneralCard detail={tv} key={tv.id}/>
             </SplideSlide>
           );
         })}
@@ -84,8 +72,4 @@ const Trending = (props) => {
   );
 };
 
-Trending.defaultProps = {
-  title: "Trending",
-};
-
-export default Trending;
+export default General;

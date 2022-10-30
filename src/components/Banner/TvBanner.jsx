@@ -1,45 +1,40 @@
 import axios from "axios";
-import React, { useState, useEffect, useRef } from "react";
-import styles from "../../style";
+import React, { useState, useEffect } from "react";
+import styles from "../../style"
 
-const MovieBanner = (props) => {
-  const [Movies, setMovies] = useState({});
+const TvBanner = (props) => {
+  const [tv, setTv] = useState({});
 
-  useEffect(async () => {
+  useEffect( async () => {
     await axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${props.id}?api_key=ebf3974135e4e887c96fc16d0e3024b1&language=en-US`
-      )
-      .then((res) => {
-        const mResults = res.data;
-        console.log(mResults);
-        setMovies(mResults);
-      });
-  });
+    .get(
+      `https://api.themoviedb.org/3/tv/${props.id}?api_key=ebf3974135e4e887c96fc16d0e3024b1&language=en-US`
+    )
+    .then((res) => {
+      const mResults = res.data;
+      setTv(mResults);
+    });
+  })
 
   return (
     <>
-      <section
-        className="text-gray-600 body-font overflow-hidden bg-[#151515cf] bg-blend-multiply"
-        style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div
-          className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center`}
-        >
+      <section className="text-gray-600 body-font overflow-hidden bg-[#151515cf] bg-blend-multiply" style={{
+        backgroundImage : `url(https://image.tmdb.org/t/p/original/${tv.backdrop_path})`,
+        backgroundSize: "cover",
+        backgroundPosition:"center"
+        }}>
+        <div className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center`}>
           <div className="mx-auto flex flex-wrap">
             <div className="m-auto w-2/3 sm:w-2/4 md:w-1/4 my-[5%] bg-gray-200 rounded shadow-md">
-              <img
-                alt={`${Movies.poster_path}`}
-                className="w-full object-cover object-center rounded"
-                src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`}
-              />
-            </div>
+            <img
+              alt={`${tv.poster_path}`}
+              className="w-full object-cover object-center rounded"
+              src={`https://image.tmdb.org/t/p/original/${tv.poster_path}`}
+            /></div>
             <div className="w-2/3 sm:w-2/4 lg:py-0 sm:ml-auto mx-auto my-auto items-center">
-              <h1 className={`${styles.heading2}`}>{Movies.title}</h1>
+              <h1 className="text-gray-100 text-3xl title-font font-medium mb-1">
+                {tv.name}
+              </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
                   <svg
@@ -100,21 +95,24 @@ const MovieBanner = (props) => {
                   <span className="text-gray-300 ml-3">4 Reviews</span>
                 </span>
               </div>
-              <p className={`${styles.paragraph}`}>{Movies.overview}</p>
+              <p className="leading-relaxed text-gray-300">
+                {tv.overview}
+              </p>
               <div className="flex my-4">
                 <button className="flex bg-blue-gradient text-black border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                  Watch
+                  Button
                 </button>
                 <button className="rounded-full w-10 h-10 bg-white hover:bg-gray-100 duration-200 p-0 border-0 inline-flex items-center justify-center text-red-500 ml-4">
-                  <ion-icon name="heart"></ion-icon>
+                <ion-icon name="heart"></ion-icon>
                 </button>
               </div>
             </div>
           </div>
         </div>
       </section>
+
     </>
   );
 };
 
-export default MovieBanner;
+export default TvBanner;

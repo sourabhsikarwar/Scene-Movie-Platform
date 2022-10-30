@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/image/logoipsum-logo-15.svg";
-import Button from "../Ui/Button";
 import NavLink from "./NavLink";
 import styles from "../../style";
 import Avatar from "../Ui/Avatar";
@@ -9,22 +8,17 @@ import { useUserAuth } from "../../context/authContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { user, logout } = useUserAuth();
+  const { user } = useUserAuth();
+  const [val, setVal] = useState('')
+  const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try{
-      await logout();
-    } catch (err) {
-      console.log(err.message)
-    }
+  const handleInputs = (event) => {
+    let inputs = event.target.value
+    setVal(inputs)
   }
 
-  const handleNavigate =  () => {
-    try{
-      console.log("signup button click")
-    } catch(err){
-      console.log(err.message)
-    }
+  const handleSubmit = () => {
+    navigate(`/search/${val}`)
   }
 
   return (
@@ -36,16 +30,14 @@ const Navbar = () => {
           <img src={Logo} alt="logo" className="md:cursor-pointer" />
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {user ? (
-              <Avatar view="center"/>
+              <Avatar view="center" />
             ) : (
               <>
                 <Link to="/login" className="hover:text-white duration-200">
                   Login
                 </Link>
                 <Link to="/signup">
-                  <button className={`${styles.button2}`}>
-                    Sign Up
-                  </button>
+                  <button className={`${styles.button2}`}>Sign Up</button>
                 </Link>
               </>
             )}
@@ -71,17 +63,17 @@ const Navbar = () => {
             </Link>
           </li>
         </ul>
-
-        {/* <form  className="md:flex hidden items-center gap-8">
-          
+{/* 
+        <form className="md:flex hidden items-center gap-8" onSubmit={handleSubmit}>
           <div class="relative">
-            
             <input
               type="search"
               id="default-search"
+              name="search"
               class="block p-3 pr-10 w-full text-sm text-black bg-white rounded-[2px] ring-0 focus:ring-0 focus:border-transparent"
               placeholder="Search"
               required
+              onChange={event => handleInputs(event)}
             />
             <button
               type="submit"
@@ -109,18 +101,18 @@ const Navbar = () => {
         {/* normal web view  */}
 
         <div className="md:flex hidden justify-center items-center gap-x-6">
-        {user ? (
-              <Avatar  view="end"/>
-            ) : (
-              <>
-                <Link to="/" className="hover:text-white duration-200">
-                  Login
-                </Link>
-                <Link to="/">
-                  <button className={`${styles.button2}`}>Sign Up</button>
-                </Link>
-              </>
-            )}
+          {user ? (
+            <Avatar view="end" />
+          ) : (
+            <>
+              <Link to="/" className="hover:text-white duration-200">
+                Login
+              </Link>
+              <Link to="/">
+                <button className={`${styles.button2}`}>Sign Up</button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* mobile navbar */}
@@ -130,6 +122,37 @@ const Navbar = () => {
             open ? "left-0" : "left-[-100%]"
           }`}
         >
+          {/* <form className="md:hidden flex items-center gap-8" onSubmit={(value) => handleSubmit(value)}>
+            <div class="relative">
+              <input
+                type="search"
+                id="default-search"
+                class="block p-3 pr-10 w-full text-sm text-black bg-white rounded-[2px] ring-0 focus:ring-0 focus:border-transparent"
+                placeholder="Search"
+                required
+              />
+              <button
+                type="submit"
+                class="text-black absolute right-2.5 bottom-1 bg-transparent hover:bg-black-gradient-2 focus:ring-transparent focus:outline-none font-medium rounded-lg text-sm px-4 py-2"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  ></path>
+                </svg>
+                <span class="sr-only">Search</span>
+              </button>
+            </div>
+          </form> */}
           <li>
             <Link to="/" className="py-7 px-3 inline-block">
               Home
