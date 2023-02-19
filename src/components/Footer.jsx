@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../style";
-import logo from "../assets/image/logoipsum-logo-15.svg";
+import logo from "../assets/image/slide.png";
 
 const Footer = () => {
   return (
@@ -11,11 +11,10 @@ const Footer = () => {
           className="flex title-font font-medium items-center md:justify-start justify-center"
           to="#"
         >
-          <img src={logo} alt="logo" />
-          <span className="ml-3 text-xl">Nirvana</span>
+          <img src={logo} className="w-32" alt="logo" />
         </Link>
         <p className="text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-          © 2020 Nirvana —
+          © 2022 Scene —
           <Link
             to="#"
             className="text-gradient ml-1"

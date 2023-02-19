@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../assets/image/logoipsum-logo-15.svg";
+import Logo from "../../assets/image/slide.png";
 import NavLink from "./NavLink";
 import styles from "../../style";
 import Avatar from "../Ui/Avatar";
@@ -27,7 +27,7 @@ const Navbar = () => {
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
       >
         <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
-          <img src={Logo} alt="logo" className="md:cursor-pointer" />
+          <img src={Logo} alt="logo" className="md:cursor-pointer w-32"/>
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {user ? (
               <Avatar view="center" />
