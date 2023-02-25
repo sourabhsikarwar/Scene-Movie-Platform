@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/authContext";
-import styles from "../../style";
 import avatar from "../../assets/image/avatar.jpg";
 
 const Avatar = () => {

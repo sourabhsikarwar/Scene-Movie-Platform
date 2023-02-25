@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../style";
 import bg from "../assets/image/bg2.jpg"
-import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/authContext";
 
 const Login = () => {
 
   const navigate = useNavigate()
-  const { login, googleSignIn, passwordReset } = useUserAuth();
+  const { login, passwordReset } = useUserAuth();
 
   const [data, setData] = useState({
-    email : '',
-    password : ''
+    email : 'test@gmail.com',
+    password : '8989151788'
   })
   const [error, setError] = useState('')
 
-  const handleInputs = (event) => {
-    let inputs = {[event.target.name] : event.target.value}
+  const handleInputs = (e) => {
+    let inputs = {[e.target.name] : e.target.value}
 
     setData({...data, ...inputs})
   }
@@ -26,19 +25,9 @@ const Login = () => {
     e.preventDefault();
     setError('')
     try{
-      await login(data.email,data.password)
+      await login(data.email, data.password)
       navigate('/')
     } catch (err) {
-      setError(err.message)
-    }
-  }
-
-  const handleGoogle = async (e) => {
-    e.preventDefault();
-    try{
-      await googleSignIn();
-      navigate("/")
-    } catch(err) {
       setError(err.message)
     }
   }
@@ -73,7 +62,7 @@ const Login = () => {
               name="email"
               placeholder="xyz@gmail.com"
               className="w-full bg-white rounded border border-gray-900 focus:border-gray-500 focus:ring-2 focus:ring-gray-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0"
-              onChange={event => handleInputs(event)}
+              onChange={e => handleInputs(e)}
             />
           </div>
           <div className="relative mb-4">
@@ -85,14 +74,13 @@ const Login = () => {
               id="password"
               name="password"
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0"
-              onChange={event => handleInputs(event)}
+              onChange={e => handleInputs(e)}
             />
           </div>
           <button className="text-black bg-blue-gradient mt-2 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" onClick={handleSubmit}>
             Login
           </button>
           <hr className="border-gray-600 my-4"/>
-          <GoogleButton type="light" className="mx-auto my-2" onClick={handleGoogle}/>
           <div className="flex justify-between">
           <p className="leading-8 text-xs text-white">
             New to Nirvana? Try <Link to="/signup" className="text-gradient">Sign Up</Link>

@@ -8,7 +8,6 @@ const NavLinks = () => {
   const [subHeading, setSubHeading] = useState("");
 
   const [movie, setMovie] = useState("");
-  const [tvSeries, setTvSeries] = useState("");
 
   const isMounted = useRef(true);
 
@@ -37,7 +36,7 @@ const NavLinks = () => {
   return (
     <>
       {Links.map((link) => (
-        <div>
+        <div key={link.id}>
           <div className="px-3 text-left md:cursor-pointer group">
             <h1
               className="py-7 flex justify-between items-center md:pr-0 pr-5 group"
@@ -90,7 +89,7 @@ const NavLinks = () => {
           <div className={`${heading === link.name ? "md:hidden" : "hidden"}`}>
             <div className="grid grid-cols-2">
               {link.genres.map((sLinks) => (
-                <li className="py-3 pl-7 font-light">
+                <li className="py-3 pl-7 font-light" key={sLinks.id}>
                   <Link to={sLinks.id}>{sLinks.name}</Link>
                 </li>
               ))}

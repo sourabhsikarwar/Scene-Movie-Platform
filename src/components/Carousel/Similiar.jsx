@@ -2,10 +2,8 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
 import styles from "../../style";
 import MovieCard from "../Cards/MovieCard";
-import TvCard from "../Cards/TvCard";
 
 const Similiar = (props) => {
   const [data, setData] = useState([]);
@@ -35,14 +33,6 @@ const Similiar = (props) => {
     <div className={`${styles.boxWidth} my-8`}>
       <div className="flex justify-between items-center px-4">
         <h2 className={`${styles.heading3}`}>Similiar</h2>
-        {/* <p className="">
-          <Link
-            className={`${styles.paragraph} hover:text-white duration-200`}
-            to={"/category/movie/" + props.title + "/" + props.id}
-          >
-            Show all
-          </Link>
-        </p> */}
       </div>
       <Splide
         options={{
@@ -73,7 +63,7 @@ const Similiar = (props) => {
         {data.map((item) => {
           return (
             <SplideSlide>
-              ${props.title === `movie` ? <MovieCard movie={item} key={item.id} /> : <TvCard movie={item} key={item.id} />}
+              <MovieCard movie={item} key={item.id} />
             </SplideSlide>
           );
         })}

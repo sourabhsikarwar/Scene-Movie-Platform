@@ -4,8 +4,6 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  GoogleAuthProvider,
-  signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth, database } from "../firebase/firebaseConfig";
@@ -15,7 +13,6 @@ const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState("");
-  // const userId = user.uid;
   const [userData, setUserData] = useState({
     name:"",
     email:"",
@@ -27,7 +24,7 @@ export function UserAuthContextProvider({ children }) {
 
   function addUserData(userName, userEmail){
     setUserData({name:userName, email:userEmail})
-    // console.log(userData)
+    console.log(userData)
     addDoc(dbInstance, userData)
       .then(() => {
         alert("Data Sent Successfully");
@@ -41,16 +38,10 @@ export function UserAuthContextProvider({ children }) {
      return createUserWithEmailAndPassword(auth, email, password)
   }
   function login(email, password) {
-    // localStorage.setItem("userId", userId);
     return signInWithEmailAndPassword(auth, email, password);
   }
   function logout() {
-    // localStorage.removeItem("userId");
     return signOut(auth);
-  }
-  function googleSignIn(){
-    const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider);
   }
   function passwordReset(email){
     return sendPasswordResetEmail(auth, email)
@@ -66,7 +57,7 @@ export function UserAuthContextProvider({ children }) {
   }, [])
 
   return (
-    <userAuthContext.Provider value={{user, signUp, login, logout, googleSignIn, passwordReset, addUserData, userData}}> {children} </userAuthContext.Provider>
+    <userAuthContext.Provider value={{user, signUp, login, logout, passwordReset, addUserData, userData}}> {children} </userAuthContext.Provider>
   );
 }
 
