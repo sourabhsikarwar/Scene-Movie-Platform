@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Logo from "../../assets/image/slide.png";
 import NavLink from "./NavLink";
 import styles from "../../style";
@@ -39,13 +39,23 @@ const Navbar = () => {
           </div>
         </div>
 
-        <ul className="md:flex hidden items-center">
+        <ul className="md:flex hidden items-center font-medium">
           <li>
             <Link to="/" className="py-7 px-5 inline-block">
               Home
             </Link>
           </li>
+          <li>
+            <Link to="/" className="py-7 px-5 inline-block">
+              About
+            </Link>
+          </li>
           <NavLink />
+          <li>
+            <Link to="/" className="py-7 px-5 inline-block">
+              TV Shows
+            </Link>
+          </li>
           <li>
             <Link to="/recommend" className="py-7 px-5 inline-block">
               For You
@@ -83,6 +93,11 @@ const Navbar = () => {
             </Link>
           </li>
           <NavLink />
+          <li>
+            <Link to="/" className="py-7 px-3 inline-block">
+              TV Shows
+            </Link>
+          </li>
           <li>
             <Link to="/recommend" className="py-7 px-3 inline-block">
               For You

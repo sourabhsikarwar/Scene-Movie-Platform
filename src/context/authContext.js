@@ -24,7 +24,6 @@ export function UserAuthContextProvider({ children }) {
 
   function addUserData(userName, userEmail){
     setUserData({name:userName, email:userEmail})
-    console.log(userData)
     addDoc(dbInstance, userData)
       .then(() => {
         alert("Data Sent Successfully");

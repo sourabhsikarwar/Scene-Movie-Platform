@@ -25,7 +25,7 @@ function Banner() {
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
           backgroundSize: "cover",
-          backgroundPositionX: "center",
+          backgroundPosition: "center",
           backgroundBlendMode : "multiply"
         }}
       >

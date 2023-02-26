@@ -8,7 +8,6 @@ import styles from "../style"
 function Movies(props) {
   const [Movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
-  const isMounted = useRef(true);
   const goBack = () => {
     if (page > 1) {
       setPage(page - 1);
@@ -18,7 +17,6 @@ function Movies(props) {
     setPage(page + 1);
   };
 
-  const [Hover, setHover] = useState("");
   const [fav, setFav] = useState([]);
 
   const saveData = () => {
@@ -26,47 +24,39 @@ function Movies(props) {
     setFav([...favData]);
   }
 
-  const upload = async () => {
-    await axios
-    .get(
-      props.title === 'search' 
-      ? `https://api.themoviedb.org/3/search/company?api_key=ebf3974135e4e887c96fc16d0e3024b1&query=${props.query}&page=1`
-      : `https://api.themoviedb.org/3/discover/${props.content}?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=${props.id}&page=${page}`
-    )
-    .then((res) => {
-      setMovies(res.data.results);
-      saveData();
-    })
-    .catch( (e) => {
-      console.log(e);
-    });
-  }
-
   useEffect(function () {
-    if(isMounted.current){
-      upload();
+    const upload = async () => {
+      await axios
+      .get(
+        `https://api.themoviedb.org/3/discover/${props.content}?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=${props.id}&page=${page}`
+      )
+      .then((res) => {
+        setMovies(res.data.results);
+        saveData();
+      })
+      .catch( (e) => {
+        console.log(e);
+      });
     }
-    return () => {
-      isMounted.current = false
-    }
-  });
+    upload()
+  }, [page, props]);
 
-  const add = (movie) => {
-    let newArray = [...fav, movie];
-    setFav([...newArray]);
-    localStorage.setItem("imdb", JSON.stringify(newArray));
-  };
+  // const add = (movie) => {
+  //   let newArray = [...fav, movie];
+  //   setFav([...newArray]);
+  //   localStorage.setItem("imdb", JSON.stringify(newArray));
+  // };
 
-  const del = (movie) => {
-    const newArray = fav.filter((m) => m.id !== movie.id);
-     setFav([...newArray]);
-    localStorage.setItem("imdb", JSON.stringify(newArray));
-  };
+  // const del = (movie) => {
+  //   const newArray = fav.filter((m) => m.id !== movie.id);
+  //    setFav([...newArray]);
+  //   localStorage.setItem("imdb", JSON.stringify(newArray));
+  // };
 
   return (
     <>
       <div className={`${styles.boxWidth} my-8`}>
-        <div className={`${styles.heading2} my-2 mx-2"`}>
+        <div className={`${styles.heading2} w-full my-2 sm:mx-2 text-center sm:text-left`}>
           {props.title}
         </div>
         {Movies.length === 0 ? (
@@ -80,7 +70,7 @@ function Movies(props) {
             />
           </div>
         ) : (
-          <div className="flex justify-between flex-wrap my-4 mx-auto">
+          <div className="flex sm:justify-between justify-center flex-wrap my-4 mx-auto">
             {Movies.map((movie) => {
               return (
                 <Card movie={movie}/>
