@@ -7,7 +7,6 @@ import Signup from "./components/Signup";
 import Profile from "./components/Profile";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
-import Search from "./pages/Search";
 import Categories from "./pages/Categories";
 import { UserAuthContextProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -80,15 +79,15 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
+          {/* <Route
             exact
             path="/search/:query"
             element={
               <ProtectedRoute>
-              <Search />
+                <Search />
               </ProtectedRoute>
             }
-          />
+          /> */}
         </Routes>
         <Footer />
       </UserAuthContextProvider>

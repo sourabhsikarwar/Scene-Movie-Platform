@@ -2,19 +2,20 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "../../style";
 import MovieCard from "../Cards/MovieCard";
 
 const Trending = (props) => {
+  const apiKey = process.env.REACT_APP_API_KEY
   const [Movies, setMovies] = useState([]);
   const isMounted = useRef(true);
   const upload = async () => {
     await axios
       .get(
         props.title === "Trending"
-          ? `https://api.themoviedb.org/3/trending/movie/day?api_key=ebf3974135e4e887c96fc16d0e3024b1`
-          : `https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=${props.id}`
+          ? `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`
+          : `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${props.id}`
       )
       .then((res) => {
         setMovies(res.data.results);

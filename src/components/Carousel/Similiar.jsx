@@ -6,11 +6,12 @@ import styles from "../../style";
 import MovieCard from "../Cards/MovieCard";
 
 const Similiar = (props) => {
+  const apiKey = process.env.REACT_APP_API_KEY
   const [data, setData] = useState([]);
   const isMounted = useRef(true);
   const upload = async () => {
     await axios
-      .get(`https://api.themoviedb.org/3/${props.title}/${props.id}/similar?api_key=ebf3974135e4e887c96fc16d0e3024b1&language=en-US&page=1`
+      .get(`https://api.themoviedb.org/3/${props.title}/${props.id}/similar?api_key=${apiKey}&language=en-US&page=1`
       )
       .then((res) => {
         setData(res.data.results);

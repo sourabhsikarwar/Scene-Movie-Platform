@@ -46,8 +46,8 @@ const Login = () => {
       backgroundSize: "cover",
       backgroundPositionX: "center",
     }}>
-      <div className={`${styles.boxWidth} h-[90vh] mx-auto flex flex-wrap items-center md:px-0 px-16`}>
-        <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full md:mt-0">
+      <div className={`${styles.boxWidth} mx-auto flex flex-wrap items-center md:px-0 px-8 h-max`}>
+        <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
           <h2 className={`text-gradient ${styles.heading3} mb-4`}>
             Login
           </h2>

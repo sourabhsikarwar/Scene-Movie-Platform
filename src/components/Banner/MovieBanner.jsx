@@ -1,21 +1,25 @@
 import axios from "axios";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../style";
 
 const MovieBanner = (props) => {
   const [Movies, setMovies] = useState({});
+  const apiKey = process.env.REACT_APP_API_KEY
 
-  useEffect(async () => {
-    await axios
+  useEffect(() => {
+    const update = async () => {
+      await axios
       .get(
-        `https://api.themoviedb.org/3/movie/${props.id}?api_key=ebf3974135e4e887c96fc16d0e3024b1&language=en-US`
+        `https://api.themoviedb.org/3/movie/${props.id}?api_key=${apiKey}&language=en-US`
       )
       .then((res) => {
         const mResults = res.data;
         console.log(mResults);
         setMovies(mResults);
       });
-  });
+    }
+    update()
+  }, [props.id, apiKey]);
 
   return (
     <>
@@ -31,15 +35,15 @@ const MovieBanner = (props) => {
           className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center`}
         >
           <div className="mx-auto flex flex-wrap">
-            <div className="m-auto w-2/3 sm:w-2/4 md:w-1/4 my-[5%] bg-gray-200 rounded shadow-md">
+            <div className="m-auto w-2/3 h-full sm:w-2/4 md:w-1/4 my-[5%] bg-gray-200 rounded shadow-md">
               <img
                 alt={`${Movies.poster_path}`}
-                className="w-full object-cover object-center rounded"
+                className="w-full h-full object-cover object-center rounded"
                 src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`}
               />
             </div>
             <div className="w-2/3 sm:w-2/4 lg:py-0 sm:ml-auto mx-auto my-auto items-center">
-              <h1 className={`${styles.heading2}`}>{Movies.title}</h1>
+              <h1 className={`${styles.heading2} font-extrabold`}>{Movies.title}</h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
                   <svg

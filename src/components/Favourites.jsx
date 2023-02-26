@@ -1,183 +1,183 @@
-import React, { useState, useEffect, useRef } from "react";
-import Pagination from "./Pagination";
+import React from "react";
 
 function Favourites() {
-  const [curGenre, setCurGenre] = useState("All Genres");
-  const [favourites, setFavourites] = useState([]);
-  const [genre, setGenre] = useState(["All Genres"]);
-  const [rating, setRating] = useState(0);
-  const [popularity, setPopularity] = useState(0);
-  const [search, setSearch] = useState('');
-  const [rows, setRows] = useState(5);
-  const [curPage, setCurPage] = useState(1)
-  const saveMounted = useRef(true);
+  // const [curGenre, setCurGenre] = useState("All Genres");
+  // const [favourites, setFavourites] = useState([]);
+  // const [genre, setGenre] = useState(["All Genres"]);
+  // const [rating, setRating] = useState(0);
+  // const [popularity, setPopularity] = useState(0);
+  // const [search, setSearch] = useState('');
+  // const [rows, setRows] = useState(5);
+  // const [curPage, setCurPage] = useState(1)
+  // const saveMounted = useRef(true);
 
-  const savedData = async () => {
-    let favData = (await JSON.parse(localStorage.getItem("imdb"))) || [];
-    setFavourites([...favData]);
-  };
-  const del = async (movie) => {
-    const newArray = favourites.filter((m) => m.id !== movie.id);
-    setFavourites([...newArray]);
-    await localStorage.setItem("imdb", JSON.stringify(newArray));
-  };
+  // const savedData = async () => {
+  //   let favData = (await JSON.parse(localStorage.getItem("imdb"))) || [];
+  //   setFavourites([...favData]);
+  // };
+  // const del = async (movie) => {
+  //   const newArray = favourites.filter((m) => m.id !== movie.id);
+  //   setFavourites([...newArray]);
+  //   await localStorage.setItem("imdb", JSON.stringify(newArray));
+  // };
 
-  const genres = [
-    {
-      id: 28,
-      name: "Action",
-    },
-    {
-      id: 12,
-      name: "Adventure",
-    },
-    {
-      id: 16,
-      name: "Animation",
-    },
-    {
-      id: 35,
-      name: "Comedy",
-    },
-    {
-      id: 80,
-      name: "Crime",
-    },
-    {
-      id: 99,
-      name: "Documentary",
-    },
-    {
-      id: 18,
-      name: "Drama",
-    },
-    {
-      id: 10751,
-      name: "Family",
-    },
-    {
-      id: 14,
-      name: "Fantasy",
-    },
-    {
-      id: 36,
-      name: "History",
-    },
-    {
-      id: 27,
-      name: "Horror",
-    },
-    {
-      id: 10402,
-      name: "Music",
-    },
-    {
-      id: 9648,
-      name: "Mystery",
-    },
-    {
-      id: 10749,
-      name: "Romance",
-    },
-    {
-      id: 878,
-      name: "Science Fiction",
-    },
-    {
-      id: 10770,
-      name: "TV Movie",
-    },
-    {
-      id: 53,
-      name: "Thriller",
-    },
-    {
-      id: 10752,
-      name: "War",
-    },
-    {
-      id: 37,
-      name: "Western",
-    },
-  ];
+  // const genres = [
+  //   {
+  //     id: 28,
+  //     name: "Action",
+  //   },
+  //   {
+  //     id: 12,
+  //     name: "Adventure",
+  //   },
+  //   {
+  //     id: 16,
+  //     name: "Animation",
+  //   },
+  //   {
+  //     id: 35,
+  //     name: "Comedy",
+  //   },
+  //   {
+  //     id: 80,
+  //     name: "Crime",
+  //   },
+  //   {
+  //     id: 99,
+  //     name: "Documentary",
+  //   },
+  //   {
+  //     id: 18,
+  //     name: "Drama",
+  //   },
+  //   {
+  //     id: 10751,
+  //     name: "Family",
+  //   },
+  //   {
+  //     id: 14,
+  //     name: "Fantasy",
+  //   },
+  //   {
+  //     id: 36,
+  //     name: "History",
+  //   },
+  //   {
+  //     id: 27,
+  //     name: "Horror",
+  //   },
+  //   {
+  //     id: 10402,
+  //     name: "Music",
+  //   },
+  //   {
+  //     id: 9648,
+  //     name: "Mystery",
+  //   },
+  //   {
+  //     id: 10749,
+  //     name: "Romance",
+  //   },
+  //   {
+  //     id: 878,
+  //     name: "Science Fiction",
+  //   },
+  //   {
+  //     id: 10770,
+  //     name: "TV Movie",
+  //   },
+  //   {
+  //     id: 53,
+  //     name: "Thriller",
+  //   },
+  //   {
+  //     id: 10752,
+  //     name: "War",
+  //   },
+  //   {
+  //     id: 37,
+  //     name: "Western",
+  //   },
+  // ];
 
-  useEffect(() => {
-    if(saveMounted.current){
-      savedData();
-    }
-    return () => {
-      saveMounted.current = false;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if(saveMounted.current){
+  //     savedData();
+  //   }
+  //   return () => {
+  //     saveMounted.current = false;
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    try {
-      let temp = favourites.map(
-        (movie) => genres.find((item) => item.id === movie.genre_ids[0]).name
-      );
-      // let temp = favourites.map((movie) => genres[movie.genre_ids[0]]); it is defining temp as object not as array
-      temp = new Set(temp);
-      setGenre(["All Genres", ...temp]);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [favourites]);
+  // useEffect(() => {
+  //   try {
+  //     let temp = favourites.map(
+  //       (movie) => genres.find((item) => item.id === movie.genre_ids[0]).name
+  //     );
+  //     // let temp = favourites.map((movie) => genres[movie.genre_ids[0]]); it is defining temp as object not as array
+  //     temp = new Set(temp);
+  //     setGenre(["All Genres", ...temp]);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [favourites]);
 
-  let filterMovies = [];
-  filterMovies =
-    curGenre === "All Genres"
-      ? favourites
-      : favourites.filter(
-          (movie) =>
-            curGenre ===
-            genres.find((item) => item.id === movie.genre_ids[0]).name
-        );
+  // let filterMovies = [];
+  // filterMovies =
+  //   curGenre === "All Genres"
+  //     ? favourites
+  //     : favourites.filter(
+  //         (movie) =>
+  //           curGenre ===
+  //           genres.find((item) => item.id === movie.genre_ids[0]).name
+  //       );
 
-        filterMovies = filterMovies.filter((movie) => {
-          return movie.title.toLowerCase().includes(search.toLowerCase())
-        })
+  //       filterMovies = filterMovies.filter((movie) => {
+  //         return movie.title.toLowerCase().includes(search.toLowerCase())
+  //       })
 
-        let maxPage = Math.ceil(filterMovies.length/rows);
-        let si = (curPage-1)*rows;
-        let ei = Number(si) + Number(rows);
+  //       let maxPage = Math.ceil(filterMovies.length/rows);
+  //       let si = (curPage-1)*rows;
+  //       let ei = Number(si) + Number(rows);
 
-        filterMovies = filterMovies.slice(si, ei);
+  //       filterMovies = filterMovies.slice(si, ei);
 
-        let goBack = () => {
-          if(curPage > 1){
-            setCurPage(curPage - 1);
-          }
-        }
+  //       let goBack = () => {
+  //         if(curPage > 1){
+  //           setCurPage(curPage - 1);
+  //         }
+  //       }
 
-        let goNext = () => {
-          if(curPage < maxPage){
-            setCurPage(curPage + 1);
-          }
-        }
+  //       let goNext = () => {
+  //         if(curPage < maxPage){
+  //           setCurPage(curPage + 1);
+  //         }
+  //       }
 
-  if (rating === -1) {
-    filterMovies = filterMovies.sort(function (objA, objB) {
-      return objA.vote_average - objB.vote_average;
-    });
-  } else if (rating === 1) {
-    filterMovies = filterMovies.sort(function (objA, objB) {
-      return objB.vote_average - objA.vote_average;
-    });
-  }
+  // if (rating === -1) {
+  //   filterMovies = filterMovies.sort(function (objA, objB) {
+  //     return objA.vote_average - objB.vote_average;
+  //   });
+  // } else if (rating === 1) {
+  //   filterMovies = filterMovies.sort(function (objA, objB) {
+  //     return objB.vote_average - objA.vote_average;
+  //   });
+  // }
 
-  if (popularity === -1) {
-    filterMovies = filterMovies.sort(function (objA, objB) {
-      return objA.popularity - objB.popularity;
-    });
-  } else if (popularity === 1) {
-    filterMovies = filterMovies.sort(function (objA, objB) {
-      return objB.popularity - objA.popularity;
-    });
-  }
+  // if (popularity === -1) {
+  //   filterMovies = filterMovies.sort(function (objA, objB) {
+  //     return objA.popularity - objB.popularity;
+  //   });
+  // } else if (popularity === 1) {
+  //   filterMovies = filterMovies.sort(function (objA, objB) {
+  //     return objB.popularity - objA.popularity;
+  //   });
+  // }
 
   return (
-    <>
-      <div className="flex justify-center space-x-2 my-4 flex-wrap">
+    <div>
+      favorites
+      {/* <div className="flex justify-center space-x-2 my-4 flex-wrap">
         {genre.map((gName) => (
           <div
             className={
@@ -193,13 +193,13 @@ function Favourites() {
             {gName}
           </div>
         ))}
-      </div>
+      </div> */}
 
-      <div className="flex flex-wrap justify-center my-6">
+      {/* <div className="flex flex-wrap justify-center my-6">
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search" className="border-2 p-2 mx-2 my-2" />
         <input type="number" value={rows} onChange={(e) => setRows(e.target.value)} placeholder="Rows" className="border-2 p-2 mx-2 my-2" />
-      </div>
-      <div className="flex flex-col">
+      </div> */}
+      {/* <div className="flex flex-col">
         <div className="overflow-x-auto">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-hidden">
@@ -323,11 +323,11 @@ function Favourites() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="my-4">
+      </div> */}
+      {/* <div className="my-4">
         <Pagination page={curPage} goBack={goBack} goNext={goNext}/>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 }
 

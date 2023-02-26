@@ -7,7 +7,7 @@ import { useUserAuth } from "../context/authContext";
 const Signup = () => {
 
   const [data, setData] = useState({
-    name : '',
+    displayName : '',
     email : '',
     password : ''
   })
@@ -16,8 +16,8 @@ const Signup = () => {
   const { signUp, addUserData } = useUserAuth();
   const navigate = useNavigate();
 
-  const handleInputs = async (event) => {
-    let inputs = {[event.target.name] : event.target.value}
+  const handleInputs = async (e) => {
+    let inputs = {[e.target.name] : e.target.value}
     setData({...data, ...inputs})
   }
 
@@ -25,8 +25,8 @@ const Signup = () => {
     e.preventDefault();
     setError('')
     try{
-      await addUserData(data.name, data.email)
-      await signUp(data.email,data.password)
+      await addUserData(data.displayName, data.email)
+      await signUp(data.email, data.password)
       navigate('/login')
     } catch (err) {
       setError(err.message)
@@ -40,8 +40,8 @@ const Signup = () => {
       backgroundSize: "cover",
       backgroundPositionX: "center",
     }}>
-      <div className="container mx-auto flex flex-wrap items-center md:px-0 px-16 h-[90vh]">
-        <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full md:mt-0">
+      <div className="container mx-auto flex flex-wrap items-center md:px-0 px-8 h-max">
+        <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
           <h2 className={`text-gradient ${styles.heading3} mb-4`}>
             Sign Up
           </h2>
@@ -56,7 +56,7 @@ const Signup = () => {
             <input
               type="text"
               id="full-name"
-              name="full-name"
+              name="displayName"
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               onChange={event => handleInputs(event)}
             />

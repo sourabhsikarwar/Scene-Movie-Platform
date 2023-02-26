@@ -2,15 +2,17 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Banner from "../components/Banner/Banner";
 import Trending from "../components/Carousel/Trending";
+import Search from "../components/Search";
 
 const Home = () => {
   const [genreMovie, setGenreMovie] = useState([]);
   const isMounted = useRef(true);
+  const apiKey = process.env.REACT_APP_API_KEY
 
   const uploadMovie = async () => {
     await axios
       .get(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=ebf3974135e4e887c96fc16d0e3024b1&language=en-US`
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
       )
       .then((res) => {
         setGenreMovie(res.data.genres);
@@ -32,6 +34,7 @@ const Home = () => {
   return (
     <div>
       <Banner />
+      <Search/>
       <Trending title="Trending" id="1"/>
       {genreMovie &&
         genreMovie.map((item) => {

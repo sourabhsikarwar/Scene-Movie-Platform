@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../../style";
+import { Link } from "react-router-dom";
 
 function Banner() {
   const [Movies, setMovies] = useState({});
+  const apiKey = process.env.REACT_APP_API_KEY
 
   useEffect(() => {
     axios
       .get(
-        // "https://api.themoviedb.org/3/trending/movie/week?api_key=ebf3974135e4e887c96fc16d0e3024b1"
-        // "https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&language=en-US"
-        "https://api.themoviedb.org/3/discover/movie?api_key=ebf3974135e4e887c96fc16d0e3024b1&with_genres=12"
+        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=12`
       )
       .then((res) => {
         const mResults = res.data.results[0];
         setMovies(mResults);
       });
-  }, []);
+  }, [apiKey]);
 
   return (
     <>
@@ -35,11 +35,13 @@ function Banner() {
               {Movies.title}
             </h1>
             <div className="flex justify-center my-4">
+            <Link to={"/movie/" + Movies.title + "/" + Movies.id}>
               <button className="inline-flex bg-blue-gradient text-black border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                Add to Favourite
-              </button>
-              <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
                 See More
+              </button>
+              </Link>
+              <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                Play
               </button>
             </div>
           </div>

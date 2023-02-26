@@ -7,7 +7,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth, database } from "../firebase/firebaseConfig";
-import { collection, addDoc, getDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 
 const userAuthContext = createContext();
 
@@ -23,7 +23,7 @@ export function UserAuthContextProvider({ children }) {
   const dbInstance = collection(database, "users");
 
   function addUserData(userName, userEmail){
-    setUserData({name:userName, email:userEmail})
+    setUserData({ ...user, name: userName, email: userEmail, contact: "8989151788", Dob: "18/01/2002"})
     addDoc(dbInstance, userData)
       .then(() => {
         alert("Data Sent Successfully");

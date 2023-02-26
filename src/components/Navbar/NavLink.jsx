@@ -4,6 +4,7 @@ import { Links } from "./Links";
 import axios from "axios";
 
 const NavLinks = () => {
+  const apiKey = process.env.REACT_APP_API_KEY
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
 
@@ -14,7 +15,7 @@ const NavLinks = () => {
   const upload = async () => {
     await axios
       .get(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=ebf3974135e4e887c96fc16d0e3024b1&language=en-US`
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
       )
       .then((res) => {
         setMovie(res.data.results);
