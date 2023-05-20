@@ -41,8 +41,11 @@ Scene is a OTT platform clone, similar to popular streaming services like Netfli
 
 <h3><b>Features</b></h3>
 <b>User Authentication</b>: Users can sign up, log in, and manage their accounts. Firebase Authentication is used to handle user authentication and account management.
+<br>
 <b>Media Catalog</b>: The platform provides a catalog of movies, TV shows, and other media content. Users can browse and search for their favorite shows or movies.
+<br>
 <b>Media Details</b>: Each media item has its own dedicated page with details such as title, description, genre, and rating.
+<br>
 <b>User Profiles</b>: Users can create personalized profiles and manage their watchlists, favorites, and viewing history.
 
 <h2>Live Project -- (https://scene-movie-platform.vercel.app/)</h2>
