@@ -6,13 +6,12 @@ import styles from "../../style";
 import TvGeneralCard from "../Cards/TvGeneralCard";
 
 const General = (props) => {
-  const apiKey = process.env.REACT_APP_API_KEY
+  const apiKey = process.env.REACT_APP_API_KEY;
   const [tvDetail, setTvDetail] = useState([]);
   const isMounted = useRef(true);
   const upload = async () => {
     await axios
-      .get(`https://api.themoviedb.org/3/tv/${props.id}/season/1?api_key=${apiKey}&language=en-US`
-      )
+      .get(`https://api.themoviedb.org/3/tv/${props.id}/season/1?api_key=${apiKey}&language=en-US`)
       .then((res) => {
         setTvDetail(res.data.episodes);
       })
@@ -63,8 +62,12 @@ const General = (props) => {
       >
         {tvDetail.map((tv) => {
           return (
-            <SplideSlide>
-              <TvGeneralCard detail={tv} key={tv.id}/>
+            <SplideSlide key={tv.id}>
+              <TvGeneralCard detail={tv} />
+              <div>
+                <p>Director: {tv.director}</p>
+                <p>Cast: {tv.cast.join(", ")}</p>
+              </div>
             </SplideSlide>
           );
         })}

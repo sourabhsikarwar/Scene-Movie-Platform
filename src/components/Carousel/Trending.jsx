@@ -7,8 +7,8 @@ import styles from "../../style";
 import MovieCard from "../Cards/MovieCard";
 
 const Trending = (props) => {
-  const apiKey = process.env.REACT_APP_API_KEY
-  const [Movies, setMovies] = useState([]);
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const [movies, setMovies] = useState([]);
   const isMounted = useRef(true);
   const upload = async () => {
     await axios
@@ -25,14 +25,42 @@ const Trending = (props) => {
       });
   };
 
-  useEffect(function () {
+  useEffect(() => {
     if (isMounted.current) {
       upload();
     }
     return () => {
       isMounted.current = false;
     };
-  });
+  }, []);
+
+  const fetchAdditionalData = async (movie) => {
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${apiKey}`);
+      const { crew, cast } = response.data;
+      const directors = crew.filter((member) => member.job === "Director").map((director) => director.name);
+      const castMembers = cast.map((member) => member.name);
+      return {
+        ...movie,
+        directors,
+        cast: castMembers,
+      };
+    } catch (error) {
+      console.log(error.message);
+      return movie;
+    }
+  };
+
+  const fetchAllAdditionalData = async () => {
+    const newMovies = await Promise.all(movies.map((movie) => fetchAdditionalData(movie)));
+    setMovies(newMovies);
+  };
+
+  useEffect(() => {
+    if (movies.length > 0) {
+      fetchAllAdditionalData();
+    }
+  }, [movies]);
 
   return (
     <div className={`${styles.boxWidth} my-8`}>
@@ -70,13 +98,15 @@ const Trending = (props) => {
         aria-label="My Favorite Images"
         className="justify-center"
       >
-        {Movies.map((movie) => {
-          return (
-            <SplideSlide>
-              <MovieCard movie={movie} key={movie.id}/>
-            </SplideSlide>
-          );
-        })}
+        {movies.map((movie) => (
+          <SplideSlide key={movie.id}>
+            <MovieCard movie={movie} />
+            <div>
+              <p>Directors: {movie.directors && movie.directors.join(", ")}</p>
+              <p>Cast: {movie.cast && movie.cast.join(", ")}</p>
+            </div>
+          </SplideSlide>
+        ))}
       </Splide>
     </div>
   );
