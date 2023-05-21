@@ -197,3 +197,9 @@ input:-webkit-autofill:active {
   background: rgba(255, 255, 255, 0.6);
   filter: blur(750px);
 }
+.section-height{
+  height: calc(100vh - 205px);
+}
+.border-top-1{
+  border-top: #fff solid 1px;
+}

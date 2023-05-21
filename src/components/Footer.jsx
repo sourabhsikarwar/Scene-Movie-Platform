@@ -5,7 +5,7 @@ import logo from "../assets/image/slide.png";
 
 const Footer = () => {
   return (
-    <footer className={`${styles.boxWidth} text-dimWhite body-font`}>
+    <footer className={`${styles.boxWidth} text-dimWhite body-font border-top-1`}>
       <div className="px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
         <Link
           className="flex title-font font-medium items-center md:justify-start justify-center"
