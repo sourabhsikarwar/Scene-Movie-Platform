@@ -8,15 +8,28 @@ import { getAuth } from 'firebase/auth'
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDk6-_-dlfKywBpQ73VkswgLkGoXwARXoo",
+//   authDomain: "ott-platform-df969.firebaseapp.com",
+//   projectId: "ott-platform-df969",
+//   storageBucket: "ott-platform-df969.appspot.com",
+//   messagingSenderId: "331080759808",
+//   appId: "1:331080759808:web:022cdaf8671d41176736e5",
+//   measurementId: "G-TN6HM3MJF3"
+// };
+
+
+
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDk6-_-dlfKywBpQ73VkswgLkGoXwARXoo",
-  authDomain: "ott-platform-df969.firebaseapp.com",
-  projectId: "ott-platform-df969",
-  storageBucket: "ott-platform-df969.appspot.com",
-  messagingSenderId: "331080759808",
-  appId: "1:331080759808:web:022cdaf8671d41176736e5",
-  measurementId: "G-TN6HM3MJF3"
+  apiKey: "AIzaSyAqJvdOOcqJxCy6bb-VW4HiVN-X1eDObvg",
+  authDomain: "scene-movie-platform.firebaseapp.com",
+  projectId: "scene-movie-platform",
+  storageBucket: "scene-movie-platform.appspot.com",
+  messagingSenderId: "622585653706",
+  appId: "1:622585653706:web:55c4c10a6530dadee78733"
 };
+
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

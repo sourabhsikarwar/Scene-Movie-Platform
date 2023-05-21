@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Footer from "./components/Footer";
 import Signup from "./components/Signup";
 import Profile from "./components/Profile";
+import ResetPasswword from "./components/ResetPasswword";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import Categories from "./pages/Categories";
@@ -58,6 +59,15 @@ function App() {
             element={
               <>
                 <Signup />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/PasswordReset"
+            element = {
+              <>
+              <ResetPasswword/>
               </>
             }
           />
