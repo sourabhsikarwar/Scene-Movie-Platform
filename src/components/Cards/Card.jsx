@@ -19,7 +19,7 @@ const MovieCard = (props) => {
           <div className="w-full opacity-90 text-white text-md font-medium mt-2">
             <p>{props.movie.title}</p>
             <p className="text-dimWhite font-normal text-xs mt-2">
-              {props.movie.vote_average}/10
+              {props.movie.vote_average.toFixed(1)}/10
             </p>
           </div>
         </div>
