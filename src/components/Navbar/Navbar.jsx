@@ -70,10 +70,10 @@ const Navbar = () => {
             <Avatar view="end" />
           ) : (
             <>
-              <Link to="/" className="hover:text-white duration-200">
+              <Link to="/login" className="hover:text-white duration-200">
                 Login
               </Link>
-              <Link to="/">
+              <Link to="/signup">
                 <button className={`${styles.button2}`}>Sign Up</button>
               </Link>
             </>
