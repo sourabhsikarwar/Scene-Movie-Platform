@@ -88,6 +88,21 @@ const Signup = () => {
               onChange={event => handleInputs(event)}
             />
           </div>
+          <div className="relative mb-4">
+            <label
+              htmlFor="Confirm Password"
+              className="leading-8 text-sm text-white"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              onChange={event => handleInputs(event)}
+            />
+          </div>
           <button className={`${styles.button1} my-2`} onClick={handleSubmit}>
             Sign Up
           </button>
