@@ -197,3 +197,15 @@ input:-webkit-autofill:active {
   background: rgba(255, 255, 255, 0.6);
   filter: blur(750px);
 }
+
+/* Navbar css starts */
+.navLink{
+  @apply my-7 mx-5 inline-block border-slate-200 duration-75 hover:text-slate-200 md:hover:border-b-2;
+}
+.active{
+  @apply md:border-slate-200 text-slate-200 border-b-2;
+}
+.navDropdown{
+  @apply border-slate-200 duration-75 group-hover:text-slate-200 group-hover:border-b-2;
+}
+/* Navbar css ends */
