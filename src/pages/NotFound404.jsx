@@ -8,7 +8,7 @@ const NotFound404 = () => {
       <br />
       <h3 className="text-gradient font-poppins font-medium md:text-[24px] text-[24px] text-white leading-relaxed mb-4">
         Opps! Page not found
-        <br /> BSorry, the page you're looking for doesn't exist.
+        <br /> Sorry, the page you're looking for doesn't exist.
       </h3>
       <br />
 
