@@ -9,7 +9,10 @@ const Signup = () => {
   const [data, setData] = useState({
     displayName : '',
     email : '',
+    phoneNumber: '',
+    dateOfBirth: '',
     password : ''
+
   })
   const [error, setError] = useState('')
   
@@ -19,13 +22,14 @@ const Signup = () => {
   const handleInputs = async (e) => {
     let inputs = {[e.target.name] : e.target.value}
     setData({...data, ...inputs})
+    console.log(data);
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('')
     try{
-      await addUserData(data.displayName, data.email)
+      await addUserData(data.displayName, data.email, data.phoneNumber, data.dateOfBirth)
       await signUp(data.email, data.password)
       navigate('/login')
     } catch (err) {
@@ -69,6 +73,30 @@ const Signup = () => {
               type="email"
               id="email"
               name="email"
+              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              onChange={event => handleInputs(event)}
+            />
+          </div>
+          <div className="relative mb-4">
+            <label htmlFor="contact no." className="leading-8 text-sm text-white">
+              Contact No.
+            </label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              onChange={event => handleInputs(event)}
+            />
+          </div>
+          <div className="relative mb-4">
+            <label htmlFor="date of Birth" className="leading-8 text-sm text-white">
+              Date Of Birth
+            </label>
+            <input
+              type="date"
+              id="dateOfBirth"
+              name="dateOfBirth"
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               onChange={event => handleInputs(event)}
             />
