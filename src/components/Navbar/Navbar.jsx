@@ -15,6 +15,7 @@ const Navbar = () => {
       <div
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
       >
+        <Link to='/'>
         <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
           <img
             src={Logo}
@@ -24,8 +25,8 @@ const Navbar = () => {
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {user ? (
               <Avatar view="center" />
-            ) : (
-              <>
+              ) : (
+                <>
                 <Link to="/login" className="hover:text-white duration-200">
                   Login
                 </Link>
@@ -38,10 +39,11 @@ const Navbar = () => {
           <div
             className="text-3xl my-auto md:hidden"
             onClick={() => setOpen(!open)}
-          >
+            >
             <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
           </div>
         </div>
+      </Link>
 
         <ul className="md:flex hidden items-center font-medium">
           <li>
