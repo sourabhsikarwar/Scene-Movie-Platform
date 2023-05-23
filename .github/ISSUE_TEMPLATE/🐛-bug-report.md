@@ -2,15 +2,6 @@
 name: "\U0001F41B Bug report"
 about: Create a report to help us improve
 title: "[BUG]:"
-labels: ''
-assignees: ''
-
----
-
----
-name: "🐛 Bug report"
-about: Short description about the issue.
-title: ''
 
 ---
 
