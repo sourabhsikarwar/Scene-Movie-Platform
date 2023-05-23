@@ -1,63 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import bg from "../assets/image/bg2.jpg";
 import styles from "../style";
-import bg from "../assets/image/bg2.jpg"
 import { useUserAuth } from "../context/authContext";
+import { auth, provider } from "../firebase/firebaseConfig";
+import { signInWithPopup } from "firebase/auth";
+import Home from "../pages/Home";
 
 const Login = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { login, passwordReset } = useUserAuth();
 
   const [data, setData] = useState({
-    email : 'test@gmail.com',
-    password : '8989151788'
-  })
-  const [error, setError] = useState('')
+    email: 'test@gmail.com',
+    password: '8989151788'
+  });
+  const [error, setError] = useState('');
 
   const handleInputs = (e) => {
-    let inputs = {[e.target.name] : e.target.value}
-
-    setData({...data, ...inputs})
-  }
+    let inputs = { [e.target.name]: e.target.value };
+    setData({ ...data, ...inputs });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('')
-    try{
-      await login(data.email, data.password)
-      navigate('/')
+    setError('');
+    try {
+      await login(data.email, data.password);
+      navigate('/');
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     }
-  }
-  const handleReset = async (e) =>{
+  };
+
+  const [value, setValue] = useState('');
+
+  const handleClick = () => {
+    signInWithPopup(auth, provider).then((data) => {
+      setValue(data.user.email);
+      localStorage.setItem("email", data.user.email);
+    });
+  };
+
+  useEffect(() => {
+    setValue(localStorage.getItem('email'));
+  }, []);
+
+  const handleReset = async (e) => {
     e.preventDefault();
-    try{
+    try {
       await passwordReset(data.email);
-    } catch (err){
-      setError(err.message)
+    } catch (err) {
+      setError(err.message);
     }
-  }
+  };
 
   return (
-    <section className="text-gray-600 body-font" style={{
-      backgroundImage: `url(${bg})`,
-      backgroundSize: "cover",
-      backgroundPositionX: "center",
-    }}>
+    <section
+      className="text-gray-600 body-font"
+      style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPositionX: "center",
+      }}
+    >
       <div className={`${styles.boxWidth} mx-auto flex flex-wrap items-center md:px-0 px-8 h-max`}>
         <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
           <h2 className={`text-gradient ${styles.heading3} mb-4`}>
             Login
           </h2>
-          { error && <p className="text-red-600">{error}</p>}
+          {error && <p className="text-red-600">{error}</p>}
           <div className="relative mb-4">
             <label htmlFor="email" className="leading-8 text-sm text-white">
               Email
             </label>
             <input
-            value={data.email}
+              value={data.email}
               type="email"
               id="email"
               name="email"
@@ -71,7 +89,7 @@ const Login = () => {
               Password
             </label>
             <input
-            value={data.password}
+              value={data.password}
               type="password"
               id="password"
               name="password"
@@ -82,14 +100,23 @@ const Login = () => {
           <button className="text-black bg-blue-gradient mt-2 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" onClick={handleSubmit}>
             Login
           </button>
-          <hr className="border-gray-600 my-4"/>
+          <div>
+            {value ? (
+              <p>Logged in as: {value}</p>
+            ) : (
+              <button className="text-black bg-gray-gradient mt-2 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" type="button" onClick={handleClick}>
+                Sign in with Google
+              </button>
+            )}
+          </div>
+          <hr className="border-gray-600 my-4" />
           <div className="flex justify-between">
-          <p className="leading-8 text-xs text-white">
-            New to Nirvana? Try <Link to="/signup" className="text-gradient">Sign Up</Link>
-          </p>
-          <p className="leading-8 text-sm text-white">
-            forgot password <Link to="/passwordReset" className="text-gradient" onClick={handleReset}>reset</Link>
-          </p>
+            <p className="leading-8 text-xs text-white">
+              New to Nirvana? Try <Link to="/signup" className="text-gradient">Sign Up</Link>
+            </p>
+            <p className="leading-8 text-sm text-white">
+              Forgot password? <Link to="/passwordReset" className="text-gradient" onClick={handleReset}>Reset</Link>
+            </p>
           </div>
         </div>
       </div>
