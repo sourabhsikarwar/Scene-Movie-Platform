@@ -1,3 +1,9 @@
+---
+name: "🪶 Feature request"
+about: Suggest an idea for this project
+title: "[Feature]: "
+
+---
 <!--
 Example how to mark a checkbox:-
 - [x] My code follows the code style of this project.
