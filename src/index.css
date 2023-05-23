@@ -18,10 +18,6 @@
   scroll-behavior: smooth;
 }
 
-html {
-  --scrollbarBG: transparent;
-  --thumbBG: #7de7eb;
-}
 body::-webkit-scrollbar {
   width: 11px;
 }
