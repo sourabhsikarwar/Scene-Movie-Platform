@@ -12,7 +12,7 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="bg-primary font-poppins text-dimWhite h-[90px] px-4">
+    <nav className="bg-primary font-poppins text-dimWhite h-[90px] px-4" style={{position:"sticky",top:0,zIndex:20}}>
       <div
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
       >
