@@ -18,6 +18,7 @@ const MovieBanner = (props) => {
         setMovies(mResults);
       });
     }
+    window.scrollTo(0, 0);
     update()
   }, [props.id, apiKey]);
 
