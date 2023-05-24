@@ -100,7 +100,7 @@ const Login = () => {
           <hr className="border-gray-600 my-4"/>
           <div className="flex justify-between">
           <p className="leading-8 text-xs text-white">
-            New to Nirvana? Try <Link to="/signup" className="text-gradient">Sign Up</Link>
+            New to Scene? Try <Link to="/signup" className="text-gradient">Sign Up</Link>
           </p>
           <p className="leading-8 text-sm text-white">
             forgot password <Link to="/passwordReset" className="text-gradient" onClick={handleReset}>reset</Link>
