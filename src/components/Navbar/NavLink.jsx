@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Links } from "./Links";
 import axios from "axios";
 
@@ -7,6 +7,8 @@ const NavLinks = () => {
   const apiKey = process.env.REACT_APP_API_KEY
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
+  const location = useLocation();
+
 
   const [movie, setMovie] = useState("");
 
@@ -40,7 +42,7 @@ const NavLinks = () => {
         <div key={link.id}>
           <div className="mx-3 text-left md:cursor-pointer group">
             <h1
-              className="my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group"
+              className={`${location.pathname.startsWith('/category/movie') ? 'active' : ''} my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group`}
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading("");
                 setSubHeading("");
