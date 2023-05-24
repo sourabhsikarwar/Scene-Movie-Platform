@@ -39,8 +39,6 @@ const Navbar = () => {
             <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
           </div>
         </div>
-      </Link>
-
         <ul className="md:flex hidden items-center font-medium h-[90px] z-50">
           <li>
             <Link to="/" className={`navLink ${location.pathname === '/' ? 'active' : ''}`} >
