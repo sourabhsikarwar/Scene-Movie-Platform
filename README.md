@@ -136,8 +136,8 @@ This project and everyone participating in it is governed by the [Code of Conduc
 
 <h2>Project Contributors🫂</h2>
 
-<a href="https://github.com/sourabhsikarwar/Scene-Movie-Platform/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=sourabhsikarwar/Scene-Movie-Platform" />
+<a href="https://github.com/sourabhsikarwar/scene-movie-platform/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=sourabhsikarwar/scene-movie-platform" />
 
 </a>
 <!-- --------------------------------------------------------------------------------------------------------------------------------------------------------- -->
