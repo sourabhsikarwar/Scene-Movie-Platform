@@ -22,8 +22,8 @@ export function UserAuthContextProvider({ children }) {
   })
   const dbInstance = collection(database, "users");
 
-  function addUserData(userName, userEmail){
-    setUserData({ ...user, name: userName, email: userEmail, contact: "8989151788", Dob: "18/01/2002"})
+  function addUserData(userName, userEmail, phoneNumber, dateOfBirth){
+    setUserData({ ...user, name: userName, email: userEmail, contact: phoneNumber, Dob: dateOfBirth})
     addDoc(dbInstance, userData)
       .then(() => {
         alert("Data Sent Successfully");
