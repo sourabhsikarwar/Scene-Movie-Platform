@@ -1,51 +1,66 @@
-import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
-import Banner from "../components/Banner/Banner";
-import Trending from "../components/Carousel/Trending";
-import Search from "../components/Search";
+import React, { useState, useRef, useEffect } from 'react'
+import axios from 'axios'
+import Banner from '../components/Banner/Banner'
+import Trending from '../components/Carousel/Trending'
+import Search from '../components/Search'
+import { Oval } from 'react-loader-spinner'
 
 const Home = () => {
-  const [genreMovie, setGenreMovie] = useState([]);
-  const isMounted = useRef(true);
+  const [genreMovie, setGenreMovie] = useState([])
+  const [initialLoading, setInitialLoading] = useState(true)
+
   const apiKey = process.env.REACT_APP_API_KEY
 
   const uploadMovie = async () => {
+    setInitialLoading(true)
     await axios
       .get(
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
       )
       .then((res) => {
-        setGenreMovie(res.data.genres);
+        if (res.status === 200) {
+          setGenreMovie(res.data.genres)
+          setInitialLoading(false)
+        }
       })
       .catch((e) => {
-        console.log(e.message);
-      });
-  };
+        console.log(e.message)
+      })
+  }
 
-  useEffect(function () {
-    if (isMounted.current) {
-      uploadMovie();
-    }
-    return () => {
-      isMounted.current = false;
-    };
-  });
+  useEffect(() => {
+    uploadMovie()
+  }, [])
 
   return (
     <div>
-      <Banner />
-      <Search/>
-      <Trending title="Trending" id="1"/>
-      {genreMovie &&
-        genreMovie.map((item) => {
-          return (
-            <>
-              <Trending title={item.name} id={item.id} key={item.id} />
-            </>
-          );
-        })}
+      {!initialLoading ? (
+        <div>
+          <Banner />
+          <Search />
+          <Trending title='Trending' id='1' />
+          {genreMovie &&
+            genreMovie.map((item) => {
+              return (
+                <>
+                  <Trending title={item.name} id={item.id} key={item.id} />
+                </>
+              )
+            })}
+        </div>
+      ) : (
+        <div className='flex justify-center my-8'>
+          <Oval
+            height='50'
+            width='50'
+            color='grey'
+            secondaryColor='grey'
+            ariaLabel='loading'
+          />
+        </div>
+      )}
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

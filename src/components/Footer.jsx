@@ -14,7 +14,7 @@ const Footer = () => {
           <img src={logo} className="w-32" alt="logo" />
         </Link>
         <p className="text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-          © 2022 Scene —
+          © {new Date().getFullYear()} Scene —
           <Link
             to="#"
             className="text-gradient ml-1"

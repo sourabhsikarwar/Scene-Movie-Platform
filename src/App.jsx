@@ -10,6 +10,7 @@ import Movie from "./pages/Movie";
 import Categories from "./pages/Categories";
 import { UserAuthContextProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NotFound404 from "./pages/NotFound404";
 
 function App() {
   return (
@@ -79,6 +80,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<NotFound404 />} />
           {/* <Route
             exact
             path="/search/:query"
