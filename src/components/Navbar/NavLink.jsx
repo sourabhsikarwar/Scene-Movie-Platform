@@ -42,11 +42,7 @@ const NavLinks = () => {
         <div key={link.id}>
           <div className="mx-3 text-left md:cursor-pointer group">
             <h1
-<<<<<<< HEAD
-              className="py-7 flex justify-between items-center md:pr-0 pr-5 group movies-link-cls"
-=======
-              className={`${location.pathname.startsWith('/category/movie') ? 'active' : ''} my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group`}
->>>>>>> ae7c7c3832f6536ee9b4f899fdf0d7a6c7ebf3c6
+              className={`${location.pathname.startsWith('/category/movie') ? 'active' : ''} my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group movies-link-cls`}
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading("");
                 setSubHeading("");
@@ -66,11 +62,7 @@ const NavLinks = () => {
             </h1>
             {link.subMenu && (
               <div>
-<<<<<<< HEAD
-                <div className="absolute top-20 hidden group-hover:md:flex hover:md:block z-50">
-=======
-                <div className="absolute top-[60px] hidden group-hover:md:block hover:md:block z-50">
->>>>>>> ae7c7c3832f6536ee9b4f899fdf0d7a6c7ebf3c6
+                <div className="absolute top-[60px] hidden group-hover:md:flex hover:md:block z-50">
                   <div className="bg-secondary p-8 grid grid-cols-3 gap-x-10 rounded-lg">
                     {link.genres.map((sLink) => (
                       <li
