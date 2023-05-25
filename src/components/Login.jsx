@@ -3,8 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../style";
 import bg from "../assets/image/bg2.jpg"
 import { useUserAuth } from "../context/authContext";
+import show from "../assets/image/show.png"
+import hide from "../assets/image/hide.png"
 
 const Login = () => {
+
+  const [passwordType, setPasswordType] = useState("password");
+  
+  const passwordToggle = () => {
+    if (passwordType === "password") {
+      setPasswordType("text");
+    }
+    else
+      setPasswordType("password");
+  };
 
   const navigate = useNavigate()
   const { login, passwordReset } = useUserAuth();
@@ -72,12 +84,15 @@ const Login = () => {
             </label>
             <input
             value={data.password}
-              type="password"
+              type={passwordType}
               id="password"
               name="password"
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0"
               onChange={e => handleInputs(e)}
             />
+            <button onClick={passwordToggle} className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer">
+                <img height={30} width={30} src={passwordType === "password"?hide:show}/>
+            </button>
           </div>
           <button className="text-black bg-blue-gradient mt-2 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" onClick={handleSubmit}>
             Login
@@ -85,7 +100,7 @@ const Login = () => {
           <hr className="border-gray-600 my-4"/>
           <div className="flex justify-between">
           <p className="leading-8 text-xs text-white">
-            New to Nirvana? Try <Link to="/signup" className="text-gradient">Sign Up</Link>
+            New to Scene? Try <Link to="/signup" className="text-gradient">Sign Up</Link>
           </p>
           <p className="leading-8 text-sm text-white">
             forgot password <Link to="/passwordReset" className="text-gradient" onClick={handleReset}>reset</Link>
