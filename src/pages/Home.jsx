@@ -18,7 +18,6 @@ const Home = () => {
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
       )
       .then((res) => {
-        console.log('res in home: ', res)
         if (res.status === 200) {
           setGenreMovie(res.data.genres)
           setInitialLoading(false)

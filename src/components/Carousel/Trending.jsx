@@ -17,7 +17,6 @@ const Trending = (props) => {
     await axios
       .get(url)
       .then((res) => {
-        console.log('res in trending:', res)
         if (res.status === 200) {
           setMovies(res.data.results)
           setinitalLoading(false)
