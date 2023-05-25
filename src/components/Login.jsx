@@ -19,7 +19,7 @@ const Login = () => {
   };
 
   const navigate = useNavigate()
-  const { login, passwordReset } = useUserAuth();
+  const { login } = useUserAuth();
 
   const [data, setData] = useState({
     email : 'test@gmail.com',
@@ -43,14 +43,6 @@ const Login = () => {
       setError(err.message)
     }
   }
-  const handleReset = async (e) =>{
-    e.preventDefault();
-    try{
-      await passwordReset(data.email);
-    } catch (err){
-      setError(err.message)
-    }
-  }
 
   return (
     <section className="text-gray-600 body-font" style={{
@@ -58,9 +50,10 @@ const Login = () => {
       backgroundSize: "cover",
       backgroundPositionX: "center",
     }}>
+      
       <div className={`${styles.boxWidth} mx-auto flex flex-wrap items-center md:px-0 px-8 h-max`}>
         <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
-          <h2 className={`text-gradient ${styles.heading3} mb-4`}>
+          <h2 className={`text-gradient ${styles.heading3} mb-4`} >
             Login
           </h2>
           { error && <p className="text-red-600">{error}</p>}
@@ -103,7 +96,7 @@ const Login = () => {
             New to Scene? Try <Link to="/signup" className="text-gradient">Sign Up</Link>
           </p>
           <p className="leading-8 text-sm text-white">
-            forgot password <Link to="/passwordReset" className="text-gradient" onClick={handleReset}>reset</Link>
+            forgot password <Link to="/passwordReset" className="text-gradient">reset</Link>
           </p>
           </div>
         </div>
