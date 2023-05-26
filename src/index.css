@@ -264,3 +264,32 @@ input:-webkit-autofill:active {
     font-size: 14px;
   }
 }
+
+@media (max-width: 360px){
+  .flex.justify-between.main-nav-cls {
+      padding: 0 !important;
+  }
+  .flex.justify-between.main-nav-cls .signup-btn {
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      font-size: 12px !important;
+  }
+  nav.bg-primary.font-poppins.text-dimWhite.px-4 {
+      height: 77px;
+  }
+}
+
+@media (min-width: 361px) and (max-width: 385px) {
+  .flex.justify-between.main-nav-cls {
+    padding: 0 !important;
+  }
+
+  .flex.justify-between.main-nav-cls .signup-btn {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    font-size: 14px !important;
+  }
+  nav.bg-primary.font-poppins.text-dimWhite.px-4{
+    height: 77px;
+  }
+}
