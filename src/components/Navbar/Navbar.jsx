@@ -16,7 +16,11 @@ const Navbar = () => {
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
       >
         <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
-          <img src={Logo} alt="logo" className="md:cursor-pointer h-12 my-auto" />
+          <img
+            src={Logo}
+            alt="logo"
+            className="md:cursor-pointer h-12 my-auto"
+          />
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {user ? (
               <Avatar view="center" />
@@ -86,6 +90,7 @@ const Navbar = () => {
           className={`md:hidden bg-primary absolute w-full top-0 pt-24 pb-12 pl-4 duration-500 ${
             open ? "left-0" : "left-[-100%]"
           }`}
+          style={{ zIndex: "1" }}
         >
           <li>
             <Link to="/" className="py-7 px-3 inline-block">
