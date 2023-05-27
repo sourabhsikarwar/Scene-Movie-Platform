@@ -1,27 +1,53 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import styles from "../../style";
+import Youtube from 'react-youtube'
 
 const MovieBanner = (props) => {
+  const MOVIE_API = "https://api.themoviedb.org/3"
+
+  const [playing, setPlaying] = useState(false)
   const [Movies, setMovies] = useState({});
+  const [movie, setMovie] = useState(null)
+  const [trailer, setTrailer] = useState(null)
   const apiKey = process.env.REACT_APP_API_KEY
 
   useEffect(() => {
     const update = async () => {
       await axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${props.id}?api_key=${apiKey}&language=en-US`
-      )
-      .then((res) => {
-        const mResults = res.data;
-        console.log(mResults);
-        setMovies(mResults);
-      });
+        .get(
+          `${MOVIE_API}/movie/${props.id}?api_key=${apiKey}&language=en-US`
+        )
+        .then((res) => {
+          const mResults = res.data;
+          console.log(mResults);
+          setMovies(mResults);
+        });
     }
     window.scrollTo(0, 0);
     update()
   }, [props.id, apiKey]);
 
+  async function handleTrailer() {
+    const { data } = await axios.get(`${MOVIE_API}/movie/${props?.id}`, {
+      params: {
+        api_key: apiKey,
+        append_to_response: "videos"
+      }
+    })
+
+    if (data.videos && data.videos.results) {
+      const trailer = data.videos.results.find(vid => vid.name === "Official Trailer")
+      setTrailer(trailer ? trailer : data.videos.results[0])
+      setPlaying(true)
+    }
+
+    setMovie(data)
+  }
+
+
+  console.log("Movie", movie)
+  console.log("Trailer", trailer)
   return (
     <>
       <section
@@ -50,9 +76,9 @@ const MovieBanner = (props) => {
                   <svg
                     fill="currentColor"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     className="w-4 h-4 text-indigo-500"
                     viewBox="0 0 24 24"
                   >
@@ -61,9 +87,9 @@ const MovieBanner = (props) => {
                   <svg
                     fill="currentColor"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     className="w-4 h-4 text-indigo-500"
                     viewBox="0 0 24 24"
                   >
@@ -72,9 +98,9 @@ const MovieBanner = (props) => {
                   <svg
                     fill="currentColor"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     className="w-4 h-4 text-indigo-500"
                     viewBox="0 0 24 24"
                   >
@@ -83,9 +109,9 @@ const MovieBanner = (props) => {
                   <svg
                     fill="currentColor"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    W="2"
                     className="w-4 h-4 text-indigo-500"
                     viewBox="0 0 24 24"
                   >
@@ -94,9 +120,9 @@ const MovieBanner = (props) => {
                   <svg
                     fill="none"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    W="2"
                     className="w-4 h-4 text-indigo-500"
                     viewBox="0 0 24 24"
                   >
@@ -105,15 +131,42 @@ const MovieBanner = (props) => {
                   <span className="text-gray-300 ml-3">4 Reviews</span>
                 </span>
               </div>
+              {playing? 
+              <>
+                  <Youtube
+                  videoId={trailer.key}
+                  className={"youtube amru"}
+                  containerClassName={"youtube-container amru"}
+                  opts={
+                      {
+                          
+                          playerVars: {
+                              autoplay: 1,
+                              controls: 0,
+                              cc_load_policy: 0,
+                              fs: 0,
+                              iv_load_policy: 0,
+                              modestbranding: 0,
+                              rel: 0,
+                              showinfo: 0,
+                          },
+                      }
+                  }/>
+                  <button onClick={() => setPlaying(false)} className={"button close-video"}>Close
+                                    </button>
+              </> 
+                :
+              <>
               <p className={`${styles.paragraph}`}>{Movies.overview}</p>
               <div className="flex my-4">
-                <button className="flex bg-blue-gradient text-black border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                <button onClick={handleTrailer} className="flex bg-blue-gradient text-black border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                   Watch
                 </button>
                 <button className="rounded-full w-10 h-10 bg-white hover:bg-gray-100 duration-200 p-0 border-0 inline-flex items-center justify-center text-red-500 ml-4">
                   <ion-icon name="heart"></ion-icon>
                 </button>
               </div>
+              </>}
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ import Categories from "./pages/Categories";
 import { UserAuthContextProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound404 from "./pages/NotFound404";
+import YouTube from "react-youtube";
 
 function App() {
   return (
