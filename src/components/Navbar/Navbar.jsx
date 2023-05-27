@@ -16,7 +16,7 @@ const Navbar = () => {
       <div
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
       >
-        <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
+        <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between main-nav-cls">
           <img src={Logo} alt="logo" className="md:cursor-pointer h-12 my-auto" />
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {user ? (
@@ -27,13 +27,13 @@ const Navbar = () => {
                   Login
                 </Link>
                 <Link to="/signup">
-                  <button className={`${styles.button2}`}>Sign Up</button>
+                  <button className={`${styles.button2} signup-btn`}>Sign Up</button>
                 </Link>
               </>
             )}
           </div>
           <div
-            className="text-3xl my-auto md:hidden"
+            className="text-3xl my-auto md:hidden flex"
             onClick={() => setOpen(!open)}
             >
             <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>

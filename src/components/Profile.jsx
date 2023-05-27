@@ -7,7 +7,7 @@ const Profile = () => {
   console.log(userData)
 
   return (
-    <section className="text-white body-font bg-primary">
+    <section className="text-white body-font bg-primary section-height">
       <div className="flex items-center lg:w-3/5 mx-auto pb-10 mb-10 flex-col">
         <div className="sm:w-36 sm:h-36 h-24 w-24 mx-auto my-4 md:my-8 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0 overflow-hidden">
           <img src={avatar} alt="" />

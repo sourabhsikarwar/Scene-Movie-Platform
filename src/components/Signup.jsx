@@ -123,6 +123,7 @@ const Signup = () => {
               onChange={event => handleInputs(event)}
             />
           </div>
+          
           <div className="relative mb-4">
             <label
               htmlFor="confirmPassword"

@@ -42,7 +42,7 @@ const NavLinks = () => {
         <div key={link.id}>
           <div className="mx-3 text-left md:cursor-pointer group">
             <h1
-              className={`${location.pathname.startsWith('/category/movie') ? 'active' : ''} my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group`}
+              className={`${location.pathname.startsWith('/category/movie') ? 'active' : ''} my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group movies-link-cls`}
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading("");
                 setSubHeading("");
@@ -56,13 +56,13 @@ const NavLinks = () => {
                   }`}
                 ></ion-icon>
               </span>
-              <span className="text-xl md:mt-1 ml-2 md:block hidden group-hover:rotate-180 group-hover:-mt-2 duration-300">
+              <span className="text-xl md:mt-1.2 ml-2 md:flex hidden group-hover:rotate-180 duration-300">
                 <ion-icon name="chevron-down"></ion-icon>
               </span>
             </h1>
             {link.subMenu && (
               <div>
-                <div className="absolute top-[60px] hidden group-hover:md:block hover:md:block z-50">
+                <div className="absolute top-[60px] hidden group-hover:md:flex hover:md:block z-50">
                   <div className="bg-secondary p-8 grid grid-cols-3 gap-x-10 rounded-lg">
                     {link.genres.map((sLink) => (
                       <li
