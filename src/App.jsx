@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Favourites from "./components/Favourites";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
@@ -11,9 +11,13 @@ import Categories from "./pages/Categories";
 import { UserAuthContextProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound404 from "./pages/NotFound404";
-import YouTube from "react-youtube";
+import Favourite from "./components/Favourite";
 
 function App() {
+
+ 
+  
+
   return (
     <BrowserRouter>
       <UserAuthContextProvider>
@@ -23,7 +27,7 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <Home />
+                <Home/>
               </ProtectedRoute>
             }
           />
@@ -81,16 +85,17 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<NotFound404 />} />
-          {/* <Route
+          <Route
             exact
-            path="/search/:query"
+            path="/favourite"
             element={
               <ProtectedRoute>
-                <Search />
+              <Favourite/>
               </ProtectedRoute>
             }
-          /> */}
+          />
+          <Route path="*" element={<NotFound404 />} />
+          
         </Routes>
         <Footer />
       </UserAuthContextProvider>

@@ -29,7 +29,7 @@ const Avatar = () => {
           <Link to="/profile">
             <li className=" hover:text-white px-4 py-2 rounded">Your Profile</li>
           </Link>
-          <Link to="/profile">
+          <Link to="/favourite">
             <li className=" hover:text-white px-4 py-2 rounded">Favourites</li>
           </Link>
           <hr className="border-primary my-2" />
