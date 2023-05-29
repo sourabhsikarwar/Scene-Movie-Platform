@@ -12,17 +12,24 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="bg-primary font-poppins text-dimWhite h-[90px] px-4" style={{position:"sticky",top:0,zIndex:20}}>
+    <nav
+      className="bg-primary font-poppins text-dimWhite h-[90px] px-4"
+      style={{ position: "sticky", top: 0, zIndex: 20 }}
+    >
       <div
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
       >
         <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
-          <img src={Logo} alt="logo" className="md:cursor-pointer h-12 my-auto" />
+          <img
+            src={Logo}
+            alt="logo"
+            className="md:cursor-pointer h-12 my-auto"
+          />
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {user ? (
               <Avatar view="center" />
-              ) : (
-                <>
+            ) : (
+              <>
                 <Link to="/login" className="hover:text-white duration-200">
                   Login
                 </Link>
@@ -35,29 +42,47 @@ const Navbar = () => {
           <div
             className="text-3xl my-auto md:hidden"
             onClick={() => setOpen(!open)}
-            >
+          >
             <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
           </div>
         </div>
         <ul className="md:flex hidden items-center font-medium h-[90px] z-50">
           <li>
-            <Link to="/" className={`navLink ${location.pathname === '/' ? 'active' : ''}`} >
+            <Link
+              to="/"
+              className={`navLink ${location.pathname === "/" ? "active" : ""}`}
+            >
               Home
             </Link>
           </li>
           <li>
-            <Link to="/" className={`navLink ${location.pathname === '/about' ? 'active' : ''}`}>
+            <Link
+              to="/"
+              className={`navLink ${
+                location.pathname === "/about" ? "active" : ""
+              }`}
+            >
               About
             </Link>
           </li>
           <NavLink />
           <li>
-            <Link to="/" className={`navLink ${location.pathname === '/TvShows' ? 'active' : ''}`}>
+            <Link
+              to="/"
+              className={`navLink ${
+                location.pathname === "/TvShows" ? "active" : ""
+              }`}
+            >
               TV Shows
             </Link>
           </li>
           <li>
-            <Link to="/recommend" className={`navLink ${location.pathname === '/recommend' ? 'active' : ''}`}>
+            <Link
+              to="/recommend"
+              className={`navLink ${
+                location.pathname === "/recommend" ? "active" : ""
+              }`}
+            >
               For You
             </Link>
           </li>
@@ -86,20 +111,34 @@ const Navbar = () => {
           className={`md:hidden bg-primary absolute w-full top-[90px] z-50 py-5 pl-4 duration-500  ${
             open ? "left-0" : "left-[-100%]"
           }`}
+          style={{ zIndex: "1" }}
         >
           <li>
-            <Link to="/" className={`navLink ${location.pathname === '/' ? 'active' : ''}`}>
+            <Link
+              to="/"
+              className={`navLink ${location.pathname === "/" ? "active" : ""}`}
+            >
               Home
             </Link>
           </li>
           <NavLink />
           <li>
-            <Link to="/" className={`navLink ${location.pathname === '/TvShows' ? 'active' : ''}`}>
+            <Link
+              to="/"
+              className={`navLink ${
+                location.pathname === "/TvShows" ? "active" : ""
+              }`}
+            >
               TV Shows
             </Link>
           </li>
           <li>
-            <Link to="/recommend" className={`navLink ${location.pathname === '/recommend' ? 'active' : ''}`}>
+            <Link
+              to="/recommend"
+              className={`navLink ${
+                location.pathname === "/recommend" ? "active" : ""
+              }`}
+            >
               For You
             </Link>
           </li>
