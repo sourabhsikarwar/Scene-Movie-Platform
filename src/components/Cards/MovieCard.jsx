@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "../../style";
 import { Link } from "react-router-dom";
+import Star from "../../assets/image/star.png"
 
 const MovieCard = (props) => {
+  console.log(props);
   return (
     <Link to={"/movie/" + props.movie.title + "/" + props.movie.id}>
     <div className={`shadow flex my-4 p-3 group`} key={props.movie.id}>
@@ -21,9 +23,15 @@ const MovieCard = (props) => {
         </div>
         <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
           <p className="">{props.movie.title}</p>
-          <p className="text-dimWhite font-normal text-xs mt-2">
-            {props.movie.vote_average}/10
-          </p>
+          <div style={{display:"flex",marginTop:"10px"}}>
+            <img src={Star} alt="" width={20} style={{display:"block"}}/>
+            <p style={{}}>
+              {props.movie.vote_average.toFixed(1)}
+            </p>
+            <p style={{backgroundColor:"hsla(250, 6%, 20%, 1)",marginLeft:'auto'}}>
+              {props.movie.release_date.slice(0,4)}
+            </p>
+          </div>
         </div>
       </div>
     </div>
