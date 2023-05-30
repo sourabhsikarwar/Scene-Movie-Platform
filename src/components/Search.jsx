@@ -29,9 +29,9 @@ const Search = () => {
 
   return (
     <div className={`${styles.boxWidth} px-4 my-8`}>
-      <div className="flex gap-8 items-center">
+      <div className="flex md:gap-8 gap-4 w-full items-center">
         <h1 className="text-2xl text-white">Search: </h1>
-        <input type="search" placeholder="Search" onChange={e => setQuery(e.target.value)} className="rounded border-none ring-1 ring-blue-300 outline-none"/>
+        <input type="search" placeholder="Search" onChange={e => setQuery(e.target.value)} className="rounded border-none ring-1 ring-blue-300 outline-none w-auto"/>
       </div>
       {query && <div className={`${styles.boxWidth} my-8`}>
         <div
