@@ -15,14 +15,14 @@ const Footer = () => {
         </Link>
         <p className="text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
           © {new Date().getFullYear()} Scene —
-          <Link
-            to="#"
+          <a
+            href="https://www.github.com/sourabhsikarwar"
             className="text-gradient ml-1"
             rel="noopener noreferrer"
             target="_blank"
           >
             @sourabhsikarwar
-          </Link>
+          </a>
         </p>
         <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
           <Link className="text-dimWhite" to="#">
