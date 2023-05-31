@@ -72,6 +72,8 @@ const SavedShows = () => {
                     <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
                       {item?.title}
                     </p>
+
+                    <p onClick={()=> deleteShow(item.id)} className='absolute text-gray-300 top-4 right-4'><AiOutlineClose /></p>
                   
                   
                 </div>
