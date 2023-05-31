@@ -78,8 +78,13 @@ const Signup = () => {
     }
 
     try {
-     
-      signUp(data.email, data.password);
+      await addUserData(
+        data.displayName,
+        data.email,
+        data.phoneNumber,
+        data.dateOfBirth
+      );
+      await signUp(data.email, data.password);
       navigate("/login");
     } catch (err) {
       setError(err.message);
