@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useUserAuth } from "../../context/authContext";
 import { database } from "../../firebase/firebaseConfig";
-import { arrayUnion, doc, updateDoc, arrayRemove } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc} from "firebase/firestore";
 
 const MovieCard = (props) => {
   const { user } = useUserAuth();

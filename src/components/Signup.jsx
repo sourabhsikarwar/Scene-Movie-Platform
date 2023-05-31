@@ -78,13 +78,8 @@ const Signup = () => {
     }
 
     try {
-      await addUserData(
-        data.displayName,
-        data.email,
-        data.phoneNumber,
-        data.dateOfBirth
-      );
-      await signUp(data.email, data.password);
+     
+      signUp(data.email, data.password);
       navigate("/login");
     } catch (err) {
       setError(err.message);

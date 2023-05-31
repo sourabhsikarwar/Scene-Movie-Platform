@@ -46,43 +46,35 @@ const SavedShows = () => {
           className='bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block'
           size={40}
         />
-        {movies.length === 0 ? (
-          <div className="w-full h-full flex justify-center items-center">
-            <p className="text-white text-xl mb-4">No favourite movies</p>
-          </div>
-        ) : (
-          <div
-            ref={sliderRef}
-            className='w-full h-full overflow-x-hidden whitespace-nowrap relative'
-          >
+        <div
+          ref={sliderRef}
+          className='w-full h-full overflow-x-hidden whitespace-nowrap relative'
+        >
+          {movies.map((item) => (
             
-            {movies.map((item) => (
-              <Link to={'/movie/' + item.title + '/' + item.id}>
-              <div
-                key={item.id}
-                className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'
-              >
-                <img
-                  className='w-full h-auto block'
-                  src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
-                  alt={item?.title}
-                />
-                <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
-                  
-                    <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
-                      {item?.title}
-                    </p>
-
-                    <p onClick={()=> deleteShow(item.id)} className='absolute text-gray-300 top-4 right-4'><AiOutlineClose /></p>
-                  
-                  
-                </div>
+            <div
+              key={item.id}
+              className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'
+            >
+              <img
+                className='w-full h-auto block'
+                src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
+                alt={item?.title}
+              />
+              <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
+              <Link to = {"/movie/" + item.title + "/" + item.id}>
+                <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
+                  {item?.title}
+                </p>
+                </Link>
+                <p onClick={() => deleteShow(item.id)} className='absolute text-gray-300 top-4 right-4'>
+                  <AiOutlineClose />
+                </p>
               </div>
-              </Link>
-            ))}
-            
-          </div>
-        )}
+            </div>
+           
+          ))}
+        </div>
         <MdChevronRight
           onClick={slideRight}
           className='bg-white right-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block'
