@@ -19,7 +19,7 @@ const styles = {
   Card: "h-[210px] md:h-[210px] w-[300px] md:w-[300px] hover:scale-105",
 
   button1: "bg-blue-gradient border-0 text-black px-6 py-3 rounded shadow",
-  button2: "bg-blue-gradient border-0 text-black px-2 py-2  rounded shadow",
+  button2: "bg-blue-gradient border-0 text-black px-2 py-2 rounded shadow",
 
   paddingX: "sm:px-16 px-6",
   paddingY: "sm:py-16 py-6",
