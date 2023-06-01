@@ -15,7 +15,7 @@ const Similiar = (props) => {
     setInitialLoading(true)
     await axios
       .get(
-        `https://api.themoviedb.org/3/${props.title}/${props.id}/similar?api_key=8b5c3c363ada1d580fa0248172192b63 &language=en-US&page=1`
+        `https://api.themoviedb.org/3/${props.title}/${props.id}/similar?api_key=${apiKey}&language=en-US&page=1`
       )
       .then((res) => {
         if (res.status === 200) {
