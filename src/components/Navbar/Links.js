@@ -48,6 +48,10 @@ export const Links = [
         name: "Horror",
       },
       {
+         id: 10402,
+        name: "Music",
+      },
+      {
         id: 9648,
         name: "Mystery",
       },
@@ -57,11 +61,16 @@ export const Links = [
       },
       {
         id: 878,
-        name: "Science Fiction",
+        name: "Sci-fi",
       },
       {
         id: 53,
         name: "Thriller",
+      },
+      {
+        id: 10752,
+        name: "War",
+      
       },
       {
         id: 37,
