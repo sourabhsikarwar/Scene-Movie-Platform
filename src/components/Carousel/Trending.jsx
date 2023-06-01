@@ -1,7 +1,7 @@
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
 import axios from 'axios'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Oval } from 'react-loader-spinner'
 import styles from '../../style'

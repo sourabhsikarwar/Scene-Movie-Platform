@@ -1,7 +1,7 @@
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
 import axios from 'axios'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../../style'
 import MovieCard from '../Cards/MovieCard'
 import { Oval } from 'react-loader-spinner'
@@ -10,7 +10,7 @@ const Similiar = (props) => {
   const apiKey = process.env.REACT_APP_API_KEY
   const [initialLoading, setInitialLoading] = useState(true)
   const [data, setData] = useState([])
-  const isMounted = useRef(true)
+
   const upload = async () => {
     setInitialLoading(true)
     await axios
@@ -28,14 +28,9 @@ const Similiar = (props) => {
       })
   }
 
-  useEffect(function () {
-    if (isMounted.current) {
-      upload()
-    }
-    return () => {
-      isMounted.current = false
-    }
-  })
+  useEffect(() => {
+    upload()
+  }, [])
 
   return (
     <>
