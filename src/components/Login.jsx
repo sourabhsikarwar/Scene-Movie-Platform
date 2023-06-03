@@ -42,6 +42,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const validationErrors = validateInputs();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -57,6 +58,12 @@ const Login = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
   const handleReset = async (e) => {
     e.preventDefault();
     try {
@@ -67,7 +74,9 @@ const Login = () => {
   };
 
   const passwordToggle = () => {
-    setPasswordType((prevType) => (prevType === "password" ? "text" : "password"));
+    setPasswordType((prevType) =>
+      prevType === "password" ? "text" : "password"
+    );
   };
 
   return (
@@ -99,6 +108,7 @@ const Login = () => {
                 errors.email ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
               onChange={handleInputs}
+              onKeyDown={handleKeyDown}
             />
             {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
@@ -115,14 +125,22 @@ const Login = () => {
                 errors.password ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
               onChange={handleInputs}
+              onKeyDown={handleKeyDown}
             />
             <button
               onClick={passwordToggle}
               className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"
             >
-              <img height={30} width={30} src={passwordType === "password" ? hide : show} alt="Toggle password visibility" />
+              <img
+                height={30}
+                width={30}
+                src={passwordType === "password" ? hide : show}
+                alt="Toggle password visibility"
+              />
             </button>
-            {errors.password && <p className="text-red-500">{errors.password}</p>}
+            {errors.password && (
+              <p className="text-red-500">{errors.password}</p>
+            )}
           </div>
           <button
             className="text-black bg-blue-gradient mt-2 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"

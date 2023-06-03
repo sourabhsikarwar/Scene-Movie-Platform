@@ -90,7 +90,12 @@ const Signup = () => {
       setError(err.message);
     }
   };
-
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
   return (
     <section
       className="text-gray-600 body-font"
@@ -116,6 +121,7 @@ const Signup = () => {
                 errors.displayName ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
+              onKeyDown={handleKeyDown}
             />
             {errors.displayName && (
               <p className="text-red-500">{errors.displayName}</p>
@@ -133,11 +139,15 @@ const Signup = () => {
                 errors.email ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
+              onKeyDown={handleKeyDown}
             />
             {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
           <div className="relative mb-4">
-            <label htmlFor="contact-no" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="contact-no"
+              className="leading-8 text-sm text-white"
+            >
               Contact No.
             </label>
             <input
@@ -148,13 +158,17 @@ const Signup = () => {
                 errors.phoneNumber ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
+              onKeyDown={handleKeyDown}
             />
             {errors.phoneNumber && (
               <p className="text-red-500">{errors.phoneNumber}</p>
             )}
           </div>
           <div className="relative mb-4">
-            <label htmlFor="date-of-birth" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="date-of-birth"
+              className="leading-8 text-sm text-white"
+            >
               Date Of Birth
             </label>
             <input
@@ -165,6 +179,7 @@ const Signup = () => {
                 errors.dateOfBirth ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
+              onKeyDown={handleKeyDown}
             />
             {errors.dateOfBirth && (
               <p className="text-red-500">{errors.dateOfBirth}</p>
@@ -182,13 +197,17 @@ const Signup = () => {
                 errors.password ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
+              onKeyDown={handleKeyDown}
             />
             {errors.password && (
               <p className="text-red-500">{errors.password}</p>
             )}
           </div>
           <div className="relative mb-4">
-            <label htmlFor="confirm-password" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="confirm-password"
+              className="leading-8 text-sm text-white"
+            >
               Confirm Password
             </label>
             <input
@@ -199,6 +218,7 @@ const Signup = () => {
                 errors.confirmPassword ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
+              onKeyDown={handleKeyDown}
             />
             {errors.confirmPassword && (
               <p className="text-red-500">{errors.confirmPassword}</p>
