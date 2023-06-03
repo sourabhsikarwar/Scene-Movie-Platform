@@ -4,54 +4,30 @@ import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useUserAuth } from "../../context/authContext";
 import { database } from "../../firebase/firebaseConfig";
-import { arrayUnion, doc, updateDoc, arrayRemove } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc} from "firebase/firestore";
 
 const MovieCard = (props) => {
   const { user } = useUserAuth();
   const [like, setLike] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const movieID = doc(database, "users", `${user?.email}`);
 
   const saveShow = async () => {
     if (user?.email) {
-      setLike((prevLike) => !prevLike); // Toggle the like state
-      if (like) {
-        // Unlike: Remove the show from savedShows array
-        await updateDoc(movieID, {
-          savedShows: arrayRemove({
-            id: props.movie.id,
-            title: props.movie.title,
-            img: props.movie.backdrop_path,
-          }),
-        });
-      } else {
-        // Like: Add the show to savedShows array
-        await updateDoc(movieID, {
-          savedShows: arrayUnion({
-            id: props.movie.id,
-            title: props.movie.title,
-            img: props.movie.backdrop_path,
-          }),
-        });
-      }
+      setLike(!like);
+      setSaved(true);
+      await updateDoc(movieID, {
+        savedShows: arrayUnion({
+          id: props.movie.id,
+          title: props.movie.title,
+          img: props.movie.backdrop_path,
+        }),
+      });
     } else {
-      alert("Please log in to save a movie");
+      alert('Please log in to save a movie');
     }
   };
-
-  useEffect(() => {
-    // Retrieve like state from local storage
-    const savedLike = localStorage.getItem(`like_${props.movie.id}`);
-    if (savedLike) {
-      setLike(JSON.parse(savedLike));
-    }
-  }, [props.movie.id]);
-
-  useEffect(() => {
-    // Save like state to local storage whenever it changes
-    localStorage.setItem(`like_${props.movie.id}`, JSON.stringify(like));
-  }, [props.movie.id, like]);
-
   return (
     <div className={`shadow flex my-4 p-3 group`} key={props.movie.id}>
       <div
