@@ -8,22 +8,29 @@ import {
 } from "firebase/auth";
 import { auth, database } from "../firebase/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
-import {setDoc,doc} from "firebase/firestore"
+import { setDoc, doc } from "firebase/firestore";
 
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState("");
   const [userData, setUserData] = useState({
-    name:"",
-    email:"",
-    contact:"",
-    Dob:"",
-  })
+    name: "",
+    email: "",
+    contact: "",
+    Dob: "",
+  });
+  const [loading, setLoading] = useState(true);
   const dbInstance = collection(database, "users");
 
-  function addUserData(userName, userEmail, phoneNumber, dateOfBirth){
-    setUserData({ ...user, name: userName, email: userEmail, contact: phoneNumber, Dob: dateOfBirth})
+  function addUserData(userName, userEmail, phoneNumber, dateOfBirth) {
+    setUserData({
+      ...user,
+      name: userName,
+      email: userEmail,
+      contact: phoneNumber,
+      Dob: dateOfBirth,
+    });
     addDoc(dbInstance, userData)
       .then(() => {
         alert("Data Sent Successfully");
@@ -31,14 +38,13 @@ export function UserAuthContextProvider({ children }) {
       .catch((err) => {
         alert(err.message);
       });
-  };
+  }
 
   function signUp(email, password) {
     createUserWithEmailAndPassword(auth, email, password);
-    setDoc(doc(database, 'users', email), {
-      savedShows: []
-    })
-  
+    setDoc(doc(database, "users", email), {
+      savedShows: [],
+    });
   }
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
@@ -46,21 +52,38 @@ export function UserAuthContextProvider({ children }) {
   function logout() {
     return signOut(auth);
   }
-  function passwordReset(email){
-    return sendPasswordResetEmail(auth, email)
+  function passwordReset(email) {
+    return sendPasswordResetEmail(auth, email);
   }
 
   useEffect(() => {
+    setLoading(true);
     const unsubScribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-    })
+      setUser(currentUser);
+      setLoading(false);
+    });
+
     return () => {
-        unsubScribe();
-    }
-  }, [])
+      unsubScribe();
+    };
+  }, []);
 
   return (
-    <userAuthContext.Provider value={{user, signUp, login, logout, passwordReset, addUserData, userData}}> {children} </userAuthContext.Provider>
+    <userAuthContext.Provider
+      value={{
+        user,
+        signUp,
+        login,
+        logout,
+        passwordReset,
+        addUserData,
+        userData,
+        loading,
+      }}
+    >
+      {" "}
+      {children}{" "}
+    </userAuthContext.Provider>
   );
 }
 
