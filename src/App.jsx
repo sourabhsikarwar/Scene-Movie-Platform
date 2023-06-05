@@ -7,6 +7,7 @@ import Signup from "./components/Signup";
 import Profile from "./components/Profile";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
+import Feedback from "./components/Feedback/Feedback";
 import Categories from "./pages/Categories";
 import { UserAuthContextProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -51,6 +52,15 @@ function App() {
             element={
               <>
                 <Login />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/feedback"
+            element={
+              <>
+                <Feedback />
               </>
             }
           />
