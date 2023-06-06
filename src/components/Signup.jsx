@@ -3,8 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/image/bg2.jpg";
 import styles from "../style";
 import { useUserAuth } from "../context/authContext";
+import show from "../assets/image/show.png";
+import hide from "../assets/image/hide.png";
 
 const Signup = () => {
+  const [passwordType, setPasswordType] = useState("password");
+  const [showPassword, setShowPassword] = useState("password");
+
   const [data, setData] = useState({
     displayName: "",
     email: "",
@@ -95,6 +100,14 @@ const Signup = () => {
       e.preventDefault();
       handleSubmit(e);
     }
+  };
+  const passwordToggle = () => {
+    setPasswordType((prevType) =>
+      prevType === "password" ? "text" : "password"
+    );
+  };
+  const passwordVisibility = () => {
+    setShowPassword((type) => (type === "password" ? "text" : "password"));
   };
   return (
     <section
@@ -190,7 +203,7 @@ const Signup = () => {
               Password
             </label>
             <input
-              type="password"
+              type={showPassword}
               id="password"
               name="password"
               className={`w-full bg-white rounded border ${
@@ -202,6 +215,17 @@ const Signup = () => {
             {errors.password && (
               <p className="text-red-500">{errors.password}</p>
             )}
+            <button
+              onClick={passwordVisibility}
+              className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"
+            >
+              <img
+                height={30}
+                width={30}
+                src={showPassword === "password" ? hide : show}
+                alt="Toggle password visibility"
+              />
+            </button>
           </div>
           <div className="relative mb-4">
             <label
@@ -211,7 +235,7 @@ const Signup = () => {
               Confirm Password
             </label>
             <input
-              type="password"
+              type={passwordType}
               id="confirm-password"
               name="confirmPassword"
               className={`w-full bg-white rounded border ${
@@ -223,6 +247,17 @@ const Signup = () => {
             {errors.confirmPassword && (
               <p className="text-red-500">{errors.confirmPassword}</p>
             )}
+            <button
+              onClick={passwordToggle}
+              className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"
+            >
+              <img
+                height={30}
+                width={30}
+                src={passwordType === "password" ? hide : show}
+                alt="Toggle password visibility"
+              />
+            </button>
           </div>
           <button className={`${styles.button1} my-2`} onClick={handleSubmit}>
             Sign Up
