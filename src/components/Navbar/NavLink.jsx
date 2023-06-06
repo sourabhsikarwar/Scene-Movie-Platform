@@ -30,7 +30,7 @@ const NavLinks = () => {
   return (
     <>
       {Links.map((link) => (
-        <div key={link.id}>
+        <div key={link.name}>
           <div className='mx-3 text-left md:cursor-pointer group'>
             <h1
               className={`${
