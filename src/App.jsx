@@ -14,10 +14,6 @@ import NotFound404 from "./pages/NotFound404";
 import Favourite from "./components/Favourite";
 
 function App() {
-
- 
-  
-
   return (
     <BrowserRouter>
       <UserAuthContextProvider>
@@ -27,7 +23,7 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <Home/>
+                <Home />
               </ProtectedRoute>
             }
           />
@@ -90,12 +86,14 @@ function App() {
             path="/favourite"
             element={
               <ProtectedRoute>
-              <Favourite/>
+                <Favourite />
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<NotFound404 />} />
-          
+          <Route
+            path="*"
+            element={<NotFound404 />}
+          />
         </Routes>
         <Footer />
       </UserAuthContextProvider>

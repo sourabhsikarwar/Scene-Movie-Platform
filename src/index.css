@@ -34,7 +34,7 @@ body::-webkit-scrollbar-track {
   background: var(--scrollbarBG);
 }
 body::-webkit-scrollbar-thumb {
-  background-color: var(--thumbBG) ;
+  background-color: var(--thumbBG);
   border-radius: 6px;
   border: 3px solid var(--scrollbarBG);
 }
@@ -225,13 +225,13 @@ input:-webkit-autofill:active {
 }
 
 /* Navbar css starts */
-.navLink{
+.navLink {
   @apply my-7 mx-5 inline-block border-slate-200 duration-75 hover:text-slate-200 md:hover:border-b-2;
 }
-.active{
+.active {
   @apply md:border-slate-200 text-slate-200 border-b-2;
 }
-.navDropdown{
+.navDropdown {
   @apply border-slate-200 duration-75 group-hover:text-slate-200 group-hover:border-b-2;
 }
 /* Navbar css ends */
@@ -256,5 +256,12 @@ input:-webkit-autofill:active {
   }
   .error-container h3 {
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .youtube iframe {
+    width: 100% !important;
+    height: 100% !important;
   }
 }
