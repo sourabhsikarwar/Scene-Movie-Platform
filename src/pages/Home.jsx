@@ -42,9 +42,7 @@ const Home = () => {
           {genreMovie &&
             genreMovie.map((item) => {
               return (
-                <>
                   <Trending title={item.name} id={item.id} key={item.id} />
-                </>
               )
             })}
         </div>

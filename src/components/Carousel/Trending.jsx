@@ -80,8 +80,8 @@ const Trending = (props) => {
           >
             {Movies.map((movie) => {
               return (
-                <SplideSlide>
-                  <MovieCard movie={movie} key={movie.id} />
+                <SplideSlide key={movie.id}>
+                  <MovieCard movie={movie}  />
                 </SplideSlide>
               )
             })}
