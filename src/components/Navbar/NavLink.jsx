@@ -1,36 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Links } from './Links'
-import axios from 'axios'
 
 const NavLinks = () => {
-  const apiKey = process.env.REACT_APP_API_KEY
   const [heading, setHeading] = useState('')
-  const [subHeading, setSubHeading] = useState('')
   const location = useLocation()
-
-  // const [movie, setMovie] = useState('')
-
-  // const upload = async () => {
-  //   await axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
-  //     )
-  //     .then((res) => {
-  //       // setMovie(res.data.results)
-  //     })
-  //     .catch((e) => {
-  //       console.log(e)
-  //     })
-  // }
-  // useEffect(() => {
-  //   // upload()
-  // }, [])
 
   return (
     <>
       {Links.map((link) => (
-        <div key={link.id}>
+        <div key={link.name}>
           <div className='mx-3 text-left md:cursor-pointer group'>
             <h1
               className={`${
@@ -38,7 +17,6 @@ const NavLinks = () => {
               } my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group`}
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading('')
-                setSubHeading('')
               }}
             >
               {link.name}
