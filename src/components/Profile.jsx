@@ -47,7 +47,7 @@ const Profile = () => {
           </div>
           <div className="flex md:flex-row flex-col mx-5  gap-5">
               <h2 className="text-lg text-white font-poppins">Date of Birth :</h2>
-              {userData?.Dob ? (<h2 className="text-lg font-poppins body-font">{userData.name}</h2>) : (<h2 className="text-lg font-poppins body-font">DD/MM/YY</h2>)}
+              {userData?.Dob ? (<h2 className="text-lg font-poppins body-font">{userData.Dob}</h2>) : (<h2 className="text-lg font-poppins body-font">DD/MM/YY</h2>)}
           </div>
         
         </div>

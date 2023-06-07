@@ -8,6 +8,7 @@ import hide from "../assets/image/hide.png";
 
 const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
+  
   const [data, setData] = useState({
     email: "",
     password: "",
