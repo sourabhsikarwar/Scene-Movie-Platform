@@ -22,7 +22,9 @@ function Movies(props) {
   }
   useEffect(() => {
     upload()
-  }, [page])
+
+    //use params as condition so that when content changes it can show category wise movies
+  }, [page, params]) 
 
   const upload = async () => {
     setInitialLoading(true)
@@ -31,6 +33,7 @@ function Movies(props) {
     if (params.title === 'Trending') {
       url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=${page}`
     }
+
     await axios
       .get(url)
       .then((res) => {
