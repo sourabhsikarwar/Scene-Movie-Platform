@@ -23,7 +23,7 @@ const Navbar = () => {
           <img
             src={Logo}
             alt="logo"
-            className="md:cursor-pointer h-12 my-auto"
+            className="md:cursor-pointer h-12 my-auto" loading='lazy'
           />
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {user ? (

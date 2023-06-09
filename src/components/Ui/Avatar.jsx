@@ -19,7 +19,7 @@ const Avatar = () => {
       <img
         src={avatar}
         alt="avatar"
-        className="w-[40px] h-[40px] rounded-full object-cover"
+        className="w-[40px] h-[40px] rounded-full object-cover" loading='lazy'
       />
 
       <div className="absolute top-15 right-[4px] hidden group-hover:block hover:block ease-in w-[160px]">
