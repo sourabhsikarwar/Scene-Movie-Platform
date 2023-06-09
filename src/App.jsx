@@ -12,11 +12,14 @@ import { UserAuthContextProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound404 from "./pages/NotFound404";
 import Favourite from "./components/Favourite";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <BrowserRouter>
       <UserAuthContextProvider>
+        <ToastContainer/>
         <Navbar />
         <Routes>
           <Route
