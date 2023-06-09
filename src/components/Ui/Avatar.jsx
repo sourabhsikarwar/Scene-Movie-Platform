@@ -18,7 +18,7 @@ const Avatar = () => {
     <div className="relative group">
       <img
         src={avatar}
-        alt="avatar"
+        alt="profile pic"
         className="w-[40px] h-[40px] rounded-full object-cover"
       />
 
