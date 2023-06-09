@@ -17,7 +17,7 @@ const Navbar = () => {
       style={{ position: "sticky", top: 0, zIndex: 20 }}
     >
       <div
-        className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
+        className={`${styles.boxWidth} flex md:flex-row max-h-20 flex-col items-center font-normal justify-between`}
       >
         <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
           <img
