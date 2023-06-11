@@ -30,7 +30,10 @@ const Navbar = () => {
               <Avatar view="center" />
             ) : (
               <>
-                <Link to="/login" className="hover:text-white duration-200">
+                <Link
+                  to="/login"
+                  className="hover:text-white duration-200"
+                >
                   Login
                 </Link>
                 <Link to="/signup">
@@ -95,7 +98,10 @@ const Navbar = () => {
             <Avatar view="end" />
           ) : (
             <>
-              <Link to="/login" className="hover:text-white duration-200">
+              <Link
+                to="/login"
+                className="hover:text-white duration-200"
+              >
                 Login
               </Link>
               <Link to="/signup">

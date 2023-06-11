@@ -5,7 +5,7 @@ import { Links } from './Links'
 const NavLinks = () => {
   const [heading, setHeading] = useState('')
   const location = useLocation()
-
+  
   return (
     <>
       {Links.map((link) => (
@@ -13,40 +13,40 @@ const NavLinks = () => {
           <div className='mx-3 text-left md:cursor-pointer group'>
             <h1
               className={`${
-                location.pathname.startsWith('/category/movie') ? 'active' : ''
+                location.pathname.startsWith("/category/movie") ? "active" : ""
               } my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group`}
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading('')
               }}
             >
               {link.name}
-              <span className='text-xl md:mt-1 ml-2 inline md:hidden'>
+              <span className="text-xl md:mt-1 ml-2 inline md:hidden">
                 <ion-icon
                   name={`${
-                    heading === link.name ? 'chevron-up' : 'chevron-down'
+                    heading === link.name ? "chevron-up" : "chevron-down"
                   }`}
                 ></ion-icon>
               </span>
-              <span className='text-xl md:mt-1 ml-2 md:block hidden group-hover:rotate-180 group-hover:-mt-2 duration-300'>
-                <ion-icon name='chevron-down'></ion-icon>
+              <span className="text-xl md:mt-1 ml-2 md:block hidden group-hover:rotate-180 group-hover:-mt-2 duration-300">
+                <ion-icon name="chevron-down"></ion-icon>
               </span>
             </h1>
             {link.subMenu && (
               <div>
-                <div className='absolute top-[60px] hidden group-hover:md:block hover:md:block z-50'>
-                  <div className='bg-secondary p-8 grid grid-cols-3 gap-x-10 rounded-lg'>
+                <div className="absolute top-[60px] hidden group-hover:md:block hover:md:block z-50">
+                  <div className="bg-secondary p-8 grid grid-cols-3 gap-x-10 rounded-lg">
                     {link.genres.map((sLink) => (
                       <li
                         key={sLink.id}
-                        className='text-sm text-gray-300 font-light my-2.5'
+                        className="text-sm text-gray-300 font-light my-2.5"
                       >
                         <Link
                           to={
-                            link.name === 'Movies'
+                            link.name === "Movies"
                               ? `/category/movie/${sLink.name}/${sLink.id}`
                               : `/category/movie/${sLink.name}/${sLink.id}`
                           }
-                          className='hover:text-white'
+                          className="hover:text-white"
                         >
                           {sLink.name}
                         </Link>
@@ -62,12 +62,15 @@ const NavLinks = () => {
 
           <div
             className={`navDropdown ${
-              heading === link.name ? 'md:hidden' : 'hidden'
+              heading === link.name ? "md:hidden" : "hidden"
             }`}
           >
-            <div className='grid grid-cols-2'>
+            <div className="grid grid-cols-2">
               {link.genres.map((sLinks) => (
-                <li className='py-3 pl-7 font-light' key={sLinks.id}>
+                <li
+                  className="py-3 pl-7 font-light"
+                  key={sLinks.id}
+                >
                   <Link to={sLinks.id}>{sLinks.name}</Link>
                 </li>
               ))}
@@ -76,7 +79,7 @@ const NavLinks = () => {
         </div>
       ))}
     </>
-  )
-}
+  );
+};
 
-export default NavLinks
+export default NavLinks;

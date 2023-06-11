@@ -32,7 +32,7 @@ const MovieCard = (props) => {
     <div className={`shadow flex my-4 p-3 group`} key={props.movie.id}>
       <div
         className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
-        alt="poster"
+        alt="movie poster"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${props.movie.poster_path}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
           backgroundSize: "cover",
