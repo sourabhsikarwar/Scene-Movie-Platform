@@ -223,7 +223,7 @@ const Signup = () => {
                 height={30}
                 width={30}
                 src={showPassword === "password" ? hide : show}
-                alt="Toggle password visibility"
+                alt="Toggle password visibility" loading='lazy'
               />
             </button>
           </div>
@@ -255,7 +255,7 @@ const Signup = () => {
                 height={30}
                 width={30}
                 src={passwordType === "password" ? hide : show}
-                alt="Toggle password visibility"
+                alt="Toggle password visibility" loading='lazy'
               />
             </button>
           </div>

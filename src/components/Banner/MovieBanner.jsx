@@ -69,7 +69,7 @@ const MovieBanner = (props) => {
                 <img
                   alt={`${Movies.poster_path}`}
                   className="w-full h-full object-cover object-center rounded"
-                  src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`}
+                  src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`} loading='lazy'
                 />
               </div>
               <div className="lg:py-0 items-center mx-auto">
