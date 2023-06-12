@@ -58,8 +58,8 @@ const Signup = () => {
     // Validate Password
     if (!data.password.trim()) {
       errors.password = "Password is required";
-    } else if (data.password.length < 6) {
-      errors.password = "Password should be at least 6 characters long";
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,20}$/.test(data.password)){
+      errors.password = "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and between 8-20 characters long";
     }
 
     // Validate Confirm Password
