@@ -96,6 +96,7 @@ const Signup = () => {
       setError(err.message);
     }
   };
+  
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
