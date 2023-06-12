@@ -11,7 +11,7 @@ const Footer = () => {
           className="flex title-font font-medium items-center md:justify-start justify-center"
           to="/"
         >
-          <img src={logo} className="w-32" alt="logo" />
+          <img src={logo} className="w-32" alt="logo" loading='lazy'/>
         </Link>
         <p className="text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
           © {new Date().getFullYear()} Scene —
