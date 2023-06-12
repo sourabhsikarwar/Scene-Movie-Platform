@@ -159,7 +159,7 @@ const Login = () => {
                 OR
               </p>
             </div>
-           <OAuth/>
+           <OAuth/> {/* Continue with google feature */}
 
           <div className="flex justify-between">
             <p className="leading-8 text-xs text-white">

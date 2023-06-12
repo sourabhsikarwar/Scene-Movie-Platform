@@ -8,8 +8,7 @@ import { useNavigate } from 'react-router-dom';
  function OAuth() {
 
     const navigate=useNavigate();
-    async function onGoogleClick(){
-        
+    async function onGoogleClick(){     
         try {
             const auth= getAuth();
             const provider=new GoogleAuthProvider();
@@ -21,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
             const docRef= doc(database,"users",user.uid)
             const docSnap= await getDoc(docRef)
 
-
+            //If user does not exist, add the user to dataDase
             if(!docSnap.exists()){
                 await setDoc(docRef,{
                     name:user.displayName,
@@ -30,6 +29,8 @@ import { useNavigate } from 'react-router-dom';
                 })
             }
 
+ 
+            //Navigate to home page 
             navigate("/");
 
         } catch (error) {
