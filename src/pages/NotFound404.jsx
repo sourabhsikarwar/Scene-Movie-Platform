@@ -4,7 +4,7 @@ import Notfound from "../assets/image/notfound.png";
 const NotFound404 = () => {
   return (
     <div className="error-container">
-      <img className="ops" src={Notfound} alt="404 Not Found" />
+      <img className="ops" src={Notfound} alt="404 Not Found" loading='lazy'/>
       <br />
       <h3 className="text-gradient font-poppins font-medium md:text-[24px] text-[24px] text-white leading-relaxed mb-4">
         Opps! Page not found

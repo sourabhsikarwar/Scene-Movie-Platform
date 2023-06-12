@@ -1,23 +1,35 @@
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Favourites from "./components/Favourites";
-import Login from "./components/Login";
 import Footer from "./components/Footer";
-import Signup from "./components/Signup";
-import Profile from "./components/Profile";
-import Home from "./pages/Home";
-import Movie from "./pages/Movie";
-import Categories from "./pages/Categories";
 import { UserAuthContextProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import NotFound404 from "./pages/NotFound404";
-import Favourite from "./components/Favourite";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {lazy,Suspense} from 'react';
+import { Oval } from 'react-loader-spinner';
+
+const Login=lazy(()=>import('./components/Login'));
+const Signup=lazy(()=>import('./components/Signup'));
+const Profile=lazy(()=>import('./components/Profile'));
+const Home=lazy(()=>import('./pages/Home'));
+const Movie=lazy(()=>import('./pages/Movie'));
+const Categories=lazy(()=>import('./pages/Categories'));
+const NotFound404=lazy(()=>import('./pages/NotFound404'));
+const Favourite=lazy(()=>import('./components/Favourite'));
+const Favourites=lazy(()=>import('./components/Favourites'));
 
 function App() {
   return (
     <BrowserRouter>
+    <Suspense fallback={<div className='flex justify-center items-center h-screen my-8'>
+          <Oval
+            height='50'
+            width='50'
+            color='grey'
+            secondaryColor='grey'
+            ariaLabel='loading'
+          />
+        </div>}>
       <UserAuthContextProvider>
         <ToastContainer/>
         <Navbar />
@@ -100,6 +112,7 @@ function App() {
         </Routes>
         <Footer />
       </UserAuthContextProvider>
+    </Suspense>
     </BrowserRouter>
   );
 }

@@ -32,7 +32,7 @@ const Profile = () => {
         <div className="md:items-center justify-center flex ">
           {/* Avtr */}
           <div className="sm:w-[250px] sm:h-[250px] h-[200px] w-[200px]  my-4 md:my-8 inline-flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-500 flex-shrink-0 overflow-hidden hover:scale-105 transition-transform ">
-            <img src={avatar} alt="profile pic" />
+            <img src={avatar} alt="profile pic" loading='lazy'/>
           </div>
         </div>
         <div className="text-gray-400 font-medium md:w-full h-full gap-5 flex flex-col justify-center ">

@@ -20,7 +20,7 @@ const MovieCard = (props) => {
           <div className="w-full opacity-90 text-white text-md font-medium mt-2">
             <p>{props.movie.title}</p>
             <div style={{display:"flex",marginTop:"10px"}}>
-              <img src={Star} alt="favorite star" width={20} style={{display:"block"}}/>
+              <img src={Star} alt="favorite star" width={20} style={{display:"block"}} loading='lazy'/>
               <p style={{}}>
                 {props.movie.vote_average.toFixed(1)}
               </p>
