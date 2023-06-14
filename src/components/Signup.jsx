@@ -91,7 +91,9 @@ const Signup = () => {
         data.dateOfBirth
       );
       await signUp(data.email, data.password);
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (err) {
       setError(err.message);
     }
@@ -137,7 +139,10 @@ const Signup = () => {
           </div>
           {error && <p className="text-red-500">{error}</p>}
           <div className="relative mb-4">
-            <label htmlFor="full-name" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="full-name"
+              className="leading-8 text-sm text-white"
+            >
               Full Name
             </label>
             <input
@@ -155,7 +160,10 @@ const Signup = () => {
             )}
           </div>
           <div className="relative mb-4">
-            <label htmlFor="email" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="email"
+              className="leading-8 text-sm text-white"
+            >
               Email
             </label>
             <input
@@ -213,7 +221,10 @@ const Signup = () => {
             )}
           </div>
           <div className="relative mb-4">
-            <label htmlFor="password" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="password"
+              className="leading-8 text-sm text-white"
+            >
               Password
             </label>
             <input
@@ -237,7 +248,8 @@ const Signup = () => {
                 height={30}
                 width={30}
                 src={showPassword === "password" ? hide : show}
-                alt="Toggle password visibility" loading='lazy'
+                alt="Toggle password visibility"
+                loading="lazy"
               />
             </button>
           </div>
@@ -269,16 +281,23 @@ const Signup = () => {
                 height={30}
                 width={30}
                 src={passwordType === "password" ? hide : show}
-                alt="Toggle password visibility" loading='lazy'
+                alt="Toggle password visibility"
+                loading="lazy"
               />
             </button>
           </div>
-          <button className={`${styles.button1} my-2`} onClick={handleSubmit}>
+          <button
+            className={`${styles.button1} my-2`}
+            onClick={handleSubmit}
+          >
             Sign Up
           </button>
           <p className="leading-8 text-xs text-white">
             Already a member? Try{" "}
-            <Link to="/login" className="text-gradient">
+            <Link
+              to="/login"
+              className="text-gradient"
+            >
               Login
             </Link>
           </p>
