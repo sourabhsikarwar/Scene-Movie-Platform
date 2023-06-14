@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/image/bg2.jpg";
 import styles from "../style";
 import { useUserAuth } from "../context/authContext";
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import show from "../assets/image/show.png";
 import hide from "../assets/image/hide.png";
 import OAuth from "./OAuth";
@@ -47,7 +49,7 @@ const Signup = () => {
     // Validate Contact No.
     if (!data.phoneNumber.trim()) {
       errors.phoneNumber = "Contact No. is required";
-    } else if (!/^\d{10}$/.test(data.phoneNumber)) {
+    } else if (!/^\d{13}$/.test(data.phoneNumber)) {
       errors.phoneNumber = "Invalid phone number";
     }
 
@@ -185,15 +187,19 @@ const Signup = () => {
             >
               Contact No.
             </label>
-            <input
-              type="tel"
+            <PhoneInput 
               id="contact-no"
               name="phoneNumber"
+              country="in"
+              onChange={(value) => setData({ ...data, phoneNumber: value })}
+              onKeyDown={handleKeyDown}
+              countryCodeEditable={false}
+              inputClass="focus:ring-0"
+              inputStyle={{ border: "0px"}}
+              containerClass="border-none outline-none focus:ring-0"
               className={`w-full bg-white rounded border ${
                 errors.phoneNumber ? "border-red-500" : "border-gray-300"
-              } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
-              onChange={handleInputs}
-              onKeyDown={handleKeyDown}
+              } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 text-gray-700 leading-8 transition-colors duration-200 ease-in-out`}
             />
             {errors.phoneNumber && (
               <p className="text-red-500">{errors.phoneNumber}</p>

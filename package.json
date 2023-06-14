@@ -17,6 +17,7 @@
     "react-google-button": "^0.7.2",
     "react-icons": "^4.9.0",
     "react-loader-spinner": "^6.0.0-0",
+    "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.2.2",
     "react-scripts": "^5.0.1",
     "react-youtube": "^10.1.0",
