@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Footer from "./components/Footer";
 import { UserAuthContextProvider } from "./context/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {lazy,Suspense} from 'react';
 import { Oval } from 'react-loader-spinner';
 
@@ -29,6 +31,7 @@ function App() {
           />
         </div>}>
       <UserAuthContextProvider>
+        <ToastContainer/>
         <Navbar />
         <Routes>
           <Route

@@ -5,6 +5,7 @@ import bg from "../assets/image/bg2.jpg";
 import { useUserAuth } from "../context/authContext";
 import show from "../assets/image/show.png";
 import hide from "../assets/image/hide.png";
+import { toast } from 'react-toastify';
 import OAuth from "./OAuth";
 
 const Login = () => {
@@ -53,7 +54,14 @@ const Login = () => {
 
     setError("");
     try {
-      await login(data.email, data.password);
+      await toast.promise(
+        login(data.email, data.password),
+        {
+          pending: 'Logging in...',
+          success: 'Login in successful',
+          error: 'Error logging in'
+        }
+    );
       navigate("/");
     } catch (err) {
       setError(err.message);
