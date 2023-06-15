@@ -111,6 +111,7 @@ const Login = () => {
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              autoComplete="off"
             />
             {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
