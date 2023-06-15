@@ -56,7 +56,7 @@ const Login = () => {
       await login(data.email, data.password);
       navigate("/");
     } catch (err) {
-      setError(err.message);
+      setError("OOP! Incorrect Credentials!");
     }
   };
 
