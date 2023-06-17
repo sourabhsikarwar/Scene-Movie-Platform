@@ -7,6 +7,7 @@ import show from "../assets/image/show.png";
 import hide from "../assets/image/hide.png";
 import { toast } from 'react-toastify';
 import OAuth from "./OAuth";
+import  { FaUserLock } from 'react-icons/fa';
 
 const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
@@ -40,6 +41,7 @@ const Login = () => {
       errors.password = "Password is required";
     }
 
+
     return errors;
   };
 
@@ -64,7 +66,7 @@ const Login = () => {
     );
       navigate("/");
     } catch (err) {
-      setError(err.message);
+      setError("Username or password didn't match");
     }
   };
 
@@ -79,7 +81,7 @@ const Login = () => {
     try {
       await passwordReset(data.email);
     } catch (err) {
-      setError(err.message);
+      setError("User not Found");
     }
   };
 
@@ -103,7 +105,7 @@ const Login = () => {
       >
         <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
           <h2 className={`text-gradient ${styles.heading3} mb-4`}>Login</h2>
-          {error && <p className="text-red-600">{error}</p>}
+          {error && <p className="text-red-600">{`${error}`}<FaUserLock style={{display:"inline-block", marginLeft:"10px"}} /></p>}
           <div className="relative mb-4">
             <label htmlFor="email" className="leading-8 text-sm text-white">
               Email
