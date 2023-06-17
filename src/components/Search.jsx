@@ -18,9 +18,6 @@ const Search = () => {
   //   [query, apiKey]
   // );
 
-  useEffect(() => {
-    upload()
-  }, [query])
 
   const upload = async () => {
     setInitialLoading(true)
@@ -36,6 +33,13 @@ const Search = () => {
         console.log(e)
       })
   }
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      upload();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [query])
 
   return (
     <div className={`${styles.boxWidth} px-4 my-8`}>

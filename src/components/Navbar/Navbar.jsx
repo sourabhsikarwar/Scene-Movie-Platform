@@ -23,14 +23,17 @@ const Navbar = () => {
           <img
             src={Logo}
             alt="logo"
-            className="md:cursor-pointer h-12 my-auto"
+            className="md:cursor-pointer h-12 my-auto" loading='lazy'
           />
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {user ? (
               <Avatar view="center" />
             ) : (
               <>
-                <Link to="/login" className="hover:text-white duration-200">
+                <Link
+                  to="/login"
+                  className="hover:text-white duration-200"
+                >
                   Login
                 </Link>
                 <Link to="/signup">
@@ -95,7 +98,10 @@ const Navbar = () => {
             <Avatar view="end" />
           ) : (
             <>
-              <Link to="/login" className="hover:text-white duration-200">
+              <Link
+                to="/login"
+                className="hover:text-white duration-200"
+              >
                 Login
               </Link>
               <Link to="/signup">

@@ -5,6 +5,8 @@ import bg from "../assets/image/bg2.jpg";
 import { useUserAuth } from "../context/authContext";
 import show from "../assets/image/show.png";
 import hide from "../assets/image/hide.png";
+import { toast } from 'react-toastify';
+import OAuth from "./OAuth";
 
 const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
@@ -52,7 +54,14 @@ const Login = () => {
 
     setError("");
     try {
-      await login(data.email, data.password);
+      await toast.promise(
+        login(data.email, data.password),
+        {
+          pending: 'Logging in...',
+          success: 'Login in successful',
+          error: 'Error logging in'
+        }
+    );
       navigate("/");
     } catch (err) {
       setError(err.message);
@@ -110,6 +119,7 @@ const Login = () => {
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              autoComplete="off"
             />
             {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
@@ -136,7 +146,7 @@ const Login = () => {
                 height={30}
                 width={30}
                 src={passwordType === "password" ? hide : show}
-                alt="Toggle password visibility"
+                alt="Toggle password visibility" loading='lazy'
               />
             </button>
             {errors.password && (
@@ -149,7 +159,17 @@ const Login = () => {
           >
             Login
           </button>
-          <hr className="border-gray-600 my-4" />
+          {/* <hr className="border-gray-600 my-4" /> */}
+          <div className="text-white flex my-4 items-center before:border-t before:flex-1  
+            before:border-gray-300 
+            after:border-t after:flex-1  
+            after:border-gray-300">
+              <p className="text-center font-semibold-mx-4">
+                OR
+              </p>
+            </div>
+           <OAuth/> {/* Continue with google feature */}
+
           <div className="flex justify-between">
             <p className="leading-8 text-xs text-white">
               New to Scene? Try{" "}

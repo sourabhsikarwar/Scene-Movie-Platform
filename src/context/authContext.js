@@ -9,6 +9,7 @@ import {
 import { auth, database } from "../firebase/firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { setDoc, doc } from "firebase/firestore";
+import {toast} from 'react-toastify'
 
 const userAuthContext = createContext();
 
@@ -23,7 +24,7 @@ export function UserAuthContextProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const dbInstance = collection(database, "users");
 
-  function addUserData(userName, userEmail, phoneNumber, dateOfBirth) {
+async function addUserData(userName, userEmail, phoneNumber, dateOfBirth) {
     setUserData({
       ...user,
       name: userName,
@@ -31,13 +32,15 @@ export function UserAuthContextProvider({ children }) {
       contact: phoneNumber,
       Dob: dateOfBirth,
     });
-    addDoc(dbInstance, userData)
-      .then(() => {
-        alert("Data Sent Successfully");
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    
+    await toast.promise(
+      addDoc(dbInstance, userData),
+      {
+        pending: 'Registering user...',
+        success: 'Sign up successful',
+        error: 'Error while sign up'
+      }
+    );
   }
 
   function signUp(email, password) {
