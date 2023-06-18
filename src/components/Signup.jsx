@@ -49,7 +49,7 @@ const Signup = () => {
     // Validate Contact No.
     if (!data.phoneNumber.trim()) {
       errors.phoneNumber = "Contact No. is required";
-    } else if (!/^\d{13}$/.test(data.phoneNumber)) {
+    } else if (!/^\d{7,13}$/.test(data.phoneNumber)) {
       errors.phoneNumber = "Invalid phone number";
     }
 
