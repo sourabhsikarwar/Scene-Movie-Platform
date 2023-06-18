@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "../../assets/image/slide.png";
 import NavLink from "./NavLink";
@@ -10,6 +10,24 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { user } = useUserAuth();
   const location = useLocation();
+  const navbarRef = useRef(null);
+
+  useEffect(() => {
+    // Function to handle clicks outside of the navbar
+    const handleOutsideClick = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    // Attach the event listener when the component mounts
+    document.addEventListener("click", handleOutsideClick);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <nav
@@ -17,13 +35,14 @@ const Navbar = () => {
       style={{ position: "sticky", top: 0, zIndex: 20 }}
     >
       <div
+        ref={navbarRef}
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
       >
         <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
           <img
             src={Logo}
             alt="logo"
-            className="md:cursor-pointer h-12 my-auto" loading='lazy'
+            className="md:cursor-pointer h-12 my-auto"
           />
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {user ? (
