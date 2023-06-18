@@ -1,4 +1,3 @@
-//* All routes related to club's LOGIN AND REGISTER
 const express = require('express')
 const router = express.Router()
 const apiKey = process.env.TMDB_KEY
