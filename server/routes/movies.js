@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
     const data = await fetch(
       `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
     ).then((res) => res.json())
-    res.send({ success: true, data: data })
+    res.status(200).json({ success: true, data: data })
   } catch (e) {
     res.status(500).json({ message: 'Internal Server Error' })
   }
