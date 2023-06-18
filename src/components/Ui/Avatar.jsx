@@ -18,8 +18,8 @@ const Avatar = () => {
     <div className="relative group">
       <img
         src={avatar}
-        alt="avatar"
-        className="w-[40px] h-[40px] rounded-full object-cover"
+        alt="profile pic"
+        className="w-[40px] h-[40px] rounded-full object-cover" loading='lazy'
       />
 
       <div className="absolute top-15 right-[4px] hidden group-hover:block hover:block ease-in w-[160px]">
