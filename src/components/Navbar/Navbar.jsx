@@ -12,6 +12,11 @@ const Navbar = () => {
   const location = useLocation();
   const navbarRef = useRef(null);
 
+  // Function to handle clicks links of the navbar
+  const handleMovieLinkClick = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     // Function to handle clicks outside of the navbar
     const handleOutsideClick = (event) => {
@@ -141,15 +146,17 @@ const Navbar = () => {
           <li>
             <Link
               to="/"
+              onClick={handleMovieLinkClick}
               className={`navLink ${location.pathname === "/" ? "active" : ""}`}
             >
               Home
             </Link>
           </li>
-          <NavLink />
+          <NavLink onMovieLinkClick={handleMovieLinkClick} />
           <li>
             <Link
               to="/"
+              onClick={handleMovieLinkClick}
               className={`navLink ${
                 location.pathname === "/TvShows" ? "active" : ""
               }`}
@@ -160,6 +167,7 @@ const Navbar = () => {
           <li>
             <Link
               to="/recommend"
+              onClick={handleMovieLinkClick}
               className={`navLink ${
                 location.pathname === "/recommend" ? "active" : ""
               }`}
