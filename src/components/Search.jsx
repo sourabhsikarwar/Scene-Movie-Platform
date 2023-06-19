@@ -44,7 +44,7 @@ const Search = () => {
   return (
     <div className={`${styles.boxWidth} px-4 my-8`}>
       <div className='flex md:gap-8 gap-4 w-full items-center'>
-        <h1 className='text-2xl text-white'>Search: </h1>
+        <h1 className='text-2xl text-gray-900 dark:text-white'>Search: </h1>
         <input
           type='search'
           placeholder='Search'
