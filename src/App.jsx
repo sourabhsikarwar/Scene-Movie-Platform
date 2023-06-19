@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {lazy,Suspense} from 'react';
 import { Oval } from 'react-loader-spinner';
+import ScrollToTop from "./components/ScrollToTop";
 
 const Login=lazy(()=>import('./components/Login'));
 const Signup=lazy(()=>import('./components/Signup'));
@@ -110,6 +111,7 @@ function App() {
             element={<NotFound404 />}
           />
         </Routes>
+        <ScrollToTop/>
         <Footer />
       </UserAuthContextProvider>
     </Suspense>
