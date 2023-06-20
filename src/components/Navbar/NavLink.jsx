@@ -34,11 +34,11 @@ const NavLinks = () => {
             {link.subMenu && (
               <div>
                 <div className="absolute top-[60px] hidden group-hover:md:block hover:md:block z-50">
-                  <div className="bg-secondary p-8 grid grid-cols-3 gap-x-10 rounded-lg">
+                  <div className="bg-gray-300 dark:text-dimWhite dark:bg-secondary p-8 grid grid-cols-3 gap-x-10 rounded-lg">
                     {link.genres.map((sLink) => (
                       <li
                         key={sLink.id}
-                        className="text-sm text-gray-300 font-light my-2.5"
+                        className="text-sm text-gray-900 dark:text-gray-300 font-light my-2.5"
                       >
                         <Link
                           to={
@@ -46,7 +46,7 @@ const NavLinks = () => {
                               ? `/category/movie/${sLink.name}/${sLink.id}`
                               : `/category/movie/${sLink.name}/${sLink.id}`
                           }
-                          className="hover:text-white"
+                          className="hover:underline dark:hover:text-white"
                         >
                           {sLink.name}
                         </Link>

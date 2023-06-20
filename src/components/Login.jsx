@@ -7,6 +7,7 @@ import show from "../assets/image/show.png";
 import hide from "../assets/image/hide.png";
 import { toast } from 'react-toastify';
 import OAuth from "./OAuth";
+import  { FaUserLock } from 'react-icons/fa';
 
 const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
@@ -40,6 +41,7 @@ const Login = () => {
       errors.password = "Password is required";
     }
 
+
     return errors;
   };
 
@@ -64,7 +66,7 @@ const Login = () => {
     );
       navigate("/");
     } catch (err) {
-      setError(err.message);
+      setError("Username or password didn't match");
     }
   };
 
@@ -79,7 +81,7 @@ const Login = () => {
     try {
       await passwordReset(data.email);
     } catch (err) {
-      setError(err.message);
+      setError("User not Found");
     }
   };
 
@@ -91,7 +93,7 @@ const Login = () => {
 
   return (
     <section
-      className="text-gray-600 body-font"
+      className="text-gray-900 dark:text-gray-600 body-font"
       style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
@@ -101,11 +103,11 @@ const Login = () => {
       <div
         className={`${styles.boxWidth} mx-auto flex flex-wrap items-center md:px-0 px-8 h-max`}
       >
-        <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
+        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
           <h2 className={`text-gradient ${styles.heading3} mb-4`}>Login</h2>
-          {error && <p className="text-red-600">{error}</p>}
+          {error && <p className="text-red-600">{`${error}`}<FaUserLock style={{display:"inline-block", marginLeft:"10px"}} /></p>}
           <div className="relative mb-4">
-            <label htmlFor="email" className="leading-8 text-sm text-white">
+            <label htmlFor="email" className="leading-8 text-sm text-gray-900 dark:text-white">
               Email
             </label>
             <input
@@ -124,7 +126,7 @@ const Login = () => {
             {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
           <div className="relative mb-4">
-            <label htmlFor="password" className="leading-8 text-sm text-white">
+            <label htmlFor="password" className="leading-8 text-sm text-gray-900 dark:text-white">
               Password
             </label>
             <input
@@ -160,10 +162,10 @@ const Login = () => {
             Login
           </button>
           {/* <hr className="border-gray-600 my-4" /> */}
-          <div className="text-white flex my-4 items-center before:border-t before:flex-1  
-            before:border-gray-300 
+          <div className="text-gray-900 dark:text-white flex my-4 items-center before:border-t before:flex-1  
+            before:border-gray-900 dark:before:border-gray-300 
             after:border-t after:flex-1  
-            after:border-gray-300">
+            after:border-gray-900 dark:after:border-gray-300">
               <p className="text-center font-semibold-mx-4">
                 OR
               </p>
@@ -171,17 +173,17 @@ const Login = () => {
            <OAuth/> {/* Continue with google feature */}
 
           <div className="flex justify-between">
-            <p className="leading-8 text-xs text-white">
+            <p className="leading-8 text-xs text-gray-900 dark:text-white">
               New to Scene? Try{" "}
-              <Link to="/signup" className="text-gradient">
+              <Link to="/signup" className="text-sky-600 dark:text-gradient">
                 Sign Up
               </Link>
             </p>
-            <p className="leading-8 text-sm text-white">
+            <p className="leading-8 text-sm text-gray-900 dark:text-white">
               Forgot password{" "}
               <Link
                 to="/passwordReset"
-                className="text-gradient"
+                className="text-sky-600 dark:text-gradient"
                 onClick={handleReset}
               >
                 reset
