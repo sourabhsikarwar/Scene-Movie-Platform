@@ -33,7 +33,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite">
       {!initialLoading ? (
         <div>
           <Banner />

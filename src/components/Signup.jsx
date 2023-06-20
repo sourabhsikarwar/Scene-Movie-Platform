@@ -119,7 +119,7 @@ const Signup = () => {
   };
   return (
     <section
-      className="text-gray-600 body-font"
+      className="text-gray-900 dark:text-gray-600 body-font"
       style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
@@ -127,22 +127,26 @@ const Signup = () => {
       }}
     >
       <div className="container mx-auto flex flex-wrap items-center md:px-0 px-8 h-max">
-        <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
+        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
           <div>
-            <h2 className={`text-gradient ${styles.heading3} mb-4`}>Sign Up</h2>
-            <OAuth /> {/* Continue with google feature */}
-            <div
-              className="text-white flex my-4 items-center before:border-t before:flex-1  
-            before:border-gray-300 
+          <h2 className={`text-gradient ${styles.heading3} mb-4`}>Sign Up</h2>
+            
+            <OAuth/> {/* Continue with google feature */}
+            <div className="text-gray-900 dark:text-white flex my-4 items-center before:border-t before:flex-1  
+            before:border-gray-900 dark:before:border-gray-300 
             after:border-t after:flex-1  
-            after:border-gray-300"
-            >
-              <p className="text-center font-semibold-mx-4">OR</p>
+            after:border-gray-900 dark:after:border-gray-300">
+              <p className="text-center font-semibold-mx-4">
+                OR
+              </p>
             </div>
           </div>
           {error && <p className="text-red-500">{error}</p>}
           <div className="relative mb-4">
-            <label htmlFor="full-name" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="full-name"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
+            >
               Full Name
             </label>
             <input
@@ -160,7 +164,10 @@ const Signup = () => {
             )}
           </div>
           <div className="relative mb-4">
-            <label htmlFor="email" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="email"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
+            >
               Email
             </label>
             <input
@@ -178,7 +185,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="contact-no"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Contact No.
             </label>
@@ -203,7 +210,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="date-of-birth"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Date Of Birth
             </label>
@@ -224,7 +231,10 @@ const Signup = () => {
 
           {/* Password */}
           <div className="relative mb-4">
-            <label htmlFor="password" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="password"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
+            >
               Password
             </label>
             <input
@@ -258,7 +268,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="confirm-password"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Confirm Password
             </label>
@@ -291,9 +301,12 @@ const Signup = () => {
           <button className={`${styles.button1} my-2`} onClick={handleSubmit}>
             Sign Up
           </button>
-          <p className="leading-8 text-xs text-white">
+          <p className="leading-8 text-xs text-gray-900 dark:text-white">
             Already a member? Try{" "}
-            <Link to="/login" className="text-gradient">
+            <Link
+              to="/login"
+              className="text-sky-600 dark:text-gradient"
+            >
               Login
             </Link>
           </p>
