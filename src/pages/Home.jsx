@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Banner from "../components/Banner/Banner";
 import Trending from "../components/Carousel/Trending";
@@ -24,7 +24,7 @@ const Home = () => {
         }
       })
       .catch((e) => {
-        console.log(e.message);
+        return e.message;
       });
   };
 
