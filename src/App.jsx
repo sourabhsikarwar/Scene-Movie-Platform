@@ -92,7 +92,11 @@ function App() {
           />
           <Route
             path="*"
-            element={<NotFound404 />}
+            element={
+              <ProtectedRoute>
+                <NotFound404 />
+              </ProtectedRoute>
+            }
           />
         </Routes>
         <Footer />
