@@ -64,8 +64,8 @@ const MovieBanner = (props) => {
           <div
             className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center`}
           >
-            <div className="mx-auto flex flex-wrap flex-col lg:flex-row">
-              <div className="m-auto w-2/3 h-full sm:w-2/4 md:w-1/4 my-[5%] bg-gray-200 rounded shadow-md">
+            <div className="mx-auto flex flex-wrap flex-col">
+              <div className="m-auto w-2/3 h-full sm:w-2/4 md:w-1/4 my-[1%] bg-gray-200 rounded shadow-md">
                 <img
                   alt={`${Movies.poster_path}`}
                   className="w-full h-full object-cover object-center rounded"

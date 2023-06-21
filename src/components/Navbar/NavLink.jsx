@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Links } from './Links'
 
-const NavLinks = () => {
+const NavLinks = ({ onMovieLinkClick }) => {
   const [heading, setHeading] = useState('')
   const location = useLocation()
   
@@ -74,7 +74,7 @@ const NavLinks = () => {
                   className="py-3 pl-7 font-light"
                   key={sLinks.id}
                 >
-                  <Link to={sLinks.id}>{sLinks.name}</Link>
+                  <Link to={sLinks.id} onClick={onMovieLinkClick} >{sLinks.name}</Link>
                 </li>
               ))}
               </ul>

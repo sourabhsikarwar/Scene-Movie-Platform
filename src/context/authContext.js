@@ -7,7 +7,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth, database } from "../firebase/firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDoc } from "firebase/firestore";
 import { setDoc, doc } from "firebase/firestore";
 import {toast} from 'react-toastify'
 
@@ -32,29 +32,38 @@ async function addUserData(userName, userEmail, phoneNumber, dateOfBirth) {
       contact: phoneNumber,
       Dob: dateOfBirth,
     });
-    
-    await toast.promise(
-      addDoc(dbInstance, userData),
-      {
-        pending: 'Registering user...',
-        success: 'Sign up successful',
-        error: 'Error while sign up'
-      }
-    );
   }
 
-  function signUp(email, password) {
-    createUserWithEmailAndPassword(auth, email, password);
-    setDoc(doc(database, "users", email), {
-      savedShows: [],
-    });
+  async function signUp(email, password) {
+    const response = await createUserWithEmailAndPassword(auth, email, password);
+    if (response) {
+      await toast.promise(
+        setDoc(doc(database, "users", email), userData), {
+          pending: 'Registering user...',
+          success: 'Sign up successful',
+          error: 'Error while sign up'
+        }
+      )
+    }
   }
-  function login(email, password) {
-    return signInWithEmailAndPassword(auth, email, password);
+  async function login(email, password) {
+    await signInWithEmailAndPassword(auth, email, password)
+      .then(async () => {
+        const docRef = doc(database, "users", email);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+        } else {
+          console.log("Error loading user")
+        }
+      })
+      .catch(() => toast.error("Login failed"));
   }
+
   function logout() {
     return signOut(auth);
   }
+  
   function passwordReset(email) {
     return sendPasswordResetEmail(auth, email);
   }
