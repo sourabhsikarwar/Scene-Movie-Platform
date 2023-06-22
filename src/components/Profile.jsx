@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useUserAuth } from "../context/authContext";
-import avatar from "../assets/image/avatar.jpg";
+import avatar from "../assets/image/avatar.webp";
 import show from "../assets/image/show.png";
 import hide from "../assets/image/hide.png";
 import { toast } from 'react-toastify';

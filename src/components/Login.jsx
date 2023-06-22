@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../style";
-import bg from "../assets/image/bg2.jpg";
+import bg from "../assets/image/bg2.webp";
 import { useUserAuth } from "../context/authContext";
-import show from "../assets/image/show.png";
-import hide from "../assets/image/hide.png";
+import show from "../assets/image/show.webp";
+import hide from "../assets/image/hide.webp";
 import { toast } from 'react-toastify';
 import OAuth from "./OAuth";
 import  { FaUserLock } from 'react-icons/fa';
