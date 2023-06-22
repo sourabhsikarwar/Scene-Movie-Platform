@@ -5,6 +5,11 @@ import {
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  updateEmail,
+  updateProfile,
+  updatePassword,
+  getAuth,
+  updatePhoneNumber,
 } from "firebase/auth";
 import { auth, database } from "../firebase/firebaseConfig";
 import { collection, addDoc, getDoc } from "firebase/firestore";
@@ -60,6 +65,21 @@ async function addUserData(userName, userEmail, phoneNumber, dateOfBirth) {
       .catch(() => toast.error("Login failed"));
   }
 
+  async function profileUpdate( displayName, email, password, photoURL) {
+
+
+    // Update Username and Profile photo
+    await updateProfile(auth.currentUser, {
+      displayName, photoURL
+    })
+
+    // Update email
+    await updateEmail(auth.currentUser,email)
+    
+    // Update password
+    await updatePassword(auth.currentUser,password)
+  }
+
   function logout() {
     return signOut(auth);
   }
@@ -91,6 +111,7 @@ async function addUserData(userName, userEmail, phoneNumber, dateOfBirth) {
         addUserData,
         userData,
         loading,
+        profileUpdate,
       }}
     >
       {" "}
