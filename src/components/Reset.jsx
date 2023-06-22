@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "../style";
 import bg from "../assets/image/bg2.webp";
 import { useUserAuth } from "../context/authContext";
 import { toast } from 'react-toastify';
+import { useLocation } from "react-router-dom";
 
 const Reset = () => {
+
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location])
   
   const [data, setData] = useState({
     email: "",

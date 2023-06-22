@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../style";
 import bg from "../assets/image/bg2.webp";
@@ -8,8 +8,16 @@ import hide from "../assets/image/hide.webp";
 import { toast } from 'react-toastify';
 import OAuth from "./OAuth";
 import  { FaUserLock } from 'react-icons/fa';
+import { useLocation } from "react-router-dom"; 
 
 const Login = () => {
+
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location])
+
+
   const [passwordType, setPasswordType] = useState("password");
   
   const [data, setData] = useState({
