@@ -150,6 +150,18 @@ git push origin <your_branch_name>
 - Celebrate 🥳 your success after your pull request is merged successfully.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+### Increase Lighthouse score (Performance, Accessibity and SEO)
+
+- Use modern image formats like WebP, which offer better compression than JPEG or PNG.
+- Use lazy loading techniques to defer loading images until they come into view.
+- Minify your JavaScript and CSS files to remove unnecessary characters, white spaces, and comments, reducing file sizes. This will be done automatically when you build the react app.
+- Utilize code splitting techniques to load only the necessary code for each page, reducing the initial bundle size and improving load times.
+- Remove all the console.log messages.
+- Remove all the unused javascript codes.
+- Only include li tags directly inside ul tags
+- Add proper associated labels to all form elements
+
+
 <!-----------------Code Of Conduct--------------------------- -->
 <h2>Code Of Conduct📑</h2>
 

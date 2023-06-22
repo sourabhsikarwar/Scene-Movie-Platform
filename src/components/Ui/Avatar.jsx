@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/authContext";
-import avatar from "../../assets/image/avatar.jpg";
+import avatar from "../../assets/image/avatar.webp";
 
 const Avatar = () => {
   const { logout } = useUserAuth();
@@ -10,7 +10,7 @@ const Avatar = () => {
     try {
       await logout();
     } catch (err) {
-      console.log(err.message);
+      return err.message
     }
   };
 

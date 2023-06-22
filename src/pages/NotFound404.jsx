@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Notfound from "../assets/image/notfound.png";
+import Notfound from "../assets/image/notfound.webp";
 const NotFound404 = () => {
   return (
     <div className="error-container bg-gray-200 dark:bg-primary">

@@ -43,7 +43,7 @@ function Movies(props) {
         }
       })
       .catch((e) => {
-        console.log(e)
+        return e;
       })
   }
   return (
