@@ -20,7 +20,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-  const { login, passwordReset } = useUserAuth();
+  const { login } = useUserAuth();
 
   const handleInputs = (e) => {
     const { name, value } = e.target;
@@ -74,14 +74,6 @@ const Login = () => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSubmit(e);
-    }
-  };
-  const handleReset = async (e) => {
-    e.preventDefault();
-    try {
-      await passwordReset(data.email);
-    } catch (err) {
-      setError("User not Found");
     }
   };
 
@@ -184,7 +176,6 @@ const Login = () => {
               <Link
                 to="/passwordReset"
                 className="text-sky-600 dark:text-gradient"
-                onClick={handleReset}
               >
                 reset
               </Link>
