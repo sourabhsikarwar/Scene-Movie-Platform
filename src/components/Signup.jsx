@@ -12,7 +12,7 @@ import OAuth from "./OAuth";
 const Signup = () => {
 
   const [passwordType, setPasswordType] = useState("password");
-  const [showPassword, setShowPassword] = useState("password");
+  const [showPassword, setShowPassword] = useState("text");
 
   const [data, setData] = useState({
     displayName: "",
