@@ -31,7 +31,7 @@ function Movies(props) {
     let url = `https://api.themoviedb.org/3/discover/${props.content}?api_key=${apiKey}&with_genres=${props.id}&page=${page}`
 
     if (params.title === 'Trending') {
-      url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=${page}`
+       url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=${page}`
     }
 
     await axios
@@ -43,7 +43,7 @@ function Movies(props) {
         }
       })
       .catch((e) => {
-        console.log(e)
+        return e;
       })
   }
   return (

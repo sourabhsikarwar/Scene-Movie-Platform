@@ -34,7 +34,7 @@ import { useNavigate } from 'react-router-dom';
             navigate("/");
 
         } catch (error) {
-            console.log(error)
+            return error;
             
         }
     }

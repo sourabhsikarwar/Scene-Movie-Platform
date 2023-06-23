@@ -1,6 +1,6 @@
 import React, { useState,useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Logo from "../../assets/image/slide.png";
+import Logo from "../../assets/image/slide.webp";
 import NavLink from "./NavLink";
 import styles from "../../style";
 import Avatar from "../Ui/Avatar";
@@ -13,6 +13,11 @@ const Navbar = ({handleThemeSwitch}) => {
   const location = useLocation();
   const navbarRef = useRef(null);
   const [check, setCheck] = useState(false);
+
+  // Function to handle clicks links of the navbar
+  const handleMovieLinkClick = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     // Function to handle clicks outside of the navbar
@@ -49,12 +54,12 @@ const Navbar = ({handleThemeSwitch}) => {
           <img
             src={Logo}
             alt="logo"
-            className="invert -hue-rotate-180 dark:invert-0 dark:hue-rotate-0 md:cursor-pointer h-12 my-auto"
+            className="invert -hue-rotate-180 dark:invert-0 dark:hue-rotate-0 md:cursor-pointer h-12 my-auto" height={48} width={128}
           />
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {/* Light/Dark mode switch */}
             <div className="relative">
-              <input type="checkbox" className="opacity-0 absolute top-1.5 left-2 bg-red-500 checked:translate-x-6 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
+              <input id="checkbox" type="checkbox" className="opacity-0 absolute top-1.5 left-2 bg-red-500 checked:translate-x-6 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
               <label htmlFor="checkbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
                 <FaMoon color="f1c40f"/>
                 <FaSun color="f39c12"/>
@@ -104,7 +109,9 @@ const Navbar = ({handleThemeSwitch}) => {
               About
             </Link>
           </li>
-          <NavLink />
+          <li>
+            <NavLink />
+          </li>
           <li>
             <Link
               to="/"
@@ -133,8 +140,8 @@ const Navbar = ({handleThemeSwitch}) => {
 
           {/* Light/Dark mode switch */}
           <div className="relative">
-            <input type="checkbox" className="opacity-0 absolute top-1.5 left-2 bg-red-500 checked:translate-x-6 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
-            <label htmlFor="checkbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
+            <input id="mobileCheckbox" type="checkbox" className="opacity-0 absolute top-1.5 left-2 bg-red-500 checked:translate-x-6 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
+            <label htmlFor="mobileCheckbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
               <FaMoon color="f1c40f"/>
               <FaSun color="f39c12"/>
               <span className={`bg-secondary absolute w-6 h-6 left-1 top-[2.5px] rounded-full transition-transform ${check?"translate-x-6":"translate-x-0"}`}></span>
@@ -167,15 +174,19 @@ const Navbar = ({handleThemeSwitch}) => {
           <li>
             <Link
               to="/"
+              onClick={handleMovieLinkClick}
               className={`navLink ${location.pathname === "/" ? "active" : ""}`}
             >
               Home
             </Link>
           </li>
-          <NavLink />
+          <li>
+            <NavLink onMovieLinkClick={handleMovieLinkClick} />
+          </li>
           <li>
             <Link
               to="/"
+              onClick={handleMovieLinkClick}
               className={`navLink ${
                 location.pathname === "/TvShows" ? "active" : ""
               }`}
@@ -186,6 +197,7 @@ const Navbar = ({handleThemeSwitch}) => {
           <li>
             <Link
               to="/recommend"
+              onClick={handleMovieLinkClick}
               className={`navLink ${
                 location.pathname === "/recommend" ? "active" : ""
               }`}

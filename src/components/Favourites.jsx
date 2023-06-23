@@ -118,7 +118,7 @@ function Favourites() {
   //     temp = new Set(temp);
   //     setGenre(["All Genres", ...temp]);
   //   } catch (error) {
-  //     console.log(error);
+        // return error
   //   }
   // }, [favourites]);
 

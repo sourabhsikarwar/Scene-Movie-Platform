@@ -30,7 +30,7 @@ const Search = () => {
         setInitialLoading(false)
       })
       .catch((e) => {
-        console.log(e)
+        return e;
       })
   }
 

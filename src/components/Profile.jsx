@@ -1,7 +1,6 @@
 import React from "react";
 import { useUserAuth } from "../context/authContext";
-import avatar from "../assets/image/avatar.jpg";
-import { Link } from "react-router-dom";
+import avatar from "../assets/image/avatar.webp";
 
 const Profile = () => {
   const { userData } = useUserAuth();
