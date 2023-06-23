@@ -1,12 +1,93 @@
-import React from "react";
+import React, {useState} from "react";
 import { useUserAuth } from "../context/authContext";
 import avatar from "../assets/image/avatar.webp";
+import show from "../assets/image/show.webp";
+import hide from "../assets/image/hide.webp";
+import { toast } from 'react-toastify';
+import styles from "../style";
+import  { FaUserLock } from 'react-icons/fa';
 
 const Profile = () => {
-  const { userData } = useUserAuth();
+  const { user, profileUpdate } = useUserAuth();
+  const [passwordType, setPasswordType] = useState("password");
+  const [data, setData] = useState({
+    username: user?.displayName,
+    email: user?.email,
+    password: '',
+  });
+  const [errors, setErrors] = useState({});
+  const [error, setError] = useState("");
+
+  const handleInputs = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const validateInputs = () => {
+    const errors = {};
+
+    // Validate Username
+    if (!data.username.trim()) {
+      errors.username = "Full Name is required";
+    }
+
+    // Validate Email
+    if (!data.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+      errors.email = "Invalid email address";
+    }
+
+    // Validate Password
+    if (!data.password.trim()) {
+      errors.password = "Password is required";
+    } else if (data.password.length < 6) {
+      errors.password = "Password should be at least 6 characters long";
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const validationErrors = validateInputs();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setError("");
+    try {
+      await toast.promise(
+        profileUpdate(data.username, data.email, data.password, null),
+        {
+          pending: 'Updating profile...',
+          success: 'Profile update successful',
+          error: 'Error updating profile'
+        }
+    );
+    } catch (err) {
+      console.log(err)
+      setError("Error updating profile");
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
+  const passwordToggle = () => {
+    setPasswordType((prevType) =>
+      prevType === "password" ? "text" : "password"
+    );
+  };
 
   return (
-    <section className="bg-gray-100 text-gray-900 dark:bg-primary dark:text-white body-font justify-center flex items-center xl:h-[75vh]">
+    <section className="bg-gray-100 text-gray-900 dark:bg-primary dark:text-white body-font justify-center flex items-center h-full">
       {/* <div className='flex items-center lg:w-3/5 mx-auto pb-10 mb-10 flex-col'>
         <div className='sm:w-36 sm:h-36 h-24 w-24 mx-auto my-4 md:my-8 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0 overflow-hidden'>
           <img src={avatar} alt='' />
@@ -26,29 +107,89 @@ const Profile = () => {
           </p>
         </div>
       </div> */}
-      <div className="bg-gray-200 dark:bg-secondary h-fit py-[50px] w-fit md:px-[100px] px-[50px] md:mx-0 mx-10 rounded-lg mt-[60px] mb-[34px]  flex md:flex-row flex-col gap-10 items-center">
-        {/* Left cont */}
-        <div className="md:items-center justify-center flex ">
-          {/* Avtr */}
-          <div className="sm:w-[250px] sm:h-[250px] h-[200px] w-[200px]  my-4 md:my-8 inline-flex items-center justify-center rounded-lg bg-indigo-100 text-indigo-500 flex-shrink-0 overflow-hidden hover:scale-105 transition-transform ">
-            <img src={avatar} alt="profile pic" loading='lazy'/>
-          </div>
+      <div className="bg-gray-100 dark:bg-secondary w-fit pt-5 md:px-[100px] px-[50px] md:mx-0 mx-10 rounded-lg mt-[30px] mb-[34px] flex md:flex-row flex-col gap-10 items-center">
+        <div className="bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16 relative">
+          {/* Profile photo */}
+        <div className='h-28 w-28 mx-auto my-4 md:my-8 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0 overflow-hidden absolute -top-20 left-32'>
+          <img src={avatar} alt='' />
         </div>
-        <div className="text-gray-400 font-medium md:w-full h-full gap-5 flex flex-col justify-center ">
-          {userData.name ? (<h1 className="text-gray-900 dark:text-white text-left font-poppins text-3xl mx-5 mb-5">{userData.name}</h1>):(<h1 className="text-gray-900 dark:text-white text-left font-poppins text-3xl mx-5 mb-5">Welcome, Username</h1>)}
-          <div className="flex md:flex-row flex-col mx-5  gap-5">
-              <h2 className="text-lg text-gray-900 dark:text-white font-poppins">Email :</h2>
-              {userData.email ? (<h2 className="text-lg font-poppins body-font text-gray-600 dark:text-gray-400">{userData.email}</h2>) : (<h2 className="text-lg font-poppins body-font text-gray-600 dark:text-gray-400">user@gmail.com</h2>)}
+          <h2 className={`text-sky-400 dark:text-gradient ${styles.heading3} mb-4 pt-12 mx-auto`}>Update Profile</h2>
+          {error && <p className="text-red-600">{`${error}`}<FaUserLock style={{display:"inline-block", marginLeft:"10px"}} /></p>}
+          <div className="relative mb-4">
+            <label htmlFor="username" className="leading-8 text-sm text-gray-900 dark:text-white">
+              Username
+            </label>
+            <input
+              value={data.username}
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter username"
+              className={`w-full bg-white rounded border ${
+                errors.username ? "border-red-500" : "border-gray-300"
+              } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
+              onChange={handleInputs}
+              onKeyDown={handleKeyDown}
+              autoComplete="off"
+            />
+            {errors.username && <p className="text-red-500">{errors.username}</p>}
           </div>
-          <div className="flex md:flex-row flex-col mx-5  gap-5">
-              <h2 className="text-lg text-gray-900 dark:text-white font-poppins">Contact no :</h2>
-              {userData?.contact ? (<h2 className="text-lg font-poppins body-font text-gray-600 dark:text-gray-400">{userData.contact}</h2>) : (<h2 className="text-lg font-poppins body-font text-gray-600 dark:text-gray-400">+91xxxxxxxx</h2>)}
+          <div className="relative mb-4">
+            <label htmlFor="email" className="leading-8 text-sm text-gray-900 dark:text-white">
+              Email
+            </label>
+            <input
+              value={data.email}
+              type="email"
+              id="email"
+              name="email"
+              placeholder="xyz@gmail.com"
+              className={`w-full bg-white rounded border ${
+                errors.email ? "border-red-500" : "border-gray-300"
+              } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
+              onChange={handleInputs}
+              onKeyDown={handleKeyDown}
+              autoComplete="off"
+            />
+            {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
-          <div className="flex md:flex-row flex-col mx-5  gap-5">
-              <h2 className="text-lg text-gray-900 dark:text-white font-poppins">Date of Birth :</h2>
-              {userData?.Dob ? (<h2 className="text-lg font-poppins body-font text-gray-600 dark:text-gray-400">{userData.Dob}</h2>) : (<h2 className="text-lg font-poppins body-font text-gray-600 dark:text-gray-400">DD/MM/YY</h2>)}
+          <div className="relative mb-4">
+            <label htmlFor="password" className="leading-8 text-sm text-gray-900 dark:text-white">
+              Password
+            </label>
+            <input
+              value={data.password}
+              type={passwordType}
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              className={`w-full bg-white rounded border ${
+                errors.password ? "border-red-500" : "border-gray-300"
+              } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
+              onChange={handleInputs}
+              onKeyDown={handleKeyDown}
+            />
+            <button
+              onClick={passwordToggle}
+              className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"
+            >
+              <img
+                height={30}
+                width={30}
+                src={passwordType === "password" ? hide : show}
+                alt="Toggle password visibility" loading='lazy'
+              />
+            </button>
+            {errors.password && (
+              <p className="text-red-500">{errors.password}</p>
+            )}
           </div>
-        
+          <button
+            className="text-black bg-blue-gradient mt-2 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+            onClick={handleSubmit}
+          >
+            Update
+          </button>
         </div>
       </div>
     </section>
