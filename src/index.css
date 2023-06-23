@@ -265,3 +265,7 @@ input:-webkit-autofill:active {
     height: 100% !important;
   }
 }
+
+.section-bg{
+  background-image: url('./assets/image/bg1.png');
+}
