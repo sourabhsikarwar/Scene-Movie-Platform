@@ -24,7 +24,7 @@ const Similiar = (props) => {
         }
       })
       .catch((e) => {
-        console.log(e.message)
+        return e.message
       })
   }
 
@@ -47,7 +47,7 @@ const Similiar = (props) => {
       ) : (
         <div className={`${styles.boxWidth} my-8`}>
           <div className='flex justify-between items-center px-4'>
-            <h2 className={`${styles.heading3}`}>Similiar</h2>
+            <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>Similiar</h2>
           </div>
           <Splide
             options={{

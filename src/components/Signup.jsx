@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import bg from "../assets/image/bg2.jpg";
+import bg from "../assets/image/bg2.webp";
 import styles from "../style";
 import { useUserAuth } from "../context/authContext";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import show from "../assets/image/show.png";
-import hide from "../assets/image/hide.png";
+import show from "../assets/image/show.webp";
+import hide from "../assets/image/hide.webp";
 import OAuth from "./OAuth";
 
 const Signup = () => {
+
   const [passwordType, setPasswordType] = useState("password");
   const [showPassword, setShowPassword] = useState("password");
 
@@ -49,7 +50,7 @@ const Signup = () => {
     // Validate Contact No.
     if (!data.phoneNumber.trim()) {
       errors.phoneNumber = "Contact No. is required";
-    } else if (!/^\d{13}$/.test(data.phoneNumber)) {
+    } else if (!/^\d{7,13}$/.test(data.phoneNumber)) {
       errors.phoneNumber = "Invalid phone number";
     }
 
@@ -117,7 +118,7 @@ const Signup = () => {
   };
   return (
     <section
-      className="text-gray-600 body-font"
+      className="text-gray-900 dark:text-gray-600 body-font"
       style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
@@ -125,15 +126,15 @@ const Signup = () => {
       }}
     >
       <div className="container mx-auto flex flex-wrap items-center md:px-0 px-8 h-max">
-        <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
+        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
           <div>
           <h2 className={`text-gradient ${styles.heading3} mb-4`}>Sign Up</h2>
             
             <OAuth/> {/* Continue with google feature */}
-            <div className="text-white flex my-4 items-center before:border-t before:flex-1  
-            before:border-gray-300 
+            <div className="text-gray-900 dark:text-white flex my-4 items-center before:border-t before:flex-1  
+            before:border-gray-900 dark:before:border-gray-300 
             after:border-t after:flex-1  
-            after:border-gray-300">
+            after:border-gray-900 dark:after:border-gray-300">
               <p className="text-center font-semibold-mx-4">
                 OR
               </p>
@@ -143,7 +144,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="full-name"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Full Name
             </label>
@@ -164,7 +165,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="email"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Email
             </label>
@@ -183,7 +184,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="contact-no"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Contact No.
             </label>
@@ -208,7 +209,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="date-of-birth"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Date Of Birth
             </label>
@@ -229,7 +230,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="password"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Password
             </label>
@@ -262,7 +263,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="confirm-password"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Confirm Password
             </label>
@@ -298,11 +299,11 @@ const Signup = () => {
           >
             Sign Up
           </button>
-          <p className="leading-8 text-xs text-white">
+          <p className="leading-8 text-xs text-gray-900 dark:text-white">
             Already a member? Try{" "}
             <Link
               to="/login"
-              className="text-gradient"
+              className="text-sky-600 dark:text-gradient"
             >
               Login
             </Link>

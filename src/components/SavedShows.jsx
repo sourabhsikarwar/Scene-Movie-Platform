@@ -33,14 +33,14 @@ const SavedShows = () => {
         savedShows: result,
       });
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
   return (
     <>
-      <h2 className='text-white font-bold md:text-xl p-4'>My Favourites</h2>
-      <div className='relative flex items-center group'>
+      <h2 className='text-gray-900 dark:text-white font-bold md:text-xl p-4 bg-gray-200 dark:bg-primary'>My Favourites</h2>
+      <div className='relative flex items-center group bg-gray-200 dark:bg-primary'>
         <MdChevronLeft
           onClick={slideLeft}
           className='bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block'
@@ -48,10 +48,10 @@ const SavedShows = () => {
         />
         {movies.length === 0 ? (
          <div className="w-full h-full flex flex-col justify-center items-center">
-         <p className="text-white text-4xl font-bold mb-4">
+         <p className="text-gray-900 dark:text-white text-4xl font-bold mb-4">
            Oops! You don't have any favourite movies.
          </p>
-         <p className="text-gray-300 text-lg mb-8">
+         <p className="text-gray-900 dark:text-gray-300 text-lg mb-8">
            Start exploring and saving your favourite movies now!
          </p>
          <Link to='/'>
@@ -72,7 +72,7 @@ const SavedShows = () => {
             
               <div
                 key={item.id}
-                className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'
+                className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2 bg-gray-200 dark:bg-primary'
               >
                   <Link to={'/movie/' + item.title + '/' + item.id}>
                 <img
