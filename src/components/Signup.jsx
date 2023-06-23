@@ -10,6 +10,7 @@ import hide from "../assets/image/hide.webp";
 import OAuth from "./OAuth";
 
 const Signup = () => {
+
   const [passwordType, setPasswordType] = useState("password");
   const [showPassword, setShowPassword] = useState("password");
 
