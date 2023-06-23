@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import { useUserAuth } from "../context/authContext";
 import avatar from "../assets/image/avatar.webp";
-import show from "../assets/image/show.png";
-import hide from "../assets/image/hide.png";
+import show from "../assets/image/show.webp";
+import hide from "../assets/image/hide.webp";
 import { toast } from 'react-toastify';
 import styles from "../style";
 import  { FaUserLock } from 'react-icons/fa';
