@@ -3,48 +3,32 @@ import styles from "../../style";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useUserAuth } from "../../context/authContext";
-import { database } from "../../firebase/firebaseConfig";
-import { arrayRemove, arrayUnion, doc, updateDoc} from "firebase/firestore";
+
 
 const MovieCard = (props) => {
   const { user } = useUserAuth();
   const [like, setLike] = useState(false);
-  const [saved, setSaved] = useState(false);
-
-  const movieID = doc(database, "users", `${user?.email}`);
-
   const saveShow = async () => {
-    if (user?.email) {
-      setLike(!like);
-      setSaved(true);      
-    } else {
-      alert('Please log in to save a movie');
+    if (user) {
+      try {
+        const savedShows = await JSON.parse(localStorage.getItem("savedShows"));
+        if (savedShows) {
+          if (savedShows.find((show) => show.id === props.movie.id)) {
+            localStorage.setItem("savedShows", JSON.stringify(savedShows.filter((show) => show.id !== props.movie.id)));
+            setLike(false);
+          } else {
+            localStorage.setItem("savedShows", JSON.stringify([...savedShows, props.movie]));
+            setLike(true);
+          }
+        } else {
+          localStorage.setItem("savedShows", JSON.stringify([props.movie]));
+          setLike(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
-
-  const handleSave = async () => {
-    if(like) {
-      await updateDoc(movieID, {
-        savedShows: arrayUnion({
-          id: props.movie.id,
-          title: props.movie.title,
-          img: props.movie.backdrop_path,
-        }),
-      });
-    }else{
-      await updateDoc(movieID, {
-        savedShows: arrayRemove({
-          id: props.movie.id,
-          title: props.movie.title,
-          img: props.movie.backdrop_path,
-        }),
-      });
-    }
-  }
-
-useEffect(() => {
-  handleSave();
-}, [like])
 
 
   return (

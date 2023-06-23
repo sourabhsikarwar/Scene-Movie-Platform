@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { useUserAuth } from '../context/authContext';
-import { database } from '../firebase/firebaseConfig';
-import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
+// import { database } from '../firebase/firebaseConfig';
+// import { updateDoc, doc, onSnapshot } from 'firebase/firestore';
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ const SavedShows = () => {
   const [movies, setMovies] = useState([]);
   const { user } = useUserAuth();
   const sliderRef = useRef(null);
+  const firebaseImageUrlPrefix = 'https://image.tmdb.org/t/p/original/';
 
   const slideLeft = () => {
     sliderRef.current.scrollLeft -= 500;
@@ -19,23 +20,26 @@ const SavedShows = () => {
     sliderRef.current.scrollLeft += 500;
   };
 
-  useEffect(() => {
-    onSnapshot(doc(database, 'users', `${user?.email}`), (doc) => {
-      setMovies(doc.data()?.savedShows);
-    });
-  }, [user?.email]);
+  useEffect(async () => {
+    if (user) {
+      try {
+        const savedShows = await JSON.parse(localStorage.getItem('savedShows'));
+        setMovies(savedShows);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
 
-  const movieRef = doc(database, 'users', `${user?.email}`);
   const deleteShow = async (passedID) => {
     try {
-      const result = movies.filter((item) => item.id !== passedID);
-      await updateDoc(movieRef, {
-        savedShows: result,
-      });
+      localStorage.setItem('savedShows', JSON.stringify(movies.filter((movie) => movie.id !== passedID)));
+      setMovies(movies.filter((movie) => movie.id !== passedID));
     } catch (error) {
-      return error;
+      console.log(error);
     }
   };
+
 
   return (
     <>
@@ -77,8 +81,9 @@ const SavedShows = () => {
                   <Link to={'/movie/' + item.title + '/' + item.id}>
                 <img
                   className='w-full h-auto block'
-                  src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
+                  src={`https://image.tmdb.org/t/p/w500/${item?.poster_path}`}
                   alt={item?.title} loading='lazy'
+                  style={{ height: '250px' }}
                 />
                 <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
                   
