@@ -11,7 +11,7 @@ function Banner() {
 
   useEffect(() => {
     upload()
-  }, [])
+  }, [ ])
 
   const upload = async () => {
     setInitialLoaing(true)
