@@ -39,7 +39,7 @@ const Trending = (props) => {
     <>
       {" "}
       {!initialLoading ? (
-        <div className={`${styles.boxWidth} py-8`}>
+        <div className={`${styles.boxWidth} py-4`}>
           {" "}
           <div className="flex justify-between items-center px-4">
             <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>{props.title}</h2>
