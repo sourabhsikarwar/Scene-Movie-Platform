@@ -7,7 +7,6 @@ import { database } from '../../firebase/firebaseConfig'
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
 
 const MovieCard = (props) => {
-  // console.log(props.movie)
   const { user } = useUserAuth()
   const [like, setLike] = useState(false)
   const [saved, setSaved] = useState(false)

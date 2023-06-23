@@ -3,7 +3,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { useUserAuth } from '../context/authContext'
 import { database } from '../firebase/firebaseConfig'
 import { updateDoc, doc, onSnapshot } from 'firebase/firestore'
-import { AiOutlineClose } from 'react-icons/ai'
+
 import { Link } from 'react-router-dom'
 import SavedCards from './SavedCards'
 
@@ -27,7 +27,7 @@ const SavedShows = () => {
   }, [user?.email])
 
   const movieRef = doc(database, 'users', `${user?.email}`)
-  const deleteShow = async (passedID) => {
+  const deleteMovie = async (passedID) => {
     try {
       const result = movies.filter((item) => item.id !== passedID)
       await updateDoc(movieRef, {
@@ -40,8 +40,10 @@ const SavedShows = () => {
 
   return (
     <>
-      <h2 className='text-white font-bold md:text-xl p-4'>My Favourites</h2>
-      <div className='relative flex items-center group'>
+      <h2 className='text-gray-900 dark:text-white font-bold md:text-xl p-4 bg-gray-200 dark:bg-primary'>
+        My Favourites
+      </h2>
+      <div className='relative flex items-center group bg-gray-200 dark:bg-primary'>
         <MdChevronLeft
           onClick={slideLeft}
           className='bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block'
@@ -49,10 +51,10 @@ const SavedShows = () => {
         />
         {movies.length === 0 ? (
           <div className='w-full h-full flex flex-col justify-center items-center'>
-            <p className='text-white text-4xl font-bold mb-4'>
+            <p className='text-gray-900 dark:text-white text-4xl font-bold mb-4'>
               Oops! You don't have any favourite movies.
             </p>
-            <p className='text-gray-300 text-lg mb-8'>
+            <p className='text-gray-900 dark:text-gray-300 text-lg mb-8'>
               Start exploring and saving your favourite movies now!
             </p>
             <Link to='/'>
@@ -64,37 +66,10 @@ const SavedShows = () => {
         ) : (
           <div
             ref={sliderRef}
-            className='w-full h-full overflow-x-hidden whitespace-nowrap relative'
+            className='w-full h-full overflow-x-hidden whitespace-nowrap relative flex items-stretch'
           >
             {movies &&
-              movies.map((item) => (
-                <SavedCards item={item} />
-
-                // <div
-                //   key={item.id}
-                //   className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'
-                // >
-                //   <Link to={'/movie/' + item.title + '/' + item.id}>
-                //     <img
-                //       className='w-full h-auto block'
-                //       src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
-                //       alt={item?.title}
-                //       loading='lazy'
-                //     />
-                //     <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white'>
-                //       <p className='white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
-                //         {item?.title}
-                //       </p>
-                //     </div>
-                //   </Link>
-                //   <p
-                //     onClick={() => deleteShow(item.id)}
-                //     className='absolute text-gray-300 top-4 right-4'
-                //   >
-                //     <AiOutlineClose />
-                //   </p>
-                // </div>
-              ))}
+              movies.map((item) => <SavedCards item={item} deleteMovie={deleteMovie} />)}
           </div>
         )}
         <MdChevronRight
