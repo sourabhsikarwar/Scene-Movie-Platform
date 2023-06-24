@@ -64,7 +64,7 @@ const MovieBanner = (props) => {
           <div
             className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center`}
           >
-            <div className="mx-auto flex flex-wrap flex-row">
+            <div className="mx-auto flex flex-wrap flex-col">
               <div className="m-auto w-2/3 h-full sm:w-2/4 md:w-1/4 my-[1%] bg-gray-200 rounded shadow-md">
                 <img
                   alt={`${Movies.poster_path}`}
@@ -72,7 +72,7 @@ const MovieBanner = (props) => {
                   src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`} loading='lazy'
                 />
               </div>
-              <div className="lg:py-0 md:w-2/3 mx-auto">
+              <div className="lg:py-0 items-center mx-auto">
                 <h1
                   className={`${styles.heading2} font-extrabold text-center lg:text-left`}
                 >
