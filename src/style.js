@@ -17,6 +17,9 @@ const styles = {
     "sm:h-[260px] h-[200px] md:h-[260px] lg:h-[280px] w-[250px] md:w-[250px] hover:scale-105",
   TvCard: "h-[200px] md:h-[200px] w-[300px] md:w-[300px] hover:scale-105",
   Card: "h-[210px] md:h-[210px] w-[300px] md:w-[300px] hover:scale-105",
+  GenreCard:
+    "sm:h-[120px] md:h-[180px] lg:h-[200px] w-full hover:scale-105 mx-auto mr-4",
+
 
   button1: "bg-blue-gradient border-0 text-black px-6 py-3 rounded shadow",
   button2: "bg-blue-gradient border-0 text-black px-4 py-2 rounded shadow",
