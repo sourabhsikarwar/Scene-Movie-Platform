@@ -51,11 +51,16 @@ const Navbar = ({handleThemeSwitch}) => {
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
       >
         <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
-          <img
-            src={Logo}
-            alt="logo"
-            className="invert -hue-rotate-180 dark:invert-0 dark:hue-rotate-0 md:cursor-pointer h-12 my-auto" height={48} width={128}
-          />
+        <Link
+          to="/">
+            <img
+              src={Logo}
+              alt="logo"
+              className="invert -hue-rotate-180 dark:invert-0 dark:hue-rotate-0 md:cursor-pointer h-12 my-auto"
+              height={48}
+              width={128}
+            />
+          </Link>
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {/* Light/Dark mode switch */}
             <div className="relative">
