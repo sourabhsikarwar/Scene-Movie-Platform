@@ -32,10 +32,10 @@ const Contributor = () => {
   return (
     <div className=" mt-20 contact-container">
       <div>
-        <h2 className="text-3xl font-bold text-center justify-center">
+        <h2 className="text-3xl dark:text-white  font-bold text-center justify-center">
           Contributors
         </h2>
-        <p className="text-center text-secondary mt-5  text-lg lg:px-60">
+        <p className="text-center mt-5  text-lg lg:px-60">
         Thank you to all the contributors who have played an
           integral role in making Scene Movie App a success through their valuable
           contributions

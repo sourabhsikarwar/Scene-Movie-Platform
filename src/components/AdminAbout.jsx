@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Profile = () => {
+const AdminAbout = () => {
   return (
     <div
     style={{ padding: "30px" }}
@@ -81,4 +81,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default AdminAbout;
