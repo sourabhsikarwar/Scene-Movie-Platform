@@ -106,7 +106,7 @@ const Navbar = ({handleThemeSwitch}) => {
           </li>
           <li>
             <Link
-              to="/"
+              to="/about"
               className={`navLink ${
                 location.pathname === "/about" ? "active" : ""
               }`}
