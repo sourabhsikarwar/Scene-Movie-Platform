@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/image/bg2.webp";
 import styles from "../style";
@@ -8,8 +8,15 @@ import 'react-phone-input-2/lib/style.css';
 import show from "../assets/image/show.webp";
 import hide from "../assets/image/hide.webp";
 import OAuth from "./OAuth";
+import { useLocation } from "react-router-dom";
 
 const Signup = () => {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[location])
 
   const [passwordType, setPasswordType] = useState("password");
   const [showPassword, setShowPassword] = useState("password");
