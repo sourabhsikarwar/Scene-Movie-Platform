@@ -28,10 +28,10 @@ const Contributor=()=>{
   };
 
   return (
-    <div className="contact-container">
-      <div className="my-5">
+    <div className=" mt-20 contact-container">
+      <div >
         <h2 className="text-3xl font-bold text-center justify-center">
-          Meet Our Talented Team
+        Contributors
         </h2>
         <p className="text-center text-secondary mt-5  text-lg lg:px-60">
           Our project's success is attributed to the dedicated contributors who
@@ -59,16 +59,13 @@ const Contributor=()=>{
               </h2>
               <p className="px-5 text-xs sm:text-base dark:text-gray-400">{`Contributions: ${contributor.contributions}`}</p>
               <button
-                className="tryfree-btn justify-center p-2 rounded-md h-10"
+                className=" mt-2 bg-blue-gradient  text-sm sm:text-base  text-black px-8 py-2 rounded-md shadow hover:bg-white duration-300"
                 onClick={() =>
                   window.open(`https://github.com/${contributor.login}`)
                 }
               >
                 Connect
               </button>
-            </div>
-            <div className="flex justify-center pt-2 space-x-4 align-center">
-              {/* Add any additional content or buttons here */}
             </div>
           </div>
       })}

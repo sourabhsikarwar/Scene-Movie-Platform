@@ -1,8 +1,7 @@
 import React from "react";
 import styles from '../style'
-import img1 from '../assets/image/bg1.png'
+import Button from '../components/Ui/SecButton'
 import Contributor from "../components/Contributor";
-import Profile from "../components/Profile";
 import AdminAbout from "../components/AdminAbout";
 const About = () => {
   return (
@@ -16,19 +15,21 @@ const About = () => {
         }}
         >
             <div className='md:w-full lg:pr-24 md:pr-16 flex flex-col md:items-center md:text-center md:mb-0 items-center text-center'>
-              <h1 className={`${styles.heading1} mb-2 text-gray-100`}>
+              <h1 className={`${styles.heading1} mt-20  text-gray-100`}>
                 About us
               </h1>   
             </div>
             </section>
 
-        <p className=" mt-20 md:text-center  ">
+        <p className=" my-20  text-2xl leading-10  text-center">
             <strong >Welcome to</strong> <br/>
-           <span className={`${styles.heading3} `} > scene movie platform </span><br/>
+           <span className={`${styles.heading2} text-black mb-3 `} > scene movie platform </span><br/>
              we're passionate about bringing you the best entertainment experience right at your
             fingertips.<br/>
              Our goal is to provide you with a platform that offers a 
             vast collection of movies, TV shows, and documentaries .
+            <p className="mb-5">We welcome contributions from developers like you to help make our project even better</p>
+          <Button content="contribute"/>
           </p>
     <AdminAbout/>
     <Contributor/>
