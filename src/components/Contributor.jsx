@@ -41,8 +41,9 @@ const Contributor=()=>{
       </div>
 
       <div className="flex flex-wrap justify-center p-6 gap-4 rounded-xl sm:p-12 dark:text-gray-100 ml-2">
-        {currentUsers.map((contributor) => (
-          <div
+        {currentUsers.map((contributor) => {
+          console.log(contributor)
+         return <div
             key={contributor.id}
             style={{ padding: "30px" }}
             className="flex flex-col items-center space-y-4 text-center divide-y divide-gray-700 hover:shadow-lg transition-shadow hover:dark:text-violet-400"
@@ -70,7 +71,7 @@ const Contributor=()=>{
               {/* Add any additional content or buttons here */}
             </div>
           </div>
-        ))}
+      })}
         {contributors.length === 0 && <p>No contributors found.</p>}
       </div>
       <div className="pagination">
