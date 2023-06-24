@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { useUserAuth } from '../../context/authContext'
 import { database } from '../../firebase/firebaseConfig'
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 
 const MovieCard = (props) => {
   const { user } = useUserAuth()
@@ -17,23 +17,40 @@ const MovieCard = (props) => {
     if (user?.email) {
       setLike(!like)
       setSaved(true)
+    } else {
+      alert('Please log in to save a movie')
+    }
+  }
+
+  const handleSave = async () => {
+    if (like) {
       await updateDoc(movieID, {
         savedShows: arrayUnion({
           id: props.movie.id,
           title: props.movie.title,
           img: props.movie.backdrop_path,
-          category: props.movie.genre_ids,
         }),
       })
     } else {
-      alert('Please log in to save a movie')
+      await updateDoc(movieID, {
+        savedShows: arrayRemove({
+          id: props.movie.id,
+          title: props.movie.title,
+          img: props.movie.backdrop_path,
+        }),
+      })
     }
   }
+
+  useEffect(() => {
+    handleSave()
+  }, [like])
+
   return (
     <div className={`shadow flex my-4 p-3 group`} key={props.movie.id}>
       <div
         className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
-        alt='poster'
+        alt='movie poster'
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${props.movie.poster_path}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
           backgroundSize: 'cover',

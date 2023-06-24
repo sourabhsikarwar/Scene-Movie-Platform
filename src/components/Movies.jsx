@@ -31,7 +31,7 @@ function Movies(props) {
     let url = `https://api.themoviedb.org/3/discover/${props.content}?api_key=${apiKey}&with_genres=${props.id}&page=${page}`
 
     if (params.title === 'Trending') {
-      url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=${page}`
+       url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=${page}`
     }
 
     await axios
@@ -43,17 +43,17 @@ function Movies(props) {
         }
       })
       .catch((e) => {
-        console.log(e)
+        return e;
       })
   }
   return (
     <>
       {!initialLoading ? (
-        <>
+        <div className='bg-gray-200 text-gray-900 dark:bg-primary dark:text-white'>
           {' '}
-          <div className={`${styles.boxWidth} my-8`}>
+          <div className={`${styles.boxWidth} py-8`}>
             <div
-              className={`${styles.heading2} w-full my-2 ml-0 px-4 text-center sm:text-left`}
+              className={`${styles.heading2} w-full text-gray-900 dark:text-white my-2 ml-0 px-4 text-center sm:text-left`}
             >
               {props.title}
             </div>
@@ -75,7 +75,7 @@ function Movies(props) {
               </>
             )}
           </div>
-        </>
+        </div>
       ) : (
         <div className='flex justify-center my-8'>
           <Oval

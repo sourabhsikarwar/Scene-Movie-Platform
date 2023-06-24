@@ -1,87 +1,83 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "../style";
-import logo from "../assets/image/slide.png";
+import logo from "../assets/image/slide.webp";
+import {AiFillGithub ,AiFillTwitterCircle ,AiFillLinkedin ,AiFillInstagram,AiFillFacebook} from "react-icons/ai"
 
 const Footer = () => {
+
+  const hoverEffect = "group flex items-center transition ease-out duration-200 hover:text-gray-400";
+  const currentYear = new Date().getFullYear();
+  
   return (
-    <footer className={`${styles.boxWidth} text-dimWhite body-font`}>
-      <div className="px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
-        <Link
+    <footer className='bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite body-font'>
+    <div className="w-80vw mx-auto max-w-1200px"style={{ marginTop: "-32px" }}>
+      <div className="flex justify-around flex-wr mtap">
+      <div className="mb-6 mt-8">
+        <div className="font-bold text-lg mb-3 text-black text-opacity-90 dark:text-zinc-50">Quick Links</div>
+        <ul className="list-none m-0 p-0">
+               <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                <Link to="/" className={hoverEffect}>Home</Link>
+                </li>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                <Link to="/about" className={hoverEffect}>About</Link>
+                </li>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                <Link to="/recommend" className={hoverEffect}>For You</Link>
+                </li>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                <Link to="/profile" className={hoverEffect}>Profile</Link>
+                </li>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                <Link to="/favourite" className={hoverEffect}>TV Shows</Link>
+                </li>
+        </ul>
+        </div>
+      <div className="mb-24 mt-8">
+           <div className="font-bold text-lg mb-3 text-black text-opacity-90 dark:text-zinc-50">Community</div>
+           <ul>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                <a href="https://github.com/sourabhsikarwar/Scene-Movie-Platform" aria-label="Follow me on Github" target="_blank" className={hoverEffect}><AiFillGithub className="mr-1" />Github</a>
+                </li>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                   <a href="#" aria-label="Follow me on Twitter"  className={hoverEffect}><AiFillTwitterCircle className="mr-1 transition ease duration-200 group-hover:text-sky-500" />Twitter</a>
+                </li>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                   <a href="https://www.linkedin.com/in/sourabhsikarwar/" target="_blank" aria-label="Follow me on Linkedin" className={hoverEffect}><AiFillLinkedin className="mr-1 transition ease duration-200 group-hover:text-sky-600" />Linkedin</a>
+                </li>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                   <a href="#" aria-label="Follow me on Instagram" className={hoverEffect}><AiFillInstagram className="mr-1 transition ease duration-200 group-hover:text-rose-500" />Instagram</a>
+                </li>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                   <a href="#" aria-label="Follow me on Facebook" className={hoverEffect}><AiFillFacebook className="mr-1 transition ease duration-200 group-hover:text-blue-700" />Facebook</a>
+                </li>
+             </ul>
+        </div>
+      <div className="mb-24 mt-8">
+           <div className="font-bold text-lg mb-3 text-black text-opacity-90 dark:text-zinc-50">Need Help?  </div>
+           <ul>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                   <a href="#" className={hoverEffect}>Visit Help Center</a>
+                </li>
+                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50">
+                   <a href="#"className={hoverEffect}>Share Feedback</a>
+                </li>
+             </ul>
+        </div>
+     
+      </div>
+
+    </div>
+      <div className="flex flex-row justify-center w-full border-y-2 items-center gap-8 border-black  ">
+            <div className="flex flex-row items-center">
+            <Link
           className="flex title-font font-medium items-center md:justify-start justify-center"
           to="/"
         >
-          <img src={logo} className="w-32" alt="logo" loading='lazy'/>
+          <img src={logo} className="w-32 invert -hue-rotate-180 dark:invert-0 dark:hue-rotate-0" alt="logo" loading='lazy' width={128} height={48}/>
         </Link>
-        <p className="text-sm sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-          © {new Date().getFullYear()} Scene —
-          <a
-            href="https://www.github.com/sourabhsikarwar"
-            className="text-gradient ml-1"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            @sourabhsikarwar
-          </a>
-        </p>
-        <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
-          <Link className="text-dimWhite" to="#">
-            <svg
-              fill="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-            </svg>
-          </Link>
-          <Link className="ml-3 text-dimWhite" to="#">
-            <svg
-              fill="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-            </svg>
-          </Link>
-          <Link className="ml-3 text-dimWhite" to="#">
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-            </svg>
-          </Link>
-          <Link className="ml-3 text-dimWhite" to="#">
-            <svg
-              fill="currentColor"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="0"
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="none"
-                d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
-              ></path>
-              <circle cx="4" cy="4" r="2" stroke="none"></circle>
-            </svg>
-          </Link>
-        </span>
-      </div>
+        </div>
+        <p>© {currentYear} Scene. All rights reserved.</p>
+        </div>
     </footer>
   );
 };
