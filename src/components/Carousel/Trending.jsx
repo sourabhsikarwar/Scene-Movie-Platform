@@ -88,7 +88,7 @@ const Trending = (props) => {
           </Splide>{" "}
         </div>
       ) : (
-        <div className="flex justify-center my-8">
+        <div className="flex justify-center py-8">
           <Oval
             height="50"
             width="50"
