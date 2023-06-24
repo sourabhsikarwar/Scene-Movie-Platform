@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Contributor=()=>{
+const Contributor = () => {
   const [contributors, setContributors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(10);
 
   useEffect(() => {
     axios
-      .get("https://api.github.com/repos/sourabhsikarwar/scene-movie-platform/contributors")
+      .get(
+        "https://api.github.com/repos/sourabhsikarwar/scene-movie-platform/contributors"
+      )
       .then((response) => {
         setContributors(response.data);
       })
@@ -29,46 +31,47 @@ const Contributor=()=>{
 
   return (
     <div className=" mt-20 contact-container">
-      <div >
+      <div>
         <h2 className="text-3xl font-bold text-center justify-center">
-        Contributors
+          Contributors
         </h2>
         <p className="text-center text-secondary mt-5  text-lg lg:px-60">
-          Our project's success is attributed to the dedicated contributors who
-          brought expertise and creativity. Meet the amazing individuals behind our
-          accomplishments.
+        Thank you to all the contributors who have played an
+          integral role in making Scene Movie App a success through their valuable
+          contributions
         </p>
       </div>
 
       <div className="flex flex-wrap justify-center p-6 gap-4 rounded-xl sm:p-12 dark:text-gray-100 ml-2">
         {currentUsers.map((contributor) => {
-          console.log(contributor)
-         return <div
-            key={contributor.id}
-            style={{ padding: "30px" }}
-            className="flex flex-col items-center space-y-4 text-center divide-y divide-gray-700 hover:shadow-lg transition-shadow hover:dark:text-violet-400"
-          >
-            <img
-              src={contributor.avatar_url}
-              alt={contributor.login}
-              className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square"
-            />
-            <div style={{ border: "none" }} className=" space-y-1">
-              <h2 className="text-xl text-[#6058f2] font-semibold sm:text-2xl">
-                {contributor.login}
-              </h2>
-              <p className="px-5 text-xs sm:text-base dark:text-gray-400">{`Contributions: ${contributor.contributions}`}</p>
-              <button
-                className=" mt-2 bg-blue-gradient  text-sm sm:text-base  text-black px-8 py-2 rounded-md shadow hover:bg-white duration-300"
-                onClick={() =>
-                  window.open(`https://github.com/${contributor.login}`)
-                }
-              >
-                Connect
-              </button>
+          return (
+            <div
+              key={contributor.id}
+              style={{ padding: "30px" }}
+              className="flex flex-col items-center space-y-4 text-center divide-y divide-gray-700 hover:shadow-lg transition-shadow hover:dark:text-violet-400"
+            >
+              <img
+                src={contributor.avatar_url}
+                alt={contributor.login}
+                className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square"
+              />
+              <div style={{ border: "none" }} className=" space-y-1">
+                <h2 className="text-xl text-[#6058f2] font-semibold sm:text-2xl">
+                  {contributor.login}
+                </h2>
+                <p className="px-5 text-xs sm:text-base dark:text-gray-400">{`Contributions: ${contributor.contributions}`}</p>
+                <button
+                  className=" mt-2 bg-blue-gradient  text-sm sm:text-base  text-black px-8 py-2 rounded-md shadow hover:bg-white duration-300"
+                  onClick={() =>
+                    window.open(`https://github.com/${contributor.login}`)
+                  }
+                >
+                  Connect
+                </button>
+              </div>
             </div>
-          </div>
-      })}
+          );
+        })}
         {contributors.length === 0 && <p>No contributors found.</p>}
       </div>
       <div className="pagination">
@@ -93,6 +96,6 @@ const Contributor=()=>{
       </div>
     </div>
   );
-}
+};
 
 export default Contributor;

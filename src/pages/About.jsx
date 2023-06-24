@@ -3,12 +3,14 @@ import styles from '../style'
 import Button from '../components/Ui/SecButton'
 import Contributor from "../components/Contributor";
 import AdminAbout from "../components/AdminAbout";
+import background from '../assets/image/bg1.png'
 const About = () => {
   return (
     <div>
     <section
         className="section-bg text-gray-600 body-font overflow-hidden bg-[#656565cf] bg-blend-multiply"
         style={{
+           backgroundImage : `url(${background})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
             height:"35vh"
