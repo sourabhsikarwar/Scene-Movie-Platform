@@ -69,6 +69,18 @@ const Navbar = ({ handleThemeSwitch }) => {
             alt="logo"
             className="invert -hue-rotate-180 dark:invert-0 dark:hue-rotate-0 md:cursor-pointer h-12 my-auto" height={48} width={imageWidth}
           />
+
+        <Link
+          to="/">
+            <img
+              src={Logo}
+              alt="logo"
+              className="invert -hue-rotate-180 dark:invert-0 dark:hue-rotate-0 md:cursor-pointer h-12 my-auto"
+              height={48}
+              width={128}
+            />
+          </Link>
+
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {/* Light/Dark mode switch */}
             <div className="relative">
@@ -114,9 +126,16 @@ const Navbar = ({ handleThemeSwitch }) => {
           </li>
           <li>
             <Link
+
               to="/"
               className={`navLink ${location.pathname === "/about" ? "active" : ""
                 }`}
+
+              to="/about"
+              className={`navLink ${
+                location.pathname === "/about" ? "active" : ""
+              }`}
+
             >
               About
             </Link>
