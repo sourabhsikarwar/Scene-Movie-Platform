@@ -53,18 +53,19 @@ const MovieBanner = (props) => {
   return (
     <>
       <section
-        className="text-gray-600 body-font overflow-hidden bg-[#656565cf] bg-blend-multiply"
+        className="relative text-gray-600 body-font overflow-hidden bg-[#656565cf] bg-blend-multiply"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
+        <div className="absolute inset-0 bg-black opacity-50"></div>
         {!initialLoading ? (
           <div
-            className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center`}
+            className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center relative z-10`}
           >
-            <div className="mx-auto flex flex-wrap flex-col">
+            <div className="mx-auto flex flex-wrap flex-row">
               <div className="m-auto w-2/3 h-full sm:w-2/4 md:w-1/4 my-[1%] bg-gray-200 rounded shadow-md">
                 <img
                   alt={`${Movies.poster_path}`}
@@ -72,9 +73,9 @@ const MovieBanner = (props) => {
                   src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`} loading='lazy'
                 />
               </div>
-              <div className="lg:py-0 items-center mx-auto">
+              <div className="py-3 lg:py-4 flex flex-col items-center md:items-start md:w-2/3 mx-auto">
                 <h1
-                  className={`${styles.heading2} font-extrabold text-center lg:text-left`}
+                  className={`${styles.heading2} font-extrabold text-center md:text-left`}
                 >
                   {Movies.title}
                 </h1>
@@ -166,11 +167,11 @@ const MovieBanner = (props) => {
                   </div>
                 ) : (
                   <>
-                    <p className={`${styles.paragraph}`}>{Movies.overview}</p>
+                    <p className={`${styles.paragraph} leading-4 sm:text-sm lg:text-base text-center md:text-left`}>{Movies.overview}</p>
                     <div className="flex my-4">
                       <button
                         onClick={handleTrailer}
-                        className="flex bg-blue-gradient text-black border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                        className="flex bg-blue-gradient text-black border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded"
                       >
                         Watch
                       </button>
