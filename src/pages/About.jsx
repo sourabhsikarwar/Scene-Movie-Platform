@@ -31,7 +31,7 @@ const About = () => {
              Our goal is to provide you with a platform that offers a 
             vast collection of movies, TV shows, and documentaries .
             <pre className="mb-5">We welcome contributions from developers like you to help make our project even better</pre>
-          <a href="https://github.com/sourabhsikarwar/Scene-Movie-Platform" target="_blank"><Button content="contribute" /></a>
+          <a href="https://github.com/sourabhsikarwar/Scene-Movie-Platform" target="_blank"rel="noreferrer" ><Button content="contribute" /></a>
           </div>
     <AdminAbout/>
     <Contributor/>
