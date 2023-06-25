@@ -60,7 +60,7 @@ const MovieBanner = (props) => {
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="absolute inset-0 bg-black opacity-40"></div>
         {!initialLoading ? (
           <div
             className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center relative z-10`}
