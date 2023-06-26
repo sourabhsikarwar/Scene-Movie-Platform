@@ -64,7 +64,7 @@ const Navbar = ({handleThemeSwitch}) => {
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {/* Light/Dark mode switch */}
             <div className="relative">
-             <input type="checkbox" className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full p-1 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
+             <input id="checkbox" type="checkbox" className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full p-1 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
               <label htmlFor="checkbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
                 <FaMoon color="f1c40f"/>
                 <FaSun color="f39c12"/>
@@ -145,8 +145,8 @@ const Navbar = ({handleThemeSwitch}) => {
 
           {/* Light/Dark mode switch */}
           <div className="relative">
-          <input type="checkbox" className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full z-10 p-1 cursor-pointer" checked={check} onChange={toggleMode} />
-            <label htmlFor="checkbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
+          <input id="mobileCheckbox" type="checkbox" className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full z-10 p-1 cursor-pointer" checked={check} onChange={toggleMode} />
+            <label htmlFor="mobileCheckbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
               <FaMoon color="f1c40f"/>
               <FaSun color="f39c12"/>
               <span className={`bg-secondary opacity-40 absolute w-6 h-7 right-8 rounded-full transition-transform ${!check?"translate-x-8":"translate-x-0"}`}></span>    
