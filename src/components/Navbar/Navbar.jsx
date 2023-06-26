@@ -64,11 +64,11 @@ const Navbar = ({handleThemeSwitch}) => {
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {/* Light/Dark mode switch */}
             <div className="relative">
-              <input id="checkbox" type="checkbox" className="opacity-0 absolute top-1.5 left-2 bg-red-500 checked:translate-x-6 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
+             <input type="checkbox" className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full p-1 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
               <label htmlFor="checkbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
                 <FaMoon color="f1c40f"/>
                 <FaSun color="f39c12"/>
-                <span className={`bg-secondary absolute w-6 h-6 left-1 top-[2.5px] rounded-full transition-transform ${check?"translate-x-6":"translate-x-0"}`}></span>
+                <span className={`bg-secondary opacity-40 absolute w-6 h-7 right-8 rounded-full transition-transform ${!check?"translate-x-8":"translate-x-0"}`}></span>
               </label>
             </div>
             {user ? (
@@ -145,11 +145,11 @@ const Navbar = ({handleThemeSwitch}) => {
 
           {/* Light/Dark mode switch */}
           <div className="relative">
-            <input id="mobileCheckbox" type="checkbox" className="opacity-0 absolute top-1.5 left-2 bg-red-500 checked:translate-x-6 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
-            <label htmlFor="mobileCheckbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
+          <input type="checkbox" className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full z-10 p-1 cursor-pointer" checked={check} onChange={toggleMode} />
+            <label htmlFor="checkbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
               <FaMoon color="f1c40f"/>
               <FaSun color="f39c12"/>
-              <span className={`bg-secondary absolute w-6 h-6 left-1 top-[2.5px] rounded-full transition-transform ${check?"translate-x-6":"translate-x-0"}`}></span>
+              <span className={`bg-secondary opacity-40 absolute w-6 h-7 right-8 rounded-full transition-transform ${!check?"translate-x-8":"translate-x-0"}`}></span>    
             </label>
           </div>
           {user ? (
