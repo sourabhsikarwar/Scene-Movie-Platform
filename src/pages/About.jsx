@@ -3,7 +3,7 @@ import styles from '../style'
 import Button from '../components/Ui/SecButton'
 import Contributor from "../components/Contributor";
 import AdminAbout from "../components/AdminAbout";
-import background from '../assets/image/bg1.png'
+import background from '../assets/image/bg1.webp'
 const About = () => {
   return (
     <div className="dark:bg-primary dark:text-dimWhite p-1 ">
@@ -30,8 +30,8 @@ const About = () => {
             fingertips.<br/>
              Our goal is to provide you with a platform that offers a 
             vast collection of movies, TV shows, and documentaries .
-            <pre className="mb-5">We welcome contributions from developers like you to help make our project even better</pre>
-          <a href="https://github.com/sourabhsikarwar/Scene-Movie-Platform" target="_blank"><Button content="contribute" /></a>
+            <p className="mb-5">We welcome contributions from developers like you to help make our project even better</p>
+          <a href="https://github.com/sourabhsikarwar/Scene-Movie-Platform" target="_blank" rel="noreferrer noopener" ><Button content="contribute" /></a>
           </div>
     <AdminAbout/>
     <Contributor/>
