@@ -1,4 +1,4 @@
-export const Links = [
+export const MoviesLinks = [
   {
     name: "Movies",
     subMenu: true,
@@ -48,7 +48,7 @@ export const Links = [
         name: "Horror",
       },
       {
-         id: 10402,
+        id: 10402,
         name: "Music",
       },
       {
@@ -70,12 +70,50 @@ export const Links = [
       {
         id: 10752,
         name: "War",
-      
       },
       {
         id: 37,
         name: "Western",
       },
     ],
-  }
+  }]
+export const TVShowsLinks = [
+  {
+    name: "TV Shows",
+    subMenu: true,
+    genres: [
+      {
+        id: 80,
+        name: "Crime",
+      },
+      {
+        id: 18,
+        name: "Drama",
+      },
+      {
+        id: 10751,
+        name: "Family",
+      },
+      {
+        id: 10765,
+        name: "Sci-Fi & Fantasy",
+      },
+      {
+        id: 9648,
+        name: "Mystery",
+      },
+      {
+        id: 10749,
+        name: "Romance",
+      },
+      {
+        id: 10759,
+        name: "Action & Adventure",
+      },
+      {
+        id: 35,
+        name: "Comedy",
+      },
+    ],
+  },
 ];
