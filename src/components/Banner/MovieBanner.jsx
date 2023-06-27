@@ -79,7 +79,7 @@ const MovieBanner = (props) => {
                 >
                   {Movies.title}
                 </h1>
-                <div className="flex mb-4">
+                <div className="flex mb-2">
                   <span className="flex items-center mx-auto lg:mx-0">
                     <svg
                       fill="currentColor"
@@ -138,6 +138,12 @@ const MovieBanner = (props) => {
                     </svg>
                     <span className="text-gray-300 ml-3">4 Reviews</span>
                   </span>
+                </div>
+                <div className="flex flex-row justify-between items-start text-gray-300 mb-1">
+                  <div className="text-gray-300 mb-3">{Movies.release_date.split("-")[0]}</div>
+                  <span className="mx-2">|</span>
+                  {console.log(Movies)}
+                  {Movies.genres[0].name}
                 </div>
                 {playing ? (
                   <div className="mx-auto">
