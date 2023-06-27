@@ -152,6 +152,7 @@ const Signup = () => {
               type="text"
               id="full-name"
               name="displayName"
+              placeholder="Enter your name"
               className={`w-full bg-white rounded border ${
                 errors.displayName ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
@@ -173,6 +174,7 @@ const Signup = () => {
               type="email"
               id="email"
               name="email"
+              placeholder="Enter your email"
               className={`w-full bg-white rounded border ${
                 errors.email ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
@@ -191,12 +193,13 @@ const Signup = () => {
             <PhoneInput 
               id="contact-no"
               name="phoneNumber"
+              placeholder="Enter your phone no."
               country="in"
               onChange={(value) => setData({ ...data, phoneNumber: value })}
               onKeyDown={handleKeyDown}
               countryCodeEditable={false}
               inputClass="focus:ring-0"
-              inputStyle={{ border: "0px"}}
+              inputStyle={{ border: "0px", width: "auto"}}
               containerClass="border-none outline-none focus:ring-0"
               className={`w-full bg-white rounded border ${
                 errors.phoneNumber ? "border-red-500" : "border-gray-300"
@@ -236,6 +239,7 @@ const Signup = () => {
             </label>
             <input
               type={showPassword}
+              placeholder="Enter your password"
               id="password"
               name="password"
               className={`w-full bg-white rounded border ${
@@ -271,6 +275,7 @@ const Signup = () => {
               type={passwordType}
               id="confirm-password"
               name="confirmPassword"
+              placeholder="Confirm password"
               className={`w-full bg-white rounded border ${
                 errors.confirmPassword ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
