@@ -66,7 +66,7 @@ const Search = () => {
       )}
       {!initialLoading && query && (
         <div className={`${styles.boxWidth} my-8`}>
-          <div
+          <div style={{color:"blue"}}
             className={`text-2xl text-white w-full my-2 sm:mx-2 text-center sm:text-left`}
           >
             Showing results for {query}
