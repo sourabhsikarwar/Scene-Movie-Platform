@@ -46,7 +46,8 @@ const Search = () => {
       <div className='flex md:gap-8 gap-4 w-full items-center'>
         <h1 className='text-2xl text-gray-900 dark:text-white'>Search: </h1>
         <input
-          type='search'
+        style={{color:'black'}}
+          type='text'
           placeholder='Search'
           onChange={(e) => setQuery(e.target.value)}
           className='rounded border-none ring-1 ring-blue-300 outline-none w-auto'
