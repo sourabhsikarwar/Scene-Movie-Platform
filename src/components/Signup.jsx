@@ -196,7 +196,7 @@ const Signup = () => {
               onKeyDown={handleKeyDown}
               countryCodeEditable={false}
               inputClass="focus:ring-0"
-              inputStyle={{ border: "0px"}}
+              inputStyle={{ border: "0px", width:"100%"}}
               containerClass="border-none outline-none focus:ring-0"
               className={`w-full bg-white rounded border ${
                 errors.phoneNumber ? "border-red-500" : "border-gray-300"

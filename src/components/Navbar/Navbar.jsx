@@ -56,7 +56,7 @@ const Navbar = ({handleThemeSwitch}) => {
             <img
               src={Logo}
               alt="logo"
-              className="invert -hue-rotate-180 dark:invert-0 dark:hue-rotate-0 md:cursor-pointer h-12 my-auto"
+              className=" invert -hue-rotate-180 dark:invert-0 dark:hue-rotate-0 md:cursor-pointer h-12 my-auto"
               height={48}
               width={128}
             />
@@ -82,7 +82,7 @@ const Navbar = ({handleThemeSwitch}) => {
                   Login
                 </Link>
                 <Link to="/signup">
-                  <button className={`${styles.button2}`}>Sign Up</button>
+                  <button className='bg-blue-gradient px-4 py-2 cursor-pointer mx-1 text-xs sm:text-sm text-white font-semibold rounded-lg '>SignUp</button>
                 </Link>
               </>
             )}
