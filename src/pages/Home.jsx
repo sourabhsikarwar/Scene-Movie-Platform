@@ -16,6 +16,7 @@ const Home = () => {
     await axios
       .get(
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+        
       )
       .then((res) => {
         if (res.status === 200) {

@@ -6,6 +6,7 @@ import avatar from "../../assets/image/avatar.webp";
 const Avatar = () => {
   const { logout } = useUserAuth();
 
+
   const handleLogout = async () => {
     try {
       await logout();
