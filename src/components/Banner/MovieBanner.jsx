@@ -2,7 +2,9 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Youtube from "react-youtube";
 import { Oval } from "react-loader-spinner";
+// for star rating convert number into star
 import Star from "../SingleMovieCast/Star";
+//  format price is used to format country currency 
 import FormatPrice from "../SingleMovieCast/FormatPrice";
 import "../SingleMovieCast/style.css";
 const MovieBanner = (props) => {
