@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import styles from "../../style";
 import Youtube from "react-youtube";
 import { Oval } from "react-loader-spinner";
-
+import Star from "../SingleMovieCast/Star";
+import FormatPrice from "../SingleMovieCast/FormatPrice";
+import "../SingleMovieCast/style.css";
 const MovieBanner = (props) => {
   const MOVIE_API = "https://api.themoviedb.org/3";
 
   const [playing, setPlaying] = useState(false);
   const [Movies, setMovies] = useState({});
-  // const [movie, setMovie] = useState(null)
+
   const [trailer, setTrailer] = useState(null);
   const [initialLoading, setInitialLoading] = useState(true);
   const apiKey = process.env.REACT_APP_API_KEY;
@@ -59,85 +60,55 @@ const MovieBanner = (props) => {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-      >
-        {!initialLoading ? (
-          <div
-            className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center`}
-          >
-            <div className="mx-auto flex flex-wrap flex-col">
-              <div className="m-auto w-2/3 h-full sm:w-2/4 md:w-1/4 my-[1%] bg-gray-200 rounded shadow-md">
+      ></section>
+      {!initialLoading ? (
+        <section>
+          <div className="container movie-container">
+            <div className="grid grid-two-column">
+              <div className="product_image">
                 <img
-                  alt={`${Movies.poster_path}`}
-                  className="w-full h-full object-cover object-center rounded"
-                  src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`} loading='lazy'
+                  width={'60%'}
+                  className=" object-cover object-center rounded  pt-10"
+                  src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`}
+                  alt={Movies.title}
                 />
               </div>
-              <div className="lg:py-0 items-center mx-auto">
-                <h1
-                  className={`${styles.heading2} font-extrabold text-center lg:text-left`}
-                >
-                  {Movies.title}
-                </h1>
-                <div className="flex mb-4">
-                  <span className="flex items-center mx-auto lg:mx-0">
-                    <svg
-                      fill="currentColor"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="w-4 h-4 text-indigo-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <svg
-                      fill="currentColor"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="w-4 h-4 text-indigo-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <svg
-                      fill="currentColor"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="w-4 h-4 text-indigo-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <svg
-                      fill="currentColor"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      W="2"
-                      className="w-4 h-4 text-indigo-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      W="2"
-                      className="w-4 h-4 text-indigo-500"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                    </svg>
-                    <span className="text-gray-300 ml-3">4 Reviews</span>
-                  </span>
+              <div className="product-data">
+                <h2>{Movies.title}</h2>
+                <Star
+                  stars={Movies.vote_average / 2}
+                  reviews={Movies.vote_count}
+                />
+                <p className="product-data-price">
+                  Revenue :  <FormatPrice price={Movies.revenue} />
+                </p>
+                <p className="product-data-price product-data-real-price">
+                 Release : {(Movies.release_date).toString().split('-').reverse().join('-')}
+                </p>
+                <p>{Movies.overview}</p>
+
+                <div className="product-data-info">
+                  <p>
+                    Available :
+                    {Movies.production_countries.map((ele) => (
+                      <span>{ele.name} </span>
+                    ))}
+                  </p>
+                  <p>
+                    Languages :
+                    {Movies.spoken_languages.map((ele) => (
+                      <span>{ele.english_name} </span>
+                    ))}
+                  </p>
+                  <p>
+                    Genres :{" "}
+                    {Movies.genres.map((ele) => (
+                      <span>{ele.name} </span>
+                    ))}
+                  </p>
                 </div>
+
+                <hr />
                 {playing ? (
                   <div className="mx-auto">
                     <Youtube
@@ -165,8 +136,6 @@ const MovieBanner = (props) => {
                     </button>
                   </div>
                 ) : (
-                  <>
-                    <p className={`${styles.paragraph}`}>{Movies.overview}</p>
                     <div className="flex my-4">
                       <button
                         onClick={handleTrailer}
@@ -178,23 +147,23 @@ const MovieBanner = (props) => {
                         <ion-icon name="heart"></ion-icon>
                       </button>
                     </div>
-                  </>
+                  
                 )}
               </div>
             </div>
           </div>
-        ) : (
-          <div className="flex justify-center my-8">
-            <Oval
-              height="50"
-              width="50"
-              color="grey"
-              secondaryColor="grey"
-              ariaLabel="loading"
-            />
-          </div>
-        )}
-      </section>
+        </section>
+      ) : (
+        <div className="flex justify-center my-8">
+          <Oval
+            height="50"
+            width="50"
+            color="grey"
+            secondaryColor="grey"
+            ariaLabel="loading"
+          />
+        </div>
+      )}
     </>
   );
 };
