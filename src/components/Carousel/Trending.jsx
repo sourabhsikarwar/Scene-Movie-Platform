@@ -23,7 +23,7 @@ const Trending = (props) => {
         }
       })
       .catch((e) => {
-        console.log(e.message);
+        return e.message;
       });
   };
 
@@ -39,13 +39,13 @@ const Trending = (props) => {
     <>
       {" "}
       {!initialLoading ? (
-        <div className={`${styles.boxWidth} my-8`}>
+        <div className={`${styles.boxWidth} py-4`}>
           {" "}
           <div className="flex justify-between items-center px-4">
-            <h2 className={`${styles.heading3}`}>{props.title}</h2>
+            <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>{props.title}</h2>
             <p className="">
               <Link
-                className={`${styles.paragraph} hover:text-white duration-200`}
+                className={`${styles.paragraph} text-gray-900 dark:text-dimWhite dark:hover:text-white duration-200`}
                 to={"/category/movie/" + props.title + "/" + props.id}
               >
                 Show all
@@ -88,7 +88,7 @@ const Trending = (props) => {
           </Splide>{" "}
         </div>
       ) : (
-        <div className="flex justify-center my-8">
+        <div className="flex justify-center py-8">
           <Oval
             height="50"
             width="50"

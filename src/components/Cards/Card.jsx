@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../../style";
-import Star from "../../assets/image/star.png";
+import Star from "../../assets/image/star.webp";
 
 const MovieCard = (props) => {
   return (

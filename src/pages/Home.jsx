@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Banner from "../components/Banner/Banner";
 import Trending from "../components/Carousel/Trending";
@@ -24,7 +24,7 @@ const Home = () => {
         }
       })
       .catch((e) => {
-        console.log(e.message);
+        return e.message;
       });
   };
 
@@ -33,7 +33,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite">
       {!initialLoading ? (
         <div>
           <Banner />
@@ -54,7 +54,7 @@ const Home = () => {
             })}
         </div>
       ) : (
-        <div className="flex justify-center my-8">
+        <div className="flex justify-center py-8">
           <Oval
             height="50"
             width="50"

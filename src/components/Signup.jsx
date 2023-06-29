@@ -1,18 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import bg from "../assets/image/bg2.jpg";
+import bg from "../assets/image/bg2.webp";
 import styles from "../style";
 import { useUserAuth } from "../context/authContext";
-import show from "../assets/image/show.png";
-import hide from "../assets/image/hide.png";
-import { BsPlusCircleDotted } from "react-icons/bs";
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import show from "../assets/image/show.webp";
+import hide from "../assets/image/hide.webp";
+import OAuth from "./OAuth";
 
 const Signup = () => {
+
   const [passwordType, setPasswordType] = useState("password");
   const [showPassword, setShowPassword] = useState("password");
-  const [image, setImage] = useState("");
-
-  const inputRef = useRef(null);
 
   const [data, setData] = useState({
     displayName: "",
@@ -34,11 +34,6 @@ const Signup = () => {
 
   const validateInputs = () => {
     const errors = {};
-    console.log(data.image);
-    // Validate Full Name
-    if (!data.image.trim()) {
-      errors.image = "Profile Picture is required";
-    }
 
     // Validate Full Name
     if (!data.displayName.trim()) {
@@ -55,7 +50,7 @@ const Signup = () => {
     // Validate Contact No.
     if (!data.phoneNumber.trim()) {
       errors.phoneNumber = "Contact No. is required";
-    } else if (!/^\d{10}$/.test(data.phoneNumber)) {
+    } else if (!/^\d{7,13}$/.test(data.phoneNumber)) {
       errors.phoneNumber = "Invalid phone number";
     }
 
@@ -99,11 +94,14 @@ const Signup = () => {
         data.dateOfBirth
       );
       await signUp(data.email, data.password);
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (err) {
       setError(err.message);
     }
   };
+  
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -118,49 +116,9 @@ const Signup = () => {
   const passwordVisibility = () => {
     setShowPassword((type) => (type === "password" ? "text" : "password"));
   };
-
-  const handleImageClick = () => {
-    inputRef.current.click();
-  };
-
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    const imgname = e.target.files[0].name;
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      const img = new Image();
-      img.src = reader.result;
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const maxSize = Math.max(img.width, img.height);
-        canvas.width = maxSize;
-        canvas.height = maxSize;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(
-          img,
-          (maxSize - img.width) / 2,
-          (maxSize - img.height) / 2
-        );
-        canvas.toBlob(
-          (blob) => {
-            const file = new File([blob], imgname, {
-              type: "image/png",
-              lastModified: Date.now(),
-            });
-            setImage(file);
-            handleInputs(e);
-          },
-          "image/*",
-          0.8
-        );
-      };
-    };
-  };
-
   return (
     <section
-      className="text-gray-600 body-font"
+      className="text-gray-900 dark:text-gray-600 body-font"
       style={{
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
@@ -168,38 +126,26 @@ const Signup = () => {
       }}
     >
       <div className="container mx-auto flex flex-wrap items-center md:px-0 px-8 h-max">
-        <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
+        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
+          <div>
           <h2 className={`text-gradient ${styles.heading3} mb-4`}>Sign Up</h2>
+            
+            <OAuth/> {/* Continue with google feature */}
+            <div className="text-gray-900 dark:text-white flex my-4 items-center before:border-t before:flex-1  
+            before:border-gray-900 dark:before:border-gray-300 
+            after:border-t after:flex-1  
+            after:border-gray-900 dark:after:border-gray-300">
+              <p className="text-center font-semibold-mx-4">
+                OR
+              </p>
+            </div>
+          </div>
           {error && <p className="text-red-500">{error}</p>}
           <div className="relative mb-4">
-            <div
-              className="image-container flex justify-center w-[35%] mx-auto cursor-pointer"
-              onClick={handleImageClick}
+            <label
+              htmlFor="full-name"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
-              {image ? (
-                <img
-                  src={URL.createObjectURL(image)}
-                  className="rounded-full"
-                  alt="profilepic"
-                />
-              ) : (
-                <BsPlusCircleDotted size={100} />
-              )}
-              <input
-                className="m-5 hidden"
-                type="file"
-                accept="image/*"
-                ref={inputRef}
-                onChange={handleChange}
-                name="image"
-              />
-            </div>
-            {errors.image && (
-              <p className="text-red-500">{errors.image}</p>
-            )}
-          </div>
-          <div className="relative mb-4">
-            <label htmlFor="full-name" className="leading-8 text-sm text-white">
               Full Name
             </label>
             <input
@@ -217,7 +163,10 @@ const Signup = () => {
             )}
           </div>
           <div className="relative mb-4">
-            <label htmlFor="email" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="email"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
+            >
               Email
             </label>
             <input
@@ -235,19 +184,23 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="contact-no"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Contact No.
             </label>
-            <input
-              type="tel"
+            <PhoneInput 
               id="contact-no"
               name="phoneNumber"
+              country="in"
+              onChange={(value) => setData({ ...data, phoneNumber: value })}
+              onKeyDown={handleKeyDown}
+              countryCodeEditable={false}
+              inputClass="focus:ring-0"
+              inputStyle={{ border: "0px"}}
+              containerClass="border-none outline-none focus:ring-0"
               className={`w-full bg-white rounded border ${
                 errors.phoneNumber ? "border-red-500" : "border-gray-300"
-              } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
-              onChange={handleInputs}
-              onKeyDown={handleKeyDown}
+              } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 text-gray-700 leading-8 transition-colors duration-200 ease-in-out`}
             />
             {errors.phoneNumber && (
               <p className="text-red-500">{errors.phoneNumber}</p>
@@ -256,7 +209,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="date-of-birth"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Date Of Birth
             </label>
@@ -275,7 +228,10 @@ const Signup = () => {
             )}
           </div>
           <div className="relative mb-4">
-            <label htmlFor="password" className="leading-8 text-sm text-white">
+            <label
+              htmlFor="password"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
+            >
               Password
             </label>
             <input
@@ -307,7 +263,7 @@ const Signup = () => {
           <div className="relative mb-4">
             <label
               htmlFor="confirm-password"
-              className="leading-8 text-sm text-white"
+              className="leading-8 text-sm text-gray-900 dark:text-white"
             >
               Confirm Password
             </label>
@@ -337,12 +293,18 @@ const Signup = () => {
               />
             </button>
           </div>
-          <button className={`${styles.button1} my-2`} onClick={handleSubmit}>
+          <button
+            className={`${styles.button1} my-2`}
+            onClick={handleSubmit}
+          >
             Sign Up
           </button>
-          <p className="leading-8 text-xs text-white">
+          <p className="leading-8 text-xs text-gray-900 dark:text-white">
             Already a member? Try{" "}
-            <Link to="/login" className="text-gradient">
+            <Link
+              to="/login"
+              className="text-sky-600 dark:text-gradient"
+            >
               Login
             </Link>
           </p>
