@@ -56,8 +56,7 @@ const MovieBanner = (props) => {
   return (
     <>
       {!initialLoading ? (
-        <section>
-          <div className="container movie-container">
+        <section className="container movie-container">
             <div className="grid grid-two-column">
               <div className="product_image">
                 <img
@@ -145,7 +144,6 @@ const MovieBanner = (props) => {
                 )}
               </div>
             </div>
-          </div>
         </section>
       ) : (
         <div className="flex justify-center my-8">
