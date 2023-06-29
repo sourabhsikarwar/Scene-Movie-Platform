@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/image/bg2.jpg";
 import styles from "../style";
 import { useUserAuth } from "../context/authContext";
 import show from "../assets/image/show.png";
 import hide from "../assets/image/hide.png";
+import { BsPlusCircleDotted } from "react-icons/bs";
 
 const Signup = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [showPassword, setShowPassword] = useState("password");
+  const [image, setImage] = useState("");
+
+  const inputRef = useRef(null);
 
   const [data, setData] = useState({
     displayName: "",
@@ -30,6 +34,11 @@ const Signup = () => {
 
   const validateInputs = () => {
     const errors = {};
+    console.log(data.image);
+    // Validate Full Name
+    if (!data.image.trim()) {
+      errors.image = "Profile Picture is required";
+    }
 
     // Validate Full Name
     if (!data.displayName.trim()) {
@@ -109,6 +118,46 @@ const Signup = () => {
   const passwordVisibility = () => {
     setShowPassword((type) => (type === "password" ? "text" : "password"));
   };
+
+  const handleImageClick = () => {
+    inputRef.current.click();
+  };
+
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    const imgname = e.target.files[0].name;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const img = new Image();
+      img.src = reader.result;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const maxSize = Math.max(img.width, img.height);
+        canvas.width = maxSize;
+        canvas.height = maxSize;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(
+          img,
+          (maxSize - img.width) / 2,
+          (maxSize - img.height) / 2
+        );
+        canvas.toBlob(
+          (blob) => {
+            const file = new File([blob], imgname, {
+              type: "image/png",
+              lastModified: Date.now(),
+            });
+            setImage(file);
+            handleInputs(e);
+          },
+          "image/*",
+          0.8
+        );
+      };
+    };
+  };
+
   return (
     <section
       className="text-gray-600 body-font"
@@ -122,6 +171,33 @@ const Signup = () => {
         <div className="lg:w-2/6 md:w-1/2 bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
           <h2 className={`text-gradient ${styles.heading3} mb-4`}>Sign Up</h2>
           {error && <p className="text-red-500">{error}</p>}
+          <div className="relative mb-4">
+            <div
+              className="image-container flex justify-center w-[35%] mx-auto cursor-pointer"
+              onClick={handleImageClick}
+            >
+              {image ? (
+                <img
+                  src={URL.createObjectURL(image)}
+                  className="rounded-full"
+                  alt="profilepic"
+                />
+              ) : (
+                <BsPlusCircleDotted size={100} />
+              )}
+              <input
+                className="m-5 hidden"
+                type="file"
+                accept="image/*"
+                ref={inputRef}
+                onChange={handleChange}
+                name="image"
+              />
+            </div>
+            {errors.image && (
+              <p className="text-red-500">{errors.image}</p>
+            )}
+          </div>
           <div className="relative mb-4">
             <label htmlFor="full-name" className="leading-8 text-sm text-white">
               Full Name
@@ -223,7 +299,8 @@ const Signup = () => {
                 height={30}
                 width={30}
                 src={showPassword === "password" ? hide : show}
-                alt="Toggle password visibility" loading='lazy'
+                alt="Toggle password visibility"
+                loading="lazy"
               />
             </button>
           </div>
@@ -255,7 +332,8 @@ const Signup = () => {
                 height={30}
                 width={30}
                 src={passwordType === "password" ? hide : show}
-                alt="Toggle password visibility" loading='lazy'
+                alt="Toggle password visibility"
+                loading="lazy"
               />
             </button>
           </div>
