@@ -53,14 +53,6 @@ const MovieBanner = (props) => {
 
   return (
     <>
-      <section
-        className="text-gray-600 body-font overflow-hidden bg-[#656565cf] bg-blend-multiply"
-        style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></section>
       {!initialLoading ? (
         <section>
           <div className="container movie-container">
