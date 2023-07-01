@@ -21,7 +21,7 @@ const GenreCard = (props) => {
                     }}
                 >
                     <div className="pt-4 pb-6 px-6">
-                        <p className="text-black dark:text-white text-lg md:text-xl lg:text-2xl font-bold">{props.genre.name}</p>
+                        <p className="text-white text-lg md:text-xl lg:text-2xl font-bold">{props.genre.name}</p>
                     </div>
                 </div>
 
