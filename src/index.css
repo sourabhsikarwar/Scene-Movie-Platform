@@ -21,6 +21,7 @@
 html {
   --scrollbarBG: transparent;
   --thumbBG: #7de7eb;
+
 }
 
 body::-webkit-scrollbar {
