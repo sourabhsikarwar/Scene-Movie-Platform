@@ -7,9 +7,11 @@ import Star from "../SingleMovieCast/Star";
 //  format price is used to format country currency 
 import FormatPrice from "../SingleMovieCast/FormatPrice";
 import "../SingleMovieCast/style.css";
+import { useParams } from 'react-router-dom';
+
 const MovieBanner = (props) => {
   const MOVIE_API = "https://api.themoviedb.org/3";
-
+  const { movieId, title } = useParams();
   const [playing, setPlaying] = useState(false);
   const [Movies, setMovies] = useState({});
 
@@ -20,7 +22,7 @@ const MovieBanner = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     update();
-  }, []);
+  }, [movieId]);
 
   const update = async () => {
     setInitialLoading(true);
