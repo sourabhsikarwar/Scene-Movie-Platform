@@ -56,7 +56,7 @@ const MovieBanner = (props) => {
   return (
     <>
       <section
-        className={`text-gray-600 body-font overflow-hidden bg-[#656565cf] bg-blend-multiply ${playing===true ? "h-[64rem]": "h-[50rem]" }`}
+        className={`text-gray-600 body-font overflow-hidden bg-[#656565cf] bg-blend-multiply ${playing === true ? "h-[64rem]" : "h-[50rem]"}`}
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path})`,
           backgroundSize: "cover",
@@ -67,7 +67,7 @@ const MovieBanner = (props) => {
           <div
             className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center`}
           >
-            <div className={`mx-auto flex flex-wrap flex-col ${playing===true ? "mt-[24rem]" : "mt-[6rem]" } `}>
+            <div className={`mx-auto flex flex-wrap flex-col ${playing === true ? "mt-[24rem]" : "mt-[6rem]"} `}>
               <div className="m-auto w-2/3 h-full sm:w-2/4 md:w-1/4 my-[1%] bg-gray-200 rounded shadow-md">
                 <img
                   width={'60%'}
@@ -86,7 +86,7 @@ const MovieBanner = (props) => {
                   Revenue :  <FormatPrice price={Movies.revenue} />
                 </p>
                 <p className="product-data-price product-data-real-price">
-                 Release : {(Movies.release_date).toString().split('-').reverse().join('-')}
+                  Release : {(Movies.release_date).toString().split('-').reverse().join('-')}
                 </p>
                 <p>{Movies.overview}</p>
 
@@ -139,35 +139,35 @@ const MovieBanner = (props) => {
                     </button>
                   </div>
                 ) : (
-                    <div className="flex my-4">
-                      <button
-                        onClick={handleTrailer}
-                        className="flex bg-blue-gradient text-black border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-                      >
-                        Watch
-                      </button>
-                      <button className="rounded-full w-10 h-10 bg-white hover:bg-gray-100 duration-200 p-0 border-0 inline-flex items-center justify-center text-red-500 ml-4">
-                        <ion-icon name="heart"></ion-icon>
-                      </button>
-                    </div>
-                  
+                  <div className="flex my-4">
+                    <button
+                      onClick={handleTrailer}
+                      className="flex bg-blue-gradient text-black border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                    >
+                      Watch
+                    </button>
+                    <button className="rounded-full w-10 h-10 bg-white hover:bg-gray-100 duration-200 p-0 border-0 inline-flex items-center justify-center text-red-500 ml-4">
+                      <ion-icon name="heart"></ion-icon>
+                    </button>
+                  </div>
+
                 )}
               </div>
             </div>
-        </section>
-      ) : (
-        <div className="flex justify-center my-8">
-          <Oval
-            height="50"
-            width="50"
-            color="grey"
-            secondaryColor="grey"
-            ariaLabel="loading"
-          />
-        </div>
-      )}
-    </>
-  );
+          </section>
+        ) : (
+          <div className="flex justify-center my-8">
+            <Oval
+              height="50"
+              width="50"
+              color="grey"
+              secondaryColor="grey"
+              ariaLabel="loading"
+            />
+          </div>
+        )}
+      </>
+      );
 };
 
 export default MovieBanner;
