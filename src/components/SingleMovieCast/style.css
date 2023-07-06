@@ -1,0 +1,138 @@
+.movie-container{
+    width: 100%;
+    padding: 0px 120px;
+    overflow-x: hidden;  
+  }
+.container {
+  max-width:1200px;
+  margin: 0 auto;
+  padding: 90px 0;
+  }
+.movie-container  .grid {
+    display: grid;
+    gap: 90px ;
+  }
+  
+.movie-container  .grid-two-column {
+    grid-template-columns: repeat(2, 1fr);
+  
+  }
+
+ .movie-container h1,
+ .movie-container  h2,
+ .movie-container h3,
+ .movie-container h4 {
+     font-family: "Work Sans", sans-serif;
+    
+  }
+  
+  .movie-container h1 {
+    color: rgb(24 24 29);
+    font-size: 60px;
+    font-weight: 900;
+  }
+  
+  .movie-container   h2 {
+     color: rgb(24 24 29);
+     font-size: 44px;
+     font-weight: 300;
+     white-space: normal;
+    
+    }
+  
+    .movie-container  h3 {
+    font-size:18px;
+    font-weight: 400;
+  }
+ .movie-container p, .movie-container  {
+    color: rgba(29 ,29, 29, .8);
+    font-size: 16.5px;
+    line-height: 1.5;
+    font-weight:400;
+  }
+  .product-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap:  20px;
+  }
+  .product-data  .product-data-warranty {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  .product-data-warranty .product-warranty-data{
+    text-align: center;
+  }
+  .product-data-warranty .product-warranty-data .warranty-icon {
+    background-color: rgba(220, 220, 220, 0.5);
+    border-radius: 50%;
+    width:   40px;
+    height:  40px;
+    padding:  6px;
+  }
+  .product-data-warranty .product-warranty-data p {
+    font-size: 14px ;
+    padding-top: 4px ;
+  }
+
+  .product-data  .product-data-price {
+    font-weight: bold;
+  }
+ .product-data .product-data-real-price {
+    color:rgb(98 84 243);
+  }
+ .product-data .product-data-info {
+    display: flex;
+    flex-direction: column;
+    gap:10px ;
+    font-size: 18px ;
+}
+
+.product-data .product-data-info  span {
+      font-weight: bold;
+    }
+
+.product-data    hr {
+    max-width: 100%;
+    width: 90%;
+    /* height: 0.2rem; */
+    border: 1px  solid #000;
+    color: red;
+  }
+  .product-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+/* star */
+
+.icon-style {
+    display: flex;
+    gap: 2px ;
+    align-items: center;
+    justify-content: flex-start;
+}
+ .icon-style   .icon {
+      font-size: 20px ;
+      color: orange;
+    }
+   .icon-style .empty-icon {
+      font-size: 26px ;
+
+    }
+  .icon-style  p {
+      margin: 0;
+      padding-left: 12px ;
+    }
+
+  @media (max-width:768px) {
+   .product-data{
+     padding: 0  24px ;
+   }
+  }
