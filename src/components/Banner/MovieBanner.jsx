@@ -1,4 +1,5 @@
 import axios from "axios";
+import styles from '../../style'; 
 import React, { useState, useEffect } from "react";
 import Youtube from "react-youtube";
 import { Oval } from "react-loader-spinner";
@@ -63,7 +64,7 @@ const MovieBanner = (props) => {
           backgroundPosition: "center",
         }}
       >
-        {!initialLoading ? (
+         {!initialLoading ? (
           <div
             className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center`}
           >
@@ -154,7 +155,7 @@ const MovieBanner = (props) => {
                 )}
               </div>
             </div>
-          </section>
+          </div>
         ) : (
           <div className="flex justify-center my-8">
             <Oval
@@ -166,8 +167,9 @@ const MovieBanner = (props) => {
             />
           </div>
         )}
-      </>
-      );
+      </section>
+    </>
+  );
 };
 
 export default MovieBanner;
