@@ -5,51 +5,47 @@ import Youtube from "react-youtube";
 import { Oval } from "react-loader-spinner";
 
 const MovieBanner = (props) => {
-  const MOVIE_API = "https://api.themoviedb.org/3";
-
   const [playing, setPlaying] = useState(false);
   const [Movies, setMovies] = useState({});
   // const [movie, setMovie] = useState(null)
   const [trailer, setTrailer] = useState(null);
   const [initialLoading, setInitialLoading] = useState(true);
-  const apiKey = process.env.REACT_APP_API_KEY;
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    update();
-  }, []);
 
-  const update = async () => {
-    setInitialLoading(true);
-    await axios
-      .get(`${MOVIE_API}/movie/${props.id}?api_key=${apiKey}&language=en-US`)
-      .then((res) => {
-        const mResults = res.data;
-        setMovies(mResults);
-        setInitialLoading(false);
-      });
-  };
-  const handleTrailer = async () => {
-    setInitialLoading(true);
-    const { data } = await axios.get(`${MOVIE_API}/movie/${props?.id}`, {
-      params: {
-        api_key: apiKey,
-        append_to_response: "videos",
-      },
-    });
+useEffect(() => {
+  window.scrollTo(0, 0)
+  update()
+}, [])
 
-    if (data.videos && data.videos.results) {
-      const trailer = data.videos.results.find(
-        (vid) => vid.name === "Official Trailer"
-      );
-      setTrailer(trailer ? trailer : data.videos.results[0]);
-      setPlaying(true);
-    }
+const update = async () => {
+  setInitialLoading(true)
+  await axios
+    .get(
+      `${process.env.REACT_APP_API_DOMAIN}/api/movies/movie-banner/${props.id}`
+    )
+    .then((res) => {
+      setMovies(res.data.data)
+      setInitialLoading(false)
+    })
+}
+const handleTrailer = async () => {
 
-    // setMovie(data)
-    setInitialLoading(false);
-  };
+  setInitialLoading(true)
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_API_DOMAIN}/api/movies/trailer/${props.id}`
+  )
 
+  if (data.data.videos && data.data.videos.results) {
+    const trailer = data.videos.results.find(
+      (vid) => vid.name === 'Official Trailer'
+    )
+    setTrailer(trailer ? trailer : data.videos.results[0])
+    setPlaying(true)
+  }
+
+  // setMovie(data)
+  setInitialLoading(false)
+}
   return (
     <>
       <section

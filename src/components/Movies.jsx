@@ -7,7 +7,6 @@ import styles from '../style'
 import { useParams } from 'react-router-dom'
 
 function Movies(props) {
-  const apiKey = process.env.REACT_APP_API_KEY
   const [initialLoading, setInitialLoading] = useState(false)
   const [Movies, setMovies] = useState([])
   const [page, setPage] = useState(1)
@@ -22,28 +21,29 @@ function Movies(props) {
   }
   useEffect(() => {
     upload()
-
     //use params as condition so that when content changes it can show category wise movies
-  }, [page, params]) 
+ 
+  }, [page, params])
 
   const upload = async () => {
     setInitialLoading(true)
-    let url = `https://api.themoviedb.org/3/discover/${props.content}?api_key=${apiKey}&with_genres=${props.id}&page=${page}`
+
+    let url = `${process.env.REACT_APP_API_DOMAIN}/api/movies/${props.content}/${props.id}?page=${page}`
 
     if (params.title === 'Trending') {
-       url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=${page}`
+      url = `${process.env.REACT_APP_API_DOMAIN}/api/movies/trending?page=${page}`
     }
 
     await axios
       .get(url)
       .then((res) => {
         if (res.status === 200) {
-          setMovies(res.data.results)
+          setMovies(res.data.data.results)
           setInitialLoading(false)
         }
       })
       .catch((e) => {
-        return e;
+        return e
       })
   }
   return (

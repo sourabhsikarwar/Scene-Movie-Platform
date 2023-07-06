@@ -14,12 +14,10 @@ const General = (props) => {
   const upload = async () => {
     setInitialLoading(true)
     await axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${props.id}/season/1?api_key=${apiKey}&language=en-US`
-      )
+      .get(`${process.env.REACT_APP_API_DOMAIN}/api/movies/tv/${props.id}`)
       .then((res) => {
         if (res.data) {
-          setTvDetail(res.data.episodes)
+          setTvDetail(res.data.data.episodes)
           setInitialLoading(false)
         }
       })

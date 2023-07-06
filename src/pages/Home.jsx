@@ -1,71 +1,60 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Banner from "../components/Banner/Banner";
-import Trending from "../components/Carousel/Trending";
-import Search from "../components/Search";
-import { Oval } from "react-loader-spinner";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Banner from '../components/Banner/Banner'
+import Trending from '../components/Carousel/Trending'
+import Search from '../components/Search'
+import { Oval } from 'react-loader-spinner'
 
 const Home = () => {
-  const [genreMovie, setGenreMovie] = useState([]);
-  const [initialLoading, setInitialLoading] = useState(true);
+  const [genreMovie, setGenreMovie] = useState([])
+  const [initialLoading, setInitialLoading] = useState(true)
 
-  const apiKey = process.env.REACT_APP_API_KEY;
 
   const uploadMovie = async () => {
-    setInitialLoading(true);
+    setInitialLoading(true)
     await axios
-      .get(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
-      )
+      .get(`${process.env.REACT_APP_API_DOMAIN}/api/movies/get-all-genres`)
       .then((res) => {
+        console.log(res)
         if (res.status === 200) {
-          setGenreMovie(res.data.genres);
-          setInitialLoading(false);
+          setGenreMovie(res.data.data.genres)
+          setInitialLoading(false)
         }
       })
       .catch((e) => {
-        return e.message;
-      });
-  };
+        return e.message
+      })
+  }
 
   useEffect(() => {
-    uploadMovie();
-  }, []);
+    uploadMovie()
+  }, [])
 
   return (
-    <div className="bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite">
+    <div className='bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite'>
       {!initialLoading ? (
         <div>
           <Banner />
           <Search />
-          <Trending
-            title="Trending"
-            id="1"
-          />
+          <Trending title='Trending' id='1' />
           {genreMovie &&
-            genreMovie.map((item) => {
-              return (
-                <Trending
-                  title={item.name}
-                  id={item.id}
-                  key={item.id}
-                />
-              );
+            genreMovie.map((item, index) => {
+              return <Trending title={item.name} id={item.id} key={index} />
             })}
         </div>
       ) : (
-        <div className="flex justify-center py-8">
+        <div className='flex justify-center py-8'>
           <Oval
-            height="50"
-            width="50"
-            color="grey"
-            secondaryColor="grey"
-            ariaLabel="loading"
+            height='50'
+            width='50'
+            color='grey'
+            secondaryColor='grey'
+            ariaLabel='loading'
           />
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
