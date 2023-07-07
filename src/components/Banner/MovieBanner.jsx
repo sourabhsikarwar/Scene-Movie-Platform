@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Youtube from "react-youtube";
 import styles from "../../style";
+import Youtube from "react-youtube";
 import { Oval } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 
@@ -63,7 +63,6 @@ const MovieBanner = (props) => {
           }}
         >
           <div className="absolute inset-0 bg-black opacity-40"></div>
-          <div className="grid grid-two-column"></div>
           <div
             className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center relative z-10`}
           >
