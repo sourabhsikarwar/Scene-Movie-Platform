@@ -13,7 +13,6 @@ const Footer = () => {
     <div className="w-80vw mx-auto max-w-1200px"style={{ marginTop: "-12px"}}>
       <div className="flex justify-around flex-wr mtap" style={{display:"flex",flexDirection:"column"}}>
       <div className="mb-4 mt-10 ml-auto mr-auto">
-           {/* <div className="font-bold text-lg mb-3 text-black text-opacity-90 dark:text-zinc-50">Community</div> */}
            <ul style={{display:"flex"}}>
                 <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50 ml-3 mr-3" style={{fontSize:"30px"}}>
                 <a href="https://github.com/sourabhsikarwar/Scene-Movie-Platform" aria-label="Follow me on Github" target="_blank" className={hoverEffect}><AiFillGithub className="mr-1" /></a>
@@ -33,7 +32,6 @@ const Footer = () => {
              </ul>
         </div>
       <div className="mb-4 mt-4 ml-auto mr-auto">
-        {/* <div className="font-bold text-lg mb-3 text-black text-opacity-90 dark:text-zinc-50">Quick Links</div> */}
         <ul className="list-none m-0 p-0" style={{display: "flex",flexWrap: "wrap"}}>
                <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50 ml-6 mr-6">
                 <Link to="/" className={hoverEffect}>Home</Link>
@@ -53,7 +51,6 @@ const Footer = () => {
         </ul>
         </div>
       <div className="mb-10 mt-4 ml-auto mr-auto">
-           {/* <div className="font-bold text-lg mb-3 text-black text-opacity-90 dark:text-zinc-50">Need Help?  </div> */}
            <ul style={{display:"flex"}}>
                 <li className="leading-8 text-base text-black text-opacity-80 dark:text-zinc-50 ml-6 mr-6">
                    <a href="#" className={hoverEffect}>Visit Help Center</a>
