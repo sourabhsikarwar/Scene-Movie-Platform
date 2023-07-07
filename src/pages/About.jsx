@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from '../style'
 import Button from '../components/Ui/SecButton'
-import Contributor from '../components/Contributor'
-import AdminAbout from '../components/AdminAbout'
+import Contributor from "../components/Contributor";
+import AdminAbout from "../components/AdminAbout";
 import background from '../assets/image/bg1.webp'
 const About = () => {
   return (

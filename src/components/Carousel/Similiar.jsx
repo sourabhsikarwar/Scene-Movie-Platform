@@ -5,10 +5,12 @@ import React, { useState, useEffect } from 'react'
 import styles from '../../style'
 import MovieCard from '../Cards/MovieCard'
 import { Oval } from 'react-loader-spinner'
+import { useParams } from 'react-router-dom';
 
 const Similiar = (props) => {
   const [initialLoading, setInitialLoading] = useState(true)
   const [data, setData] = useState([])
+  const { movieId, title } = useParams();
 
   const upload = async () => {
     setInitialLoading(true)
@@ -29,7 +31,7 @@ const Similiar = (props) => {
 
   useEffect(() => {
     upload()
-  }, [])
+  }, [movieId])
 
   return (
     <>
