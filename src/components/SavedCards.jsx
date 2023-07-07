@@ -16,13 +16,12 @@ function SavedCards({ item, deleteMovie }) {
   const getGenre = async () => {
     setInitialLoading(true)
     const response = await fetch(
-      `${process.env.REACT_APP_API_DOMAIN}/api/movies/all-genre/${item.id}`,
+      `${process.env.REACT_APP_API_DOMAIN}/api/movies/all-genre/id/${item.id}`,
       {
         method: 'get',
       }
     ).then((res) => res.json())
     if (response.success) {
-      console.log(response)
       //set the genre
       setGenre(response.data)
       setInitialLoading(false)

@@ -10,8 +10,7 @@ import '../SingleMovieCast/style.css'
 import { useParams } from 'react-router-dom'
 
 const MovieBanner = (props) => {
-  console.log(props)
-  // const MOVIE_API = "https://api.themoviedb.org/3";
+
   const { movieId, title } = useParams()
   const [playing, setPlaying] = useState(false)
   const [Movies, setMovies] = useState({})
@@ -19,21 +18,17 @@ const MovieBanner = (props) => {
   const [trailer, setTrailer] = useState(null)
   const [initialLoading, setInitialLoading] = useState(true)
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   update();
-  // }, [movieId]);
 
   useEffect(() => {
     window.scrollTo(0, 0)
     update()
-  }, [])
+  }, [movieId])
 
   const update = async () => {
     setInitialLoading(true)
     await axios
       .get(
-        `${process.env.REACT_APP_API_DOMAIN}/api/movies/movie-banner/${props.id}`
+        `${process.env.REACT_APP_API_DOMAIN}/api/movies/movie-banner/movie/${movieId}`
       )
       .then((res) => {
         setMovies(res.data.data)
@@ -43,14 +38,14 @@ const MovieBanner = (props) => {
   const handleTrailer = async () => {
     setInitialLoading(true)
     const { data } = await axios.get(
-      `${process.env.REACT_APP_API_DOMAIN}/api/movies/trailer/${props.id}`
+      `${process.env.REACT_APP_API_DOMAIN}/api/movies/trailer/id/${movieId}`
     )
 
     if (data.data.videos && data.data.videos.results) {
-      const trailer = data.videos.results.find(
+      const trailer = data.data.videos.results.find(
         (vid) => vid.name === 'Official Trailer'
       )
-      setTrailer(trailer ? trailer : data.videos.results[0])
+      setTrailer(trailer ? trailer : data.data.videos.results[0])
       setPlaying(true)
     }
 

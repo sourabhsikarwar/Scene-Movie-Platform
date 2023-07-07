@@ -52,7 +52,7 @@ router.get('/all-movies/:genre_id', async (req, res) => {
   }
 })
 
-//for trending with pagination and no pagination 
+//for trending with pagination and no pagination
 router.get('/trending', async (req, res) => {
   try {
     const { page } = req.query
@@ -61,7 +61,6 @@ router.get('/trending', async (req, res) => {
     if (page) {
       url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}&page=${page}`
     }
-
 
     const data = await fetch(url).then((res) => res.json())
     res.status(200).json({ success: true, data: data })
@@ -99,8 +98,9 @@ router.get('/similar/:title/:id', async (req, res) => {
 })
 
 //for getting individual movie banner
-router.get('/movie-banner/:id', async (req, res) => {
+router.get('/movie-banner/movie/:id', async (req, res) => {
   const { id } = req.params
+
   try {
     const data = await fetch(
       `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
@@ -112,7 +112,7 @@ router.get('/movie-banner/:id', async (req, res) => {
 })
 
 //get the trailer of a particular movie
-router.get('/trailer/:id', async (req, res) => {
+router.get('/trailer/id/:id', async (req, res) => {
   const { id } = req.params
   try {
     const data = await fetch(
@@ -138,7 +138,7 @@ router.get('/tv/:id', async (req, res) => {
 })
 
 //get genre of a particular movie
-router.get('/all-genre/:id', async (req, res) => {
+router.get('/all-genre/id/:id', async (req, res) => {
   try {
     const { id } = req.params
     const data = await fetch(
@@ -149,7 +149,5 @@ router.get('/all-genre/:id', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' })
   }
 })
-
-
 
 module.exports = router

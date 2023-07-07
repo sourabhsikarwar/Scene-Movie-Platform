@@ -15,7 +15,6 @@ const Home = () => {
     await axios
       .get(`${process.env.REACT_APP_API_DOMAIN}/api/movies/get-all-genres`)
       .then((res) => {
-        console.log(res)
         if (res.status === 200) {
           setGenreMovie(res.data.data.genres)
           setInitialLoading(false)
