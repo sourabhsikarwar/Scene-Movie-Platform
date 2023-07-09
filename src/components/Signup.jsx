@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import bg from "../assets/image/bg2.webp";
@@ -203,7 +204,7 @@ const Signup = () => {
               onKeyDown={handleKeyDown}
               countryCodeEditable={false}
               inputClass="focus:ring-0"
-              inputStyle={{ border: "0px"}}
+              inputStyle={{ border: "0px", width:"100%"}}
               containerClass="border-none outline-none focus:ring-0"
               className={`w-full bg-white rounded border ${
                 errors.phoneNumber ? "border-red-500" : "border-gray-300"

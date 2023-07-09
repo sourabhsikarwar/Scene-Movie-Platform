@@ -3,7 +3,7 @@ import styles from '../style'
 import Button from '../components/Ui/SecButton'
 import Contributor from "../components/Contributor";
 import AdminAbout from "../components/AdminAbout";
-import background from '../assets/image/bg1.webp'
+import background from '../assets/image/bg1.png'
 const About = () => {
   return (
     <div className="dark:bg-primary dark:text-dimWhite p-1 ">
