@@ -8,6 +8,7 @@ import { Oval } from "react-loader-spinner";
 
 const Home = () => {
   const [genreMovie, setGenreMovie] = useState([]);
+  const [genreTv, setGenreTv] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
 
   const apiKey = process.env.REACT_APP_API_KEY;
@@ -33,6 +34,27 @@ const Home = () => {
     uploadMovie();
   }, []);
 
+  const uploadTv = async () => {
+    setInitialLoading(true);
+    await axios
+      .get(
+        `https://api.themoviedb.org/3/genre/tv/list?api_key=${apiKey}&language=en-US`
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setGenreTv(res.data.genres);
+          setInitialLoading(false);
+        }
+      })
+      .catch((e) => {
+        return e.message;
+      });
+  };
+
+  useEffect(() => {
+    uploadTv();
+  }, []);
+
   return (
     <div className="bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite">
       {!initialLoading ? (
@@ -42,12 +64,20 @@ const Home = () => {
           <Trending
             title="Trending"
             id="1"
+            type="movie"
+            head="Movies"
+          />
+          <Trending
+            title="Trending"
+            id="1"
+            type="tv"
+            head="TV Shows"
           />
           <Genre
             title="Genres"
             id="1"
           />
-          {genreMovie &&
+          {/* {genreMovie &&
             genreMovie.map((item) => {
               return (
                 <Trending
@@ -56,7 +86,7 @@ const Home = () => {
                   key={item.id}
                 />
               );
-            })}
+            })} */}
         </div>
       ) : (
         <div className="flex justify-center py-8">

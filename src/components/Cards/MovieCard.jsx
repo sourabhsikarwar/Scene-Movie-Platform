@@ -57,7 +57,8 @@ const MovieCard = (props) => {
           backgroundPositionX: 'center',
           backgroundBlendMode: 'multiply',
         }}
-      >
+      >{console.log("props")}
+        {console.log("props in movie card",props)}
         <div
           className={`absolute w-[40px] h-[40px] right-0 top-0 cursor-pointer group-hover:flex hidden sidebar m-3 shadow`}
         >
@@ -72,14 +73,26 @@ const MovieCard = (props) => {
             )}
           </div>
         </div>
-        <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
-          <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
-            <p className=''>{props.movie.title}</p>
-            <p className='text-dimWhite font-normal text-xs mt-2'>
-              {props.movie.vote_average}/10
-            </p>
-          </div>
-        </Link>
+        {props.type ==="movie" ? (
+          <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
+            <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
+              <p className=''>{props.movie.title}</p>
+              <p className='text-dimWhite font-normal text-xs mt-2'>
+                {props.movie.vote_average}/10
+              </p>
+            </div>
+          </Link>
+        ) : ("")}
+        {props.type ==="tv" ? (
+          <Link to={'/tv/' + props.movie.name + '/' + props.movie.id}>
+            <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
+              <p className=''>{props.movie.name}</p>
+              <p className='text-dimWhite font-normal text-xs mt-2'>
+                {props.movie.vote_average}/10
+              </p>
+            </div>
+          </Link>
+        ) : ("")}
       </div>
     </div>
   )
