@@ -61,32 +61,21 @@ const Home = () => {
         <div>
           <Banner />
           <Search />
-          <Trending
-            title="Trending"
-            id="1"
-            type="movie"
-            head="Movies"
-          />
-          <Trending
-            title="Trending"
-            id="1"
-            type="tv"
-            head="TV Shows"
-          />
-          <Genre
-            title="Genres"
-            id="1"
-          />
-          {/* {genreMovie &&
+          <Trending title="Trending" id="1" type="movie" head="Movies" />
+          <Trending title="Trending" id="1" type="tv" head="TV Shows" />
+          <Genre title="Genres" id="1" />
+          {genreMovie &&
             genreMovie.map((item) => {
               return (
                 <Trending
                   title={item.name}
                   id={item.id}
                   key={item.id}
+                  head=""
+                  type="movie"
                 />
               );
-            })} */}
+            })}
         </div>
       ) : (
         <div className="flex justify-center py-8">

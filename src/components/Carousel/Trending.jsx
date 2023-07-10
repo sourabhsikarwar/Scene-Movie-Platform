@@ -69,11 +69,19 @@ const Trending = (props) => {
           {props.type === "movie" ? (
             <>
               <div className="flex justify-between items-center px-4">
-                <h2
-                  className={`${styles.heading3} text-gray-900 dark:text-white`}
-                >
-                  {props.title + " " + props.head}
-                </h2>
+                {props.title === "Trending" ? (
+                  <h2
+                    className={`${styles.heading3} text-gray-900 dark:text-white`}
+                  >
+                    {props.title + " " + props.head}
+                  </h2>
+                ) : (
+                  <h2
+                    className={`${styles.heading3} text-gray-900 dark:text-white`}
+                  >
+                    {props.title}
+                  </h2>
+                )}
                 <p className="">
                   <Link
                     className={`${styles.paragraph} text-gray-900 dark:text-dimWhite dark:hover:text-white duration-200`}
@@ -163,10 +171,9 @@ const Trending = (props) => {
                 }}
                 aria-label="My Favorite Images"
                 className="justify-center"
-              >{console.log("tv",Tv)}
+              >
                 {Tv.map((movie) => {
                   return (
-
                     <SplideSlide key={movie.id}>
                       <MovieCard type="tv" movie={movie} />
                     </SplideSlide>
