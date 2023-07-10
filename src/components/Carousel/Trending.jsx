@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import styles from "../../style";
 import MovieCard from "../Cards/MovieCard";
+import CircleRating from "../circleRating/CircleRating";
 
 const Trending = (props) => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [initialLoading, setinitalLoading] = useState(true);
   const [Movies, setMovies] = useState([]);
+  
 
   const upload = async (url) => {
     setinitalLoading(true);
@@ -51,6 +53,7 @@ const Trending = (props) => {
                 Show all
               </Link>
             </p>
+      
           </div>
           <Splide
             options={{
@@ -78,10 +81,12 @@ const Trending = (props) => {
             aria-label="My Favorite Images"
             className="justify-center"
           >
+
             {Movies.map((movie) => {
+             
               return (
-                <SplideSlide key={movie.id}>
-                  <MovieCard movie={movie} />
+                <SplideSlide key={movie.id} className="carouselItem">
+                  <MovieCard movie={movie} />                    
                 </SplideSlide>
               );
             })}
