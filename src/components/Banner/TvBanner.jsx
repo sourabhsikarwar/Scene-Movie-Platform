@@ -11,32 +11,33 @@ import { useParams } from "react-router-dom";
 
 const MovieBanner = (props) => {
   const MOVIE_API = "https://api.themoviedb.org/3";
-  const { movieId, title } = useParams();
+  const { tvId, title } = useParams();
   const [playing, setPlaying] = useState(false);
-  const [Movies, setMovies] = useState({});
+  const [Tv, setTv] = useState({});
 
   const [trailer, setTrailer] = useState(null);
   const [initialLoading, setInitialLoading] = useState(true);
   const apiKey = process.env.REACT_APP_API_KEY;
+  const totalMinutes = Tv.runtime;
 
   useEffect(() => {
     window.scrollTo(0, 0);
     update();
-  }, [movieId]);
+  }, [tvId]);
 
   const update = async () => {
     setInitialLoading(true);
     await axios
-      .get(`${MOVIE_API}/movie/${props.id}?api_key=${apiKey}&language=en-US`)
+      .get(`${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US`)
       .then((res) => {
         const mResults = res.data;
-        setMovies(mResults);
+        setTv(mResults);
         setInitialLoading(false);
       });
   };
   const handleTrailer = async () => {
     setInitialLoading(true);
-    const { data } = await axios.get(`${MOVIE_API}/movie/${props?.id}`, {
+    const { data } = await axios.get(`${MOVIE_API}/tv/${props?.id}`, {
       params: {
         api_key: apiKey,
         append_to_response: "videos",
@@ -58,53 +59,55 @@ const MovieBanner = (props) => {
   return (
     <>
       {!initialLoading ? (
-        <section className="container movie-container" key={Movies.id}>
+        <section className="container movie-container" key={Tv.id}>
           <div className="grid grid-two-column">
             <div className="product_image">
               <img
                 width={"60%"}
                 className=" object-cover object-center rounded  pt-10"
-                src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`}
-                alt={Movies.title}
+                src={`https://image.tmdb.org/t/p/original/${Tv.poster_path}`}
+                alt={Tv.title}
               />
             </div>
             <div className="product-data">
-              <h2>{Movies.title}</h2>
-              <Star
-                stars={Movies.vote_average / 2}
-                reviews={Movies.vote_count}
-              />
-              <p className="product-data-price">
-                Revenue : <FormatPrice price={Movies.revenue} />
-              </p>
+              <h2>{Tv.name}</h2> {console.log("data in tv", Tv)}
+              <Star stars={Tv.vote_average / 2} reviews={Tv.vote_count} />
               <p className="product-data-price product-data-real-price">
                 Release :{" "}
-                {Movies.release_date.toString().split("-").reverse().join("-")}
+                {Tv.first_air_date.toString().split("-").reverse().join("-")}
               </p>
-              <p>{Movies.overview}</p>
-
-              <div className="product-data-info">
-                <p>
-                  Available :
-                  {Movies.production_countries.map((ele) => (
-                    <span>{ele.name} </span>
-                  ))}
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <p style={{ marginRight: "10px" }}>
+                  Total Seasons: &nbsp;
+                  <span style={{ fontWeight: "bold" }}>
+                    {Tv.number_of_seasons}
+                  </span>
                 </p>
                 <p>
-                  {console.log(Movies)}
+                  Total Episodes: &nbsp;
+                  <span style={{ fontWeight: "bold" }}>
+                    {Tv.number_of_episodes}
+                  </span>
+                </p>
+                {/* <p>Episode Duration &nbsp;
+                    <span style={{fontWeight: "bold"}}>{Math.floor(Tv.episode_run_time / 60)} h&nbsp; {Math.floor(Tv.episode_run_time % 60)}</span>
+                  </p> */}
+              </div>
+              <p>{Tv.overview}</p>
+              <div className="product-data-info">
+                <p>
                   Languages :
-                  {Movies.spoken_languages.map((ele) => (
+                  {Tv.spoken_languages.map((ele) => (
                     <span>{ele.english_name} </span>
                   ))}
                 </p>
                 <p>
                   Genres :{" "}
-                  {Movies.genres.map((ele) => (
-                    <span key={ele.id}>{ele.name} </span>
+                  {Tv.genres.map((ele) => (
+                    <span>{ele.name} </span>
                   ))}
                 </p>
               </div>
-
               <hr />
               {playing ? (
                 <div className="mx-auto">
@@ -135,7 +138,7 @@ const MovieBanner = (props) => {
               ) : (
                 <div className="flex my-4">
                   <button
-                    onClick={handleTrailer}
+                    // onClick={handleTrailer}
                     className="flex bg-blue-gradient text-black border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded"
                   >
                     Watch
