@@ -5,15 +5,18 @@ import "../assets/style/Footer.css";
 const Footer = () => {
   return (
     <>
-      <footer class="footer">
-        <div class="container">
-          <div class="row">
+      <footer className="footer mt-16">
+        <div className="container">
+          <div className="row">
             <div className="col-md wrap">
               <div className="box">
-                <img src={logo} alt="LOGO" />
+                <img
+                  src={logo}
+                  alt="LOGO"
+                />
               </div>
               <div className="content-box">
-                <div class="footer-col">
+                <div className="footer-col">
                   <h4>Quick Links</h4>
                   <ul>
                     <li>
@@ -33,7 +36,7 @@ const Footer = () => {
                     </li>
                   </ul>
                 </div>
-                <div class="footer-col">
+                <div className="footer-col">
                   <h4>Need help?</h4>
                   <ul>
                     <li>
@@ -44,23 +47,23 @@ const Footer = () => {
                     </li>
                   </ul>
                 </div>
-                <div class="footer-col">
+                <div className="footer-col">
                   <h4>Community</h4>
-                  <div class="social-links">
+                  <div className="social-links">
                     <a href="#">
-                      <i class="fab fa-facebook-f"></i>
+                      <i className="fab fa-facebook-f"></i>
                     </a>
                     <a href="#">
-                      <i class="fab fa-twitter"></i>
+                      <i className="fab fa-twitter"></i>
                     </a>
                     <a href="#">
-                      <i class="fab fa-instagram"></i>
+                      <i className="fab fa-instagram"></i>
                     </a>
                     <a href="https://www.linkedin.com/in/sourabhsikarwar/">
-                      <i class="fab fa-linkedin-in"></i>
+                      <i className="fab fa-linkedin-in"></i>
                     </a>
                     <a href="https://github.com/sourabhsikarwar/Scene-Movie-Platform">
-                      <i class="fab fa-github"></i>
+                      <i className="fab fa-github"></i>
                     </a>
                   </div>
                 </div>
