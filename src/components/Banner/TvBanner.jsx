@@ -70,7 +70,7 @@ const MovieBanner = (props) => {
               />
             </div>
             <div className="product-data">
-              <h2>{Tv.name}</h2> {console.log("data in tv", Tv)}
+              <h2>{Tv.name}</h2>
               <Star stars={Tv.vote_average / 2} reviews={Tv.vote_count} />
               <p className="product-data-price product-data-real-price">
                 Release :{" "}
