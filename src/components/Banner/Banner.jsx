@@ -32,7 +32,9 @@ function Banner() {
       <section
         className={`text-gray-600 body-font`}
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
+          backgroundImage: `url(https://image.tmdb.org/t/p/original/${
+            Movies.backdrop_path ??
+            "https://image.tmdb.org/t/p/original/nGxUxi3PfXDRm7Vg95VBNgNM8yc.jpg"}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundBlendMode: 'multiply',

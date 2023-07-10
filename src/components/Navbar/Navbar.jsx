@@ -1,13 +1,13 @@
-import React, { useState,useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "../../assets/image/slide.webp";
 import NavLink from "./NavLink";
 import styles from "../../style";
 import Avatar from "../Ui/Avatar";
 import { useUserAuth } from "../../context/authContext";
-import {FaMoon, FaSun} from 'react-icons/fa'
+import { FaMoon, FaSun } from "react-icons/fa";
 
-const Navbar = ({handleThemeSwitch}) => {
+const Navbar = ({ handleThemeSwitch }) => {
   const [open, setOpen] = useState(false);
   const { user } = useUserAuth();
   const location = useLocation();
@@ -36,10 +36,10 @@ const Navbar = ({handleThemeSwitch}) => {
     };
   }, []);
 
-  const toggleMode=()=>{
+  const toggleMode = () => {
     setCheck(!check);
     handleThemeSwitch();
-  }
+  };
 
   return (
     <nav
@@ -48,11 +48,13 @@ const Navbar = ({handleThemeSwitch}) => {
     >
       <div
         ref={navbarRef}
-        className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between`}
+        className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between `}
       >
         <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
-        <Link
-          to="/">
+          <Link
+            to="/"
+            className="flex items-center"
+          >
             <img
               src={Logo}
               alt="logo"
@@ -64,11 +66,24 @@ const Navbar = ({handleThemeSwitch}) => {
           <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
             {/* Light/Dark mode switch */}
             <div className="relative">
-              <input id="checkbox" type="checkbox" className="opacity-0 absolute top-1.5 left-2 bg-red-500 checked:translate-x-6 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
-              <label htmlFor="checkbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
-                <FaMoon color="f1c40f"/>
-                <FaSun color="f39c12"/>
-                <span className={`bg-secondary absolute w-6 h-6 left-1 top-[2.5px] rounded-full transition-transform ${check?"translate-x-6":"translate-x-0"}`}></span>
+              <input
+                id="checkbox"
+                type="checkbox"
+                className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full p-1 z-10 cursor-pointer"
+                checked={check}
+                onChange={toggleMode}
+              />
+              <label
+                htmlFor="checkbox"
+                className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border"
+              >
+                <FaMoon color="f1c40f" />
+                <FaSun color="f39c12" />
+                <span
+                  className={`bg-secondary opacity-40 absolute w-6 h-7 right-8 rounded-full transition-transform ${
+                    !check ? "translate-x-8" : "translate-x-0"
+                  }`}
+                ></span>
               </label>
             </div>
             {user ? (
@@ -135,14 +150,26 @@ const Navbar = ({handleThemeSwitch}) => {
         {/* normal web view  */}
 
         <div className="md:flex hidden justify-center items-center gap-x-6 z-50">
-
           {/* Light/Dark mode switch */}
           <div className="relative">
-            <input id="mobileCheckbox" type="checkbox" className="opacity-0 absolute top-1.5 left-2 bg-red-500 checked:translate-x-6 z-10 cursor-pointer" checked={check} onChange={toggleMode} />
-            <label htmlFor="mobileCheckbox" className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border">
-              <FaMoon color="f1c40f"/>
-              <FaSun color="f39c12"/>
-              <span className={`bg-secondary absolute w-6 h-6 left-1 top-[2.5px] rounded-full transition-transform ${check?"translate-x-6":"translate-x-0"}`}></span>
+            <input
+              id="mobileCheckbox"
+              type="checkbox"
+              className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full z-10 p-1 cursor-pointer"
+              checked={check}
+              onChange={toggleMode}
+            />
+            <label
+              htmlFor="mobileCheckbox"
+              className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border"
+            >
+              <FaMoon color="f1c40f" />
+              <FaSun color="f39c12" />
+              <span
+                className={`bg-secondary opacity-40 absolute w-6 h-7 right-8 rounded-full transition-transform ${
+                  !check ? "translate-x-8" : "translate-x-0"
+                }`}
+              ></span>
             </label>
           </div>
           {user ? (
