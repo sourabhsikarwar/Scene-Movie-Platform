@@ -68,8 +68,6 @@ function Movies(props) {
         .then((res) => {
           if (res.status === 200) {
             setTv(res.data.results);
-            console.log("res", res);
-            console.log("tv", Tv);
             setInitialLoading(false);
           }
         })

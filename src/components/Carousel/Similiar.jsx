@@ -107,7 +107,6 @@ const Similiar = (props) => {
             aria-label="My Favorite Images"
             className="justify-center"
           >
-            {/* {console.log("movieID,tv",movieId,tvId)} */}
             {props.title === "tv"
               ? Tv.map((item) => {
                   return (

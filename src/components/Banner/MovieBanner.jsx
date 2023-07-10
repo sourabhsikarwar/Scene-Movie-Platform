@@ -91,7 +91,6 @@ const MovieBanner = (props) => {
                   ))}
                 </p>
                 <p>
-                  {console.log(Movies)}
                   Languages :
                   {Movies.spoken_languages.map((ele) => (
                     <span>{ele.english_name} </span>

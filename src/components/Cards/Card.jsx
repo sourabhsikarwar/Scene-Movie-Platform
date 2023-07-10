@@ -10,7 +10,6 @@ const MovieCard = (props) => {
         <>
           <Link to={"/tv/" + props.movie.name + "/" + props.movie.id}>
             {" "}
-            {console.log("propsd in card", props)}
             <div className={`shadow flex my-4 p-3`} key={props.movie.id}>
               <div
                 className={`${styles.Card} flex justify-start items-end p-4 duration-200 rounded-[6px]`}

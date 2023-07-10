@@ -10,7 +10,6 @@ const Tv = () => {
     <>
       <TvBanner id={tvId} title={title} />
       <Similiar title="tv" id={tvId} />
-      {console.log(tvId, title)}
     </>
   );
 };
