@@ -2,9 +2,9 @@ const styles = {
   boxWidth: "xl:max-w-[1440px] w-full mx-auto",
 
   heading1:
-    "font-poppins font-bold md:text-[56px] text-[48px] text-white leading-relaxed",
+    "font-poppins font-bold md:text-[56px] text-[48px] text-black dark:text-white leading-relaxed",
   heading2:
-    "font-poppins font-medium md:text-[36px] text-[24px] text-white leading-relaxed",
+    "font-poppins font-medium md:text-[36px] text-[24px] text-black dark:text-white leading-relaxed",
   heading3:
     "font-poppins font-medium md:text-[24px] text-[24px] leading-relaxed",
   paragraph:
