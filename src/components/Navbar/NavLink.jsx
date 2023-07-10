@@ -46,7 +46,7 @@ const NavLinks = ({ onMovieLinkClick, category }) => {
                           to={
                             link.name === "Movies"
                               ? `/category/movie/${sLink.name}/${sLink.id}`
-                              : `/category/tvshow/${sLink.name}/${sLink.id}`
+                              : `/category/tv/${sLink.name}/${sLink.id}`
                           }
                           className="hover:underline dark:hover:text-white"
                         >

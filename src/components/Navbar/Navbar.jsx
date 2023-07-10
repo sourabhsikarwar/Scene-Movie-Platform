@@ -133,7 +133,7 @@ const Navbar = ({ handleThemeSwitch }) => {
             <NavLink onMovieLinkClick={handleMovieLinkClick} category="Movies" />
           </li>
           <li>
-            <NavLink onMovieLinkClick={handleMovieLinkClick} category="TV Shows" />
+            <NavLink onMovieLinkClick={handleMovieLinkClick} category="TV" />
           </li>
           <li>
             <Link
@@ -209,7 +209,7 @@ const Navbar = ({ handleThemeSwitch }) => {
             <NavLink onMovieLinkClick={handleMovieLinkClick} category="Movies" /> {/* Pass the category prop */}
           </li>
           <li>
-            <NavLink onMovieLinkClick={handleMovieLinkClick} category="TV Shows" /> {/* Add the TV Shows dropdown */}
+            <NavLink onMovieLinkClick={handleMovieLinkClick} category="TV" /> {/* Add the TV Shows dropdown */}
           </li>
           <li>
             <Link

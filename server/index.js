@@ -12,5 +12,6 @@ app.use(express.json())
 
 // * movie routes
 app.use('/api/movies', require('./routes/movies'))
+app.use('/api/tv', require('./routes/tv'))
 
 app.listen(port, () => console.log(`server is running on ${port}`))
