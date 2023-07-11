@@ -58,51 +58,50 @@ const MovieBanner = (props) => {
   return (
     <>
       {!initialLoading ? (
-        <section className="container movie-container" key={Movies.id}>
-          <div className="grid grid-two-column">
-            <div className="product_image">
-              <img
-                width={"60%"}
-                className=" object-cover object-center rounded  pt-10"
-                src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`}
-                alt={Movies.title}
-              />
-            </div>
-            <div className="product-data">
-              <h2>{Movies.title}</h2>
-              <Star
-                stars={Movies.vote_average / 2}
-                reviews={Movies.vote_count}
-              />
-              <p className="product-data-price">
-                Revenue : <FormatPrice price={Movies.revenue} />
-              </p>
-              <p className="product-data-price product-data-real-price">
-                Release :{" "}
-                {Movies.release_date.toString().split("-").reverse().join("-")}
-              </p>
-              <p>{Movies.overview}</p>
-
-              <div className="product-data-info">
-                <p>
-                  Available :
-                  {Movies.production_countries.map((ele) => (
-                    <span>{ele.name} </span>
-                  ))}
-                </p>
-                <p>
-                  Languages :
-                  {Movies.spoken_languages.map((ele) => (
-                    <span>{ele.english_name} </span>
-                  ))}
-                </p>
-                <p>
-                  Genres :{" "}
-                  {Movies.genres.map((ele) => (
-                    <span key={ele.id}>{ele.name} </span>
-                  ))}
-                </p>
+        <section className="container movie-container ">
+            <div className="grid grid-two-column">
+              <div className="product_image">
+                <img
+                  width={'60%'}
+                  className=" object-cover object-center rounded  pt-10"
+                  src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`}
+                  alt={Movies.title}
+                />
               </div>
+              <div className="product-data ">
+                <h2 className="dark:text-white">{Movies.title}</h2>
+                <Star
+                  stars={Movies.vote_average / 2}
+                  reviews={Movies.vote_count}
+                />
+                <p className="product-data-price dark:text-dimWhite">
+                  Revenue :  <FormatPrice price={Movies.revenue} />
+                </p>
+                <p className="product-data-price product-data-real-price dark:text-dimWhite">
+                 Release : {(Movies.release_date).toString().split('-').reverse().join('-')}
+                </p>
+                <p className="dark:text-dimWhite">{Movies.overview}</p>
+
+                <div className="product-data-info ">
+                  <p className="dark:text-dimWhite">
+                    Available :
+                    {Movies.production_countries.map((ele) => (
+                      <span>{ele.name} </span>
+                    ))}
+                  </p>
+                  <p className="dark:text-dimWhite">
+                    Languages :
+                    {Movies.spoken_languages.map((ele) => (
+                      <span>{ele.english_name} </span>
+                    ))}
+                  </p>
+                  <p className="dark:text-dimWhite">
+                    Genres :{" "}
+                    {Movies.genres.map((ele) => (
+                      <span>{ele.name} </span>
+                    ))}
+                  </p>
+                </div>
 
               <hr />
               {playing ? (
@@ -155,10 +154,10 @@ const MovieBanner = (props) => {
             color="grey"
             secondaryColor="grey"
             ariaLabel="loading"
-          />
+            />
         </div>
       )}
-    </>
+      </>
   );
 };
 

@@ -5,7 +5,7 @@ import "../assets/style/Footer.css";
 const Footer = () => {
   return (
     <>
-      <footer className="footer ">
+      <footer className="footer pt-16">
         <div className="container">
           <div className="row">
             <div className="col-md wrap">
