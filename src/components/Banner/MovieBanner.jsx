@@ -1,13 +1,9 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import styles from "../../style";
 import Youtube from "react-youtube";
 import { Oval } from "react-loader-spinner";
-// for star rating convert number into star
-import Star from "../SingleMovieCast/Star";
-//  format price is used to format country currency 
-import FormatPrice from "../SingleMovieCast/FormatPrice";
-import "../SingleMovieCast/style.css";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 const MovieBanner = (props) => {
   const MOVIE_API = "https://api.themoviedb.org/3";
@@ -58,52 +54,101 @@ const MovieBanner = (props) => {
   return (
     <>
       {!initialLoading ? (
-        <section className="container movie-container">
-            <div className="grid grid-two-column">
-              <div className="product_image">
+        <section
+          className="relative text-gray-600 body-font overflow-hidden bg-[#656565cf] bg-blend-multiply"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original/${Movies.backdrop_path})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0 bg-black opacity-40"></div>
+          <div
+            className={`${styles.boxWidth} px-4 py-8 mx-auto lg:h-screen h-full flex items-center relative z-10`}
+          >
+            <div className="mx-auto flex flex-wrap flex-row">
+              <div className="m-auto w-2/3 h-full sm:w-2/4 md:w-1/4 my-[1%] bg-gray-200 rounded shadow-md">
                 <img
-                  width={'60%'}
-                  className=" object-cover object-center rounded  pt-10"
+                  alt={`${Movies.poster_path}`}
+                  className="w-full h-full object-cover object-center rounded"
                   src={`https://image.tmdb.org/t/p/original/${Movies.poster_path}`}
-                  alt={Movies.title}
+                  loading="lazy"
                 />
               </div>
-              <div className="product-data">
-                <h2>{Movies.title}</h2>
-                <Star
-                  stars={Movies.vote_average / 2}
-                  reviews={Movies.vote_count}
-                />
-                <p className="product-data-price">
-                  Revenue :  <FormatPrice price={Movies.revenue} />
-                </p>
-                <p className="product-data-price product-data-real-price">
-                 Release : {(Movies.release_date).toString().split('-').reverse().join('-')}
-                </p>
-                <p>{Movies.overview}</p>
-
-                <div className="product-data-info">
-                  <p>
-                    Available :
-                    {Movies.production_countries.map((ele) => (
-                      <span>{ele.name} </span>
-                    ))}
-                  </p>
-                  <p>
-                    Languages :
-                    {Movies.spoken_languages.map((ele) => (
-                      <span>{ele.english_name} </span>
-                    ))}
-                  </p>
-                  <p>
-                    Genres :{" "}
-                    {Movies.genres.map((ele) => (
-                      <span>{ele.name} </span>
-                    ))}
-                  </p>
+              <div className="py-3 lg:py-4 flex flex-col items-center md:items-start md:w-2/3 mx-auto">
+                <h1
+                  className={`${styles.heading2} font-extrabold text-center md:text-left`}
+                >
+                  {Movies.title}
+                </h1>
+                <div className="flex mb-2">
+                  <span className="flex items-center mx-auto lg:mx-0">
+                    <svg
+                      fill="currentColor"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      className="w-4 h-4 text-indigo-500"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <svg
+                      fill="currentColor"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      className="w-4 h-4 text-indigo-500"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <svg
+                      fill="currentColor"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      className="w-4 h-4 text-indigo-500"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <svg
+                      fill="currentColor"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      W="2"
+                      className="w-4 h-4 text-indigo-500"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      W="2"
+                      className="w-4 h-4 text-indigo-500"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    <span className="text-gray-300 ml-3">4 Reviews</span>
+                  </span>
                 </div>
-
-                <hr />
+                <div className="flex flex-row justify-between items-start text-gray-300 mb-1">
+                  <div className="text-gray-300 mb-3">
+                    {Movies.release_date.split("-")[0]}
+                  </div>
+                  <span className="mx-2">|</span>
+                  {console.log(Movies)}
+                  {Movies.genres[0].name}
+                </div>
                 {playing ? (
                   <div className="mx-auto">
                     <Youtube
@@ -131,10 +176,16 @@ const MovieBanner = (props) => {
                     </button>
                   </div>
                 ) : (
+                  <>
+                    <p
+                      className={`${styles.paragraph} leading-4 sm:text-sm lg:text-base text-center md:text-left`}
+                    >
+                      {Movies.overview}
+                    </p>
                     <div className="flex my-4">
                       <button
                         onClick={handleTrailer}
-                        className="flex bg-blue-gradient text-black border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                        className="flex bg-blue-gradient text-black border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded"
                       >
                         Watch
                       </button>
@@ -142,10 +193,11 @@ const MovieBanner = (props) => {
                         <ion-icon name="heart"></ion-icon>
                       </button>
                     </div>
-                  
+                  </>
                 )}
               </div>
             </div>
+          </div>
         </section>
       ) : (
         <div className="flex justify-center my-8">
