@@ -8,7 +8,6 @@ import { Oval } from 'react-loader-spinner'
 import { useParams } from 'react-router-dom';
 
 const Similiar = (props) => {
-  const apiKey = process.env.REACT_APP_API_KEY
   const [initialLoading, setInitialLoading] = useState(true)
   const [data, setData] = useState([])
   const { movieId, title } = useParams();
@@ -17,11 +16,11 @@ const Similiar = (props) => {
     setInitialLoading(true)
     await axios
       .get(
-        `https://api.themoviedb.org/3/${props.title}/${movieId}/similar?api_key=${apiKey}&language=en-US&page=1`
+        `${process.env.REACT_APP_API_DOMAIN}/api/movies/similar/${props.title}/${props.id}`
       )
       .then((res) => {
         if (res.status === 200) {
-          setData(res.data.results)
+          setData(res.data.data.results)
           setInitialLoading(false)
         }
       })
@@ -47,9 +46,13 @@ const Similiar = (props) => {
           />
         </div>
       ) : (
-        <div className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite py-8`}>
+        <div
+          className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite py-8`}
+        >
           <div className='flex justify-between items-center px-4'>
-            <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>Similiar</h2>
+            <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>
+              Similiar
+            </h2>
           </div>
           <Splide
             options={{

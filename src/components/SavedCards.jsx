@@ -5,7 +5,6 @@ import { Oval } from 'react-loader-spinner'
 
 function SavedCards({ item, deleteMovie }) {
   const navigate = useNavigate()
-  const apiKey = process.env.REACT_APP_API_KEY
   const [genre, setGenre] = useState([])
   const [initialLoading, setInitialLoading] = useState(false)
 
@@ -17,14 +16,14 @@ function SavedCards({ item, deleteMovie }) {
   const getGenre = async () => {
     setInitialLoading(true)
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${item.id}?api_key=${apiKey}`,
+      `${process.env.REACT_APP_API_DOMAIN}/api/movies/all-genre/id/${item.id}`,
       {
         method: 'get',
       }
     ).then((res) => res.json())
-    if (response) {
+    if (response.success) {
       //set the genre
-      setGenre(response.genres)
+      setGenre(response.data)
       setInitialLoading(false)
     }
   }
