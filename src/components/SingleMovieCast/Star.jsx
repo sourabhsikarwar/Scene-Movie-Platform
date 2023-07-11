@@ -5,7 +5,7 @@ const Star = ({stars,reviews}) => {
   const ratingStar=Array.from({length:5},(ele,index)=>{
     let number=index+0.5
     return (
-        <span key={index}>
+        <span  key={index}>
             {
                 stars>=index+1?<FaStar className='icon'/>:stars>=number?<FaStarHalfAlt  className='icon'/>:<AiOutlineStar  className='icon'/>
             }
@@ -13,9 +13,9 @@ const Star = ({stars,reviews}) => {
     )
   })
     return (
-            <div className='icon-style'>
+            <div className='icon-style '>
     {ratingStar}
-    <p>{reviews} Total reviews</p>
+    <p className='dark:text-dimWhite'>{reviews} Total reviews</p>
     </div>
   )
 }

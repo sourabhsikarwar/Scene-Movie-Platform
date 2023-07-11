@@ -9,6 +9,7 @@ import show from "../assets/image/show.webp";
 import hide from "../assets/image/hide.webp";
 import OAuth from "./OAuth";
 import { useLocation } from "react-router-dom";
+import validate from "../common/validation";
 
 const Signup = () => {
 
@@ -29,70 +30,45 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState({}); // Object to store validation errors
+  const [errors, setErrors] = useState(validate.initialVal); 
+  // Object to store validation errors
   const [error, setError] = useState("");
 
   const { signUp, addUserData } = useUserAuth();
   const navigate = useNavigate();
 
   const handleInputs = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    const {name, value} = e.target;
+    setData({ ...data, [name]: value });
+    let errObj = validate[name](value);
+    if(name==="confirmPassword") errObj = validate.confirmPassword(value, data.password)
+    setErrors((prev)=>{
+      return {...prev, ...errObj}
+    })
   };
 
-  const validateInputs = () => {
-    const errors = {};
-
-    // Validate Full Name
-    if (!data.displayName.trim()) {
-      errors.displayName = "Full Name is required";
-    }
-
-    // Validate Email
-    if (!data.email.trim()) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
-      errors.email = "Invalid email address";
-    }
-
-    // Validate Contact No.
-    if (!data.phoneNumber.trim()) {
-      errors.phoneNumber = "Contact No. is required";
-    } else if (!/^\d{7,13}$/.test(data.phoneNumber)) {
-      errors.phoneNumber = "Invalid phone number";
-    }
-
-    // Validate Date of Birth
-    if (!data.dateOfBirth.trim()) {
-      errors.dateOfBirth = "Date of Birth is required";
-    }
-
-    // Validate Password
-    if (!data.password.trim()) {
-      errors.password = "Password is required";
-    } else if (data.password.length < 6) {
-      errors.password = "Password should be at least 6 characters long";
-    }
-
-    // Validate Confirm Password
-    if (!data.confirmPassword.trim()) {
-      errors.confirmPassword = "Confirm Password is required";
-    } else if (data.password !== data.confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
-    }
-
-    setErrors(errors); // Set the validation errors
-    return Object.keys(errors).length === 0; // Return true if there are no errors
+  const handlePhoneChange = (value) => {
+     setData((prev)=>{
+       return {...prev, phoneNumber: value}
+     })
+     const errObj = validate.phoneNumber(value);
+     setErrors((prev)=>{
+       return {...prev, ...errObj}
+     })
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+     let submitable = true;
+     Object.values(errors).forEach((err)=>{
+      if(err !== false){
+        submitable = false;
+        return;
+      }
+     })
 
-    const isValid = validateInputs();
-    if (!isValid) {
-      return;
-    }
-
+     if(submitable){
     try {
       await addUserData(
         data.displayName,
@@ -106,6 +82,9 @@ const Signup = () => {
       }, 2000);
     } catch (err) {
       setError(err.message);
+    }
+   }else{
+        alert("Please add Valid value in all fields")
     }
   };
   
@@ -160,14 +139,14 @@ const Signup = () => {
               id="full-name"
               name="displayName"
               className={`w-full bg-white rounded border ${
-                errors.displayName ? "border-red-500" : "border-gray-300"
+                errors.displayNameError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
             />
-            {errors.displayName && (
-              <p className="text-red-500">{errors.displayName}</p>
-            )}
+            {errors.displayName && errors.displayNameError &&
+              <p className="text-red-500">{errors.displayNameError}</p>
+            }
           </div>
           <div className="relative mb-4">
             <label
@@ -181,12 +160,12 @@ const Signup = () => {
               id="email"
               name="email"
               className={`w-full bg-white rounded border ${
-                errors.email ? "border-red-500" : "border-gray-300"
+                errors.emailError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
             />
-            {errors.email && <p className="text-red-500">{errors.email}</p>}
+            {errors.email && errors.emailError && <p className="text-red-500">{errors.emailError}</p>}
           </div>
           <div className="relative mb-4">
             <label
@@ -199,18 +178,18 @@ const Signup = () => {
               id="contact-no"
               name="phoneNumber"
               country="in"
-              onChange={(value) => setData({ ...data, phoneNumber: value })}
+              onChange={handlePhoneChange}
               onKeyDown={handleKeyDown}
               countryCodeEditable={false}
               inputClass="focus:ring-0"
               inputStyle={{ border: "0px"}}
               containerClass="border-none outline-none focus:ring-0"
               className={`w-full bg-white rounded border ${
-                errors.phoneNumber ? "border-red-500" : "border-gray-300"
+                errors.phoneNumberError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 text-gray-700 leading-8 transition-colors duration-200 ease-in-out`}
             />
-            {errors.phoneNumber && (
-              <p className="text-red-500">{errors.phoneNumber}</p>
+            {errors.phoneNumber && errors.phoneNumberError  && (
+              <p className="text-red-500">{errors.phoneNumberError}</p>
             )}
           </div>
           <div className="relative mb-4">
@@ -225,13 +204,13 @@ const Signup = () => {
               id="date-of-birth"
               name="dateOfBirth"
               className={`w-full bg-white rounded border ${
-                errors.dateOfBirth ? "border-red-500" : "border-gray-300"
+                errors.dateOfBirthError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
             />
-            {errors.dateOfBirth && (
-              <p className="text-red-500">{errors.dateOfBirth}</p>
+            {errors.dateOfBirth && errors.dateOfBirthError && (
+              <p className="text-red-500">{errors.dateOfBirthError}</p>
             )}
           </div>
           <div className="relative mb-4">
@@ -246,13 +225,13 @@ const Signup = () => {
               id="password"
               name="password"
               className={`w-full bg-white rounded border ${
-                errors.password ? "border-red-500" : "border-gray-300"
+                errors.passwordError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
             />
-            {errors.password && (
-              <p className="text-red-500">{errors.password}</p>
+            {errors.password && errors.passwordError  && (
+              <p className="text-red-500">{errors.passwordError}</p>
             )}
             <button
               onClick={passwordVisibility}
@@ -279,13 +258,13 @@ const Signup = () => {
               id="confirm-password"
               name="confirmPassword"
               className={`w-full bg-white rounded border ${
-                errors.confirmPassword ? "border-red-500" : "border-gray-300"
+                errors.confirmPasswordError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
             />
-            {errors.confirmPassword && (
-              <p className="text-red-500">{errors.confirmPassword}</p>
+            {errors.confirmPassword && errors.confirmPasswordError &&(
+              <p className="text-red-500">{errors.confirmPasswordError}</p>
             )}
             <button
               onClick={passwordToggle}
