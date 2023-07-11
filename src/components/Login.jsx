@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../style";
 import bg from "../assets/image/bg2.webp";
@@ -8,8 +8,16 @@ import hide from "../assets/image/hide.webp";
 import { toast } from 'react-toastify';
 import OAuth from "./OAuth";
 import  { FaUserLock } from 'react-icons/fa';
+import { useLocation } from "react-router-dom";
+import validate from "../common/validation";
 
 const Login = () => {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
 
   const [passwordType, setPasswordType] = useState("password");
   
@@ -17,7 +25,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({email: true, password: true});
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -26,36 +34,24 @@ const Login = () => {
   const handleInputs = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const validateInputs = () => {
-    const { email, password } = data;
-    const errors = {};
-
-    if (!email) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      errors.email = "Invalid email address";
-    }
-
-    if (!password) {
-      errors.password = "Password is required";
-    }
-
-
-    return errors;
+    const errObj = validate[name](value)
+    setErrors((prev)=>{
+      return {...prev, ...errObj}
+    })
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const validationErrors = validateInputs();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+    let submitable = true;
+    Object.values(errors).forEach((err)=>{
+      if(err !== false){
+        submitable = false;
+        return;
+      }
+    })
 
     setError("");
+    if(submitable){
     try {
       await toast.promise(
         login(data.email, data.password),
@@ -69,6 +65,9 @@ const Login = () => {
     } catch (err) {
       setError("Username or password didn't match");
     }
+  }else{
+    alert("Please add Valid value in all fields")
+  }
   };
 
   const handleKeyDown = (e) => {
@@ -110,13 +109,13 @@ const Login = () => {
               name="email"
               placeholder="xyz@gmail.com"
               className={`w-full bg-white rounded border ${
-                errors.email ? "border-red-500" : "border-gray-300"
+                errors.emailError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
               autoComplete="off"
             />
-            {errors.email && <p className="text-red-500">{errors.email}</p>}
+            {errors.email && errors.emailError && <p className="text-red-500">{errors.emailError}</p>}
           </div>
           <div className="relative mb-4">
             <label htmlFor="password" className="leading-8 text-sm text-gray-900 dark:text-white">
@@ -128,11 +127,12 @@ const Login = () => {
               id="password"
               name="password"
               className={`w-full bg-white rounded border ${
-                errors.password ? "border-red-500" : "border-gray-300"
+                errors.passwordError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
             />
+            {errors.password && errors.passwordError && <p className="text-red-500">{errors.passwordError}</p>}
             <button
               onClick={passwordToggle}
               className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"

@@ -9,6 +9,7 @@ import {lazy,Suspense, useEffect, useState} from 'react';
 import { Oval } from 'react-loader-spinner';
 import ScrollToTop from "./components/ScrollToTop";
 
+
 const About=lazy(()=>import('./pages/About'));
 const Login=lazy(()=>import('./components/Login'));
 const Signup=lazy(()=>import('./components/Signup'));
