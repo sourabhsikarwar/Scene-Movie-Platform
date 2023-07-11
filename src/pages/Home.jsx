@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Banner from "../components/Banner/Banner";
+import Genre from "../components/Carousel/Genre";
 import Trending from "../components/Carousel/Trending";
 import Search from "../components/Search";
 import { Oval } from "react-loader-spinner";
@@ -40,6 +41,10 @@ const Home = () => {
           <Search />
           <Trending
             title="Trending"
+            id="1"
+          />
+          <Genre
+            title="Genres"
             id="1"
           />
           {genreMovie &&

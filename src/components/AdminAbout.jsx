@@ -15,7 +15,7 @@ const AdminAbout = () => {
       <h2 className=" text-2xl text-[#6058f2] font-semibold sm:text-2xl">
       Sourabh Sikarwar
       </h2>
-      <p className="px-5 text-sm sm:text-base dark:text-gray-400">project admin</p>
+      <p className="px-5 text-sm sm:text-base dark:text-gray-400">Project Admin</p>
     </div>
     
     <div className="flex justify-center pt-2 space-x-4 align-center">
