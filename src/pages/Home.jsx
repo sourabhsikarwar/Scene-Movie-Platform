@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import Banner from '../components/Banner/Banner'
-import Trending from '../components/Carousel/Trending'
-import Search from '../components/Search'
-import { Oval } from 'react-loader-spinner'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Banner from "../components/Banner/Banner";
+import Genre from "../components/Carousel/Genre";
+import Trending from "../components/Carousel/Trending";
+import Search from "../components/Search";
+import { Oval } from "react-loader-spinner";
 
 const Home = () => {
   const [genreMovie, setGenreMovie] = useState([])
@@ -35,7 +36,14 @@ const Home = () => {
         <div>
           <Banner />
           <Search />
-          <Trending title='Trending' id='1' />
+          <Trending
+            title="Trending"
+            id="1"
+          />
+          <Genre
+            title="Genres"
+            id="1"
+          />
           {genreMovie &&
             genreMovie.map((item, index) => {
               return <Trending title={item.name} id={item.id} key={index} />

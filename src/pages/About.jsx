@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from '../style'
 import Button from '../components/Ui/SecButton'
-import Contributor from "../components/Contributor";
-import AdminAbout from "../components/AdminAbout";
+import Contributor from '../components/Contributor'
+import AdminAbout from '../components/AdminAbout'
 import background from '../assets/image/bg1.webp'
 const About = () => {
   return (
@@ -16,34 +16,34 @@ const About = () => {
           height: '35vh',
         }}
       >
-        <div className='md:w-full lg:pr-24 md:pr-16 flex flex-col md:items-center md:text-center md:mb-0 items-center text-center'>
-          <h1 className={`${styles.heading1} mt-20  text-gray-100`}>
-            About us
-          </h1>
+        <div className='flex flex-col md:items-center text-center md:mb-0 items-center text-center mx-auto'>
+          <h1 className={`${styles.heading1} mt-20 text-gray-100`}>About us</h1>
         </div>
       </section>
 
-      <div className=' my-20  text-2xl leading-10  text-center'>
-        <strong>Welcome to</strong> <br />
-        <span className={`${styles.heading2} text-black mb-3 dark:text-white `}>
+      <div className='my-20 text-lg md:text-xl leading-10 text-center flex flex-col md:gap-1'>
+        <strong>Welcome to</strong>
+        <span className={`${styles.heading2} my-2 md:my-4`}>
           {' '}
-          scene movie platform{' '}
+          Scene Movie Platform{' '}
         </span>
-        <br />
-        we're passionate about bringing you the best entertainment experience
-        right at your fingertips.
-        <br />
-        Our goal is to provide you with a platform that offers a vast collection
-        of movies, TV shows, and documentaries .
-        <pre className='mb-5'>
+        <p>
+          We're passionate about bringing you the best entertainment experience
+          right at your fingertips.
+        </p>
+        <p>
+          Our goal is to provide you with a platform that offers a vast
+          collection of movies, TV shows, and documentaries.
+        </p>
+        <pre className='my-4 md:my-6 whitespace-pre-wrap'>
           We welcome contributions from developers like you to help make our
-          project even better
+          project even better.
         </pre>
         <a
           href='https://github.com/sourabhsikarwar/Scene-Movie-Platform'
           target='_blank'
         >
-          <Button content='contribute' />
+          <Button content='Contribute' />
         </a>
       </div>
       <AdminAbout />
