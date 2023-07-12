@@ -126,7 +126,7 @@ const Signup = () => {
               </p>
             </div>
           </div>
-          {error && <p className="text-red-500">{error}</p>}
+          {error && <p className="text-red-500" role="alert" aria-live="assertive">{error}</p>}
           <div className="relative mb-4">
             <label
               htmlFor="full-name"
@@ -143,9 +143,13 @@ const Signup = () => {
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              aria-required="true"
+              aria-labelledby="display name"
+              aria-invalid={errors.displayNameError ? "true" : "false"}
+              aria-describedby="display-name-error"
             />
             {errors.displayName && errors.displayNameError &&
-              <p className="text-red-500">{errors.displayNameError}</p>
+              <p className="text-red-500" id="display-name-error" role="alert">{errors.displayNameError}</p>
             }
           </div>
           <div className="relative mb-4">
@@ -164,8 +168,13 @@ const Signup = () => {
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              required
+              aria-required="true"
+              aria-labelledby="email"
+              aria-invalid={errors.emailError ? "true" : "false"}
+              aria-describedby="email-error"
             />
-            {errors.email && errors.emailError && <p className="text-red-500">{errors.emailError}</p>}
+            {errors.email && errors.emailError && <p className="text-red-500" id="email-error" role="alert">{errors.emailError}</p>}
           </div>
           <div className="relative mb-4">
             <label
@@ -187,9 +196,12 @@ const Signup = () => {
               className={`w-full bg-white rounded border ${
                 errors.phoneNumberError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 text-gray-700 leading-8 transition-colors duration-200 ease-in-out`}
+              aria-labelledby="phone number"
+              aria-invalid={errors.phoneNumberError ? "true" : "false"}
+              aria-describedby="phone-number-error"
             />
             {errors.phoneNumber && errors.phoneNumberError  && (
-              <p className="text-red-500">{errors.phoneNumberError}</p>
+              <p className="text-red-500" id="phone-number-error" role="alert">{errors.phoneNumberError}</p>
             )}
           </div>
           <div className="relative mb-4">
@@ -208,9 +220,12 @@ const Signup = () => {
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              aria-labelledby="date of birth"
+              aria-invalid={errors.phoneNumberError ? "true" : "false"}
+              aria-describedby="dateOfBirth-error"
             />
             {errors.dateOfBirth && errors.dateOfBirthError && (
-              <p className="text-red-500">{errors.dateOfBirthError}</p>
+              <p className="text-red-500" id="dateOfBirth-error" role="alert">{errors.dateOfBirthError}</p>
             )}
           </div>
           <div className="relative mb-4">
@@ -229,9 +244,14 @@ const Signup = () => {
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              required
+              aria-required="true"
+              aria-labelledby="password"
+              aria-invalid={errors.passwordError ? "true" : "false"}
+              aria-describedby="password-error"
             />
             {errors.password && errors.passwordError  && (
-              <p className="text-red-500">{errors.passwordError}</p>
+              <p className="text-red-500" id="password-error" role="alert">{errors.passwordError}</p>
             )}
             <button
               onClick={passwordVisibility}
@@ -262,9 +282,13 @@ const Signup = () => {
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              aria-required="true"
+              aria-labelledby="confirm password"
+              aria-invalid={errors.confirmPasswordError ? "true" : "false"}
+              aria-describedby="confirmPassword-error"
             />
             {errors.confirmPassword && errors.confirmPasswordError &&(
-              <p className="text-red-500">{errors.confirmPasswordError}</p>
+              <p className="text-red-500" id="confirmPassword-error" role="alert">{errors.confirmPasswordError}</p>
             )}
             <button
               onClick={passwordToggle}
