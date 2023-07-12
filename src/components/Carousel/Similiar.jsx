@@ -12,6 +12,7 @@ const Similiar = (props) => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [Tv, setTv] = useState([]);
   const [Movies, setMovies] = useState([]);
+
   const { movieId, title } = useParams();
   const { tvId, titletv } = useParams();
 
@@ -19,7 +20,7 @@ const Similiar = (props) => {
     setInitialLoading(true);
     await axios
       .get(
-        `https://api.themoviedb.org/3/${props.title}/${movieId}/similar?api_key=${apiKey}&language=en-US&page=1`
+        `${process.env.REACT_APP_API_DOMAIN}/api/movies/similar/${props.title}/${props.id}`
       )
       .then((res) => {
         if (res.status === 200) {

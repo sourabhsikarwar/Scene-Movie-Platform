@@ -11,28 +11,25 @@ const Home = () => {
   const [genreTv, setGenreTv] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
 
-  const apiKey = process.env.REACT_APP_API_KEY;
 
   const uploadMovie = async () => {
-    setInitialLoading(true);
+    setInitialLoading(true)
     await axios
-      .get(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
-      )
+      .get(`${process.env.REACT_APP_API_DOMAIN}/api/movies/get-all-genres`)
       .then((res) => {
         if (res.status === 200) {
-          setGenreMovie(res.data.genres);
-          setInitialLoading(false);
+          setGenreMovie(res.data.data.genres)
+          setInitialLoading(false)
         }
       })
       .catch((e) => {
-        return e.message;
-      });
-  };
+        return e.message
+      })
+  }
 
   useEffect(() => {
-    uploadMovie();
-  }, []);
+    uploadMovie()
+  }, [])
 
   const uploadTv = async () => {
     setInitialLoading(true);
@@ -56,7 +53,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite">
+    <div className='bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite'>
       {!initialLoading ? (
         <div>
           <Banner />
@@ -78,18 +75,18 @@ const Home = () => {
             })}
         </div>
       ) : (
-        <div className="flex justify-center py-8">
+        <div className='flex justify-center py-8'>
           <Oval
-            height="50"
-            width="50"
-            color="grey"
-            secondaryColor="grey"
-            ariaLabel="loading"
+            height='50'
+            width='50'
+            color='grey'
+            secondaryColor='grey'
+            ariaLabel='loading'
           />
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

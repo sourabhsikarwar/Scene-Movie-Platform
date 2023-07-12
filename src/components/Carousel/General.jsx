@@ -7,19 +7,16 @@ import TvGeneralCard from '../Cards/TvGeneralCard'
 import { Oval } from 'react-loader-spinner'
 
 const General = (props) => {
-  const apiKey = process.env.REACT_APP_API_KEY
   const [tvDetail, setTvDetail] = useState([])
   const [initialLoading, setInitialLoading] = useState(true)
 
   const upload = async () => {
     setInitialLoading(true)
     await axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${props.id}/season/1?api_key=${apiKey}&language=en-US`
-      )
+      .get(`${process.env.REACT_APP_API_DOMAIN}/api/movies/tv/${props.id}`)
       .then((res) => {
         if (res.data) {
-          setTvDetail(res.data.episodes)
+          setTvDetail(res.data.data.episodes)
           setInitialLoading(false)
         }
       })

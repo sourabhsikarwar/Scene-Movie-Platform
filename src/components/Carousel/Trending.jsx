@@ -14,20 +14,25 @@ const Trending = (props) => {
   const [Movies, setMovies] = useState([]);
   const [Tv, setTv] = useState([]);
 
-  const upload = async (url) => {
-    setinitalLoading(true);
+  const upload = async () => {
+    setinitalLoading(true)
+    let url = `${process.env.REACT_APP_API_DOMAIN}/api/movies/all-movies/${props.id}`
+
+    if (props.title === 'Trending') {
+      url = `${process.env.REACT_APP_API_DOMAIN}/api/movies/trending`
+    }
     await axios
       .get(url)
       .then((res) => {
         if (res.status === 200) {
-          setMovies(res.data.results);
-          setinitalLoading(false);
+          setMovies(res.data.data.results)
+          setinitalLoading(false)
         }
       })
       .catch((e) => {
-        return e.message;
-      });
-  };
+        return e.message
+      })
+  }
 
   useEffect(() => {
     let url =
@@ -62,7 +67,7 @@ const Trending = (props) => {
 
   return (
     <>
-      {" "}
+      {' '}
       {!initialLoading ? (
         <div className={`${styles.boxWidth} py-4`}>
           {" "}
@@ -186,22 +191,22 @@ const Trending = (props) => {
           )}
         </div>
       ) : (
-        <div className="flex justify-center py-8">
+        <div className='flex justify-center py-8'>
           <Oval
-            height="50"
-            width="50"
-            color="grey"
-            secondaryColor="grey"
-            ariaLabel="loading"
+            height='50'
+            width='50'
+            color='grey'
+            secondaryColor='grey'
+            ariaLabel='loading'
           />
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
 Trending.defaultProps = {
-  title: "Trending",
-};
+  title: 'Trending',
+}
 
-export default Trending;
+export default Trending

@@ -76,6 +76,7 @@ function Movies(props) {
         });
     }
   };
+
   return (
     <>
       {!initialLoading ? (
