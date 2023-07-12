@@ -112,9 +112,9 @@ const Signup = () => {
       }}
     >
       <div className="container mx-auto flex flex-wrap items-center md:px-0 px-8 h-max">
-        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
+        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16" role="form">
           <div>
-          <h2 className={`text-gradient ${styles.heading3} mb-4`}>Sign Up</h2>
+          <h2 className={`text-gradient ${styles.heading3} mb-4`} aria-labelledby="signup-heading">Sign Up</h2>
             
             <OAuth/> {/* Continue with google feature */}
             <div className="text-gray-900 dark:text-white flex my-4 items-center before:border-t before:flex-1  
