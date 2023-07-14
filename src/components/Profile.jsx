@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useUserAuth } from "../context/authContext";
-import avatar from "../assets/image/avatar.webp";
+import avatar from "../assets/image/avatar.webp"
 import show from "../assets/image/show.webp";
 import hide from "../assets/image/hide.webp";
 import { toast } from 'react-toastify';
@@ -13,6 +13,7 @@ const Profile = () => {
   const [data, setData] = useState({
     username: user?.displayName,
     email: user?.email,
+    image: user?.photoURL,
     password: '',
   });
   const [errors, setErrors] = useState({});
@@ -60,7 +61,7 @@ const Profile = () => {
     setError("");
     try {
       await toast.promise(
-        profileUpdate(data.username, data.email, data.password, null),
+        profileUpdate(data.username, data.email, data.image, data.password, null),
         {
           pending: 'Updating profile...',
           success: 'Profile update successful',
@@ -111,7 +112,7 @@ const Profile = () => {
         <div className="bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16 relative">
           {/* Profile photo */}
         <div className='h-1/3 sm:h-28 w-1/3 sm:w-28 mx-auto sm:my-4 md:my-8 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0 overflow-hidden sm:absolute -top-20 left-28'>
-          <img src={avatar} alt='' />
+          <img src={data.image ? data.image : avatar} alt='' className="h-28 w-28 rounded-full" />
         </div>
           <h2 className={`text-center text-sky-400 dark:text-gradient ${styles.heading3} mb-4 pt-8 sm:pt-12 mx-auto`}>Update Profile</h2>
           {error && <p className="text-red-600">{`${error}`}<FaUserLock style={{display:"inline-block", marginLeft:"10px"}} /></p>}

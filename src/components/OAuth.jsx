@@ -26,6 +26,7 @@ import { useNavigate } from 'react-router-dom';
                     name:user.displayName,
                     email:user.email,
                     contact:user.phoneNumber,
+                    image:user.photoURL,
                 })
             }
 

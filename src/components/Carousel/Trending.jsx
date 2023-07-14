@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
@@ -101,3 +102,7 @@ Trending.defaultProps = {
   title: "Trending",
 };
 export default Trending;
+
+
+
+
