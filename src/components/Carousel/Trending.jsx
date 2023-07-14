@@ -1,34 +1,29 @@
+import React, { useState, useEffect } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import styles from "../../style";
 import MovieCard from "../Cards/MovieCard";
-import CircleRating from "../circleRating/CircleRating";
-
 const Trending = (props) => {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [initialLoading, setinitalLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [Movies, setMovies] = useState([]);
-  
-
   const upload = async (url) => {
-    setinitalLoading(true);
+    setInitialLoading(true);
     await axios
       .get(url)
       .then((res) => {
         if (res.status === 200) {
           setMovies(res.data.results);
-          setinitalLoading(false);
+          setInitialLoading(false);
         }
       })
       .catch((e) => {
         return e.message;
       });
   };
-
   useEffect(() => {
     let url =
       props.title === "Trending"
@@ -36,7 +31,6 @@ const Trending = (props) => {
         : `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${props.id}`;
     upload(url);
   }, []);
-
   return (
     <>
       {" "}
@@ -53,7 +47,6 @@ const Trending = (props) => {
                 Show all
               </Link>
             </p>
-      
           </div>
           <Splide
             options={{
@@ -81,10 +74,8 @@ const Trending = (props) => {
             aria-label="My Favorite Images"
             className="justify-center"
           >
-
             {Movies.map((movie) => {
-             
-              return (
+             return (
                 <SplideSlide key={movie.id} className="carouselItem">
                   <MovieCard movie={movie} />                    
                 </SplideSlide>
@@ -106,9 +97,7 @@ const Trending = (props) => {
     </>
   );
 };
-
 Trending.defaultProps = {
   title: "Trending",
 };
-
 export default Trending;
