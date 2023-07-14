@@ -5,40 +5,34 @@ import axios from 'axios'
 import { Oval } from 'react-loader-spinner'
 
 const Search = () => {
-  const apiKey = process.env.REACT_APP_API_KEY
   const [query, setQuery] = useState('')
   const [Movies, setMovies] = useState([])
   const [initialLoading, setInitialLoading] = useState(true)
 
-  // useEffect(
-  //   function () {
-
-  //     upload();
-  //   },
-  //   [query, apiKey]
-  // );
-
 
   const upload = async () => {
     setInitialLoading(true)
+
     await axios
-      .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`
+      .post(
+        `${process.env.REACT_APP_API_DOMAIN}/api/movies/search`,
+        JSON.stringify({ query }),
+        { headers: { 'Content-Type': 'application/json' } }
       )
       .then((res) => {
-        setMovies(res.data.results.splice(0, 8))
+        setMovies(res.data.data.results.splice(0, 8))
         setInitialLoading(false)
       })
       .catch((e) => {
-        return e;
+        return e
       })
   }
 
   useEffect(() => {
     let timer = setTimeout(() => {
-      upload();
-    }, 500);
-    return () => clearTimeout(timer);
+      upload()
+    }, 500)
+    return () => clearTimeout(timer)
   }, [query])
 
   return (
