@@ -1,11 +1,11 @@
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
-import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import styles from '../../style'
 import MovieCard from '../Cards/MovieCard'
 import { Oval } from 'react-loader-spinner'
 import { useParams } from 'react-router-dom';
+import fetchData from '../../helper/fetchData';
 
 const Similiar = (props) => {
   const [initialLoading, setInitialLoading] = useState(true)
@@ -14,19 +14,15 @@ const Similiar = (props) => {
 
   const upload = async () => {
     setInitialLoading(true)
-    await axios
-      .get(
-        `${process.env.REACT_APP_API_DOMAIN}/api/movies/similar/${props.title}/${props.id}`
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          setData(res.data.data.results)
-          setInitialLoading(false)
-        }
-      })
-      .catch((e) => {
-        return e.message
-      })
+     try {
+       const response = await fetchData(`similar/${props.title}/${props.id}`, 1)
+       if (response.success) {
+        setData(response.data.results)
+         setInitialLoading(false)
+       }
+     } catch (error) {
+       console.log(error)
+     }
   }
 
   useEffect(() => {

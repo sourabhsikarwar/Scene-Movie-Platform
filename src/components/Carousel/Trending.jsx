@@ -1,34 +1,33 @@
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
-import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Oval } from 'react-loader-spinner'
 import styles from '../../style'
 import MovieCard from '../Cards/MovieCard'
+import fetchData from '../../helper/fetchData'
 
 const Trending = (props) => {
-  const [initialLoading, setinitalLoading] = useState(true)
+  const [initialLoading, setInitialLoading] = useState(true)
   const [Movies, setMovies] = useState([])
 
   const upload = async () => {
-    setinitalLoading(true)
-    let url = `${process.env.REACT_APP_API_DOMAIN}/api/movies/all-movies/${props.id}`
+    setInitialLoading(true)
+    let slug = `all-movies/${props.id}`
 
     if (props.title === 'Trending') {
-      url = `${process.env.REACT_APP_API_DOMAIN}/api/movies/trending`
+      slug = 'trending'
     }
-    await axios
-      .get(url)
-      .then((res) => {
-        if (res.status === 200) {
-          setMovies(res.data.data.results)
-          setinitalLoading(false)
-        }
-      })
-      .catch((e) => {
-        return e.message
-      })
+
+    try {
+      const response = await fetchData(slug, 1)
+      if (response.success) {
+        setMovies(response.data.results)
+        setInitialLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {

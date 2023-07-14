@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import Youtube from 'react-youtube'
 import { Oval } from 'react-loader-spinner'
@@ -8,16 +7,15 @@ import Star from '../SingleMovieCast/Star'
 import FormatPrice from '../SingleMovieCast/FormatPrice'
 import '../SingleMovieCast/style.css'
 import { useParams } from 'react-router-dom'
+import fetchData from '../../helper/fetchData'
 
 const MovieBanner = (props) => {
-
   const { movieId, title } = useParams()
   const [playing, setPlaying] = useState(false)
   const [Movies, setMovies] = useState({})
 
   const [trailer, setTrailer] = useState(null)
   const [initialLoading, setInitialLoading] = useState(true)
-
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -26,31 +24,33 @@ const MovieBanner = (props) => {
 
   const update = async () => {
     setInitialLoading(true)
-    await axios
-      .get(
-        `${process.env.REACT_APP_API_DOMAIN}/api/movies/movie-banner/movie/${movieId}`
-      )
-      .then((res) => {
-        setMovies(res.data.data)
+    try {
+      const response = await fetchData(`movie-banner/movie/${movieId}`, 1)
+      if (response.success) {
+        setMovies(response.data)
         setInitialLoading(false)
-      })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
   const handleTrailer = async () => {
     setInitialLoading(true)
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_API_DOMAIN}/api/movies/trailer/id/${movieId}`
-    )
+    try {
+      const { data } = await fetchData(`trailer/id/${movieId}`, 1)
+      if (data.videos && data.videos.results) {
+        const trailer = data.videos.results.find(
+          (vid) => vid.name === 'Official Trailer'
+        )
+        setTrailer(trailer ? trailer : data.videos.results[0])
+        setPlaying(true)
+      }
 
-    if (data.data.videos && data.data.videos.results) {
-      const trailer = data.data.videos.results.find(
-        (vid) => vid.name === 'Official Trailer'
-      )
-      setTrailer(trailer ? trailer : data.data.videos.results[0])
-      setPlaying(true)
+      // setMovie(data)
+      setInitialLoading(false)
+    } catch (error) {
+       console.log(error)
     }
-
-    // setMovie(data)
-    setInitialLoading(false)
   }
   return (
     <>
@@ -157,6 +157,6 @@ const MovieBanner = (props) => {
       )}
     </>
   )
-};
+}
 
 export default MovieBanner
