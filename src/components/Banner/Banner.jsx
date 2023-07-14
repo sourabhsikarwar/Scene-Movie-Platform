@@ -7,7 +7,6 @@ import { Oval } from 'react-loader-spinner'
 function Banner() {
   const [Movies, setMovies] = useState({})
   const [initialLoading, setInitialLoaing] = useState(true)
-  const apiKey = process.env.REACT_APP_API_KEY
 
   useEffect(() => {
     upload()
@@ -16,12 +15,10 @@ function Banner() {
   const upload = async () => {
     setInitialLoaing(true)
     await axios
-      .get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=12`
-      )
+      .get(`${process.env.REACT_APP_API_DOMAIN}/api/movies/get-banner`)
       .then((res) => {
         if (res.data) {
-          const mResults = res.data.results[0]
+          const mResults = res.data.data.results[0]
           setMovies(mResults)
           setInitialLoaing(false)
         }
