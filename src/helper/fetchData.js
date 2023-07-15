@@ -1,25 +1,14 @@
-const fetchData = async (slug, type, data = null) => {
+const fetchData = async (url) => {
   try {
-
-    let url = `${process.env.REACT_APP_API_DOMAIN}/api/movies/${slug}`
-    let method = type === 1 ? 'GET' : 'POST'
-    let headers = {
-      'Content-Type': 'application/json',
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error("Failed to fetch data");
     }
-    let body = data
-    let options={method}
-    if (type === 2) {
-      options = {
-        method,
-        headers,
-        body,
-      }
-    }
-
-    const response = await fetch(url, options).then((res) => res.json())
-    return response
   } catch (error) {
-    return error
+    console.log(error);
   }
 }
 
