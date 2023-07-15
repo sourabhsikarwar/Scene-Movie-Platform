@@ -251,9 +251,6 @@ const Signup = () => {
               aria-invalid={errors.passwordError ? "true" : "false"}
               aria-describedby="password-error"
             />
-            {errors.password && errors.passwordError  && (
-              <p className="text-red-500" id="password-error" role="alert">{errors.passwordError}</p>
-            )}
             <button
               onClick={passwordVisibility}
               className="absolute inset-y-0 right-0 top-0 pr-3 flex items-center pointer-events-cursor-pointer"
@@ -293,9 +290,6 @@ const Signup = () => {
               aria-invalid={errors.confirmPasswordError ? "true" : "false"}
               aria-describedby="confirmPassword-error"
             />
-            {errors.confirmPassword && errors.confirmPasswordError &&(
-              <p className="text-red-500" id="confirmPassword-error" role="alert">{errors.confirmPasswordError}</p>
-            )}
             <button
               onClick={passwordToggle}
               className="absolute inset-y-0 right-0 top-0 pr-3 flex items-center pointer-events-cursor-pointer"
