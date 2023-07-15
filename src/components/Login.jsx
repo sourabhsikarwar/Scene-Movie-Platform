@@ -95,9 +95,9 @@ const Login = () => {
       <div
         className={`${styles.boxWidth} mx-auto flex flex-wrap items-center md:px-0 px-8 h-max`}
       >
-        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
-          <h2 className={`text-gradient ${styles.heading3} mb-4`}>Login</h2>
-          {error && <p className="text-red-600">{`${error}`}<FaUserLock style={{display:"inline-block", marginLeft:"10px"}} /></p>}
+        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16" role="form">
+          <h2 className={`text-gradient ${styles.heading3} mb-4`} aria-labelledby="login-heading">Login</h2>
+          {error && <p className="text-red-600" role="alert" aria-live="assertive">{`${error}`}<FaUserLock style={{display:"inline-block", marginLeft:"10px"}} /></p>}
           <div className="relative mb-4">
             <label htmlFor="email" className="leading-8 text-sm text-gray-900 dark:text-white">
               Email
@@ -114,8 +114,13 @@ const Login = () => {
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
               autoComplete="off"
+              required
+              aria-required="true"
+              aria-labelledby="email"
+              aria-invalid={errors.emailError ? "true" : "false"}
+              aria-describedby="email-error"
             />
-            {errors.email && errors.emailError && <p className="text-red-500">{errors.emailError}</p>}
+            {errors.email && errors.emailError && <p className="text-red-500" id="email-error" role="alert">{errors.emailError}</p>}
           </div>
           <div className="relative mb-4">
             <label htmlFor="password" className="leading-8 text-sm text-gray-900 dark:text-white">
@@ -132,7 +137,12 @@ const Login = () => {
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              aria-required="true"
+              aria-labelledby="password"
+              aria-invalid={errors.passwordError ? "true" : "false"}
+              aria-describedby="password-error"
             />
+            {errors.password && errors.passwordError && <p className="text-red-500" id="password-error" role="alert">{errors.passwordError}</p>}
             <button
               onClick={passwordToggle}
               className="absolute inset-y-0 right-0 top-0 pr-3 flex items-center pointer-events-cursor-pointer"
@@ -144,7 +154,9 @@ const Login = () => {
                 alt="Toggle password visibility" loading='lazy'
               />
             </button>
-            </div>
+            {errors.password && (
+              <p className="text-red-500" role="alert">{errors.password}</p>
+            )}
           </div>
           {errors.password && errors.passwordError && <p className="text-red-500">{errors.passwordError}</p>}
           <button
