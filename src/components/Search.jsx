@@ -5,6 +5,7 @@ import { Oval } from 'react-loader-spinner'
 import fetchData from '../helper/fetchData'
 
 const Search = () => {
+  const apiKey = process.env.REACT_APP_API_KEY
   const [query, setQuery] = useState('')
   const [Movies, setMovies] = useState([])
   const [initialLoading, setInitialLoading] = useState(true)
@@ -12,13 +13,13 @@ const Search = () => {
   const upload = async () => {
     setInitialLoading(true)
     try {
-      const response = await fetchData('search', 2, JSON.stringify({ query }))
-      if (response.success) {
-        setMovies(response.data.results.splice(0, 8))
-        setInitialLoading(false)
-      }
+      const response = await fetchData(
+        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`
+      );
+      setMovies(response.data.results.splice(0, 8));
+      setInitialLoading(false);
     } catch (error) {
-      console.log(error)
+      console.error(error);
     }
   }
 

@@ -3,12 +3,12 @@ const fetchData = async (url) => {
     const response = await fetch(url);
     if (response.ok) {
       const data = await response.json();
-      return data;
+      return { success: true, data: data };
     } else {
-      throw new Error("Failed to fetch data");
+      throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
     }
   } catch (error) {
-    console.log(error);
+    throw new Error(`Failed to fetch data: ${error.message}`);
   }
 }
 

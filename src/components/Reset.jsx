@@ -56,7 +56,6 @@ const Reset = () => {
       return;
     }
     try {
-        console.log("Inside handlereset")
         await toast.promise(
            passwordReset(data.email),
             {
