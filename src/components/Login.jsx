@@ -121,6 +121,7 @@ const Login = () => {
             <label htmlFor="password" className="leading-8 text-sm text-gray-900 dark:text-white">
               Password
             </label>
+            <div className="relative">
             <input
               value={data.password}
               type={passwordType}
@@ -132,10 +133,9 @@ const Login = () => {
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
             />
-            {errors.password && errors.passwordError && <p className="text-red-500">{errors.passwordError}</p>}
             <button
               onClick={passwordToggle}
-              className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"
+              className="absolute inset-y-0 right-0 top-0 pr-3 flex items-center pointer-events-cursor-pointer"
             >
               <img
                 height={30}
@@ -144,10 +144,9 @@ const Login = () => {
                 alt="Toggle password visibility" loading='lazy'
               />
             </button>
-            {errors.password && (
-              <p className="text-red-500">{errors.password}</p>
-            )}
+            </div>
           </div>
+          {errors.password && errors.passwordError && <p className="text-red-500">{errors.passwordError}</p>}
           <button
             className="text-black bg-blue-gradient mt-2 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
             onClick={handleSubmit}

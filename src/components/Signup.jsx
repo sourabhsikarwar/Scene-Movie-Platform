@@ -220,6 +220,7 @@ const Signup = () => {
             >
               Password
             </label>
+            <div className="relative">
             <input
               type={showPassword}
               id="password"
@@ -230,12 +231,9 @@ const Signup = () => {
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
             />
-            {errors.password && errors.passwordError  && (
-              <p className="text-red-500">{errors.passwordError}</p>
-            )}
             <button
               onClick={passwordVisibility}
-              className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"
+              className="absolute inset-y-0 right-0 top-0 pr-3 flex items-center pointer-events-cursor-pointer"
             >
               <img
                 height={30}
@@ -245,7 +243,11 @@ const Signup = () => {
                 loading="lazy"
               />
             </button>
+            </div>
           </div>
+          {errors.password && errors.passwordError  && (
+              <p className="text-red-500">{errors.passwordError}</p>
+            )}
           <div className="relative mb-4">
             <label
               htmlFor="confirm-password"
@@ -253,6 +255,7 @@ const Signup = () => {
             >
               Confirm Password
             </label>
+            <div className="relative">
             <input
               type={passwordType}
               id="confirm-password"
@@ -263,12 +266,9 @@ const Signup = () => {
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
             />
-            {errors.confirmPassword && errors.confirmPasswordError &&(
-              <p className="text-red-500">{errors.confirmPasswordError}</p>
-            )}
             <button
               onClick={passwordToggle}
-              className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"
+              className="absolute inset-y-0 right-0 top-0 pr-3 flex items-center pointer-events-cursor-pointer"
             >
               <img
                 height={30}
@@ -278,7 +278,11 @@ const Signup = () => {
                 loading="lazy"
               />
             </button>
+            </div>
           </div>
+          {errors.confirmPassword && errors.confirmPasswordError &&(
+              <p className="text-red-500">{errors.confirmPasswordError}</p>
+            )}
           <button
             className={`${styles.button1} my-2`}
             onClick={handleSubmit}
