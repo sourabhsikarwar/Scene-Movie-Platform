@@ -5,6 +5,8 @@ import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa'
 import { useUserAuth } from '../../context/authContext'
 import { database } from '../../firebase/firebaseConfig'
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import CircleRating from '../circleRating/CircleRating'
+import dayjs from "dayjs";
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -22,17 +24,13 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { Dialog, Transition } from "@headlessui/react";
-
 const MovieCard = (props) => {
   const shareUrl = `${props.movie.title}`.replace(/\s/g, "%20");
-
   const { user } = useUserAuth()
   const [like, setLike] = useState(false)
   const [saved, setSaved] = useState(false)
   const [openFilter, setOpenFilter] = useState(false);
-
   const movieID = doc(database, 'users', `${user?.email}`)
-
   const saveShow = async () => {
     if (user?.email) {
       setLike(!like)
@@ -41,7 +39,6 @@ const MovieCard = (props) => {
       alert('Please log in to save a movie')
     }
   }
-
   const handleSave = async () => {
     if (like) {
       await updateDoc(movieID, {
@@ -106,10 +103,13 @@ const MovieCard = (props) => {
           </div>
         <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
           <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
-            <p className=''>{props.movie.title}</p>
-            <p className='text-dimWhite font-normal text-xs mt-2'>
-              {props.movie.vote_average}/10
-            </p>
+            <p className='' >{props.movie.title}</p>
+          </div>
+          <div style={{ marginBottom: '-38px', display:'flex' }}>
+            <CircleRating rating={props.movie.vote_average.toFixed(1)} />
+            <span className="date" style={{paddingLeft:'20px'}}>
+              {dayjs(props.movie.release_date).format("MMM D, YYYY")}
+            </span>
           </div>
         </Link>
       </div>
