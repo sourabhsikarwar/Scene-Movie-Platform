@@ -244,8 +244,8 @@ input:-webkit-autofill:active {
 }
 
 .error-container .ops {
-  width: 30%;
-  margin: 0 auto;
+  width: 60%;
+  margin:0 auto 10% auto;
 }
 
 @media screen and (max-width: 500px) {
@@ -258,11 +258,52 @@ input:-webkit-autofill:active {
   .error-container h3 {
     font-size: 14px;
   }
+  
 }
 
 @media screen and (max-width: 650px) {
   .youtube iframe {
     width: 100% !important;
     height: 100% !important;
+  }
+  
+}
+.error-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  justify-content: center; 
+  align-items: center;
+  gap: 10px;
+}
+
+.error-text {
+  text-align: left; 
+  padding: 10% 0 10% 20%;
+  font-weight: bold;
+}
+
+.error-text h1 {
+  color: white;
+  font-size: 4vw; 
+  font-weight: bold;
+  line-height: 1.2; 
+  margin-bottom: 20px;
+}
+
+/* Additional styling for smaller devices */
+@media screen and (max-width: 600px) {
+  .error-text h1 {
+    font-size: 8vw; /* Set a different font size for smaller devices */
+  }
+  .error-container {
+    display: flex;
+ flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    padding-top: 3%;
+  }
+  .error-text {
+    text-align: center; 
+    padding: 5%;
   }
 }
