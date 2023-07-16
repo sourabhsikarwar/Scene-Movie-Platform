@@ -11,7 +11,6 @@ const NotFound404 = () => {
         <br /> Sorry, the page you're looking for doesn't exist.
       </h2>
       <br />
-
       <Link
         className="bg-blue-gradient border-0 text-black px-4 py-2 rounded shadow"
         to="/"
