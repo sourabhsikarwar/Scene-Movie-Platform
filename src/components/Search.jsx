@@ -1,44 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../style'
 import Card from './Cards/Card'
-import axios from 'axios'
 import { Oval } from 'react-loader-spinner'
+import fetchData from '../helper/fetchData'
 
 const Search = () => {
-  const apiKey = process.env.REACT_APP_API_KEY
   const [query, setQuery] = useState('')
   const [Movies, setMovies] = useState([])
   const [initialLoading, setInitialLoading] = useState(true)
 
-  // useEffect(
-  //   function () {
-
-  //     upload();
-  //   },
-  //   [query, apiKey]
-  // );
-
-
   const upload = async () => {
     setInitialLoading(true)
-    await axios
-      .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`
-      )
-      .then((res) => {
-        setMovies(res.data.results.splice(0, 8))
+    try {
+      const response = await fetchData('search', 2, JSON.stringify({ query }))
+      if (response.success) {
+        setMovies(response.data.results.splice(0, 8))
         setInitialLoading(false)
-      })
-      .catch((e) => {
-        return e;
-      })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
     let timer = setTimeout(() => {
-      upload();
-    }, 500);
-    return () => clearTimeout(timer);
+      upload()
+    }, 500)
+    return () => clearTimeout(timer)
   }, [query])
 
   return (

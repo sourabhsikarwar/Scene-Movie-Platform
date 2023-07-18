@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { Oval } from 'react-loader-spinner'
+import fetchData from '../helper/fetchData'
 
 function SavedCards({ item, deleteMovie }) {
   const navigate = useNavigate()
-  const apiKey = process.env.REACT_APP_API_KEY
   const [genre, setGenre] = useState([])
   const [initialLoading, setInitialLoading] = useState(false)
 
@@ -16,16 +16,14 @@ function SavedCards({ item, deleteMovie }) {
 
   const getGenre = async () => {
     setInitialLoading(true)
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${item.id}?api_key=${apiKey}`,
-      {
-        method: 'get',
+    try {
+      const response = await fetchData(`all-genre/id/${item.id}`, 1)
+      if (response.success) {
+        setGenre(response.data)
+        setInitialLoading(false)
       }
-    ).then((res) => res.json())
-    if (response) {
-      //set the genre
-      setGenre(response.genres)
-      setInitialLoading(false)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -49,7 +47,7 @@ function SavedCards({ item, deleteMovie }) {
       ) : (
         <div className='relative inline-block w-full sm:w-[200px] md:w-[240px] lg:w-[280px] h-5/6 px-4 mb-4 mx-4'>
           {' '}
-          <div className='max-w-sm bg-white shadow-lg rounded-lg overflow-hidden bg-black'>
+          <div className='max-w-sm shadow-lg rounded-lg overflow-hidden bg-black'>
             <img
               src={`https://image.tmdb.org/t/p/w500/${item?.img}`}
               alt='Movie'

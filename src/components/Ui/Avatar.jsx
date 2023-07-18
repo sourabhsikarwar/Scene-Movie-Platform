@@ -4,7 +4,7 @@ import { useUserAuth } from "../../context/authContext";
 import avatar from "../../assets/image/avatar.webp";
 
 const Avatar = () => {
-  const { logout } = useUserAuth();
+  const { user, logout } = useUserAuth();
 
   const handleLogout = async () => {
     try {
@@ -15,9 +15,9 @@ const Avatar = () => {
   };
 
   return (
-    <div className="relative group">
+    <div className="relative group cursor-pointer">
       <img
-        src={avatar}
+        src={user.photoURL ? user.photoURL : avatar}
         alt="profile pic"
         className="w-[40px] h-[40px] rounded-full object-cover" loading='lazy'
       />

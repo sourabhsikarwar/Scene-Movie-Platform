@@ -1,61 +1,58 @@
-import axios from "axios";
 import styles from '../../style'; 
-import React, { useState, useEffect } from "react";
-import Youtube from "react-youtube";
-import { Oval } from "react-loader-spinner";
+import React, { useState, useEffect } from 'react'
+import Youtube from 'react-youtube'
+import { Oval } from 'react-loader-spinner'
 // for star rating convert number into star
-import Star from "../SingleMovieCast/Star";
-//  format price is used to format country currency 
-import FormatPrice from "../SingleMovieCast/FormatPrice";
-import "../SingleMovieCast/style.css";
-import { useParams } from 'react-router-dom';
+import Star from '../SingleMovieCast/Star'
+//  format price is used to format country currency
+import FormatPrice from '../SingleMovieCast/FormatPrice'
+import '../SingleMovieCast/style.css'
+import { useParams } from 'react-router-dom'
+import fetchData from '../../helper/fetchData'
 
 const MovieBanner = (props) => {
-  const MOVIE_API = "https://api.themoviedb.org/3";
-  const { movieId, title } = useParams();
-  const [playing, setPlaying] = useState(false);
-  const [Movies, setMovies] = useState({});
+  const { movieId, title } = useParams()
+  const [playing, setPlaying] = useState(false)
+  const [Movies, setMovies] = useState({})
 
-  const [trailer, setTrailer] = useState(null);
-  const [initialLoading, setInitialLoading] = useState(true);
-  const apiKey = process.env.REACT_APP_API_KEY;
+  const [trailer, setTrailer] = useState(null)
+  const [initialLoading, setInitialLoading] = useState(true)
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    update();
-  }, [movieId]);
+    window.scrollTo(0, 0)
+    update()
+  }, [movieId])
 
   const update = async () => {
-    setInitialLoading(true);
-    await axios
-      .get(`${MOVIE_API}/movie/${props.id}?api_key=${apiKey}&language=en-US`)
-      .then((res) => {
-        const mResults = res.data;
-        setMovies(mResults);
-        setInitialLoading(false);
-      });
-  };
-  const handleTrailer = async () => {
-    setInitialLoading(true);
-    const { data } = await axios.get(`${MOVIE_API}/movie/${props?.id}`, {
-      params: {
-        api_key: apiKey,
-        append_to_response: "videos",
-      },
-    });
-
-    if (data.videos && data.videos.results) {
-      const trailer = data.videos.results.find(
-        (vid) => vid.name === "Official Trailer"
-      );
-      setTrailer(trailer ? trailer : data.videos.results[0]);
-      setPlaying(true);
+    setInitialLoading(true)
+    try {
+      const response = await fetchData(`movie-banner/movie/${movieId}`, 1)
+      if (response.success) {
+        setMovies(response.data)
+        setInitialLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
     }
+  }
+  const handleTrailer = async () => {
+    setInitialLoading(true)
+    try {
+      const { data } = await fetchData(`trailer/id/${movieId}`, 1)
+      if (data.videos && data.videos.results) {
+        const trailer = data.videos.results.find(
+          (vid) => vid.name === 'Official Trailer'
+        )
+        setTrailer(trailer ? trailer : data.videos.results[0])
+        setPlaying(true)
+      }
 
-    // setMovie(data)
-    setInitialLoading(false);
-  };
-
+      // setMovie(data)
+      setInitialLoading(false)
+    } catch (error) {
+       console.log(error)
+    }
+  }
   return (
     <>
       <section
@@ -93,26 +90,26 @@ const MovieBanner = (props) => {
                 </p>
                 <p className="dark:text-dimWhite">{Movies.overview}</p>
 
-                <div className="product-data-info ">
-                  <p className="dark:text-dimWhite">
-                    Available :
-                    {Movies.production_countries.map((ele) => (
-                      <span>{ele.name} </span>
-                    ))}
-                  </p>
-                  <p className="dark:text-dimWhite">
-                    Languages :
-                    {Movies.spoken_languages.map((ele) => (
-                      <span>{ele.english_name} </span>
-                    ))}
-                  </p>
-                  <p className="dark:text-dimWhite">
-                    Genres :{" "}
-                    {Movies.genres.map((ele) => (
-                      <span>{ele.name} </span>
-                    ))}
-                  </p>
-                </div>
+              <div className='product-data-info '>
+                <p className='dark:text-dimWhite'>
+                  Available :
+                  {Movies.production_countries.map((ele) => (
+                    <span>{ele.name} </span>
+                  ))}
+                </p>
+                <p className='dark:text-dimWhite'>
+                  Languages :
+                  {Movies.spoken_languages.map((ele) => (
+                    <span>{ele.english_name} </span>
+                  ))}
+                </p>
+                <p className='dark:text-dimWhite'>
+                  Genres :{' '}
+                  {Movies.genres.map((ele) => (
+                    <span>{ele.name} </span>
+                  ))}
+                </p>
+              </div>
 
                 <hr  />
                 {playing ? (
@@ -174,4 +171,4 @@ const MovieBanner = (props) => {
   );
 };
 
-export default MovieBanner;
+export default MovieBanner

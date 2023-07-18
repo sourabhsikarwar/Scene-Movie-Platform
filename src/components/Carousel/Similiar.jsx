@@ -1,33 +1,28 @@
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
-import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import styles from '../../style'
 import MovieCard from '../Cards/MovieCard'
 import { Oval } from 'react-loader-spinner'
 import { useParams } from 'react-router-dom';
+import fetchData from '../../helper/fetchData';
 
 const Similiar = (props) => {
-  const apiKey = process.env.REACT_APP_API_KEY
   const [initialLoading, setInitialLoading] = useState(true)
   const [data, setData] = useState([])
   const { movieId, title } = useParams();
 
   const upload = async () => {
     setInitialLoading(true)
-    await axios
-      .get(
-        `https://api.themoviedb.org/3/${props.title}/${movieId}/similar?api_key=${apiKey}&language=en-US&page=1`
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          setData(res.data.results)
-          setInitialLoading(false)
-        }
-      })
-      .catch((e) => {
-        return e.message
-      })
+     try {
+       const response = await fetchData(`similar/${props.title}/${props.id}`, 1)
+       if (response.success) {
+        setData(response.data.results)
+         setInitialLoading(false)
+       }
+     } catch (error) {
+       console.log(error)
+     }
   }
 
   useEffect(() => {
@@ -47,9 +42,13 @@ const Similiar = (props) => {
           />
         </div>
       ) : (
-        <div className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite py-8`}>
+        <div
+          className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite py-8`}
+        >
           <div className='flex justify-between items-center px-4'>
-            <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>Similiar</h2>
+            <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>
+              Similiar
+            </h2>
           </div>
           <Splide
             options={{
