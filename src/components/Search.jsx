@@ -1,31 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../style'
 import Card from './Cards/Card'
-import axios from 'axios'
 import { Oval } from 'react-loader-spinner'
+import fetchData from '../helper/fetchData'
 
 const Search = () => {
   const [query, setQuery] = useState('')
   const [Movies, setMovies] = useState([])
   const [initialLoading, setInitialLoading] = useState(true)
 
-
   const upload = async () => {
     setInitialLoading(true)
-
-    await axios
-      .post(
-        `${process.env.REACT_APP_API_DOMAIN}/api/movies/search`,
-        JSON.stringify({ query }),
-        { headers: { 'Content-Type': 'application/json' } }
-      )
-      .then((res) => {
-        setMovies(res.data.data.results.splice(0, 8))
+    try {
+      const response = await fetchData('search', 2, JSON.stringify({ query }))
+      if (response.success) {
+        setMovies(response.data.results.splice(0, 8))
         setInitialLoading(false)
-      })
-      .catch((e) => {
-        return e
-      })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
