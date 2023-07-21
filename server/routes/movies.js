@@ -68,6 +68,19 @@ router.get('/trending', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' })
   }
 })
+//get popular genre
+router.get('/popular-genre/id/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const data = await fetch(
+      `https://api.themoviedb.org/3/genre/${id}/movies?api_key=${apiKey}&language=en-US`
+    ).then((res) => res.json())
+    res.status(200).json({ success: true, data: data })
+  } catch (e) {
+    res.status(500).json({ message: 'Internal Server Error' })
+  }
+})
 
 //for getting all category wise content
 router.get('/:content/:id', async (req, res) => {

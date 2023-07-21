@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Banner from "../components/Banner/Banner";
-import Genre from "../components/Carousel/Genre";
-import Trending from "../components/Carousel/Trending";
-import Search from "../components/Search";
-import { Oval } from "react-loader-spinner";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Banner from '../components/Banner/Banner'
+import Genre from '../components/Carousel/Genre'
+import Trending from '../components/Carousel/Trending'
+import Search from '../components/Search'
+import { Oval } from 'react-loader-spinner'
+import fetchData from '../helper/fetchData'
 
 const Home = () => {
   const [genreMovie, setGenreMovie] = useState([])
   const [initialLoading, setInitialLoading] = useState(true)
 
-
   const uploadMovie = async () => {
     setInitialLoading(true)
-    await axios
-      .get(`${process.env.REACT_APP_API_DOMAIN}/api/movies/get-all-genres`)
-      .then((res) => {
-        if (res.status === 200) {
-          setGenreMovie(res.data.data.genres)
-          setInitialLoading(false)
-        }
-      })
-      .catch((e) => {
-        return e.message
-      })
+    try {
+      const response = await fetchData('get-all-genres', 1)
+      //  console.log('response:', response.data)
+      if (response.success) {
+        setGenreMovie(response.data.genres)
+        setInitialLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -36,14 +35,8 @@ const Home = () => {
         <div>
           <Banner />
           <Search />
-          <Trending
-            title="Trending"
-            id="1"
-          />
-          <Genre
-            title="Genres"
-            id="1"
-          />
+          <Trending title='Trending' id='1' />
+          <Genre title='Genres' id='1' />
           {genreMovie &&
             genreMovie.map((item, index) => {
               return <Trending title={item.name} id={item.id} key={index} />
