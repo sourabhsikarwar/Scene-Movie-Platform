@@ -270,6 +270,7 @@ input:-webkit-autofill:active {
   .section-movie-banner {
     background-color: #1a1a1a;
   }
+  .info-container {width: 60%;}
 }
 
 @media screen and (max-width: 500px) {
@@ -302,6 +303,7 @@ input:-webkit-autofill:active {
     padding-bottom: 55%;
     position: relative;
   }
+  .info-container-inner {width: 100%;}
   .img-container {
     right: 0 !important;
   }

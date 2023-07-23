@@ -62,7 +62,7 @@ const MovieBanner = (props) => {
           <div className="hidden sm:block absolute inset-0 bg-black opacity-40"></div>
           <div className="flex flex-row relative w-full main-container">
             <div
-              className={`${styles.boxWidth} flex info-container mx-0 lg:h-screen h-full items-center relative`}
+              className={`${styles.boxWidth} flex info-container items-start mx-0 lg:h-screen h-full relative`}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -71,7 +71,7 @@ const MovieBanner = (props) => {
                 zIndex: "2",
               }}
             >
-              <div className="hide-on-mob w-full sm:flex flex-wrap flex-row">
+              <div className="info-container-inner sm:flex flex-wrap flex-row">
                 <div className="py-3 sm:pt-12 w-full pl-8 sm:mt-10 md:pt-14 flex flex-col sm:items-start mx-0">
                   <h1
                     className={`${styles.heading2} sm:text-white md:text-5xl mb-3 md:mb-5 font-bold sm:font-extrabold text-left`}
