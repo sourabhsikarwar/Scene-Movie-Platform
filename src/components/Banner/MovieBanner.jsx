@@ -71,15 +71,15 @@ const MovieBanner = (props) => {
                 zIndex: "2",
               }}
             >
-              <div className="hide-on-mob mx-auto sm:flex flex-wrap flex-row">
-                <div className="py-3 sm:pt-12 pl-8 sm:mt-10 md:pt-14 flex flex-col sm:items-start mx-0">
+              <div className="hide-on-mob w-full sm:flex flex-wrap flex-row">
+                <div className="py-3 sm:pt-12 w-full pl-8 sm:mt-10 md:pt-14 flex flex-col sm:items-start mx-0">
                   <h1
                     className={`${styles.heading2} sm:text-white md:text-5xl mb-3 md:mb-5 font-bold sm:font-extrabold text-left`}
                   >
                     {Movies.title}
                   </h1>
                   <div className="flex mb-3 md:mb-5">
-                    <span className="flex items-start lg:mx-0">
+                    <span className="flex items-center lg:mx-0">
                       <svg
                         fill="currentColor"
                         stroke="currentColor"
@@ -135,39 +135,38 @@ const MovieBanner = (props) => {
                       >
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                       </svg>
-                      <span className="ml-3 text-black sm:text-white dark:text-white text-sm">
+                      <span className="ml-3 text-black sm:text-white text-base md:text-lg lg:text-xl dark:text-white">
                         4 Reviews
                       </span>
                     </span>
                   </div>
-                  <div className="hidden sm:flex flex-row justify-between items-start text-gray-300 mb-1">
+                  <div className="hidden sm:flex flex-row justify-between items-start md:text-lg lg:text-xl text-gray-300 mb-1">
                     <div className="text-gray-300 mb-3 md:mb-4">
                       {Movies.release_date.split("-")[0]}
                     </div>
                     <span className="mx-2">|</span>
-                    {console.log(Movies)}
                     {Movies.genres[0].name}
                   </div>
                   <div className="flex sm:hidden flex-col justify-between items-start text-gray-300 mb-3">
                     <div className="text-gray-300 mb-3">
-                      <span className="text-black dark:text-white font-medium text-sm">
+                      <span className="text-black dark:text-white font-medium text-base">
                         Release Date:&nbsp;&nbsp;
                       </span>
-                      <span className="text-black dark:text-gray-500 ">
+                      <span className="text-black dark:text-dimWhite text-base">
                         {Movies.release_date}
                       </span>
                     </div>
                     <div>
-                      <span className="text-black dark:text-white font-medium text-sm">
+                      <span className="text-black dark:text-white font-medium text-base">
                         Genres:&nbsp;&nbsp;
                       </span>
-                      <span className="text-black dark:text-gray-500 ">
+                      <span className="text-black dark:text-dimWhite text-base  ">
                         {Movies.genres.map((genre) => genre.name).join(" | ")}
                       </span>
                     </div>
                   </div>
                   {playing ? (
-                    <div className="mx-auto">
+                    <div className="trailer-container">
                       <Youtube
                         videoId={trailer.key}
                         className={"youtube amru"}
@@ -195,7 +194,7 @@ const MovieBanner = (props) => {
                   ) : (
                     <>
                       <p
-                        className={`text-black sm:text-white mb-3 sm:mb-1 dark:text-white font-light leading-5 sm:text-base lg:text-lg text-left`}
+                        className={`text-black sm:text-white mb-3 sm:mb-1 dark:text-white font-light leading-5 text-base md:text-lg lg:text-xl text-left`}
                       >
                         {Movies.overview}
                       </p>

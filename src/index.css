@@ -285,6 +285,9 @@ input:-webkit-autofill:active {
 }
 
 @media screen and (max-width: 640px) {
+  .trailer-container {
+    margin-top: 10px;
+  }
   .trailer-container .youtube {
     height: 250px;
   }
