@@ -40,9 +40,9 @@ function Banner() {
       >
         {!initialLoading ? (
           <div
-            className={`${styles.boxWidth} mx-auto flex px-8 py-8 flex-row md:items-end items-end md:h-[85vh] h-[90vh]`}
+            className={`${styles.boxWidth} mx-auto flex px-8 py-8 flex-row justify-center md:items-end items-end md:h-[85vh] h-[90vh]`}
           >
-            <div className='md:w-full lg:pr-24 md:pr-16 flex flex-col md:items-center md:text-center md:mb-0 items-center text-center'>
+            <div className='md:w-full mb-10 lg:pr-24 md:pr-16 flex flex-col md:items-center md:text-center md:mb-0 items-center text-center'>
               <h1 className={`${styles.heading1} mb-2 text-gray-100`}>
                 {Movies.title}
               </h1>
