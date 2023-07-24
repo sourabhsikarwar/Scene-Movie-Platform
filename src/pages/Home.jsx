@@ -16,7 +16,7 @@ const Home = () => {
   const uploadMovie = async () => {
     setInitialLoading(true)
     try {
-      const response = await fetchData('get-all-genres', 'movie', 1)
+      const response = await fetchData('get-all-genres', 1)
       //  console.log('response:', response.data)
       if (response.success) {
         setGenreMovie(response.data.genres)
@@ -58,7 +58,7 @@ const Home = () => {
         <div>
           <Banner />
           <Search />
-          <Trending title='Trending' id='1' type="movie" head="Movies" />
+          <Trending title="Trending" id="1" type="movie" head="Movies" />
           <Trending title="Trending" id="1" type="tv" head="TV Shows" />
           <Genre title='Genres' id='1' />
           {genreMovie &&

@@ -23,7 +23,7 @@ const Trending = (props) => {
     }
 
     try {
-      const response = await fetchData(slug, "movie", 1);
+      const response = await fetchData(slug, 1);
       if (response.success) {
         setMovies(response.data.results);
         setInitialLoading(false);
@@ -177,7 +177,7 @@ const Trending = (props) => {
                 {Tv.map((movie) => {
                   return (
                     <SplideSlide key={movie.id}>
-                      <MovieCard movie={movie} />
+                      <MovieCard type="tv" movie={movie} />
                     </SplideSlide>
                   );
                 })}
