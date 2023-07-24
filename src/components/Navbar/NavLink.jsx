@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Links } from './Links'
+import { MoviesLinks, TVShowsLinks } from './Links'
 
-const NavLinks = ({ onMovieLinkClick }) => {
+const NavLinks = ({ onMovieLinkClick, category }) => {
   const [heading, setHeading] = useState('')
   const location = useLocation()
-  
+  const genre = category === 'Movies' ? MoviesLinks : TVShowsLinks;
+
   return (
     <>
-      {Links.map((link) => (
+      {genre.map((link) => (
         <div key={link.name}>
           <div className='mx-3 text-left md:cursor-pointer group'>
             <h1
@@ -45,7 +46,7 @@ const NavLinks = ({ onMovieLinkClick }) => {
                           to={
                             link.name === "Movies"
                               ? `/category/movie/${sLink.name}/${sLink.id}`
-                              : `/category/movie/${sLink.name}/${sLink.id}`
+                              : `/category/tv/${sLink.name}/${sLink.id}`
                           }
                           className="hover:underline dark:hover:text-white"
                         >
