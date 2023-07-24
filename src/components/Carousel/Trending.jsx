@@ -142,7 +142,7 @@ const Trending = (props) => {
                 <p className="">
                   <Link
                     className={`${styles.paragraph} text-gray-900 dark:text-dimWhite dark:hover:text-white duration-200`}
-                    to={"/category/movie/" + props.title + "/" + props.id}
+                    to={"/category/tv/" + props.title + "/" + props.id}
                   >
                     Show all
                   </Link>
