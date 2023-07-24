@@ -168,7 +168,7 @@ const MovieBanner = (props) => {
                       </div>
                     </div>
                     {playing ? (
-                      <div className="trailer-container">
+                      <div className="trailer-container pl-8 sm:pl-0">
                         <Youtube
                           videoId={trailer.key}
                           className={"youtube amru"}
