@@ -37,7 +37,7 @@ const Search = () => {
           type='search'
           placeholder='Search'
           onChange={(e) => setQuery(e.target.value)}
-          className='rounded border-none ring-1 ring-blue-300 outline-none w-auto'
+          className='rounded text-black border-none ring-1 ring-blue-300 outline-none w-auto'
         />
       </div>
       {initialLoading && (
@@ -54,12 +54,12 @@ const Search = () => {
       {!initialLoading && query && (
         <div className={`${styles.boxWidth} my-8`}>
           <div
-            className={`text-2xl text-white w-full my-2 sm:mx-2 text-center sm:text-left`}
+            className={`text-2xl dark:text-dimWhite w-full my-2 sm:mx-2 text-center sm:text-left`}
           >
             Showing results for {query}
           </div>
           {Movies.length === 0 ? (
-            <div className='flex justify-center m-8 text-white text-2xl'>
+            <div className='flex justify-center m-8 dark:text-dimWhite text-2xl'>
               No result Found
             </div>
           ) : (
