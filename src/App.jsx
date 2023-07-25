@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {lazy,Suspense, useEffect, useState} from 'react';
 import { Oval } from 'react-loader-spinner';
 import ScrollToTop from "./components/ScrollToTop";
-
+import alanBtn from "@alan-ai/alan-sdk-web";
 
 const About=lazy(()=>import('./pages/About'));
 const Login=lazy(()=>import('./components/Login'));
@@ -44,6 +44,21 @@ function App() {
       document.querySelector("body").classList.add("dark");
     }
   }, [theme])
+
+  useEffect(() => {
+    alanBtn({
+      key: process.env.REACT_APP_ALAN_KEY,
+      onCommand: (commandData) => {
+        if (commandData && commandData.command === 'openURL') {
+          if (commandData.target === '_blank') {
+              window.open(commandData.url, '_newtab' + Math.floor(Math.random() * 999999));
+          } else {
+              window.location.href = commandData.url;
+          }
+      }
+      }
+    });
+  }, []);
   
   // toggle dark and light modes
   const handleThemeSwitch=()=>{
