@@ -46,7 +46,7 @@ function App() {
 
   useEffect(() => {
     alanBtn({
-      key: process.env.REACT_APP_ALAN_KEY,
+      key: "9affcb79b8366d688d4e7723b6da68792e956eca572e1d8b807a3e2338fdd0dc/stage",
       onCommand: (commandData) => {
         if (commandData && commandData.command === 'openURL') {
           if (commandData.target === '_blank') {
