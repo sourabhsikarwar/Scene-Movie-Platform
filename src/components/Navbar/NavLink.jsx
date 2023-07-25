@@ -76,7 +76,7 @@ const NavLinks = ({ onMovieLinkClick, category }) => {
                       to={
                         link.name === "Movies"
                           ? `/category/movie/${sLinks.name}/${sLinks.id}`
-                          : `/category/movie/${sLinks.name}/${sLinks.id}`
+                          : `/category/tv/${sLinks.name}/${sLinks.id}`
                       }
                       onClick={onMovieLinkClick}
                     >
