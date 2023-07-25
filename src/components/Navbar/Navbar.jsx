@@ -218,17 +218,6 @@ const Navbar = ({ handleThemeSwitch }) => {
           </li>
           <li>
             <Link
-              to="/"
-              onClick={handleMovieLinkClick}
-              className={`navLink ${
-                location.pathname === "/TvShows" ? "active" : ""
-              }`}
-            >
-              TV Shows
-            </Link>
-          </li>
-          <li>
-            <Link
               to="/recommend"
               onClick={handleMovieLinkClick}
               className={`navLink ${
