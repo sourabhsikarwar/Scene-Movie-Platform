@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Links } from "./Links";
+import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { MoviesLinks, TVShowsLinks } from './Links'
 
-const NavLinks = ({ onMovieLinkClick }) => {
-  const [heading, setHeading] = useState("");
-  const location = useLocation();
+const NavLinks = ({ onMovieLinkClick, category }) => {
+  const [heading, setHeading] = useState('')
+  const location = useLocation()
+  const genre = category === 'Movies' ? MoviesLinks : TVShowsLinks;
 
   return (
     <>
-      {Links.map((link) => (
+      {genre.map((link) => (
         <div key={link.name}>
           <div className="mx-3 text-left md:cursor-pointer group">
             <h1
@@ -36,23 +37,23 @@ const NavLinks = ({ onMovieLinkClick }) => {
                 <div className="absolute top-[60px] hidden group-hover:md:block hover:md:block z-50">
                   <div className="bg-gray-300 dark:text-dimWhite dark:bg-secondary p-8 grid grid-cols-3 gap-x-10 rounded-lg">
                     <ul>
-                      {link.genres.map((sLink) => (
-                        <li
-                          key={sLink.id}
-                          className="text-sm text-gray-900 dark:text-gray-300 font-light my-2.5"
+                    {link.genres.map((sLink) => (
+                      <li
+                        key={sLink.id}
+                        className="text-sm text-gray-900 dark:text-gray-300 font-light my-2.5"
+                      >
+                        <Link
+                          to={
+                            link.name === "Movies"
+                              ? `/category/movie/${sLink.name}/${sLink.id}`
+                              : `/category/tv/${sLink.name}/${sLink.id}`
+                          }
+                          className="hover:underline dark:hover:text-white"
                         >
-                          <Link
-                            to={
-                              link.name === "Movies"
-                                ? `/category/movie/${sLink.name}/${sLink.id}`
-                                : `/category/movie/${sLink.name}/${sLink.id}`
-                            }
-                            className="hover:underline dark:hover:text-white"
-                          >
-                            {sLink.name}
-                          </Link>
-                        </li>
-                      ))}
+                          {sLink.name}
+                        </Link>
+                      </li>
+                    ))}
                     </ul>
                   </div>
                 </div>
