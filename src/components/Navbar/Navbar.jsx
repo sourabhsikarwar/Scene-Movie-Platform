@@ -103,13 +103,17 @@ const Navbar = ({ handleThemeSwitch }) => {
             )}
           </div>
 
+          {user ? (    
           <div
             className="text-3xl my-auto md:hidden"
             onClick={() => setOpen(!open)}
           >
             <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
           </div>
+          ) : (<> </>)}
+          
         </div>
+        {!user ? (<> </>) : ( 
         <ul className="md:flex hidden items-center font-medium h-[90px] z-50">
           <li>
             <Link
@@ -130,17 +134,10 @@ const Navbar = ({ handleThemeSwitch }) => {
             </Link>
           </li>
           <li>
-            <NavLink />
+            <NavLink onMovieLinkClick={handleMovieLinkClick} category="Movies" />
           </li>
           <li>
-            <Link
-              to="/"
-              className={`navLink ${
-                location.pathname === "/TvShows" ? "active" : ""
-              }`}
-            >
-              TV Shows
-            </Link>
+            <NavLink onMovieLinkClick={handleMovieLinkClick} category="TV" />
           </li>
           <li>
             <Link
@@ -153,7 +150,7 @@ const Navbar = ({ handleThemeSwitch }) => {
             </Link>
           </li>
         </ul>
-
+        )}
         {/* normal web view  */}
 
         <div className="md:flex hidden justify-center items-center gap-x-6 z-50">
@@ -197,6 +194,7 @@ const Navbar = ({ handleThemeSwitch }) => {
         </div>
 
         {/* mobile navbar */}
+        {!user ? (<> </>) : (
         <ul
           className={`md:hidden text-gray-900 dark:text-dimWhite bg-gray-300 dark:bg-secondary absolute w-full top-[90px] z-50 py-5 pl-4 duration-500  ${
             open ? "left-0" : "left-[-100%]"
@@ -213,7 +211,10 @@ const Navbar = ({ handleThemeSwitch }) => {
             </Link>
           </li>
           <li>
-            <NavLink onMovieLinkClick={handleMovieLinkClick} />
+            <NavLink onMovieLinkClick={handleMovieLinkClick} category="Movies" /> {/* Pass the category prop */}
+          </li>
+          <li>
+            <NavLink onMovieLinkClick={handleMovieLinkClick} category="TV" /> {/* TV Shows dropdown */}
           </li>
           <li>
             <Link
@@ -238,6 +239,7 @@ const Navbar = ({ handleThemeSwitch }) => {
             </Link>
           </li>
         </ul>
+        )}
       </div>
     </nav>
   );

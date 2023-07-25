@@ -1,31 +1,27 @@
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
-import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import styles from '../../style'
 import TvGeneralCard from '../Cards/TvGeneralCard'
 import { Oval } from 'react-loader-spinner'
+import fetchData from '../../helper/fetchData'
 
 const General = (props) => {
-  const apiKey = process.env.REACT_APP_API_KEY
   const [tvDetail, setTvDetail] = useState([])
   const [initialLoading, setInitialLoading] = useState(true)
 
   const upload = async () => {
-    setInitialLoading(true)
-    await axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${props.id}/season/1?api_key=${apiKey}&language=en-US`
-      )
-      .then((res) => {
-        if (res.data) {
-          setTvDetail(res.data.episodes)
-          setInitialLoading(false)
-        }
-      })
-      .catch((e) => {
-        return e.message
-      })
+     setInitialLoading(true)
+     try {
+       const response = await fetchData(`tv/${props.id}`, 1)
+       if (response.success) {
+        setTvDetail(response.data.episodes)
+         setInitialLoading(false)
+       }
+     } catch (error) {
+       console.log(error)
+     }
+   
   }
 
   useEffect(() => {

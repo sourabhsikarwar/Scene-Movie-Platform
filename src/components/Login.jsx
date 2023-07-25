@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import OAuth from "./OAuth";
 import  { FaUserLock } from 'react-icons/fa';
 import { useLocation } from "react-router-dom";
+import validate from "../common/validation";
 
 const Login = () => {
 
@@ -24,7 +25,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({email: true, password: true});
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -33,36 +34,24 @@ const Login = () => {
   const handleInputs = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const validateInputs = () => {
-    const { email, password } = data;
-    const errors = {};
-
-    if (!email) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      errors.email = "Invalid email address";
-    }
-
-    if (!password) {
-      errors.password = "Password is required";
-    }
-
-
-    return errors;
+    const errObj = validate[name](value)
+    setErrors((prev)=>{
+      return {...prev, ...errObj}
+    })
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const validationErrors = validateInputs();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+    let submitable = true;
+    Object.values(errors).forEach((err)=>{
+      if(err !== false){
+        submitable = false;
+        return;
+      }
+    })
 
     setError("");
+    if(submitable){
     try {
       await toast.promise(
         login(data.email, data.password),
@@ -76,6 +65,9 @@ const Login = () => {
     } catch (err) {
       setError("Username or password didn't match");
     }
+  }else{
+    alert("Please add Valid value in all fields")
+  }
   };
 
   const handleKeyDown = (e) => {
@@ -103,9 +95,9 @@ const Login = () => {
       <div
         className={`${styles.boxWidth} mx-auto flex flex-wrap items-center md:px-0 px-8 h-max`}
       >
-        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
-          <h2 className={`text-gradient ${styles.heading3} mb-4`}>Login</h2>
-          {error && <p className="text-red-600">{`${error}`}<FaUserLock style={{display:"inline-block", marginLeft:"10px"}} /></p>}
+        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16" role="form">
+          <h2 className={`text-gradient ${styles.heading3} mb-4`} aria-labelledby="login-heading">Login</h2>
+          {error && <p className="text-red-600" role="alert" aria-live="assertive">{`${error}`}<FaUserLock style={{display:"inline-block", marginLeft:"10px"}} /></p>}
           <div className="relative mb-4">
             <label htmlFor="email" className="leading-8 text-sm text-gray-900 dark:text-white">
               Email
@@ -117,13 +109,18 @@ const Login = () => {
               name="email"
               placeholder="xyz@gmail.com"
               className={`w-full bg-white rounded border ${
-                errors.email ? "border-red-500" : "border-gray-300"
+                errors.emailError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
               autoComplete="off"
+              required
+              aria-required="true"
+              aria-labelledby="email"
+              aria-invalid={errors.emailError ? "true" : "false"}
+              aria-describedby="email-error"
             />
-            {errors.email && <p className="text-red-500">{errors.email}</p>}
+            {errors.email && errors.emailError && <p className="text-red-500" id="email-error" role="alert">{errors.emailError}</p>}
           </div>
           <div className="relative mb-4">
             <label htmlFor="password" className="leading-8 text-sm text-gray-900 dark:text-white">
@@ -135,11 +132,16 @@ const Login = () => {
               id="password"
               name="password"
               className={`w-full bg-white rounded border ${
-                errors.password ? "border-red-500" : "border-gray-300"
+                errors.passwordError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out z-0`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              aria-required="true"
+              aria-labelledby="password"
+              aria-invalid={errors.passwordError ? "true" : "false"}
+              aria-describedby="password-error"
             />
+            {errors.password && errors.passwordError && <p className="text-red-500" id="password-error" role="alert">{errors.passwordError}</p>}
             <button
               onClick={passwordToggle}
               className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"
@@ -152,7 +154,7 @@ const Login = () => {
               />
             </button>
             {errors.password && (
-              <p className="text-red-500">{errors.password}</p>
+              <p className="text-red-500" role="alert">{errors.password}</p>
             )}
           </div>
           <button

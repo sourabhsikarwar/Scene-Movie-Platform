@@ -9,6 +9,7 @@ import show from "../assets/image/show.webp";
 import hide from "../assets/image/hide.webp";
 import OAuth from "./OAuth";
 import { useLocation } from "react-router-dom";
+import validate from "../common/validation";
 
 const Signup = () => {
 
@@ -29,70 +30,45 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState({}); // Object to store validation errors
+  const [errors, setErrors] = useState(validate.initialVal); 
+  // Object to store validation errors
   const [error, setError] = useState("");
 
   const { signUp, addUserData } = useUserAuth();
   const navigate = useNavigate();
 
   const handleInputs = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    const {name, value} = e.target;
+    setData({ ...data, [name]: value });
+    let errObj = validate[name](value);
+    if(name==="confirmPassword") errObj = validate.confirmPassword(value, data.password)
+    setErrors((prev)=>{
+      return {...prev, ...errObj}
+    })
   };
 
-  const validateInputs = () => {
-    const errors = {};
-
-    // Validate Full Name
-    if (!data.displayName.trim()) {
-      errors.displayName = "Full Name is required";
-    }
-
-    // Validate Email
-    if (!data.email.trim()) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
-      errors.email = "Invalid email address";
-    }
-
-    // Validate Contact No.
-    if (!data.phoneNumber.trim()) {
-      errors.phoneNumber = "Contact No. is required";
-    } else if (!/^\d{7,13}$/.test(data.phoneNumber)) {
-      errors.phoneNumber = "Invalid phone number";
-    }
-
-    // Validate Date of Birth
-    if (!data.dateOfBirth.trim()) {
-      errors.dateOfBirth = "Date of Birth is required";
-    }
-
-    // Validate Password
-    if (!data.password.trim()) {
-      errors.password = "Password is required";
-    } else if (data.password.length < 6) {
-      errors.password = "Password should be at least 6 characters long";
-    }
-
-    // Validate Confirm Password
-    if (!data.confirmPassword.trim()) {
-      errors.confirmPassword = "Confirm Password is required";
-    } else if (data.password !== data.confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
-    }
-
-    setErrors(errors); // Set the validation errors
-    return Object.keys(errors).length === 0; // Return true if there are no errors
+  const handlePhoneChange = (value) => {
+     setData((prev)=>{
+       return {...prev, phoneNumber: value}
+     })
+     const errObj = validate.phoneNumber(value);
+     setErrors((prev)=>{
+       return {...prev, ...errObj}
+     })
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+     let submitable = true;
+     Object.values(errors).forEach((err)=>{
+      if(err !== false){
+        submitable = false;
+        return;
+      }
+     })
 
-    const isValid = validateInputs();
-    if (!isValid) {
-      return;
-    }
-
+     if(submitable){
     try {
       await addUserData(
         data.displayName,
@@ -106,6 +82,9 @@ const Signup = () => {
       }, 2000);
     } catch (err) {
       setError(err.message);
+    }
+   }else{
+        alert("Please add Valid value in all fields")
     }
   };
   
@@ -133,9 +112,9 @@ const Signup = () => {
       }}
     >
       <div className="container mx-auto flex flex-wrap items-center md:px-0 px-8 h-max">
-        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16">
+        <div className="lg:w-2/6 md:w-1/2 bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16" role="form">
           <div>
-          <h2 className={`text-gradient ${styles.heading3} mb-4`}>Sign Up</h2>
+          <h2 className={`text-gradient ${styles.heading3} mb-4`} aria-labelledby="signup-heading">Sign Up</h2>
             
             <OAuth/> {/* Continue with google feature */}
             <div className="text-gray-900 dark:text-white flex my-4 items-center before:border-t before:flex-1  
@@ -147,7 +126,7 @@ const Signup = () => {
               </p>
             </div>
           </div>
-          {error && <p className="text-red-500">{error}</p>}
+          {error && <p className="text-red-500" role="alert" aria-live="assertive">{error}</p>}
           <div className="relative mb-4">
             <label
               htmlFor="full-name"
@@ -160,14 +139,18 @@ const Signup = () => {
               id="full-name"
               name="displayName"
               className={`w-full bg-white rounded border ${
-                errors.displayName ? "border-red-500" : "border-gray-300"
+                errors.displayNameError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              aria-required="true"
+              aria-labelledby="display name"
+              aria-invalid={errors.displayNameError ? "true" : "false"}
+              aria-describedby="display-name-error"
             />
-            {errors.displayName && (
-              <p className="text-red-500">{errors.displayName}</p>
-            )}
+            {errors.displayName && errors.displayNameError &&
+              <p className="text-red-500" id="display-name-error" role="alert">{errors.displayNameError}</p>
+            }
           </div>
           <div className="relative mb-4">
             <label
@@ -181,12 +164,17 @@ const Signup = () => {
               id="email"
               name="email"
               className={`w-full bg-white rounded border ${
-                errors.email ? "border-red-500" : "border-gray-300"
+                errors.emailError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              required
+              aria-required="true"
+              aria-labelledby="email"
+              aria-invalid={errors.emailError ? "true" : "false"}
+              aria-describedby="email-error"
             />
-            {errors.email && <p className="text-red-500">{errors.email}</p>}
+            {errors.email && errors.emailError && <p className="text-red-500" id="email-error" role="alert">{errors.emailError}</p>}
           </div>
           <div className="relative mb-4">
             <label
@@ -199,18 +187,21 @@ const Signup = () => {
               id="contact-no"
               name="phoneNumber"
               country="in"
-              onChange={(value) => setData({ ...data, phoneNumber: value })}
+              onChange={handlePhoneChange}
               onKeyDown={handleKeyDown}
               countryCodeEditable={false}
               inputClass="focus:ring-0"
               inputStyle={{ border: "0px"}}
               containerClass="border-none outline-none focus:ring-0"
               className={`w-full bg-white rounded border ${
-                errors.phoneNumber ? "border-red-500" : "border-gray-300"
+                errors.phoneNumberError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 text-gray-700 leading-8 transition-colors duration-200 ease-in-out`}
+              aria-labelledby="phone number"
+              aria-invalid={errors.phoneNumberError ? "true" : "false"}
+              aria-describedby="phone-number-error"
             />
-            {errors.phoneNumber && (
-              <p className="text-red-500">{errors.phoneNumber}</p>
+            {errors.phoneNumber && errors.phoneNumberError  && (
+              <p className="text-red-500" id="phone-number-error" role="alert">{errors.phoneNumberError}</p>
             )}
           </div>
           <div className="relative mb-4">
@@ -225,13 +216,16 @@ const Signup = () => {
               id="date-of-birth"
               name="dateOfBirth"
               className={`w-full bg-white rounded border ${
-                errors.dateOfBirth ? "border-red-500" : "border-gray-300"
+                errors.dateOfBirthError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              aria-labelledby="date of birth"
+              aria-invalid={errors.phoneNumberError ? "true" : "false"}
+              aria-describedby="dateOfBirth-error"
             />
-            {errors.dateOfBirth && (
-              <p className="text-red-500">{errors.dateOfBirth}</p>
+            {errors.dateOfBirth && errors.dateOfBirthError && (
+              <p className="text-red-500" id="dateOfBirth-error" role="alert">{errors.dateOfBirthError}</p>
             )}
           </div>
           <div className="relative mb-4">
@@ -246,13 +240,18 @@ const Signup = () => {
               id="password"
               name="password"
               className={`w-full bg-white rounded border ${
-                errors.password ? "border-red-500" : "border-gray-300"
+                errors.passwordError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              required
+              aria-required="true"
+              aria-labelledby="password"
+              aria-invalid={errors.passwordError ? "true" : "false"}
+              aria-describedby="password-error"
             />
-            {errors.password && (
-              <p className="text-red-500">{errors.password}</p>
+            {errors.password && errors.passwordError  && (
+              <p className="text-red-500" id="password-error" role="alert">{errors.passwordError}</p>
             )}
             <button
               onClick={passwordVisibility}
@@ -279,13 +278,17 @@ const Signup = () => {
               id="confirm-password"
               name="confirmPassword"
               className={`w-full bg-white rounded border ${
-                errors.confirmPassword ? "border-red-500" : "border-gray-300"
+                errors.confirmPasswordError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
               onChange={handleInputs}
               onKeyDown={handleKeyDown}
+              aria-required="true"
+              aria-labelledby="confirm password"
+              aria-invalid={errors.confirmPasswordError ? "true" : "false"}
+              aria-describedby="confirmPassword-error"
             />
-            {errors.confirmPassword && (
-              <p className="text-red-500">{errors.confirmPassword}</p>
+            {errors.confirmPassword && errors.confirmPasswordError &&(
+              <p className="text-red-500" id="confirmPassword-error" role="alert">{errors.confirmPasswordError}</p>
             )}
             <button
               onClick={passwordToggle}

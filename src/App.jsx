@@ -9,12 +9,14 @@ import {lazy,Suspense, useEffect, useState} from 'react';
 import { Oval } from 'react-loader-spinner';
 import ScrollToTop from "./components/ScrollToTop";
 
+
 const About=lazy(()=>import('./pages/About'));
 const Login=lazy(()=>import('./components/Login'));
 const Signup=lazy(()=>import('./components/Signup'));
 const Profile=lazy(()=>import('./components/Profile'));
 const Home=lazy(()=>import('./pages/Home'));
 const Movie=lazy(()=>import('./pages/Movie'));
+const Tv=lazy(()=>import('./pages/Tv'));
 const Categories=lazy(()=>import('./pages/Categories'));
 const NotFound404=lazy(()=>import('./pages/NotFound404'));
 const Favourite=lazy(()=>import('./components/Favourite'));
@@ -129,6 +131,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Movie />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/tv/:title/:tvId"
+            element={
+              <ProtectedRoute>
+                <Tv />
               </ProtectedRoute>
             }
           />

@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import styles from '../../style'
 import { Link } from 'react-router-dom'
 import { Oval } from 'react-loader-spinner'
+import fetchData from '../../helper/fetchData'
 
 function Banner() {
   const [Movies, setMovies] = useState({})
-  const [initialLoading, setInitialLoaing] = useState(true)
-  const apiKey = process.env.REACT_APP_API_KEY
+  const [initialLoading, setInitialLoading] = useState(true)
 
   useEffect(() => {
     upload()
   }, [])
 
   const upload = async () => {
-    setInitialLoaing(true)
-    await axios
-      .get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=12`
-      )
-      .then((res) => {
-        if (res.data) {
-          const mResults = res.data.results[0]
-          setMovies(mResults)
-          setInitialLoaing(false)
-        }
-      })
+    setInitialLoading(true)
+    try {
+      const response = await fetchData('get-banner', 1)
+      if (response.success) {
+        setMovies(response.data.results[0])
+        setInitialLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <>
@@ -34,7 +31,8 @@ function Banner() {
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${
             Movies.backdrop_path ??
-            "https://image.tmdb.org/t/p/original/nGxUxi3PfXDRm7Vg95VBNgNM8yc.jpg"}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
+            'https://image.tmdb.org/t/p/original/nGxUxi3PfXDRm7Vg95VBNgNM8yc.jpg'
+          }), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundBlendMode: 'multiply',
@@ -42,9 +40,9 @@ function Banner() {
       >
         {!initialLoading ? (
           <div
-            className={`${styles.boxWidth} mx-auto flex px-8 py-8 flex-row md:items-end items-end md:h-[85vh] h-[90vh]`}
+            className={`${styles.boxWidth} mx-auto flex px-8 py-8 flex-row justify-center md:items-end items-end md:h-[85vh] h-[90vh]`}
           >
-            <div className='md:w-full lg:pr-24 md:pr-16 flex flex-col md:items-center md:text-center md:mb-0 items-center text-center'>
+            <div className='md:w-full mb-10 lg:pr-24 md:pr-16 flex flex-col md:items-center md:text-center md:mb-0 items-center text-center'>
               <h1 className={`${styles.heading1} mb-2 text-gray-100`}>
                 {Movies.title}
               </h1>
