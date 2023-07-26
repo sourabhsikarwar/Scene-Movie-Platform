@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@alan-ai/alan-sdk-web": "^1.8.48",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^1.0.6",
     "@splidejs/react-splide": "^0.7.3",
