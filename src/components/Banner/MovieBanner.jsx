@@ -61,7 +61,7 @@ const MovieBanner = (props) => {
             <div className="hidden sm:block absolute inset-0 bg-black opacity-40"></div>
             <div className="flex flex-row relative w-full main-container">
               <div
-                className={`${styles.boxWidth} flex info-container items-start mx-0 lg:h-screen h-full relative`}
+                className={`flex info-container items-start mx-0 lg:h-screen h-full relative`}
                 style={{
                   display: "flex",
                   flexDirection: "column",
