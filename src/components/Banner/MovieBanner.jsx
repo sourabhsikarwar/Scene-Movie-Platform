@@ -509,10 +509,10 @@ const MovieBanner = (props) => {
               className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
             >
               <h2
-                  className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
-                >
-                  Movie Snapshots
-                </h2>
+                className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              >
+                Movie Snapshots
+              </h2>
               <div className="justify-center">
                 <Splide
                   options={{
@@ -544,14 +544,14 @@ const MovieBanner = (props) => {
                     return (
                       <SplideSlide>
                         <div className="snapshots-outer-container p-4 h-[300px] w-11/12 sm:w-[330px] md:w-full relative  duration-200  rounded-[6px]">
-                          {/* <img alt="movie snapshots" style={{objectFit:"cover"}} className="h-full mx-auto w-[300px]"
-                            src={`https://image.tmdb.org/t/p/w500${snapshot.file_path}`}
-                          /> */}
-                          <div className="snapshots-container h-[300px] w-full" style={{
-                            backgroundImage: `url(https://image.tmdb.org/t/p/w1280${snapshot.file_path})`,
-                            backgroundSize:"cover",
-                            backgroundPositionX: 'center',
-                          }}></div>
+                          <div
+                            className="snapshots-container h-[300px] w-full"
+                            style={{
+                              backgroundImage: `url(https://image.tmdb.org/t/p/w1280${snapshot.file_path})`,
+                              backgroundSize: "cover",
+                              backgroundPositionX: "center",
+                            }}
+                          ></div>
                         </div>
                       </SplideSlide>
                     );
