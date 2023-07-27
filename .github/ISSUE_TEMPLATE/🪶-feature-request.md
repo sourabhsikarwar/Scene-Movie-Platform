@@ -1,9 +1,12 @@
 ---
-name: "🪶 Feature request"
+name: "\U0001FAB6 Feature request"
 about: Suggest an idea for this project
 title: "[Feature]: "
+labels: ''
+assignees: ''
 
 ---
+
 <!--
 Example how to mark a checkbox:-
 - [x] My code follows the code style of this project.
