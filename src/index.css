@@ -318,6 +318,9 @@ input:-webkit-autofill:active {
     content: none !important;
   }
   .info-container {padding-bottom: 10px !important;}
+  .snapshots-outer-container {
+    margin: auto;
+  }
 }
 .main-container .info-container::after {
   background: linear-gradient(
