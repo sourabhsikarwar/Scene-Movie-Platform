@@ -349,21 +349,32 @@ const TvBanner = (props) => {
                             ""
                           )}
                         </div>
-                        <p className="review-para text-gray-600 dark:text-gray-400 px-4">
+                        <p className="review-para text-gray-600 dark:text-gray-400 px-4 text-justify">
                           {expandedReviews[review.id]
                             ? review.content
-                            : review.content.slice(0, 200) + " ....."}
-                          <button
+                            : review.content.slice(0, 200) + "  ...."}
+                          <span
                             onClick={() => handleToggleExpand(review.id)}
-                            className="text-sky-500 pl-2"
+                            className="text-sky-500 pl-1"
                           >
                             {expandedReviews[review.id]
                               ? "Read Less"
                               : "Read More"}
-                          </button>
+                          </span>
                         </p>
                       </div>
                     ))}
+                    {reviews.length > 4 && (
+                      <div className="see-more-less-container flex items-center justify-center mt-5">
+                        <button
+                          onClick={handleToggleVisibleReviews}
+                          className="flex border-2 rounded-3xl py-2 px-4 border-sky-700 text-sky-700 dark:border-sky-700	dark:text-sky-500	"
+                          style={{}}
+                        >
+                          {visibleReviews === 4 ? "See More" : "See Less"}
+                        </button>
+                      </div>
+                    )}
                   </>
                 )}
               </div>
