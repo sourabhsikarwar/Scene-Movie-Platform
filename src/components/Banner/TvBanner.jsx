@@ -60,14 +60,14 @@ const TvBanner = (props) => {
                       {Tv.name}
                     </h1>
                     <div className="flex flex-col justify-between items-start md:text-lg lg:text-xl text-gray-300 mb-1">
-                      <div className="text-gray-300 mb-3 md:mb-4">
+                      <div className="text-black sm:text-white dark:text-white mb-3 md:mb-4">
                         {Tv.first_air_date.split("-")[0]}
                         <span className="mx-2">|</span>
                         {Tv.genres[0].name}
                         <span className="mx-2">|</span>
                         {Math.floor(Tv.vote_average % 10)} / 10
                       </div>
-                      <div className="text-gray-300 mb-2 md:mb-4">
+                      <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
                         Seasons:&nbsp;{Tv.number_of_seasons}
                         <span className="mx-2">|</span>
                         Episodes:&nbsp;{Tv.number_of_episodes}
@@ -160,7 +160,6 @@ const TvBanner = (props) => {
                   </div>
                 </div>
               ) : ("")}
-              {console.log(Tv)}
               {Tv.next_episode_to_air ? (
                 <div className="w-1/2 lg:w-1/3 my-3">
                   <div className="font-medium">Next Episode</div>
