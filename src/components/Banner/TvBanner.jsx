@@ -116,9 +116,11 @@ const TvBanner = (props) => {
                 </div>
               </div>
               <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">First Air Date</div>
-                <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                  {Tv.first_air_date.toString().split("-").reverse().join("-")}
+                <div className="font-medium">Ratings</div>
+                <div className="flex flex-wrap">
+                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
+                    {Tv.vote_average} / 10
+                  </span>
                 </div>
               </div>
               <div className="w-1/2 lg:w-1/3 my-3">
@@ -129,7 +131,7 @@ const TvBanner = (props) => {
                   </span>
                 </div>
               </div>
-              <div className="w-1/2 lg:w-1/3 md:mt-5 mb-3">
+              <div className="w-1/2 lg:w-1/3 mb-3">
                 <div className="font-medium">Total Episodes</div>
                 <div className="flex flex-wrap">
                   <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
@@ -138,16 +140,45 @@ const TvBanner = (props) => {
                 </div>
               </div>
               <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Ratings</div>
-                <div className="flex flex-wrap">
-                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
-                    {Tv.vote_average} / 10
-                  </span>
+                <div className="font-medium">First Air Date</div>
+                <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                  {Tv.first_air_date.toString().split("-").reverse().join("-")}
                 </div>
               </div>
-              <div className="w-1/2 lg:w-1/3 md:mt-5 mb-3">
+              {Tv.last_episode_to_air ? (
+                <div className="w-1/2 lg:w-1/3 mb-3">
+                  <div className="font-medium">Last Episode</div>
+                  <div className="flex flex-wrap">
+                    <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                      #{Tv.last_episode_to_air.episode_number} :{" "}
+                      {Tv.last_episode_to_air.air_date
+                        .toString()
+                        .split("-")
+                        .reverse()
+                        .join("-")}
+                    </div>
+                  </div>
+                </div>
+              ) : ("")}
+              {console.log(Tv)}
+              {Tv.next_episode_to_air ? (
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Next Episode</div>
+                  <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                    #{Tv.next_episode_to_air.episode_number} :{" "}
+                    {Tv.next_episode_to_air.air_date
+                      .toString()
+                      .split("-")
+                      .reverse()
+                      .join("-")}
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+              <div className="w-1/2 lg:w-1/3 mb-3">
                 <div className="font-medium">Genres</div>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap pr-5">
                   {Tv.genres.map((genre, index) => (
                     <span
                       key={genre.id}
