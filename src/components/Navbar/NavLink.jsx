@@ -1,22 +1,23 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Links } from './Links'
+import { MoviesLinks, TVShowsLinks } from './Links'
 
-const NavLinks = ({ onMovieLinkClick }) => {
+const NavLinks = ({ onMovieLinkClick, category }) => {
   const [heading, setHeading] = useState('')
   const location = useLocation()
-  
+  const genre = category === 'Movies' ? MoviesLinks : TVShowsLinks;
+
   return (
     <>
-      {Links.map((link) => (
+      {genre.map((link) => (
         <div key={link.name}>
-          <div className='mx-3 text-left md:cursor-pointer group'>
+          <div className="mx-3 text-left md:cursor-pointer group">
             <h1
               className={`${
                 location.pathname.startsWith("/category/movie") ? "active" : ""
               } my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group`}
               onClick={() => {
-                heading !== link.name ? setHeading(link.name) : setHeading('')
+                heading !== link.name ? setHeading(link.name) : setHeading("");
               }}
             >
               {link.name}
@@ -45,7 +46,7 @@ const NavLinks = ({ onMovieLinkClick }) => {
                           to={
                             link.name === "Movies"
                               ? `/category/movie/${sLink.name}/${sLink.id}`
-                              : `/category/movie/${sLink.name}/${sLink.id}`
+                              : `/category/tv/${sLink.name}/${sLink.id}`
                           }
                           className="hover:underline dark:hover:text-white"
                         >
@@ -69,14 +70,20 @@ const NavLinks = ({ onMovieLinkClick }) => {
           >
             <div className="grid grid-cols-2">
               <ul>
-              {link.genres.map((sLinks) => (
-                <li
-                  className="py-3 pl-7 font-light"
-                  key={sLinks.id}
-                >
-                  <Link to={sLinks.id} onClick={onMovieLinkClick} >{sLinks.name}</Link>
-                </li>
-              ))}
+                {link.genres.map((sLinks) => (
+                  <li className="py-3 pl-7 font-light" key={sLinks.id}>
+                    <Link
+                      to={
+                        link.name === "Movies"
+                          ? `/category/movie/${sLinks.name}/${sLinks.id}`
+                          : `/category/tv/${sLinks.name}/${sLinks.id}`
+                      }
+                      onClick={onMovieLinkClick}
+                    >
+                      {sLinks.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

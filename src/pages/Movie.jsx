@@ -7,10 +7,8 @@ const Movie = () => {
   const { movieId, title } = useParams();
  
   return (
-    
-    
     <div className="bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite "> 
-    <MovieBanner id={movieId} title={title}/>
+      <MovieBanner id={movieId} title={title}/>
       <Similiar title="movie" id={movieId}/>
     </div>
   );

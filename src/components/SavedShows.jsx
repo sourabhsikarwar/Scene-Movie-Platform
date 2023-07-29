@@ -44,14 +44,14 @@ const SavedShows = () => {
         My Favourites
       </h2>
       <div className="relative flex items-center group bg-gray-200 dark:bg-primary">
-        {movies.length > 0 && (
+        {movies?.length > 0 && (
           <MdChevronLeft
             onClick={slideLeft}
             className="bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
             size={40}
           />
         )}
-        {movies.length === 0 ? (
+        {movies?.length === 0 ? (
           <div className="w-full h-full flex flex-col justify-center items-center">
             <p className="text-gray-900 dark:text-white text-4xl font-bold mb-4">
               Oops! You don't have any favourite movies.
@@ -71,7 +71,7 @@ const SavedShows = () => {
             className="w-full h-full overflow-x-hidden whitespace-nowrap relative flex items-stretch"
           >
             {movies &&
-              movies.map((item) => (
+              movies?.map((item) => (
                 <SavedCards
                   item={item}
                   deleteMovie={deleteMovie}
@@ -79,7 +79,7 @@ const SavedShows = () => {
               ))}
           </div>
         )}
-        {movies.length > 0 && (
+        {movies?.length > 0 && (
           <MdChevronRight
             onClick={slideRight}
             className="bg-white right-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"

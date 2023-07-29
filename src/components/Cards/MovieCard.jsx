@@ -5,6 +5,8 @@ import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa'
 import { useUserAuth } from '../../context/authContext'
 import { database } from '../../firebase/firebaseConfig'
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import CircleRating from '../circleRating/CircleRating'
+import dayjs from "dayjs";
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -22,17 +24,14 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { Dialog, Transition } from "@headlessui/react";
-
 const MovieCard = (props) => {
   const shareUrl = `${props.movie.title}`.replace(/\s/g, "%20");
-
+  const shareTvUrl = `${props.movie.name}`.replace(/\s/g, "%20");
   const { user } = useUserAuth()
   const [like, setLike] = useState(false)
   const [saved, setSaved] = useState(false)
   const [openFilter, setOpenFilter] = useState(false);
-
   const movieID = doc(database, 'users', `${user?.email}`)
-
   const saveShow = async () => {
     if (user?.email) {
       setLike(!like)
@@ -41,7 +40,6 @@ const MovieCard = (props) => {
       alert('Please log in to save a movie')
     }
   }
-
   const handleSave = async () => {
     if (like) {
       await updateDoc(movieID, {
@@ -106,12 +104,34 @@ const MovieCard = (props) => {
           </div>
         <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
           <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
-            <p className=''>{props.movie.title}</p>
-            <p className='text-dimWhite font-normal text-xs mt-2'>
-              {props.movie.vote_average}/10
-            </p>
+            <p className='' >{props.movie.title}</p>
+          </div>
+          <div style={{ marginBottom: '-38px', display:'flex' }}>
+            <CircleRating rating={props.movie.vote_average.toFixed(1)} />
+            <span className="date" style={{paddingLeft:'20px'}}>
+              {dayjs(props.movie.release_date).format("MMM D, YYYY")}
+            </span>
           </div>
         </Link>
+          {props.type === 'movie' ? (
+            <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
+              <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
+                <p className=''>{props.movie.title}</p>
+                <p className='text-dimWhite font-normal text-xs mt-2'>
+                  {props.movie.vote_average}/10
+                </p>
+              </div>
+            </Link>
+          ): (
+            <Link to={'/tv/' + props.movie.name + '/' + props.movie.id}>
+              <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
+                <p className=''>{props.movie.name}</p>
+                <p className='text-dimWhite font-normal text-xs mt-2'>
+                  {props.movie.vote_average}/10
+                </p>
+              </div>
+            </Link>
+          )}
       </div>
     </div>
     {/* pop up code */}
@@ -177,45 +197,45 @@ const MovieCard = (props) => {
                   {/* Share buttons */}
                   <div className="flex flex-wrap justify-start m-4 gap-2 ">
                     <FacebookShareButton
-                      hashtag={`sceneMoviePlatfrom #${props.movie.title}`}
-                      url={`https://scene-movie-platform.vercel.app/movie/${props.movie.title}/${props.movie.id}`}
+                      hashtag={`sceneMoviePlatfrom #${props.movie.type === "movie" ? props.movie.title : props.movie.name}`}
+                      url={`https://scene-movie-platform.vercel.app/${props.movie.type}/${props.movie.type === "movie" ? shareUrl : shareTvUrl }/${props.movie.id}`}
                     >
                       <FacebookIcon size={45} round={true} />
                     </FacebookShareButton>
 
                     <PinterestShareButton
-                      description={`${props.movie.title} from Scene-movie-platform`}
-                      media={`https://scene-movie-platform.vercel.app/movie/${shareUrl}/${props.movie.id}`}
+                      description={`${props.movie.type === "movie" ? props.movie.title : props.movie.name} from Scene-movie-platform`}
+                      media={`https://scene-movie-platform.vercel.app/${props.movie.type}/${props.movie.type === "movie" ? shareUrl : shareTvUrl}/${props.movie.id}`}
                     >
                       <PinterestIcon size={45} round={true} />
                     </PinterestShareButton>
 
                     <TwitterShareButton
-                      url={`https://scene-movie-platform.vercel.app/movie/${shareUrl}/${props.movie.id}`}
+                      url={`https://scene-movie-platform.vercel.app/${props.movie.type}/${props.movie.type === "movie" ? shareUrl : shareTvUrl}/${props.movie.id}`}
                     >
                       <TwitterIcon size={45} round={true} />
                     </TwitterShareButton>
                     <LinkedinShareButton
-                    title={`${props.movie.title}`}
-                      url={`https://scene-movie-platform.vercel.app/movie/${shareUrl}/${props.movie.id}`}
+                    title={`${props.movie.type === "movie" ? props.movie.title : props.movie.name}`}
+                      url={`https://scene-movie-platform.vercel.app/${props.movie.type}/${props.movie.type === "movie" ? shareUrl : shareTvUrl}/${props.movie.id}`}
                     >
                       <LinkedinIcon size={45} round={true} />
                     </LinkedinShareButton>
 
                     <WhatsappShareButton
-                      title={`${props.movie.title}`}
-                      url={`https://scene-movie-platform.vercel.app/movie/${shareUrl}/${props.movie.id}`}
+                      title={`${props.movie.type === "movie" ? props.movie.title : props.movie.name}`}
+                      url={`https://scene-movie-platform.vercel.app/${props.movie.type}/${props.movie.type === "movie" ? shareUrl : shareTvUrl}/${props.movie.id}`}
                     >
                       <WhatsappIcon size={45} round={true} />
                     </WhatsappShareButton>
                     <TelegramShareButton
-                      url={`https://scene-movie-platform.vercel.app/movie/${shareUrl}/${props.movie.id}`}
+                      url={`https://scene-movie-platform.vercel.app/${props.movie.type}/${props.movie.type === "movie" ? shareUrl : shareTvUrl}/${props.movie.id}`}
                     >
                       <TelegramIcon size={45} round={true} />
                     </TelegramShareButton>
                     <RedditShareButton
-                    title={`${props.movie.title}`}
-                      url={`https://scene-movie-platform.vercel.app/movie/${shareUrl}/${props.movie.id}`}
+                    title={`${props.movie.type === "movie" ? props.movie.title : props.movie.name}`}
+                      url={`https://scene-movie-platform.vercel.app/${props.movie.type}/${props.movie.type === "movie" ? shareUrl : shareTvUrl}/${props.movie.id}`}
                     >
                       <RedditIcon size={45} round={true} />
                     </RedditShareButton>
