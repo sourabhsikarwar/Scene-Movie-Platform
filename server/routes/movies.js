@@ -2,6 +2,14 @@ const express = require('express')
 const router = express.Router()
 const apiKey = process.env.TMDB_KEY
 
+router.get('/', (req, res) => {
+  try {
+    res.status(200).json({ success: true, message: 'welcome to the server' })
+  } catch (e) {
+    res.status(500).json({ message: 'Internal Server Error' })
+  }
+})
+
 //get all the genre at the beginning
 router.get('/get-all-genres', async (req, res) => {
   try {
@@ -65,6 +73,7 @@ router.get('/trending', async (req, res) => {
     const data = await fetch(url).then((res) => res.json())
     res.status(200).json({ success: true, data: data })
   } catch (e) {
+    console.log('error: ', e)
     res.status(500).json({ message: 'Internal Server Error' })
   }
 })
