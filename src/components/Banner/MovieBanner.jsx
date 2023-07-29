@@ -10,11 +10,14 @@ import { useParams } from "react-router-dom";
 import fetchData from "../../helper/fetchData";
 import styles from "../../style";
 import axios from "axios";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 
 const MovieBanner = (props) => {
   const { movieId, title } = useParams();
   const [playing, setPlaying] = useState(false);
   const [Movies, setMovies] = useState({});
+  const [Images, setImages] = useState({});
   const [reviews, setReviews] = useState({});
   const [expandedReviews, setExpandedReviews] = useState({});
   const [visibleReviews, setVisibleReviews] = useState(4);
@@ -28,10 +31,28 @@ const MovieBanner = (props) => {
     window.scrollTo(0, 0);
     update();
   }, [movieId]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     getreviews();
   }, [movieId]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getImages();
+  }, [movieId]);
+
+  const getImages = async () => {
+    setInitialLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${apiKey}`
+      );
+      setImages(response.data.backdrops);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getreviews = async () => {
     setInitialLoading(true);
@@ -292,6 +313,16 @@ const MovieBanner = (props) => {
                   >
                     Reviews
                   </li>
+                  <li
+                    className={`cursor-pointer ${
+                      activeTab === "snapshots"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    onClick={() => handleTabClick("snapshots")}
+                  >
+                    Snapshots
+                  </li>
                 </ul>
               </div>
             </div>
@@ -468,6 +499,64 @@ const MovieBanner = (props) => {
                     )}
                   </>
                 )}
+              </div>
+            </section>
+          ) : (
+            ""
+          )}
+          {activeTab === "snapshots" ? (
+            <section
+              className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            >
+              <h2
+                className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              >
+                Movie Snapshots
+              </h2>
+              <div className="justify-center">
+                <Splide
+                  options={{
+                    type: "loop",
+                    perPage: "4",
+                    pagination: false,
+                    breakpoints: {
+                      640: {
+                        perPage: 1,
+                      },
+                      764: {
+                        perPage: 2,
+                      },
+                      1024: {
+                        perPage: 2,
+                      },
+                      1280: {
+                        perPage: 3,
+                      },
+                      1400: {
+                        perPage: 4,
+                      },
+                    },
+                  }}
+                  aria-label="My Favorite Images"
+                  className="justify-center"
+                >
+                  {Images.slice(0, 36).map((snapshot) => {
+                    return (
+                      <SplideSlide>
+                        <div className="snapshots-outer-container p-4 h-[300px] w-11/12 sm:w-[330px] md:w-full relative  duration-200  rounded-[6px]">
+                          <div
+                            className="snapshots-container h-[300px] w-full"
+                            style={{
+                              backgroundImage: `url(https://image.tmdb.org/t/p/w1280${snapshot.file_path})`,
+                              backgroundSize: "cover",
+                              backgroundPositionX: "center",
+                            }}
+                          ></div>
+                        </div>
+                      </SplideSlide>
+                    );
+                  })}
+                </Splide>
               </div>
             </section>
           ) : (
