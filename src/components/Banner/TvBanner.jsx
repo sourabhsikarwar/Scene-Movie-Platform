@@ -13,13 +13,10 @@ import axios from "axios";
 
 const TvBanner = (props) => {
   const MOVIE_API = "https://api.themoviedb.org/3";
-  const [playing, setPlaying] = useState(false);
-  const [Movies, setMovies] = useState({});
   const { tvId, title } = useParams();
   const [Tv, setTv] = useState({});
   const apiKey = process.env.REACT_APP_API_KEY;
 
-  const [trailer, setTrailer] = useState(null);
   const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
@@ -101,7 +98,6 @@ const TvBanner = (props) => {
               </div>
             </div>
           </section>
-          {console.log(Tv)}
           <section
             className={`${styles.boxWidth} dark:bg-primary dark:text-white pt-8`}
           >
