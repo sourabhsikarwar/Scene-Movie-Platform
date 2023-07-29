@@ -11,13 +11,13 @@ const NavLinks = ({ onMovieLinkClick, category }) => {
     <>
       {genre.map((link) => (
         <div key={link.name}>
-          <div className='mx-3 text-left md:cursor-pointer group'>
+          <div className="mx-3 text-left md:cursor-pointer group">
             <h1
               className={`${
                 location.pathname.startsWith("/category/movie") ? "active" : ""
               } my-7 flex navDropdown justify-between mx-2 md:ml-0 items-center md:mr-0 mr-5 group`}
               onClick={() => {
-                heading !== link.name ? setHeading(link.name) : setHeading('')
+                heading !== link.name ? setHeading(link.name) : setHeading("");
               }}
             >
               {link.name}
@@ -70,14 +70,20 @@ const NavLinks = ({ onMovieLinkClick, category }) => {
           >
             <div className="grid grid-cols-2">
               <ul>
-              {link.genres.map((sLinks) => (
-                <li
-                  className="py-3 pl-7 font-light"
-                  key={sLinks.id}
-                >
-                  <Link to={sLinks.id} onClick={onMovieLinkClick} >{sLinks.name}</Link>
-                </li>
-              ))}
+                {link.genres.map((sLinks) => (
+                  <li className="py-3 pl-7 font-light" key={sLinks.id}>
+                    <Link
+                      to={
+                        link.name === "Movies"
+                          ? `/category/movie/${sLinks.name}/${sLinks.id}`
+                          : `/category/tv/${sLinks.name}/${sLinks.id}`
+                      }
+                      onClick={onMovieLinkClick}
+                    >
+                      {sLinks.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
