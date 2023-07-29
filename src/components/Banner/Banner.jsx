@@ -45,7 +45,7 @@ function Banner() {
             className={`splide-container`}
           >
             {/* Map over the Popular movies data and display banners */}
-            {Popular.map((movie) => (
+            {Popular.slice(0,5).map((movie) => (
               <SplideSlide key={movie.id}>
                 <div
                   className={`text-gray-600 body-font`}
