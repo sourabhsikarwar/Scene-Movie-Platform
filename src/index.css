@@ -286,6 +286,12 @@ input:-webkit-autofill:active {
 }
 
 @media screen and (max-width: 640px) {
+  .review-para {
+    font-size: 14px;
+  }
+  .reviews-container {
+    padding: 0 2rem ;
+  }
   .trailer-container {
     margin-top: 10px;
   }

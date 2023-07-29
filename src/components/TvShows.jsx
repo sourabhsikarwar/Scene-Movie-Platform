@@ -6,9 +6,10 @@ import Card from './Cards/Card'
 import styles from '../style'
 import { useParams } from 'react-router-dom'
 
-function Movies(props) {
+function Tv(props) {
+  const apiKey = process.env.REACT_APP_API_KEY;
   const [initialLoading, setInitialLoading] = useState(false)
-  const [Movies, setMovies] = useState([])
+  const [Tv, setTv] = useState([]);
   const [page, setPage] = useState(1)
   const params = useParams()
   const goBack = () => {
@@ -20,31 +21,33 @@ function Movies(props) {
     setPage(page + 1)
   }
   useEffect(() => {
-    upload()
+    uploadTv()
     //use params as condition so that when content changes it can show category wise movies
  
   }, [page, params])
 
-  const upload = async () => {
+  const uploadTv = async () => {
     setInitialLoading(true)
 
-    let url = `${process.env.REACT_APP_API_DOMAIN}/api/movies/${props.content}/${props.id}?page=${page}`
+    if (params.content === "tv") {
+      let url = `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&with_genres=${props.id}&page=${page}`;
 
-    if (params.title === 'Trending') {
-      url = `${process.env.REACT_APP_API_DOMAIN}/api/movies/trending?page=${page}`
+      if (params.title === "Trending") {
+        url = `https://api.themoviedb.org/3/trending/tv/day?api_key=${apiKey}&page=${page}`;
+      }
+
+      await axios
+        .get(url)
+        .then((res) => {
+          if (res.status === 200) {
+            setTv(res.data.results);
+            setInitialLoading(false);
+          }
+        })
+        .catch((e) => {
+          return e;
+        });
     }
-
-    await axios
-      .get(url)
-      .then((res) => {
-        if (res.status === 200) {
-          setMovies(res.data.data.results)
-          setInitialLoading(false)
-        }
-      })
-      .catch((e) => {
-        return e
-      })
   }
   return (
     <>
@@ -57,19 +60,25 @@ function Movies(props) {
             >
               {props.title}
             </div>
-            {Movies.length === 0 ? (
+            {Tv.length === 0 ? (
               <div
                 className={`${styles.heading2} w-full my-2 ml-0 px-4 text-center sm:text-center`}
               >
-                No Movie
+                No TV Shows
               </div>
             ) : (
               <>
                 {' '}
                 <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 sm:justify-between justify-center flex-wrap my-4 mx-auto'>
-                  {Movies.map((movie) => {
-                    return <Card movie={movie} type="movie" />
-                  })}
+                {params.content === "tv" ? (
+                    <>
+                      {Tv.map((tv) => {
+                        return <Card movie={tv} type="tv" />;
+                      })}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <Pagination page={page} goBack={goBack} goNext={goNext} />
               </>
@@ -91,4 +100,4 @@ function Movies(props) {
   )
 }
 
-export default Movies
+export default Tv
