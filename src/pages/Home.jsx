@@ -67,8 +67,8 @@ const Home = () => {
           <Banner />
           <div className="flex flex-col relative items-start">
             <Search />
-            <div className="content-toggle md:absolute flex flex-row gap-4 justify-end px-4 md:pl-4 md:pr-6 text-2xl text-gray-900 dark:text-white my-6 md:mt-1">
-              <span>Movies</span>
+            <div className="content-toggle md:absolute flex flex-row gap-4 justify-end px-4 text-gray-900 my-4 md:mt-1">
+              <span className="text-2xl dark:text-white font-normal">Movies</span>
               <div className="flex">
                 <div className="relative">
                   <input
@@ -90,7 +90,7 @@ const Home = () => {
                   </label>
                 </div>
               </div>
-              <span>TV Series</span>
+              <span className="text-2xl dark:text-white font-normal">TV Series</span>
             </div>
           </div>
           {showMovies && (
