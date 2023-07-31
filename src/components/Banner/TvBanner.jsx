@@ -15,7 +15,6 @@ const TvBanner = (props) => {
   const [Episodes, setEpisodes] = useState({});
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [visibleEpisodes, setVisibleEpisodes] = useState(10);
-  const [expandedReviews, setExpandedReviews] = useState({});
   const [activeTab, setActiveTab] = useState();
   const loadMoreEpisodes = 7;
 
@@ -57,13 +56,6 @@ const TvBanner = (props) => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-  };
-
-  const handleExpand = (reviewId) => {
-    setExpandedReviews((prevState) => ({
-      ...prevState,
-      [reviewId]: !prevState[reviewId],
-    }));
   };
 
   const update = async () => {
@@ -278,11 +270,13 @@ const TvBanner = (props) => {
                   }}
                   className={`${
                     activeTab === season.season_number
-                      ? "dark:text-cyan-600"
+                      ? "text-cyan-500 dark:text-cyan-600"
                       : ""
                   } text-gray-900 dark:text-dimWhite`}
                 >
-                  Season&nbsp;{season.season_number}
+                  {season.season_number === 0
+                    ? "Specials "
+                    : `Season ${season.season_number}`}
                 </button>
               ))}
             </div>
@@ -294,27 +288,36 @@ const TvBanner = (props) => {
                     .map((episode) => (
                       <div className="flex flex-col mb-12 sm:mb-8">
                         <div className="flex flex-row gap-8">
-                          <div
-                            className="flex w-2/6 sm:w-1/4"
-                            style={{
-                              backgroundImage: `url(https://image.tmdb.org/t/p/w500${
-                                episode.still_path ??
-                                `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
-                              })`,
-                              backgroundSize: "cover",
-                              backgroundPosition: "center",
-                              backgroundBlendMode: "multiply",
-                              height: "150px",
-                              borderRadius: "6%",
-                            }}
-                          ></div>
+                          <div className="flex w-2/6 sm:w-1/4">
+                            <div
+                              // className="flex w-2/6 sm:w-1/4"
+                              style={{
+                                backgroundImage: `url(https://image.tmdb.org/t/p/w500${
+                                  episode.still_path ??
+                                  `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
+                                })`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                backgroundBlendMode: "multiply",
+                                height: "150px",
+                                width: "auto",
+                                borderRadius: "6%",
+                              }}
+                            ></div>
+                          </div>
                           <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
                             <h2 className={`${styles.heading3}`}>
                               {episode.name}
                             </h2>
                             <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
-                              <span>S{episode.season_number}</span>&nbsp;
-                              <span>E{episode.episode_number}</span>
+                              {episode.season_number === 0 ? (
+                                <span>E{episode.episode_number}</span>
+                              ) : (
+                                <>
+                                  <span>S{episode.season_number}&nbsp;</span>
+                                  <span>E{episode.episode_number}</span>
+                                </>
+                              )}
                               <span className="mx-2">|</span>
                               {episode.air_date && (
                                 <>
@@ -339,15 +342,7 @@ const TvBanner = (props) => {
                               )}
                             </div>
                             <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
-                              {expandedReviews[episode.id] ? episode.overview : episode.overview.slice(0,100) + "...."}
-                              <button
-                            onClick={() => handleExpand(episode.id)}
-                            className="text-sky-500 pl-2"
-                          >
-                            {expandedReviews[episode.id]
-                              ? "Read Less"
-                              : "Read More"}
-                          </button>
+                            {episode.overview}
                             </p>
                           </div>
                         </div>
