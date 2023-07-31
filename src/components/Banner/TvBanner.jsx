@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Youtube from "react-youtube";
 import { Oval } from "react-loader-spinner";
-// for star rating convert number into star
-import Star from "../SingleMovieCast/Star";
-//  format price is used to format country currency
-import FormatPrice from "../SingleMovieCast/FormatPrice";
 import "../SingleMovieCast/style.css";
 import { useParams } from "react-router-dom";
 import fetchData from "../../helper/fetchData";
@@ -19,6 +14,10 @@ const TvBanner = (props) => {
   const [DetailsOpen, setDetailsOpen] = useState(true);
   const [Episodes, setEpisodes] = useState({});
   const [selectedSeason, setSelectedSeason] = useState(null);
+  const [visibleEpisodes, setVisibleEpisodes] = useState(10);
+  const [expandedReviews, setExpandedReviews] = useState({});
+  const [activeTab, setActiveTab] = useState();
+  const loadMoreEpisodes = 7;
 
   const [initialLoading, setInitialLoading] = useState(true);
 
@@ -27,9 +26,13 @@ const TvBanner = (props) => {
     update();
   }, [tvId]);
 
+  const handleSeeMoreClick = () => {
+    setVisibleEpisodes(
+      (prevVisibleEpisodes) => prevVisibleEpisodes + loadMoreEpisodes
+    );
+  };
+
   const getEpisodes = async (id, sid) => {
-    // console.log(sid)
-    // setInitialLoading(true);
     await axios
       .get(
         `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
@@ -52,6 +55,17 @@ const TvBanner = (props) => {
     setDetailsOpen(false);
   };
 
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const handleExpand = (reviewId) => {
+    setExpandedReviews((prevState) => ({
+      ...prevState,
+      [reviewId]: !prevState[reviewId],
+    }));
+  };
+
   const update = async () => {
     setInitialLoading(true);
     await axios
@@ -67,7 +81,6 @@ const TvBanner = (props) => {
     <>
       {!initialLoading ? (
         <>
-          {/* {console.log(Tv)} */}
           <section className="relative block section-movie-banner dark:bg-primary p-0 text-gray-600 body-font overflow-hidden bg-blend-multiply">
             <div className="hidden sm:block absolute inset-0 bg-black opacity-40"></div>
             <div className="flex flex-row relative w-full main-container">
@@ -261,69 +274,93 @@ const TvBanner = (props) => {
                 <button
                   onClick={() => {
                     getEpisodes(Tv.id, season.season_number);
+                    handleTabClick(season.season_number);
                   }}
-                  className={` text-gray-900 dark:text-dimWhite`}
+                  className={`${
+                    activeTab === season.season_number
+                      ? "dark:text-cyan-600"
+                      : ""
+                  } text-gray-900 dark:text-dimWhite`}
                 >
                   Season&nbsp;{season.season_number}
                 </button>
               ))}
             </div>
-            {console.log("ep", Episodes)}
             <div>
               {selectedSeason && Episodes && (
-                <div className="flex p-8 flex-col">
-                  {Episodes.episodes.map((episode) => (
-                    <div className="flex flex-col mb-4">
-                      <div className="flex flex-row gap-8">
-                        <div
-                          className="flex"
-                          style={{
-                            backgroundImage: `url(https://image.tmdb.org/t/p/w500${
-                              episode.still_path ??
-                              `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
-                            })`,
-                            backgroundSize: "cover",
-                            // backgroundPosition: "center",
-                            backgroundBlendMode: "multiply",
-                            height: "150px",
-                            width: "250px",
-                            borderRadius: "6%",
-                          }}
-                        ></div>
-                        <div className="flex flex-col text-black dark:text-white">
-                          <h2 className={`${styles.heading3}`}>
-                            {episode.name}
-                          </h2>
-                          <div className="flex flex-row font-semibold text-center items-center pt-2">
-                            <span>S{episode.season_number}</span>&nbsp;
-                            <span>E{episode.episode_number}</span>
-                            <span className="mx-2">|</span>
-                            {episode.air_date && (
-                              <>
-                                <span className="">
-                                  {episode.air_date
-                                    .toString()
-                                    .split("-")
-                                    .reverse()
-                                    .join("-")}
+                <div className="flex p-8 flex-col w-full">
+                  {Episodes.episodes
+                    .slice(0, visibleEpisodes)
+                    .map((episode) => (
+                      <div className="flex flex-col mb-12 sm:mb-8">
+                        <div className="flex flex-row gap-8">
+                          <div
+                            className="flex w-2/6 sm:w-1/4"
+                            style={{
+                              backgroundImage: `url(https://image.tmdb.org/t/p/w500${
+                                episode.still_path ??
+                                `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
+                              })`,
+                              backgroundSize: "cover",
+                              backgroundPosition: "center",
+                              backgroundBlendMode: "multiply",
+                              height: "150px",
+                              borderRadius: "6%",
+                            }}
+                          ></div>
+                          <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
+                            <h2 className={`${styles.heading3}`}>
+                              {episode.name}
+                            </h2>
+                            <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
+                              <span>S{episode.season_number}</span>&nbsp;
+                              <span>E{episode.episode_number}</span>
+                              <span className="mx-2">|</span>
+                              {episode.air_date && (
+                                <>
+                                  <span className="">
+                                    {episode.air_date
+                                      .toString()
+                                      .split("-")
+                                      .reverse()
+                                      .join("-")}
+                                  </span>
+                                  <span className="mx-2">|</span>
+                                </>
+                              )}
+                              {episode.runtime > 60 ||
+                              episode.runtime === 60 ? (
+                                <span>
+                                  {Math.floor(episode.runtime / 60)}hr&nbsp;
+                                  {Math.floor(episode.runtime % 60)}m
                                 </span>
-                                <span className="mx-2">|</span>
-                              </>
-                            )}
-                            {episode.runtime > 60 || episode.runtime === 60 ? (
-                              <span>
-                                {Math.floor(episode.runtime / 60)}hr&nbsp;
-                                {Math.floor(episode.runtime % 60)}m
-                              </span>
-                            ) : (
-                              <span>{Math.floor(episode.runtime % 60)}m</span>
-                            )}
+                              ) : (
+                                <span>{Math.floor(episode.runtime % 60)}m</span>
+                              )}
+                            </div>
+                            <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
+                              {expandedReviews[episode.id] ? episode.overview : episode.overview.slice(0,100) + "...."}
+                              <button
+                            onClick={() => handleExpand(episode.id)}
+                            className="text-sky-500 pl-2"
+                          >
+                            {expandedReviews[episode.id]
+                              ? "Read Less"
+                              : "Read More"}
+                          </button>
+                            </p>
                           </div>
-                          <p className="text-gray-600 dark:text-dimWhite pt-2">{episode.overview}</p>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  {visibleEpisodes < Episodes.episodes.length && (
+                    <button
+                      className="flex border-2 rounded-3xl py-2 px-4 border-sky-700 text-sky-700 dark:border-sky-700	dark:text-sky-500 w-1/6 justify-center items-center mx-auto	"
+                      onClick={handleSeeMoreClick}
+                    >
+                      See More
+                    </button>
+                  )}
                 </div>
               )}
             </div>
