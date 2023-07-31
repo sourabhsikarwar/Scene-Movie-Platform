@@ -42,7 +42,6 @@ const TvBanner = (props) => {
         setSelectedSeason(sid + 1);
 
         // setInitialLoading(false);
-        console.log("msres", results);
       });
   };
 
