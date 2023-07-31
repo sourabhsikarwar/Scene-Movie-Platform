@@ -287,23 +287,20 @@ const TvBanner = (props) => {
                     .map((episode) => (
                       <div className="flex flex-col mb-12 sm:mb-8">
                         <div className="flex flex-row gap-8">
-                          <div className="flex w-2/6 sm:w-1/4">
-                            <div
-                              // className="flex w-2/6 sm:w-1/4"
-                              style={{
-                                backgroundImage: `url(https://image.tmdb.org/t/p/w500${
-                                  episode.still_path ??
-                                  `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
-                                })`,
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                backgroundBlendMode: "multiply",
-                                height: "150px",
-                                width: "auto",
-                                borderRadius: "6%",
-                              }}
-                            ></div>
-                          </div>
+                          <div
+                            className="flex w-2/6 sm:w-1/4"
+                            style={{
+                              backgroundImage: `url(https://image.tmdb.org/t/p/w500${
+                                episode.still_path ??
+                                `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
+                              })`,
+                              backgroundSize: "cover",
+                              backgroundPosition: "center",
+                              backgroundBlendMode: "multiply",
+                              height: "150px",
+                              borderRadius: "10px",
+                            }}
+                          ></div>
                           <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
                             <h2 className={`${styles.heading3}`}>
                               {episode.name}
@@ -341,7 +338,7 @@ const TvBanner = (props) => {
                               )}
                             </div>
                             <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
-                            {episode.overview}
+                              {episode.overview}
                             </p>
                           </div>
                         </div>
