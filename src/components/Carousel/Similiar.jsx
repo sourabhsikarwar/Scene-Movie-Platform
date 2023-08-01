@@ -79,7 +79,7 @@ const Similiar = (props) => {
             {data.map((item) => {
               return (
                 <SplideSlide>
-                  <MovieCard movie={item} key={item.id} />
+                  <MovieCard type ={props.title} movie={item} key={item.id} />
                 </SplideSlide>
               )
             })}

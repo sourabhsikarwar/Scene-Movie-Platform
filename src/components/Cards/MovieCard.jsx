@@ -113,7 +113,7 @@ const MovieCard = (props) => {
             </span>
           </div>
         </Link>
-          {props.type === 'movie' ? (
+          {props.type === 'movie' && (
             <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
               <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
                 <p className=''>{props.movie.title}</p>
@@ -122,7 +122,8 @@ const MovieCard = (props) => {
                 </p>
               </div>
             </Link>
-          ): (
+          )}
+          {props.type === 'tv' && (
             <Link to={'/tv/' + props.movie.name + '/' + props.movie.id}>
               <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
                 <p className=''>{props.movie.name}</p>
