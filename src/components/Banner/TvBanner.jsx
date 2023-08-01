@@ -16,6 +16,7 @@ const TvBanner = (props) => {
   const { tvId, title } = useParams();
   const [Tv, setTv] = useState({});
   const [reviews, setReviews] = useState({});
+  const [contentRating, setContentRating] = useState();
   const [visibleReviews, setVisibleReviews] = useState(4);
   const [expandedReviews, setExpandedReviews] = useState({});
   const [activeTab, setActiveTab] = useState("details");
@@ -33,6 +34,11 @@ const TvBanner = (props) => {
     getreviews();
   }, [tvId]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getContentRatings();
+  }, [tvId]);
+
   const getreviews = async () => {
     setInitialLoading(true);
     try {
@@ -40,6 +46,20 @@ const TvBanner = (props) => {
         `https://api.themoviedb.org/3/tv/${tvId}/reviews?api_key=${apiKey}`
       );
       setReviews(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getContentRatings = async () => {
+    setInitialLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${tvId}/content_ratings?api_key=${apiKey}`
+      );
+      setContentRating(response.data.results[0].rating);
+      // console.log(response.data.results[0].rating)
+      setInitialLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -108,6 +128,12 @@ const TvBanner = (props) => {
                         {Tv.genres[0].name}
                         <span className="mx-2">|</span>
                         {Math.floor(Tv.vote_average % 10)} / 10
+                        {contentRating && (
+                          <>
+                            <span className="mx-2">|</span>
+                            {contentRating}
+                          </>
+                        )}
                       </div>
                       <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
                         Seasons:&nbsp;{Tv.number_of_seasons}
