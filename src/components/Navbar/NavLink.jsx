@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { MoviesLinks, TVShowsLinks } from './Links'
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { MoviesLinks, TVShowsLinks } from "./Links";
 
-const NavLinks = ({ onMovieLinkClick, category }) => {
-  const [heading, setHeading] = useState('')
-  const location = useLocation()
-  const genre = category === 'Movies' ? MoviesLinks : TVShowsLinks;
+const NavLinks = ({ onNavbarLinkClick, setDropdownOpen, category }) => {
+  const [heading, setHeading] = useState("");
+  const location = useLocation();
+  const genre = category === "Movies" ? MoviesLinks : TVShowsLinks;
+  const handleLinkClick = () => {
+    setHeading(""); // Clear the heading
+    onNavbarLinkClick(); // Close Navbar when click any link on mobile
+    setDropdownOpen(false); // Collapse the dropdown
+  };
 
   return (
     <>
@@ -36,24 +41,24 @@ const NavLinks = ({ onMovieLinkClick, category }) => {
               <div>
                 <div className="absolute top-[60px] hidden group-hover:md:block hover:md:block z-50">
                   <div className="bg-gray-300 dark:text-dimWhite dark:bg-secondary p-8 grid grid-cols-3 gap-x-10 rounded-lg">
-                    <ul>
-                    {link.genres.map((sLink) => (
-                      <li
-                        key={sLink.id}
-                        className="text-sm text-gray-900 dark:text-gray-300 font-light my-2.5"
-                      >
-                        <Link
-                          to={
-                            link.name === "Movies"
-                              ? `/category/movie/${sLink.name}/${sLink.id}`
-                              : `/category/tv/${sLink.name}/${sLink.id}`
-                          }
-                          className="hover:underline dark:hover:text-white"
+                    <ul className="overflow-y-scroll">
+                      {link.genres.map((sLink) => (
+                        <li
+                          key={sLink.id}
+                          className="text-sm text-gray-900 dark:text-gray-300 font-light my-2.5"
                         >
-                          {sLink.name}
-                        </Link>
-                      </li>
-                    ))}
+                          <Link
+                            to={
+                              link.name === "Movies"
+                                ? `/category/movie/${sLink.name}/${sLink.id}`
+                                : `/category/tv/${sLink.name}/${sLink.id}`
+                            }
+                            className="hover:underline dark:hover:text-white"
+                          >
+                            {sLink.name}
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -78,7 +83,7 @@ const NavLinks = ({ onMovieLinkClick, category }) => {
                           ? `/category/movie/${sLinks.name}/${sLinks.id}`
                           : `/category/tv/${sLinks.name}/${sLinks.id}`
                       }
-                      onClick={onMovieLinkClick}
+                      onClick={handleLinkClick}
                     >
                       {sLinks.name}
                     </Link>
