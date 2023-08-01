@@ -15,6 +15,10 @@ const TvBanner = (props) => {
   const MOVIE_API = "https://api.themoviedb.org/3";
   const { tvId, title } = useParams();
   const [Tv, setTv] = useState({});
+  const [reviews, setReviews] = useState({});
+  const [visibleReviews, setVisibleReviews] = useState(4);
+  const [expandedReviews, setExpandedReviews] = useState({});
+  const [activeTab, setActiveTab] = useState("details");
   const apiKey = process.env.REACT_APP_API_KEY;
 
   const [initialLoading, setInitialLoading] = useState(true);
@@ -23,6 +27,44 @@ const TvBanner = (props) => {
     window.scrollTo(0, 0);
     update();
   }, [tvId]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getreviews();
+  }, [tvId]);
+
+  const getreviews = async () => {
+    setInitialLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${tvId}/reviews?api_key=${apiKey}`
+      );
+      setReviews(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const isValidURL = (url) => {
+    return url.startsWith("https://") || url.startsWith("http://");
+  };
+
+  const handleToggleExpand = (reviewId) => {
+    setExpandedReviews((prevState) => ({
+      ...prevState,
+      [reviewId]: !prevState[reviewId],
+    }));
+  };
+
+  const handleToggleVisibleReviews = () => {
+    setVisibleReviews((prevVisibleReviews) =>
+      prevVisibleReviews === 4 ? reviews.length : 4
+    );
+  };
 
   const update = async () => {
     setInitialLoading(true);
@@ -98,112 +140,246 @@ const TvBanner = (props) => {
               </div>
             </div>
           </section>
+          {/* details/review header */}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white pt-8`}
+            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
           >
-            <div className="flex justify-between items-center px-4">
-              <h2
-                className={`${styles.heading3} text-gray-900 dark:text-white`}
-              >
-                More Details
-              </h2>
+            <div className="details-navigation-container pl-6 text-lg">
+              <div className="details-navigation">
+                <ul className="flex gap-4">
+                  <li
+                    onClick={() => handleTabClick("details")}
+                    style={{ cursor: "pointer", transitionDuration: "75ms" }}
+                    className={`cursor-pointer ${
+                      activeTab === "details"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    } hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                  >
+                    Details
+                  </li>
+                  <li
+                    className={`cursor-pointer ${
+                      activeTab === "reviews"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    onClick={() => handleTabClick("reviews")}
+                  >
+                    Reviews
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-0 max-md:justify-between  py-4 mx-auto px-8">
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Status</div>
-                <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                  {Tv.status}
-                </div>
+          </section>
+          {activeTab === "details" && (
+            <section
+              className={`${styles.boxWidth} dark:bg-primary dark:text-white pt-8`}
+            >
+              <div className="flex justify-between items-center px-4">
+                <h2
+                  className={`${styles.heading3} text-gray-900 dark:text-white`}
+                >
+                  More Details
+                </h2>
               </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Ratings</div>
-                <div className="flex flex-wrap">
-                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
-                    {Tv.vote_average} / 10
-                  </span>
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Total Seasons</div>
-                <div className="flex flex-wrap">
-                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
-                    {Tv.number_of_seasons}
-                  </span>
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 mb-3">
-                <div className="font-medium">Total Episodes</div>
-                <div className="flex flex-wrap">
-                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
-                    {Tv.number_of_episodes}
-                  </span>
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">First Air Date</div>
-                <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                  {Tv.first_air_date.toString().split("-").reverse().join("-")}
-                </div>
-              </div>
-              {Tv.last_episode_to_air ? (
-                <div className="w-1/2 lg:w-1/3 mb-3">
-                  <div className="font-medium">Last Episode</div>
-                  <div className="flex flex-wrap">
-                    <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                      #{Tv.last_episode_to_air.episode_number} :{" "}
-                      {Tv.last_episode_to_air.air_date
-                        .toString()
-                        .split("-")
-                        .reverse()
-                        .join("-")}
-                    </div>
+              <div className="flex flex-wrap gap-0 max-md:justify-between  py-4 mx-auto px-8">
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Status</div>
+                  <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                    {Tv.status}
                   </div>
                 </div>
-              ) : ("")}
-              {Tv.next_episode_to_air ? (
                 <div className="w-1/2 lg:w-1/3 my-3">
-                  <div className="font-medium">Next Episode</div>
+                  <div className="font-medium">Ratings</div>
+                  <div className="flex flex-wrap">
+                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
+                      {Tv.vote_average} / 10
+                    </span>
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Total Seasons</div>
+                  <div className="flex flex-wrap">
+                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
+                      {Tv.number_of_seasons}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 mb-3">
+                  <div className="font-medium">Total Episodes</div>
+                  <div className="flex flex-wrap">
+                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
+                      {Tv.number_of_episodes}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">First Air Date</div>
                   <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                    #{Tv.next_episode_to_air.episode_number} :{" "}
-                    {Tv.next_episode_to_air.air_date
+                    {Tv.first_air_date
                       .toString()
                       .split("-")
                       .reverse()
                       .join("-")}
                   </div>
                 </div>
-              ) : (
-                ""
-              )}
-              <div className="w-1/2 lg:w-1/3 mb-3">
-                <div className="font-medium">Genres</div>
-                <div className="flex flex-wrap pr-5">
-                  {Tv.genres.map((genre, index) => (
-                    <span
-                      key={genre.id}
-                      className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70"
-                    >
-                      {genre.name}
-                      {index !== Tv.genres.length - 1 && <span>,&nbsp;</span>}
-                    </span>
-                  ))}
+                {Tv.last_episode_to_air ? (
+                  <div className="w-1/2 lg:w-1/3 mb-3">
+                    <div className="font-medium">Last Episode</div>
+                    <div className="flex flex-wrap">
+                      <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                        #{Tv.last_episode_to_air.episode_number} :{" "}
+                        {Tv.last_episode_to_air.air_date
+                          .toString()
+                          .split("-")
+                          .reverse()
+                          .join("-")}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {Tv.next_episode_to_air ? (
+                  <div className="w-1/2 lg:w-1/3 my-3">
+                    <div className="font-medium">Next Episode</div>
+                    <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                      #{Tv.next_episode_to_air.episode_number} :{" "}
+                      {Tv.next_episode_to_air.air_date
+                        .toString()
+                        .split("-")
+                        .reverse()
+                        .join("-")}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="w-1/2 lg:w-1/3 mb-3">
+                  <div className="font-medium">Genres</div>
+                  <div className="flex flex-wrap pr-5">
+                    {Tv.genres.map((genre, index) => (
+                      <span
+                        key={genre.id}
+                        className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70"
+                      >
+                        {genre.name}
+                        {index !== Tv.genres.length - 1 && <span>,&nbsp;</span>}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Spoken Languages</div>
+                  <div className="flex flex-wrap">
+                    {Tv.spoken_languages.map((lang, index) => (
+                      <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                        {lang.english_name}
+                        {index !== Tv.spoken_languages.length - 1 && (
+                          <span>,&nbsp;</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Spoken Languages</div>
-                <div className="flex flex-wrap">
-                  {Tv.spoken_languages.map((lang, index) => (
-                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                      {lang.english_name}
-                      {index !== Tv.spoken_languages.length - 1 && (
-                        <span>,&nbsp;</span>
-                      )}
-                    </span>
-                  ))}
-                </div>
+            </section>
+          )}
+          {activeTab === "reviews" && (
+            <section
+              className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            >
+              <div className="reviews-container px-16">
+                {!reviews.length ? (
+                  <h2 className={`${styles.heading3}`}>No reviews !</h2>
+                ) : (
+                  <>
+                    {reviews.slice(0, visibleReviews).map((review) => (
+                      <div className="flex flex-col mb-6">
+                        <div className="review-header flex flex-row justify-between pb-4">
+                          <div className="flex gap-3 items-center">
+                            {review.author_details.avatar_path &&
+                            isValidURL(
+                              review.author_details.avatar_path.substring(1)
+                            ) ? (
+                              <img
+                                alt="review author pic"
+                                src={review.author_details.avatar_path.substring(
+                                  1
+                                )}
+                                className="w-8 h-8 rounded-full object-cover"
+                              />
+                            ) : (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-8 h-8"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                              </svg>
+                            )}
+                            <span className="font-semibold text-xl">
+                              {review.author}
+                            </span>
+                          </div>
+                          {review.author_details.rating ? (
+                            <div className="flex flex-row items-center gap-4 justify-start">
+                              <svg
+                                fill="currentColor"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                className="w-4 h-4 text-amber-500"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                              </svg>
+                              {review.author_details.rating}
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                        <p className="review-para text-gray-600 dark:text-gray-400 px-4 text-justify">
+                          {expandedReviews[review.id]
+                            ? review.content
+                            : review.content.slice(0, 200) + "  ...."}
+                          <span
+                            onClick={() => handleToggleExpand(review.id)}
+                            className="text-sky-500 pl-1"
+                          >
+                            {expandedReviews[review.id]
+                              ? "Read Less"
+                              : "Read More"}
+                          </span>
+                        </p>
+                      </div>
+                    ))}
+                    {reviews.length > 4 && (
+                      <div className="see-more-less-container flex items-center justify-center mt-5">
+                        <button
+                          onClick={handleToggleVisibleReviews}
+                          className="flex border-2 rounded-3xl py-2 px-4 border-sky-700 text-sky-700 dark:border-sky-700	dark:text-sky-500	"
+                          style={{}}
+                        >
+                          {visibleReviews === 4 ? "See More" : "See Less"}
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
-            </div>
-          </section>
+            </section>
+          )}
         </>
       ) : (
         <div className="flex justify-center my-8">
