@@ -248,6 +248,14 @@ input:-webkit-autofill:active {
   margin: 0 auto;
 }
 
+/* content toggle button */
+.content-toggle {
+  right: 1rem;
+  top: 2rem;
+  transform: translateX(0, -1rem);
+  transform: translateY(-2rem,0);
+}
+
 @media screen and (max-width: 500px) {
   .error-container .ops {
     width: 90%;
@@ -318,6 +326,9 @@ input:-webkit-autofill:active {
     content: none !important;
   }
   .info-container {padding-bottom: 10px !important;}
+  .snapshots-outer-container {
+    margin: auto;
+  }
 }
 .main-container .info-container::after {
   background: linear-gradient(
