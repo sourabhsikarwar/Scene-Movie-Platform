@@ -18,7 +18,6 @@ const Details = (props) => {
             <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>
               More Details
             </h2>
-            {/* {console.log(props)} */}
           </div>
           <div className="flex flex-wrap gap-0 max-md:justify-between  my-4 mx-auto px-8">
             <div className="w-1/2 lg:w-1/3 my-3">

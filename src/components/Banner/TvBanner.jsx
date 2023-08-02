@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Youtube from "react-youtube";
 import { Oval } from "react-loader-spinner";
 import "../SingleMovieCast/style.css";
 import { useParams } from "react-router-dom";
@@ -221,8 +220,15 @@ const TvBanner = (props) => {
               </div>
             </section>
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} reviews={reviews} />
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              reviews={reviews}
+            />
           )}
         </>
       ) : (
