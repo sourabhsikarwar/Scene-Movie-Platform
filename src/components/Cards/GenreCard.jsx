@@ -13,7 +13,7 @@ const GenreCard = (props) => {
                 <div
                     className="absolute w-full h-full z-10 flex items-end"
                     style={{
-                      background: `linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95)  transparent 100%)`
+                      background: `linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.96) 10%, rgba(0,0,0,0.90) 20%, rgba(0,0,0,0.82) 30%, rgba(0,0,0,0.60) 50%, rgba(0,0,0,0.48) 60%, rgba(0,0,0,0.25) 70%, rgba(0,0,0,0.05) 90%,  transparent 100%)`
                     }}
                 >
                     <div className="pt-4 pb-6 px-6">
