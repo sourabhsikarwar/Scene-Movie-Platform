@@ -57,8 +57,8 @@ const TvBanner = (props) => {
       const response = await axios.get(
         `https://api.themoviedb.org/3/tv/${tvId}/content_ratings?api_key=${apiKey}`
       );
-      setContentRating(response.data.results[0].rating);
-      // console.log(response.data.results[0].rating)
+      setContentRating(response.data.results);
+      // console.log(response.data.results)
       setInitialLoading(false);
     } catch (error) {
       console.log(error);
@@ -128,12 +128,27 @@ const TvBanner = (props) => {
                         {Tv.genres[0].name}
                         <span className="mx-2">|</span>
                         {Math.floor(Tv.vote_average % 10)} / 10
-                        {contentRating && (
-                          <>
-                            <span className="mx-2">|</span>
-                            {contentRating}
-                          </>
-                        )}
+                      </div>
+                      <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
+                        Content Rating:&nbsp;
+                        {contentRating &&
+                          contentRating.length >= 6 &&
+                          contentRating.slice(0, 5).map((ratings, index) => (
+                            <span>
+                              {ratings.rating}
+                              {index !== 4 && <span>,&nbsp;</span>}
+                            </span>
+                          ))}
+                        {contentRating &&
+                          contentRating.length < 6 &&
+                          contentRating.map((ratings, index) => (
+                            <span>
+                              {ratings.rating}
+                              {index !== contentRating.length - 1 && (
+                                <span>,&nbsp;</span>
+                              )}
+                            </span>
+                          ))}
                       </div>
                       <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
                         Seasons:&nbsp;{Tv.number_of_seasons}
