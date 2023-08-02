@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Youtube from "react-youtube";
 import { Oval } from "react-loader-spinner";
-// for star rating convert number into star
-import Star from "../SingleMovieCast/Star";
-//  format price is used to format country currency
-import FormatPrice from "../SingleMovieCast/FormatPrice";
 import "../SingleMovieCast/style.css";
 import { useParams } from "react-router-dom";
-import fetchData from "../../helper/fetchData";
 import styles from "../../style";
 import axios from "axios";
 import Details from "./Details";
+import CommonBanner from "./CommonBanner";
 
 const TvBanner = (props) => {
   const MOVIE_API = "https://api.themoviedb.org/3";
@@ -50,10 +46,6 @@ const TvBanner = (props) => {
     setActiveTab(tab);
   };
 
-  const isValidURL = (url) => {
-    return url.startsWith("https://") || url.startsWith("http://");
-  };
-
   const handleToggleExpand = (reviewId) => {
     setExpandedReviews((prevState) => ({
       ...prevState,
@@ -82,65 +74,7 @@ const TvBanner = (props) => {
     <>
       {!initialLoading ? (
         <>
-          <section className="relative block section-movie-banner dark:bg-primary p-0 text-gray-600 body-font overflow-hidden bg-blend-multiply">
-            <div className="hidden sm:block absolute inset-0 bg-black opacity-40"></div>
-            <div className="flex flex-row relative w-full main-container">
-              <div
-                className={`flex info-container items-start mx-0 lg:h-screen h-full relative`}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  maxWidth: "800px",
-                  padding: "16px 32px 64px 10px",
-                  zIndex: "2",
-                }}
-              >
-                <div className="info-container-inner sm:flex flex-wrap flex-row">
-                  <div className="py-3 sm:pt-12 w-full pl-8 sm:mt-10 md:pt-14 flex flex-col sm:items-start mx-0">
-                    <h1
-                      className={`${styles.heading2} sm:text-white md:text-5xl mb-3 md:mb-5 font-bold sm:font-extrabold text-left`}
-                    >
-                      {Tv.name}
-                    </h1>
-                    <div className="flex flex-col justify-between items-start md:text-lg lg:text-xl text-gray-300 mb-1">
-                      <div className="text-black sm:text-white dark:text-white mb-3 md:mb-4">
-                        {Tv.first_air_date.split("-")[0]}
-                        <span className="mx-2">|</span>
-                        {Tv.genres[0].name}
-                        <span className="mx-2">|</span>
-                        {Math.floor(Tv.vote_average % 10)} / 10
-                      </div>
-                      <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
-                        Seasons:&nbsp;{Tv.number_of_seasons}
-                        <span className="mx-2">|</span>
-                        Episodes:&nbsp;{Tv.number_of_episodes}
-                      </div>
-                    </div>
-                    <p
-                      className={`text-black sm:text-white mb-3 sm:mb-1 dark:text-white font-light leading-5 text-base md:text-lg lg:text-xl text-left`}
-                    >
-                      {Tv.overview}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex img-container-outer">
-                <div
-                  className="block img-container"
-                  style={{
-                    backgroundImage: `url(https://image.tmdb.org/t/p/original/${Tv.backdrop_path})`,
-                    backgroundPosition: "84%",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    height: "100%",
-                    position: "absolute",
-                    right: "-11%",
-                    width: "103%",
-                  }}
-                ></div>
-              </div>
-            </div>
-          </section>
+          <CommonBanner type="tv" content={Tv} />
           {/* details/review header */}
           <section
             className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
@@ -288,7 +222,7 @@ const TvBanner = (props) => {
             </section>
           )}
           {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} reviews={reviews} />
           )}
         </>
       ) : (
