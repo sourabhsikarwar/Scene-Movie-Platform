@@ -4,23 +4,27 @@ import { Link } from "react-router-dom";
 
 const GenreCard = (props) => {
   return (
-    <div className={`shadow flex my-4 p-3 group`} key={props.genre.id}>
-      <Link to={"/category/movie/" + props.genre.name + "/" + props.genre.id}>
-      <div
-        className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
-        alt='movie poster'
-        style={{
-          backgroundImage: `url(${props.genre.image}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
-          backgroundSize: 'cover',
-          backgroundPositionX: 'center',
-          backgroundBlendMode: 'multiply',
-        }}
-        >
-          <div className="absolute w-full opacity-90 text-white text-md font-medium  mb-1">
-            <p className="">{props.genre.name}</p>
-          </div>
-        </div>
-      </Link>
+    <div className={`flex flex-wrap justify-center relative w-11/12 h-full shadow my-4 p-3 group`} key={props.genre.id}>
+        <Link to={"/category/movie/" + props.genre.name + "/" + props.genre.id}>
+                
+            <div
+                className={`${styles.GenreCard} relative flex-auto duration-200 rounded-[6px] h-full overflow-hidden transition-all`}
+                  >
+                <div
+                    className="absolute w-full h-full z-10 flex items-end"
+                    style={{
+                      background: `linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95)  transparent 100%)`
+                    }}
+                >
+                    <div className="pt-4 pb-6 px-6">
+                        <p className="text-white text-lg md:text-xl lg:text-2xl font-bold">{props.genre.name.toUpperCase()}</p>
+                    </div>
+                </div>
+
+                <img className={`w-full min-h-full block object-cover`} src={props.genre.image} alt="genre" />
+            </div>
+            
+        </Link>
     </div>
   );
 };
