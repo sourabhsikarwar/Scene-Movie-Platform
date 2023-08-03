@@ -165,7 +165,6 @@ const MovieBanner = (props) => {
                   zIndex: "2",
                 }}
               >
-                {console.log(Videos)}
                 <div className="info-container-inner sm:flex flex-wrap flex-row">
                   <div className="py-3 sm:pt-12 w-full sm:pl-8 sm:mt-10 md:pt-14 flex flex-col sm:items-start mx-0">
                     <h1
