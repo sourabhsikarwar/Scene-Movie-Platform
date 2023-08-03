@@ -186,6 +186,59 @@ const Trending = (props) => {
           ) : (
             ""
           )}
+          {props.type === "airingtoday" && (
+            <>
+              <div className="flex justify-between items-center px-4">
+                <h2
+                  className={`${styles.heading3} text-gray-900 dark:text-white`}
+                >
+                  Airing Today
+                </h2>
+                <p className="">
+                  <Link
+                    className={`${styles.paragraph} text-gray-900 dark:text-dimWhite dark:hover:text-white duration-200`}
+                    to={"/category/tv/" + props.title + "/" + props.id}
+                  >
+                    Show all
+                  </Link>
+                </p>
+              </div>
+              <Splide
+                options={{
+                  type: "loop",
+                  perPage: "6",
+                  pagination: false,
+                  breakpoints: {
+                    400: {
+                      perPage: 2,
+                    },
+                    764: {
+                      perPage: 3,
+                    },
+                    1024: {
+                      perPage: 4,
+                    },
+                    1280: {
+                      perPage: 5,
+                    },
+                    1400: {
+                      perPage: 6,
+                    },
+                  },
+                }}
+                aria-label="My Favorite Images"
+                className="justify-center"
+              >
+                {props.data.map((movie) => {
+                  return (
+                    <SplideSlide key={movie.id}>
+                      <MovieCard type="airingtoday" movie={movie} />
+                    </SplideSlide>
+                  );
+                })}
+              </Splide>{" "}
+            </>
+          )}
         </div>
       ) : (
         <div className="flex justify-center py-8">

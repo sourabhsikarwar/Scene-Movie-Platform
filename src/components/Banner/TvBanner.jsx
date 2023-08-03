@@ -16,6 +16,11 @@ const TvBanner = (props) => {
   const [expandedReviews, setExpandedReviews] = useState({});
   const [activeTab, setActiveTab] = useState("details");
   const apiKey = process.env.REACT_APP_API_KEY;
+  const [Episodes, setEpisodes] = useState({});
+  const [selectedSeason, setSelectedSeason] = useState(null);
+  const [visibleEpisodes, setVisibleEpisodes] = useState(10);
+  const [activeSeasonTab, setActiveSeasonTab] = useState();
+  const loadMoreEpisodes = 7;
 
   const [initialLoading, setInitialLoading] = useState(true);
 
@@ -41,8 +46,8 @@ const TvBanner = (props) => {
     }
   };
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
+  const isValidURL = (url) => {
+    return url.startsWith("https://") || url.startsWith("http://");
   };
 
   const handleToggleExpand = (reviewId) => {
@@ -56,6 +61,33 @@ const TvBanner = (props) => {
     setVisibleReviews((prevVisibleReviews) =>
       prevVisibleReviews === 4 ? reviews.length : 4
     );
+  };
+
+  const handleSeeMoreClick = () => {
+    setVisibleEpisodes(
+      (prevVisibleEpisodes) => prevVisibleEpisodes + loadMoreEpisodes
+    );
+  };
+
+  const getEpisodes = async (id, sid) => {
+    await axios
+      .get(
+        `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
+      )
+      .then((res) => {
+        const results = res.data;
+        setEpisodes(results);
+        setSelectedSeason(sid + 1);
+
+        // setInitialLoading(false);
+      });
+  };
+
+  const handleSeasonTabClick = (tab) => {
+    setActiveSeasonTab(tab);
+  };
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
   };
 
   const update = async () => {
@@ -116,6 +148,7 @@ const TvBanner = (props) => {
                 >
                   More Details
                 </h2>
+                <div></div>
               </div>
               <div className="flex flex-wrap gap-0 max-md:justify-between  py-4 mx-auto px-8">
                 <div className="w-1/2 lg:w-1/3 my-3">
@@ -221,15 +254,198 @@ const TvBanner = (props) => {
             </section>
           )}
           {activeTab === "reviews" && (
-            <Details
-              title="reviews"
-              visibleReviews={visibleReviews}
-              expandedReviews={expandedReviews}
-              handleToggleExpand={handleToggleExpand}
-              handleToggleVisibleReviews={handleToggleVisibleReviews}
-              reviews={reviews}
-            />
+            <section
+              className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            >
+              <div className="reviews-container px-16">
+                {!reviews.length ? (
+                  <h2 className={`${styles.heading3}`}>No reviews !</h2>
+                ) : (
+                  <>
+                    {reviews.slice(0, visibleReviews).map((review) => (
+                      <div className="flex flex-col mb-6">
+                        <div className="review-header flex flex-row justify-between pb-4">
+                          <div className="flex gap-3 items-center">
+                            {review.author_details.avatar_path &&
+                            isValidURL(
+                              review.author_details.avatar_path.substring(1)
+                            ) ? (
+                              <img
+                                alt="review author pic"
+                                src={review.author_details.avatar_path.substring(
+                                  1
+                                )}
+                                className="w-8 h-8 rounded-full object-cover"
+                              />
+                            ) : (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-8 h-8"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                              </svg>
+                            )}
+                            <span className="font-semibold text-xl">
+                              {review.author}
+                            </span>
+                          </div>
+                          {review.author_details.rating ? (
+                            <div className="flex flex-row items-center gap-4 justify-start">
+                              <svg
+                                fill="currentColor"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                className="w-4 h-4 text-amber-500"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                              </svg>
+                              {review.author_details.rating}
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                        <p className="review-para text-gray-600 dark:text-gray-400 px-4 text-justify">
+                          {expandedReviews[review.id]
+                            ? review.content
+                            : review.content.slice(0, 200) + "  ...."}
+                          <span
+                            onClick={() => handleToggleExpand(review.id)}
+                            className="text-sky-500 pl-1"
+                          >
+                            {expandedReviews[review.id]
+                              ? "Read Less"
+                              : "Read More"}
+                          </span>
+                        </p>
+                      </div>
+                    ))}
+                    {reviews.length > 4 && (
+                      <div className="see-more-less-container flex items-center justify-center mt-5">
+                        <button
+                          onClick={handleToggleVisibleReviews}
+                          className="flex border-2 rounded-3xl py-2 px-4 border-sky-700 text-sky-700 dark:border-sky-700	dark:text-sky-500	"
+                          style={{}}
+                        >
+                          {visibleReviews === 4 ? "See More" : "See Less"}
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </section>
           )}
+          <section
+            className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite pt-8`}
+          >
+            <div className="flex gap-4 flex-row flex-wrap items-center px-4">
+              {Tv.seasons.map((season) => (
+                <button
+                  onClick={() => {
+                    getEpisodes(Tv.id, season.season_number);
+                    handleSeasonTabClick(season.season_number);
+                  }}
+                  className={`${
+                    activeSeasonTab === season.season_number
+                      ? "text-cyan-500 dark:text-cyan-600"
+                      : ""
+                  } text-gray-900 dark:text-dimWhite`}
+                >
+                  {season.season_number === 0
+                    ? "Specials "
+                    : `Season ${season.season_number}`}
+                </button>
+              ))}
+            </div>
+            <div>
+              {selectedSeason && Episodes && (
+                <div className="flex p-8 flex-col w-full">
+                  {Episodes.episodes
+                    .slice(0, visibleEpisodes)
+                    .map((episode) => (
+                      <div className="flex flex-col mb-12 sm:mb-8">
+                        <div className="flex flex-row gap-8">
+                          <div
+                            className="flex w-2/6 sm:w-1/4"
+                            style={{
+                              backgroundImage: `url(https://image.tmdb.org/t/p/w500${
+                                episode.still_path ??
+                                `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
+                              })`,
+                              backgroundSize: "cover",
+                              backgroundPosition: "center",
+                              backgroundBlendMode: "multiply",
+                              height: "150px",
+                              borderRadius: "10px",
+                            }}
+                          ></div>
+                          <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
+                            <h2 className={`${styles.heading3}`}>
+                              {episode.name}
+                            </h2>
+                            <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
+                              {episode.season_number === 0 ? (
+                                <span>E{episode.episode_number}</span>
+                              ) : (
+                                <>
+                                  <span>S{episode.season_number}&nbsp;</span>
+                                  <span>E{episode.episode_number}</span>
+                                </>
+                              )}
+                              <span className="mx-2">|</span>
+                              {episode.air_date && (
+                                <>
+                                  <span className="">
+                                    {episode.air_date
+                                      .toString()
+                                      .split("-")
+                                      .reverse()
+                                      .join("-")}
+                                  </span>
+                                  <span className="mx-2">|</span>
+                                </>
+                              )}
+                              {episode.runtime > 60 ||
+                              episode.runtime === 60 ? (
+                                <span>
+                                  {Math.floor(episode.runtime / 60)}hr&nbsp;
+                                  {Math.floor(episode.runtime % 60)}m
+                                </span>
+                              ) : (
+                                <span>{Math.floor(episode.runtime % 60)}m</span>
+                              )}
+                            </div>
+                            <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
+                              {episode.overview}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  {visibleEpisodes < Episodes.episodes.length && (
+                    <button
+                      className="flex border-2 rounded-3xl py-2 px-4 border-sky-700 text-sky-700 dark:border-sky-700	dark:text-sky-500 w-1/6 justify-center items-center mx-auto	"
+                      onClick={handleSeeMoreClick}
+                    >
+                      See More
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          </section>
         </>
       ) : (
         <div className="flex justify-center my-8">
