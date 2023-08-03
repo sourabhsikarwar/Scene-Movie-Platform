@@ -32,9 +32,6 @@ const Footer = () => {
                     <li>
                       <a href="/profile" aria-label="Go to your profile page">Profile</a>
                     </li>
-                    <li>
-                      <a href="/favourite" aria-label="Go to your favorites page">TV Shows</a>
-                    </li>
                   </ul>
                 </div>
                 <div className="footer-col">
