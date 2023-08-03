@@ -154,7 +154,7 @@ const Profile = () => {
             />
             {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
-          <div className="relative mb-4">
+          <div className="relative mb-4"> 
             <label htmlFor="password" className="leading-8 text-sm text-gray-900 dark:text-white">
               Password
             </label>
@@ -172,9 +172,9 @@ const Profile = () => {
             />
             <button
               onClick={passwordToggle}
-              className="absolute inset-y-0 right-0 top-7 pr-3 flex items-center pointer-events-cursor-pointer"
+              className="absolute bg-[#fff] h-4 inset-y-0 right-0 top-11 mr-3 flex items-center pointer-events-cursor-pointer"
             >
-              <img
+              <img  
                 height={30}
                 width={30}
                 src={passwordType === "password" ? hide : show}
