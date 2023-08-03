@@ -615,7 +615,7 @@ const MovieBanner = (props) => {
               <h2
                 className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
               >
-                Movie Snapshots
+                Videos
               </h2>
               <div className="justify-center">
                 <Splide options={splideOptions}>
