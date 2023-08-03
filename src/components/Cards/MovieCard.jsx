@@ -24,6 +24,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { Dialog, Transition } from "@headlessui/react";
+
 const MovieCard = (props) => {
   const shareUrl = `${props.movie.title}`.replace(/\s/g, "%20");
   const shareTvUrl = `${props.movie.name}`.replace(/\s/g, "%20");
@@ -102,10 +103,9 @@ const MovieCard = (props) => {
               <FaShareAlt className="text-white" size={22} />
             </div>
           </div>
-          {props.type === "airingtoday" && (
-            <Link to={"/tv/" + props.movie.name + "/" + props.movie.id}>
+          <Link to={`/${props.type}/${props.title}/${props.movie.id}`}>
               <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
-                <p className="mb-2">{props.movie.name}</p>
+                <p className="mb-2">{props.title}</p>
               </div>
               <div style={{ marginBottom: "-38px", display: "flex" }}>
                 <CircleRating rating={props.movie.vote_average.toFixed(1)} />
@@ -117,39 +117,6 @@ const MovieCard = (props) => {
                 </span>
               </div>
             </Link>
-          )}
-          {props.type === "movie" && (
-            <Link to={"/movie/" + props.movie.title + "/" + props.movie.id}>
-              <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
-                <p className="mb-2">{props.movie.title}</p>
-              </div>
-              <div style={{ marginBottom: "-38px", display: "flex" }}>
-                <CircleRating rating={props.movie.vote_average.toFixed(1)} />
-                <span
-                  className="date right-3 text-dimWhite font-normal text-xs"
-                  style={{ paddingLeft: "20px" }}
-                >
-                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
-                </span>
-              </div>
-            </Link>
-          )}
-          {props.type === "tv" && (
-            <Link to={"/tv/" + props.movie.name + "/" + props.movie.id}>
-              <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
-                <p className="mb-2">{props.movie.name}</p>
-              </div>
-              <div style={{ marginBottom: "-38px", display: "flex" }}>
-                <CircleRating rating={props.movie.vote_average.toFixed(1)} />
-                <span
-                  className="date right-3 text-dimWhite font-normal text-xs"
-                  style={{ paddingLeft: "20px" }}
-                >
-                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
-                </span>
-              </div>
-            </Link>
-          )}
         </div>
       </div>
       {/* pop up code */}
