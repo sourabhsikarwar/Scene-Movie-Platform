@@ -1,20 +1,27 @@
-name: Feature Request 💡
-description: Have any new idea or new feature for LinksHub? Please suggest!
-title: "[Feature]: <write a small description here>"
-labels: ["enhancement", "goal: addition"]
+name: 🪶 Feature Request
+description: Suggest an idea for this project 
+title: "[Feature]:"
+
 body:
   - type: textarea
     id: description
     attributes:
-      label: Description
+      label: Is your feature request related to a problem?
       description: A clear and concise description of any alternative solution or features you've considered.
     validations:
       required: true
   - type: textarea
     id: screenshots
     attributes:
-      label: Screenshots
+      label: Describe alternatives you've considered
       description: Please add screenshots if applicable
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Include any supplementary information, contextual details, relevant screenshots, or supporting materials that can aid in better understanding and supporting your feature request.
     validations:
       required: false
   - type: checkboxes
@@ -22,14 +29,8 @@ body:
     attributes:
       label: "Checklist"
       options:
-        - label: "I have checked the existing issues"
+        - label: "Would you like to take up this task?"
           required: true
 
-        - label: "I have read the Contributing Guidelines"
-          required: true
-
-        - label: "I am willing to work on this issue (optional)"
-          required: false
-
-        - label: "I am a GSSoC'23 contributor"
+        - label: "Are you from GSSoC'23"
           required: false
