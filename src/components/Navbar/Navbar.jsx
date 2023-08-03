@@ -44,8 +44,7 @@ const Navbar = ({ handleThemeSwitch }) => {
 
   return (
     <nav
-      className="bg-gray-200 dark:bg-primary text-gray-900 dark:text-dimWhite font-poppins h-[90px] px-4"
-      style={{ position: "sticky", top: 0, zIndex: 20 }}
+      className="bg-gray-200 dark:bg-primary text-gray-900 dark:text-dimWhite font-poppins h-[90px] px-4 sticky top-0 z-20 grid place-items-center"
     >
       <div
         ref={navbarRef}
