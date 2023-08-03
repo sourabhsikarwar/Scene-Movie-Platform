@@ -37,7 +37,7 @@ const ScrollToTop = () => {
             <button
       type="button"
       className={`  fixed p-2 bg-gradient-to-r from-[#00264D] to-[#1357BD] bg-opacity-100 shadow-lg rounded-full z-20 ${
-        isVisible ? isBottom?'bottom-20 right-4' :' bottom-4 right-4' : 'hidden'
+        isVisible ? isBottom?'bottom-32 right-16' :'hidden' : 'hidden'
       } hover:from-indigo-500
       hover:via-purple-700
       hover:bg-gradient-to-r`}
