@@ -59,7 +59,6 @@ const Home = () => {
           setAiringToday(res.data.results);
           setInitialLoading(false);
         }
-        console.log(res)
       })
       .catch((e) => {
         return e.message;
