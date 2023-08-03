@@ -59,7 +59,6 @@ const Home = () => {
           setAiringToday(res.data.results);
           setInitialLoading(false);
         }
-        console.log(res)
       })
       .catch((e) => {
         return e.message;
@@ -138,7 +137,7 @@ const Home = () => {
           {showTvShows && (
             <>
               <Trending title="Trending" id="1" type="tv" head="TV Shows" />
-              <Trending title="Airing Today" type="airingtoday" data={airingToday} /> {console.log(airingToday)}
+              <Trending title="Airing Today" type="airingtoday" data={airingToday} />
               {genreTv &&
                 genreTv.map((item, index) => {
                   return (

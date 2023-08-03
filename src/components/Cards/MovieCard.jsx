@@ -103,7 +103,7 @@ const MovieCard = (props) => {
             </div>
           </div>
           {props.type === "airingtoday" && (
-            <Link to={"/tv/" + props.movie.title + "/" + props.movie.id}>
+            <Link to={"/tv/" + props.movie.name + "/" + props.movie.id}>
               <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
                 <p className="mb-2">{props.movie.name}</p>
               </div>
