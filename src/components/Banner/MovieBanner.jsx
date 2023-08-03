@@ -11,6 +11,7 @@ import CommonBanner from "./CommonBanner";
 const MovieBanner = (props) => {
   const { movieId, title } = useParams();
   const [Movies, setMovies] = useState({});
+  const [Videos, setVideos] = useState({});
   const [Images, setImages] = useState({});
   const [reviews, setReviews] = useState({});
   const [expandedReviews, setExpandedReviews] = useState({});
@@ -34,6 +35,56 @@ const MovieBanner = (props) => {
     window.scrollTo(0, 0);
     getImages();
   }, [movieId]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getVideos();
+  }, [movieId]);
+
+  const getVideos = async () => {
+    setInitialLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=en-US`
+      );
+      // Filter videos based on type (Trailer, Teaser, Clip)
+      const filteredVideos = response.data.results.filter(
+        (video) =>
+          video.type === "Trailer" ||
+          video.type === "Teaser" ||
+          // video.type === "Featurette" ||
+          video.type === "Clip"
+      );
+      setVideos(filteredVideos);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const splideOptions = {
+    type: "loop", // You can customize the options here based on your requirements.
+    perPage: 3,
+    perMove: 1,
+    pagination: false,
+    breakpoints: {
+      640: {
+        perPage: 1,
+      },
+      764: {
+        perPage: 2,
+      },
+      1024: {
+        perPage: 2,
+      },
+      1280: {
+        perPage: 3,
+      },
+      1400: {
+        perPage: 4,
+      },
+    },
+    arrows: true,
+  };
 
   const getImages = async () => {
     setInitialLoading(true);
@@ -131,6 +182,16 @@ const MovieBanner = (props) => {
                   >
                     Snapshots
                   </li>
+                  <li
+                    className={`cursor-pointer ${
+                      activeTab === "videos"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    onClick={() => handleTabClick("videos")}
+                  >
+                    Videos
+                  </li>
                 </ul>
               </div>
             </div>
@@ -150,6 +211,45 @@ const MovieBanner = (props) => {
           )}
           {activeTab === "snapshots" && (
             <Details title="snapshots" Images={Images} />
+          )}
+
+          {activeTab === "videos" ? (
+            <section
+              className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            >
+              <h2
+                className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              >
+                Videos
+              </h2>
+              <div className="justify-center">
+                <Splide options={splideOptions}>
+                  {Videos.slice(0, 10).map((video) => (
+                    <SplideSlide key={video.key} style={{ padding: "20px" }}>
+                      <Youtube
+                        videoId={video.key}
+                        className={"youtube amru videos"}
+                        containerClassName={"youtube-container amru"}
+                        opts={{
+                          playerVars: {
+                            autoplay: 0,
+                            controls: 0,
+                            cc_load_policy: 0,
+                            fs: 0,
+                            iv_load_policy: 0,
+                            modestbranding: 0,
+                            rel: 0,
+                            showinfo: 0,
+                          },
+                        }}
+                      />
+                    </SplideSlide>
+                  ))}
+                </Splide>
+              </div>
+            </section>
+          ) : (
+            ""
           )}
         </>
       ) : (
