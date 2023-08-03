@@ -111,8 +111,8 @@ const Profile = () => {
       <div className="bg-gray-100 dark:bg-primary sm:dark:bg-secondary w-fit pt-5 px-0 md:px-[100px] md:mx-0 mx-10 rounded-lg mt-[30px] mb-[34px] flex md:flex-row flex-col gap-10 items-center">
         <div className="bg-gray-300 text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16 relative">
           {/* Profile photo */}
-        <div className='h-1/3 sm:h-28 w-1/3 sm:w-28 mx-auto sm:my-4 md:my-8 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0 overflow-hidden sm:absolute -top-20 left-28'>
-          <img src={data.image ? data.image : avatar} alt='' className="h-28 w-28 rounded-full" />
+        <div className='bg-blue h-1/3 sm:h-28 w-1/3 sm:w-28 mx-auto sm:my-4 md:my-8 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0 overflow-hidden sm:absolute -top-20 left-[122px]'>
+          <img src={data && data.image ? data.image : avatar} alt='' className="h-28 w-28 rounded-full" />
         </div>
           <h2 className={`text-center text-sky-400 dark:text-gradient ${styles.heading3} mb-4 pt-8 sm:pt-12 mx-auto`}>Update Profile</h2>
           {error && <p className="text-red-600">{`${error}`}<FaUserLock style={{display:"inline-block", marginLeft:"10px"}} /></p>}

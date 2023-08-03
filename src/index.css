@@ -244,8 +244,16 @@ input:-webkit-autofill:active {
 }
 
 .error-container .ops {
-  width: 30%;
-  margin: 0 auto;
+  width: 60%;
+  margin:0 auto 10% auto;
+}
+
+/* content toggle button */
+.content-toggle {
+  right: 1rem;
+  top: 2rem;
+  transform: translateX(0, -1rem);
+  transform: translateY(-2rem,0);
 }
 
 @media screen and (max-width: 500px) {
@@ -258,6 +266,7 @@ input:-webkit-autofill:active {
   .error-container h3 {
     font-size: 14px;
   }
+  
 }
 
 /* @media screen and (max-width: 650px) {
@@ -265,61 +274,45 @@ input:-webkit-autofill:active {
     width: 100% !important;
     height: 100% !important;
   }
-} */
-@media screen and (min-width: 640px) {
-  .section-movie-banner {
-    background-color: #1a1a1a;
-  }
-  .info-container {width: 60%;}
+  
+}
+.error-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  justify-content: center; 
+  align-items: center;
+  gap: 10px;
 }
 
-@media screen and (max-width: 500px) {
-  .error-container .ops {
-    width: 90%;
+.error-text {
+  text-align: left; 
+  padding: 10% 0 10% 20%;
+  font-weight: bold;
+}
+
+.error-text h1 {
+  color: white;
+  font-size: 4vw; 
+  font-weight: bold;
+  line-height: 1.2; 
+  margin-bottom: 20px;
+}
+
+/* Additional styling for smaller devices */
+@media screen and (max-width: 600px) {
+  .error-text h1 {
+    font-size: 8vw; /* Set a different font size for smaller devices */
   }
   .error-container {
-    padding: 70px 10px 10px 10px;
+    display: flex;
+ flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    padding-top: 3%;
   }
-  .error-container h3 {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .review-para {
-    font-size: 14px;
-  }
-  .reviews-container {
-    padding: 0 2rem ;
-  }
-  .trailer-container {
-    margin-top: 10px;
-  }
-  .trailer-container .youtube {
-    height: 250px;
-  }
-  .youtube iframe {
-    width: 100% !important;
-    height: 100% !important;
-  }
-  .main-container {
-    flex-direction: column-reverse !important;
-  }
-  .img-container-outer {
-    padding-bottom: 55%;
-    position: relative;
-  }
-  .info-container-inner {width: 100%;}
-  .img-container {
-    right: 0 !important;
-  }
-  .main-container .info-container::after {
-    background: none !important;
-    content: none !important;
-  }
-  .info-container {padding-bottom: 10px !important;}
-  .snapshots-outer-container {
-    margin: auto;
+  .error-text {
+    text-align: center; 
+    padding: 5%;
   }
 }
 .main-container .info-container::after {
@@ -350,4 +343,12 @@ input:-webkit-autofill:active {
   right: -200px;
   top: 0;
   z-index: -1;
+}
+
+.episode-air-date::before {
+  content: "";
+  display: flex;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
 }

@@ -13,9 +13,10 @@ const Navbar = ({ handleThemeSwitch }) => {
   const location = useLocation();
   const navbarRef = useRef(null);
   const [check, setCheck] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // Track the visibility of the movie dropdown
 
   // Function to handle clicks links of the navbar
-  const handleMovieLinkClick = () => {
+  const handleNavbarLinkClick = () => {
     setOpen(false);
   };
 
@@ -43,18 +44,14 @@ const Navbar = ({ handleThemeSwitch }) => {
 
   return (
     <nav
-      className="bg-gray-200 dark:bg-primary text-gray-900 dark:text-dimWhite font-poppins h-[90px] px-4"
-      style={{ position: "sticky", top: 0, zIndex: 20 }}
+      className="bg-gray-200 dark:bg-primary text-gray-900 dark:text-dimWhite font-poppins h-[90px] px-4 sticky top-0 z-20 grid place-items-center"
     >
       <div
         ref={navbarRef}
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between `}
       >
         <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
-          <Link
-            to="/"
-            className="flex items-center"
-          >
+          <Link to="/" className="flex items-center">
             <img
               src={Logo}
               alt="logo"
@@ -103,53 +100,61 @@ const Navbar = ({ handleThemeSwitch }) => {
             )}
           </div>
 
-          {user ? (    
-          <div
-            className="text-3xl my-auto md:hidden"
-            onClick={() => setOpen(!open)}
-          >
-            <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
-          </div>
-          ) : (<> </>)}
-          
+          {user ? (
+            <div
+              className="text-3xl my-auto md:hidden"
+              onClick={() => setOpen(!open)}
+            >
+              <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
+            </div>
+          ) : (
+            <> </>
+          )}
         </div>
-        {!user ? (<> </>) : ( 
-        <ul className="md:flex hidden items-center font-medium h-[90px] z-50">
-          <li>
-            <Link
-              to="/"
-              className={`navLink ${location.pathname === "/" ? "active" : ""}`}
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/about"
-              className={`navLink ${
-                location.pathname === "/about" ? "active" : ""
-              }`}
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <NavLink onMovieLinkClick={handleMovieLinkClick} category="Movies" />
-          </li>
-          <li>
-            <NavLink onMovieLinkClick={handleMovieLinkClick} category="TV" />
-          </li>
-          <li>
-            <Link
-              to="/recommend"
-              className={`navLink ${
-                location.pathname === "/recommend" ? "active" : ""
-              }`}
-            >
-              For You
-            </Link>
-          </li>
-        </ul>
+        {!user ? (
+          <> </>
+        ) : (
+          <ul className="md:flex hidden items-center font-medium h-[90px] z-50">
+            <li>
+              <Link
+                to="/"
+                className={`navLink ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                className={`navLink ${
+                  location.pathname === "/about" ? "active" : ""
+                }`}
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <NavLink
+                onNavbarLinkClick={handleNavbarLinkClick}
+                category="Movies"
+              />
+            </li>
+            <li>
+              <NavLink onNavbarLinkClick={handleNavbarLinkClick} category="TV" />
+            </li>
+            <li>
+              <Link
+                to="/recommend"
+                className={`navLink ${
+                  location.pathname === "/recommend" ? "active" : ""
+                }`}
+              >
+                For You
+              </Link>
+            </li>
+          </ul>
         )}
         {/* normal web view  */}
 
@@ -194,40 +199,54 @@ const Navbar = ({ handleThemeSwitch }) => {
         </div>
 
         {/* mobile navbar */}
-        {!user ? (<> </>) : (
-        <ul
-          className={`md:hidden text-gray-900 dark:text-dimWhite bg-gray-300 dark:bg-secondary absolute w-full top-[90px] z-50 py-5 pl-4 duration-500  ${
-            open ? "left-0" : "left-[-100%]"
-          }`}
-          style={{ zIndex: "1" }}
-        >
-          <li>
-            <Link
-              to="/"
-              onClick={handleMovieLinkClick}
-              className={`navLink ${location.pathname === "/" ? "active" : ""}`}
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <NavLink onMovieLinkClick={handleMovieLinkClick} category="Movies" /> {/* Pass the category prop */}
-          </li>
-          <li>
-            <NavLink onMovieLinkClick={handleMovieLinkClick} category="TV" /> {/* TV Shows dropdown */}
-          </li>
-          <li>
-            <Link
-              to="/recommend"
-              onClick={handleMovieLinkClick}
-              className={`navLink ${
-                location.pathname === "/recommend" ? "active" : ""
-              }`}
-            >
-              For You
-            </Link>
-          </li>
-        </ul>
+        {!user ? (
+          <> </>
+        ) : (
+          <ul
+            className={`md:hidden text-gray-900 dark:text-dimWhite bg-gray-300 dark:bg-secondary absolute w-full top-[90px] z-50 py-5 pl-4 duration-500  ${
+              open ? "left-0" : "left-[-100%]"
+            }`}
+            style={{ zIndex: "1" }}
+          >
+            <li>
+              <Link
+                to="/"
+                onClick={handleNavbarLinkClick}
+                className={`navLink ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <NavLink
+                onNavbarLinkClick={handleNavbarLinkClick}
+                setDropdownOpen={setDropdownOpen}
+                category="Movies"
+              />{" "}
+              {/* Pass the category prop */}
+            </li>
+            <li>
+              <NavLink
+                onNavbarLinkClick={handleNavbarLinkClick}
+                setDropdownOpen={setDropdownOpen}
+                category="TV"
+              />{" "}
+              {/* TV Shows dropdown */}
+            </li>
+            <li>
+              <Link
+                to="/recommend"
+                onClick={handleNavbarLinkClick}
+                className={`navLink ${
+                  location.pathname === "/recommend" ? "active" : ""
+                }`}
+              >
+                For You
+              </Link>
+            </li>
+          </ul>
         )}
       </div>
     </nav>
