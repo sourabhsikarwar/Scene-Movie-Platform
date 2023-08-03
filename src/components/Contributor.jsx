@@ -5,6 +5,8 @@ const Contributor = () => {
   const [contributors, setContributors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(10);
+  const [searchResult, setSearchResult] = useState("");
+  const [searchContributor,setSearchContributor] = useState([]);
 
   useEffect(() => {
     axios
@@ -29,6 +31,17 @@ const Contributor = () => {
     setCurrentPage(pageNumber);
   };
 
+  useEffect(()=>{
+    const value = contributors.filter((item) => {
+      return `${item.login.toLowerCase()}`.includes(searchResult.toLowerCase());
+    });
+    if(searchResult.length > 0){
+      setSearchContributor(value);
+    }else{
+      setSearchContributor(contributors);
+    }
+  },[searchResult])
+
   return (
     <div className=" mt-20 contact-container">
       <div>
@@ -42,8 +55,17 @@ const Contributor = () => {
         </p>
       </div>
 
+      <div className=" flex justify-center mt-8">
+      <input
+          type="text"
+          placeholder="Search Contributor"
+          style={{color:"black"}}
+          onChange={(e) => setSearchResult(e.target.value)}
+        />
+      </div>
+
       <div className="flex flex-wrap justify-center p-6 gap-4 rounded-xl sm:p-12 dark:text-gray-100 ml-2">
-        {currentUsers.map((contributor) => {
+        {(searchResult.length == 0 ?currentUsers:searchContributor).map((contributor) => {
           return (
             <div
               key={contributor.id}
@@ -72,7 +94,7 @@ const Contributor = () => {
             </div>
           );
         })}
-        {contributors.length === 0 && <p>No contributors found.</p>}
+        {contributors.length === 0 || (searchResult.length > 0 && searchContributor.length == 0 )&& <p>No contributors found.</p>}
       </div>
       <div className="pagination">
         {contributors.length > 0 && (
