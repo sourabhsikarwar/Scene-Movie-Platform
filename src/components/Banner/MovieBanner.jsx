@@ -73,6 +73,23 @@ const MovieBanner = (props) => {
     perPage: 3,
     perMove: 1,
     pagination: false,
+    breakpoints: {
+      640: {
+        perPage: 1,
+      },
+      764: {
+        perPage: 2,
+      },
+      1024: {
+        perPage: 2,
+      },
+      1280: {
+        perPage: 3,
+      },
+      1400: {
+        perPage: 4,
+      },
+    },
     arrows: true,
   };
 
@@ -319,7 +336,6 @@ const MovieBanner = (props) => {
                 ></div>
               </div>
             </div>
-            {console.log(Videos)}
           </section>
           <section
             className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
