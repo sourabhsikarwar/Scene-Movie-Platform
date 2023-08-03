@@ -58,15 +58,10 @@ const TvBanner = (props) => {
         `https://api.themoviedb.org/3/tv/${tvId}/content_ratings?api_key=${apiKey}`
       );
       setContentRating(response.data.results);
-      // console.log(response.data.results)
       setInitialLoading(false);
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
   };
 
   const isValidURL = (url) => {
