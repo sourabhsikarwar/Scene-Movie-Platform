@@ -5,6 +5,9 @@ import { useParams } from "react-router-dom";
 import fetchData from "../../helper/fetchData";
 import styles from "../../style";
 import axios from "axios";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
+import Youtube from "react-youtube";
 import Details from "./Details";
 import CommonBanner from "./CommonBanner";
 
