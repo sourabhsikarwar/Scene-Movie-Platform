@@ -352,3 +352,7 @@ input:-webkit-autofill:active {
   width: 10px;
   border-radius: 50%;
 }
+
+.alan-btn__chat-holder{
+  max-height: 520px !important;
+}
