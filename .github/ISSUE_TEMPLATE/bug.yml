@@ -1,7 +1,6 @@
 name: "🪲 Bug"
 description: "Create a report to help us to improve our project."
 title: "[BUG]: <write a small description about the bug>"
-assignees: ''
 
 body:
   - type: textarea
