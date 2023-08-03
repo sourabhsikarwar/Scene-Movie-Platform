@@ -102,33 +102,51 @@ const MovieCard = (props) => {
               <FaShareAlt className="text-white" size={22} />
             </div>
           </div>
-        <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
-          <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
-            <p className='' >{props.movie.title}</p>
-          </div>
-          <div style={{ marginBottom: '-38px', display:'flex' }}>
-            <CircleRating rating={props.movie.vote_average.toFixed(1)} />
-            <span className="date" style={{paddingLeft:'20px'}}>
-              {dayjs(props.movie.release_date).format("MMM D, YYYY")}
-            </span>
-          </div>
-        </Link>
-          {props.type === 'movie' ? (
-            <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
-              <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
-                <p className=''>{props.movie.title}</p>
-                <p className='text-dimWhite font-normal text-xs mt-2'>
-                  {props.movie.vote_average}/10
-                </p>
+          {props.type === "airingtoday" && (
+            <Link to={"/tv/" + props.movie.title + "/" + props.movie.id}>
+              <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
+                <p className="mb-2">{props.movie.name}</p>
+              </div>
+              <div style={{ marginBottom: "-38px", display: "flex" }}>
+                <CircleRating rating={props.movie.vote_average.toFixed(1)} />
+                <span
+                  className=" right-3date text-dimWhite font-normal text-xs"
+                  style={{ paddingLeft: "20px" }}
+                >
+                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
+                </span>
               </div>
             </Link>
-          ): (
-            <Link to={'/tv/' + props.movie.name + '/' + props.movie.id}>
-              <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
-                <p className=''>{props.movie.name}</p>
-                <p className='text-dimWhite font-normal text-xs mt-2'>
-                  {props.movie.vote_average}/10
-                </p>
+          )}
+          {props.type === "movie" && (
+            <Link to={"/movie/" + props.movie.title + "/" + props.movie.id}>
+              <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
+                <p className="mb-2">{props.movie.title}</p>
+              </div>
+              <div style={{ marginBottom: "-38px", display: "flex" }}>
+                <CircleRating rating={props.movie.vote_average.toFixed(1)} />
+                <span
+                  className="date right-3 text-dimWhite font-normal text-xs"
+                  style={{ paddingLeft: "20px" }}
+                >
+                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
+                </span>
+              </div>
+            </Link>
+          )}
+          {props.type === "tv" && (
+            <Link to={"/tv/" + props.movie.name + "/" + props.movie.id}>
+              <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
+                <p className="mb-2">{props.movie.name}</p>
+              </div>
+              <div style={{ marginBottom: "-38px", display: "flex" }}>
+                <CircleRating rating={props.movie.vote_average.toFixed(1)} />
+                <span
+                  className="date right-3 text-dimWhite font-normal text-xs"
+                  style={{ paddingLeft: "20px" }}
+                >
+                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
+                </span>
               </div>
             </Link>
           )}
