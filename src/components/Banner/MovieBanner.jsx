@@ -67,7 +67,7 @@ const MovieBanner = (props) => {
     pagination: false,
     arrows: true,
   };
-  
+
   const getImages = async () => {
     setInitialLoading(true);
     try {
@@ -600,7 +600,7 @@ const MovieBanner = (props) => {
             ""
           )}
 
-{activeTab === "videos" ? (
+          {activeTab === "videos" ? (
             <section
               className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
             >
@@ -610,29 +610,29 @@ const MovieBanner = (props) => {
                 Movie Snapshots
               </h2>
               <div className="justify-center">
-              <Splide options={splideOptions}>
-      {Videos.slice(0, 10).map((video) => (
-        <SplideSlide key={video.key}  style={{ padding: "20px" }}>
-          <Youtube
-            videoId={video.key}
-            className={"youtube amru"}
-            containerClassName={"youtube-container amru"}
-            opts={{
-              playerVars: {
-                autoplay: 0,
-                controls: 0,
-                cc_load_policy: 0,
-                fs: 0,
-                iv_load_policy: 0,
-                modestbranding: 0,
-                rel: 0,
-                showinfo: 0,
-              },
-            }}
-          />
-        </SplideSlide>
-      ))}
-    </Splide>
+                <Splide options={splideOptions}>
+                  {Videos.slice(0, 10).map((video) => (
+                    <SplideSlide key={video.key} style={{ padding: "20px" }}>
+                      <Youtube
+                        videoId={video.key}
+                        className={"youtube amru videos"}
+                        containerClassName={"youtube-container amru"}
+                        opts={{
+                          playerVars: {
+                            autoplay: 0,
+                            controls: 0,
+                            cc_load_policy: 0,
+                            fs: 0,
+                            iv_load_policy: 0,
+                            modestbranding: 0,
+                            rel: 0,
+                            showinfo: 0,
+                          },
+                        }}
+                      />
+                    </SplideSlide>
+                  ))}
+                </Splide>
               </div>
             </section>
           ) : (

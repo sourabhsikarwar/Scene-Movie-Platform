@@ -256,6 +256,13 @@ input:-webkit-autofill:active {
   transform: translateY(-2rem,0);
 }
 
+/* Video clips styling */
+
+.videos iframe {
+  width: 100%;
+  border-radius: 14px;
+}
+
 @media screen and (max-width: 500px) {
   .error-container .ops {
     width: 90%;
