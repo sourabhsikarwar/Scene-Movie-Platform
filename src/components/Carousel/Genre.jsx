@@ -75,7 +75,7 @@ const Genre = (props) => {
                     <Splide
                         options={{
                         type: 'loop',
-                        perPage: 4,
+                        perPage: 5,
                         pagination: false,
                         breakpoints: {
                             400: {
@@ -88,10 +88,10 @@ const Genre = (props) => {
                             perPage: 3,
                             },
                             1280: {
-                            perPage: 3,
+                            perPage: 4,
                             },
                             1400: {
-                            perPage: 4,
+                            perPage: 5,
                             },
                         },
                         }}

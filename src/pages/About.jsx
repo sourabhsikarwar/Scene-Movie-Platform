@@ -17,6 +17,7 @@ const About = () => {
         }}
       >
         <div className='flex flex-col md:items-center md:mb-0 items-center text-center mx-auto'>
+        <div className='flex flex-col md:items-center text-center md:mb-0 items-center mx-auto'>
           <h1 className={`${styles.heading1} mt-20 text-gray-100`}>About us</h1>
         </div>
       </section>
