@@ -54,7 +54,15 @@ const MovieBanner = (props) => {
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=en-US`
       );
-      setVideos(response.data.results);
+      // Filter videos based on type (Trailer, Teaser, Clip)
+      const filteredVideos = response.data.results.filter(
+        (video) =>
+          video.type === "Trailer" ||
+          video.type === "Teaser" ||
+          video.type === "Featurette" ||
+          video.type === "Clip"
+      );
+      setVideos(filteredVideos);
     } catch (error) {
       console.log(error);
     }
@@ -312,6 +320,7 @@ const MovieBanner = (props) => {
                 ></div>
               </div>
             </div>
+            {console.log(Videos)}
           </section>
           <section
             className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
