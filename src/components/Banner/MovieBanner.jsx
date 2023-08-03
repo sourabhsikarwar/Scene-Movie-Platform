@@ -59,7 +59,7 @@ const MovieBanner = (props) => {
         (video) =>
           video.type === "Trailer" ||
           video.type === "Teaser" ||
-          video.type === "Featurette" ||
+          // video.type === "Featurette" ||
           video.type === "Clip"
       );
       setVideos(filteredVideos);
