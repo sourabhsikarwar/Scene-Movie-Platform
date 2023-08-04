@@ -276,7 +276,7 @@ const Signup = () => {
                   type={passwordType}
                   id="confirm-password"
                   name="confirmPassword"
-                  className={`w-full text-white bg-transparent rounded border ${errors.confirmPasswordError ? "border-red-500" : "border-gray-300"
+                  className={`w-full text-white bg-transparent dark:bg-transparent rounded border ${errors.confirmPasswordError ? "border-red-500" : "border-gray-300"
                     } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
                   onChange={handleInputs}
                   onKeyDown={handleKeyDown}
@@ -332,7 +332,6 @@ const Signup = () => {
               </p>
             </div>
           </div>
-
         </div>
 
       </div>
