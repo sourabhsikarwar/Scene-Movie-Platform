@@ -50,7 +50,7 @@ const Navbar = ({ handleThemeSwitch }) => {
         ref={navbarRef}
         className={`${styles.boxWidth} flex md:flex-row flex-col items-center font-normal justify-between `}
       >
-        <div className="z-50 px-4 py-2 md:w-auto w-full flex justify-between">
+        <div className="z-50 sm:p-0 lg:px-4 lg:py-2 md:w-auto w-full flex justify-between">
           <Link to="/" className="flex items-center">
             <img
               src={Logo}
@@ -60,7 +60,7 @@ const Navbar = ({ handleThemeSwitch }) => {
               width={128}
             />
           </Link>
-          <div className="md:hidden py-5 flex justify-center ml-auto mr-4 items-center self-end gap-x-4">
+          <div className="md:hidden flex justify-center ml-auto sm:py-2 lg:mr-0 lg:mr-4 lg:py-5 items-center self-end sm:gap-x-3 lg:gap-x-4">
             {/* Light/Dark mode switch */}
             <div className="relative">
               <input
@@ -94,7 +94,7 @@ const Navbar = ({ handleThemeSwitch }) => {
                   Login
                 </Link>
                 <Link to="/signup">
-                  <button className={`${styles.button2}`}>Sign Up</button>
+                  <button className={`${styles.button2} sm:text-sm lg:text-base`}>Sign Up</button>
                 </Link>
               </>
             )}
