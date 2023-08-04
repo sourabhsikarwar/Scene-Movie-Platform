@@ -109,7 +109,7 @@ const Login = () => {
         <div
           className={`${styles.boxWidth} mx-auto flex flex-wrap items-center md:px-0 px-8 h-max w-1/2 align-items justify-center h-screen`}
         >
-          <div className="w-[60%] h-[60%]  bg-transparent backdrop-blur-sm border text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16" role="form">
+          <div className="w-[55%] h-[60%]  bg-transparent backdrop-blur-sm border text-gray-900 dark:bg-primary rounded-lg p-8 flex flex-col md:mx-auto w-full my-16" role="form">
             <h2 className={`text-gradient ${styles.heading3} mb-4`} aria-labelledby="login-heading">Login</h2>
             {error && <p className="text-red-600" role="alert" aria-live="assertive">{`${error}`}<FaUserLock style={{ display: "inline-block", marginLeft: "10px" }} /></p>}
             <div className="relative mb-4">

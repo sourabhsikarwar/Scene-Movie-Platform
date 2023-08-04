@@ -332,7 +332,6 @@ const Signup = () => {
               </p>
             </div>
           </div>
-
         </div>
 
       </div>
