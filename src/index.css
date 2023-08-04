@@ -225,6 +225,17 @@ input:-webkit-autofill:active {
   filter: blur(750px);
 }
 
+/* episode - videos header  */
+.episode-header::after {
+  color: #214d76;
+  width: 220px;
+  height: 2px;
+  content: "";
+  background-color: rgb(209 213 219);
+  position: absolute;
+  top: 65px;
+}
+
 /* Navbar css starts */
 .navLink {
   @apply my-7 mx-5 inline-block border-gray-900 dark:border-slate-200 duration-75 hover:text-gray-900 dark:hover:text-slate-200 md:hover:border-b-2;
