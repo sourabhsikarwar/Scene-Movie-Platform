@@ -27,31 +27,18 @@ const MovieBanner = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     update();
-  }, [movieId]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    getreviews();
-  }, [movieId]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
     getImages();
+    getData();
   }, [movieId]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    getVideos();
-  }, [movieId]);
-
-  const getVideos = async () => {
+  const getData = async () => {
     setInitialLoading(true);
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=en-US`
+        `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US&append_to_response=videos,reviews`
       );
       // Filter videos based on type (Trailer, Teaser, Clip)
-      const filteredVideos = response.data.results.filter(
+      const filteredVideos = response.data.videos.results.filter(
         (video) =>
           video.type === "Trailer" ||
           video.type === "Teaser" ||
@@ -59,34 +46,10 @@ const MovieBanner = (props) => {
           video.type === "Clip"
       );
       setVideos(filteredVideos);
+      setReviews(response.data.reviews.results);
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const splideOptions = {
-    type: "loop", // You can customize the options here based on your requirements.
-    perPage: 3,
-    perMove: 1,
-    pagination: false,
-    breakpoints: {
-      640: {
-        perPage: 1,
-      },
-      764: {
-        perPage: 2,
-      },
-      1024: {
-        perPage: 2,
-      },
-      1280: {
-        perPage: 3,
-      },
-      1400: {
-        perPage: 4,
-      },
-    },
-    arrows: true,
   };
 
   const getImages = async () => {
@@ -96,18 +59,6 @@ const MovieBanner = (props) => {
         `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${apiKey}`
       );
       setImages(response.data.backdrops);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getreviews = async () => {
-    setInitialLoading(true);
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${apiKey}`
-      );
-      setReviews(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -141,6 +92,30 @@ const MovieBanner = (props) => {
     setActiveTab(tab);
   };
 
+  const splideOptions = {
+    type: "loop", // You can customize the options here based on your requirements.
+    perPage: 3,
+    perMove: 1,
+    pagination: false,
+    breakpoints: {
+      640: {
+        perPage: 1,
+      },
+      764: {
+        perPage: 2,
+      },
+      1024: {
+        perPage: 2,
+      },
+      1280: {
+        perPage: 3,
+      },
+      1400: {
+        perPage: 4,
+      },
+    },
+    arrows: true,
+  };
 
   return (
     <>

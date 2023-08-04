@@ -29,23 +29,32 @@ const TvBanner = (props) => {
     update();
   }, [tvId]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    getreviews();
-  }, [tvId]);
-
-  const getreviews = async () => {
-    setInitialLoading(true);
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${tvId}/reviews?api_key=${apiKey}`
-      );
-      setReviews(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
+  const getEpisodes = async (id, sid) => {
+    await axios
+      .get(
+        `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
+      )
+      .then((res) => {
+        const results = res.data;
+        setEpisodes(results);
+        setSelectedSeason(sid + 1);
+        setInitialLoading(false);
+      });
   };
 
+  const update = async () => {
+    setInitialLoading(true);
+    await axios
+      .get(
+        `${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US&append_to_response=reviews`
+      )
+      .then((res) => {
+        const mResults = res.data;
+        setTv(mResults);
+        setReviews(mResults.reviews.results);
+        setInitialLoading(false);
+      });
+  };
   const isValidURL = (url) => {
     return url.startsWith("https://") || url.startsWith("http://");
   };
@@ -69,36 +78,11 @@ const TvBanner = (props) => {
     );
   };
 
-  const getEpisodes = async (id, sid) => {
-    await axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
-      )
-      .then((res) => {
-        const results = res.data;
-        setEpisodes(results);
-        setSelectedSeason(sid + 1);
-
-        // setInitialLoading(false);
-      });
-  };
-
   const handleSeasonTabClick = (tab) => {
     setActiveSeasonTab(tab);
   };
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-  };
-
-  const update = async () => {
-    setInitialLoading(true);
-    await axios
-      .get(`${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US`)
-      .then((res) => {
-        const mResults = res.data;
-        setTv(mResults);
-        setInitialLoading(false);
-      });
   };
 
   return (
@@ -138,11 +122,19 @@ const TvBanner = (props) => {
               </div>
             </div>
           </section>
-          {activeTab === 'details' && (
-            <Details type='tv' Tv={Tv} title='details' />
+          {activeTab === "details" && (
+            <Details type="tv" Tv={Tv} title="details" />
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              isValidURL={isValidURL}
+              reviews={reviews}
+            />
           )}
           <section
             className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite pt-8`}
