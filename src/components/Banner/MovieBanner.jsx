@@ -7,6 +7,10 @@ import styles from "../../style";
 import axios from "axios";
 import Details from "./Details";
 import CommonBanner from "./CommonBanner";
+import { Splide } from "@splidejs/react-splide";
+import { SplideSlide } from "@splidejs/react-splide";
+import Youtube from "react-youtube";
+
 
 const MovieBanner = (props) => {
   const { movieId, title } = useParams();
