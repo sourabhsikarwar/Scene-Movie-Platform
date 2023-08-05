@@ -294,7 +294,7 @@ const Details = (props) => {
           <h2
             className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
           >
-            Movie Snapshots
+            {props.type.charAt(0).toUpperCase() + props.type.slice(1)} Snapshots
           </h2>
           <div className="justify-center">
             <Splide

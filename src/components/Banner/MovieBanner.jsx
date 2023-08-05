@@ -213,7 +213,7 @@ const MovieBanner = (props) => {
             />
           )}
           {activeTab === "snapshots" && (
-            <Details title="snapshots" Images={Images} />
+            <Details type="movie" title="snapshots" Images={Images} />
           )}
 
           {activeTab === "videos" ? (
