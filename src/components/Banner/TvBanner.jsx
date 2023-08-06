@@ -15,6 +15,7 @@ const TvBanner = (props) => {
   const { tvId, title } = useParams();
   const [Tv, setTv] = useState({});
   const [reviews, setReviews] = useState({});
+  const [Images, setImages] = useState({});
   const [videos, setVideos] = useState({});
   const [visibleReviews, setVisibleReviews] = useState(4);
   const [expandedReviews, setExpandedReviews] = useState({});
@@ -35,10 +36,10 @@ const TvBanner = (props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getreviews();
+    getImages();
   }, [tvId]);
 
-  const getreviews = async () => {
+  const getImages = async () => {
     setInitialLoading(true);
     try {
       const response = await axios.get(
@@ -54,12 +55,39 @@ const TvBanner = (props) => {
           video.type === "Featurette" ||
           video.type === "Clip"
       );
+      setImages(response.data.backdrops);
       setVideos(filteredVideos);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getEpisodes = async (id, sid) => {
+    await axios
+      .get(
+        `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
+      )
+      .then((res) => {
+        const results = res.data;
+        setEpisodes(results);
+        setSelectedSeason(sid + 1);
+        setInitialLoading(false);
+      });
+  };
+
+  const update = async () => {
+    setInitialLoading(true);
+    await axios
+      .get(
+        `${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US&append_to_response=reviews`
+      )
+      .then((res) => {
+        const mResults = res.data;
+        setTv(mResults);
+        setReviews(mResults.reviews.results);
+        setInitialLoading(false);
+      });
+  };
   const isValidURL = (url) => {
     return url.startsWith("https://") || url.startsWith("http://");
   };
@@ -81,20 +109,6 @@ const TvBanner = (props) => {
     setVisibleEpisodes(
       (prevVisibleEpisodes) => prevVisibleEpisodes + loadMoreEpisodes
     );
-  };
-
-  const getEpisodes = async (id, sid) => {
-    await axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
-      )
-      .then((res) => {
-        const results = res.data;
-        setEpisodes(results);
-        setSelectedSeason(sid + 1);
-
-        // setInitialLoading(false);
-      });
   };
 
   const handleSeasonTabClick = (tab) => {
@@ -147,9 +161,9 @@ const TvBanner = (props) => {
           <CommonBanner type="tv" content={Tv} />
           {/* details/review header */}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
           >
-            <div className="details-navigation-container pl-6 text-lg">
+            <div className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}>
               <div className="details-navigation">
                 <ul className="flex gap-4">
                   <li
@@ -175,6 +189,16 @@ const TvBanner = (props) => {
                   </li>
                   <li
                     className={`cursor-pointer ${
+                      activeTab === "snapshots"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    onClick={() => handleTabClick("snapshots")}
+                  >
+                    Snapshots
+                  </li>
+                  <li
+                    className={`cursor-pointer ${
                       activeTab === "videos"
                         ? "border-b-2 border-slate-900 dark:border-white"
                         : ""
@@ -187,6 +211,9 @@ const TvBanner = (props) => {
               </div>
             </div>
           </section>
+          {activeTab === "snapshots" && (
+            <Details type="tv" title="snapshots" Images={Images} />
+          )}
           {activeTab === 'details' && (
             <Details type='tv' Tv={Tv} title='details' />
           )}
@@ -230,9 +257,10 @@ const TvBanner = (props) => {
           </section>
           )}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite pt-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
-            <div className="flex gap-4 flex-row flex-wrap items-center px-4">
+            {/* <div className={`${styles.boxWidth}`}> */}
+            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}>
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
@@ -253,7 +281,7 @@ const TvBanner = (props) => {
             </div>
             <div>
               {selectedSeason && Episodes && (
-                <div className="flex p-8 flex-col w-full">
+                <div className={`${styles.boxWidth} flex p-8 flex-col w-full`}>
                   {Episodes.episodes
                     .slice(0, visibleEpisodes)
                     .map((episode) => (
@@ -327,6 +355,7 @@ const TvBanner = (props) => {
                 </div>
               )}
             </div>
+            {/* </div> */}
           </section>
         </>
       ) : (
