@@ -12,6 +12,7 @@ const TvBanner = (props) => {
   const { tvId, title } = useParams();
   const [Tv, setTv] = useState({});
   const [reviews, setReviews] = useState({});
+  const [Images, setImages] = useState({});
   const [visibleReviews, setVisibleReviews] = useState(4);
   const [expandedReviews, setExpandedReviews] = useState({});
   const [activeTab, setActiveTab] = useState("details");
@@ -33,6 +34,23 @@ const TvBanner = (props) => {
     window.scrollTo(0, 0);
     getreviews();
   }, [tvId]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getImages();
+  }, [tvId]);
+
+  const getImages = async () => {
+    setInitialLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${tvId}/images?api_key=${apiKey}`
+      );
+      setImages(response.data.backdrops);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getreviews = async () => {
     setInitialLoading(true);
@@ -134,15 +152,36 @@ const TvBanner = (props) => {
                   >
                     Reviews
                   </li>
+                  <li
+                    className={`cursor-pointer ${
+                      activeTab === "snapshots"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    onClick={() => handleTabClick("snapshots")}
+                  >
+                    Snapshots
+                  </li>
                 </ul>
               </div>
             </div>
           </section>
-          {activeTab === 'details' && (
-            <Details type='tv' Tv={Tv} title='details' />
+          {activeTab === "snapshots" && (
+            <Details type="tv" title="snapshots" Images={Images} />
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          {activeTab === "details" && (
+            <Details type="tv" Tv={Tv} title="details" />
+          )}
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              isValidURL={isValidURL}
+              reviews={reviews}
+            />
           )}
           <section
             className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite pt-8`}
