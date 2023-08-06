@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Youtube from "react-youtube";
 import styles from "../../style";
 import fetchData from "../../helper/fetchData";
+import axios from "axios";
 
 const CommonBanner = (props) => {
   const [initialLoading, setInitialLoading] = useState(true);
@@ -12,6 +13,27 @@ const CommonBanner = (props) => {
   // Function to toggle the content visibility
   const toggleContentOverview = () => {
     setShowFullContent(!showFullContent);
+  };
+  const [contentRating, setContentRating] = useState();
+  const apiKey = process.env.REACT_APP_API_KEY;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getContentRatings();
+  }, [props.content.id]);
+
+  const getContentRatings = async () => {
+    setInitialLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${props.content.id}/content_ratings?api_key=${apiKey}`
+      );
+      setContentRating(response.data.results);
+      // console.log(response.data.results)
+      setInitialLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleTrailer = async () => {
@@ -204,6 +226,27 @@ const CommonBanner = (props) => {
                         {props.content.genres[0].name}
                         <span className="mx-2">|</span>
                         {Math.floor(props.content.vote_average % 10)} / 10
+                      </div>
+                      <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
+                        Content Rating:&nbsp;
+                        {contentRating &&
+                          contentRating.length >= 6 &&
+                          contentRating.slice(0, 5).map((ratings, index) => (
+                            <span>
+                              {ratings.rating}
+                              {index !== 4 && <span>,&nbsp;</span>}
+                            </span>
+                          ))}
+                        {contentRating &&
+                          contentRating.length < 6 &&
+                          contentRating.map((ratings, index) => (
+                            <span>
+                              {ratings.rating}
+                              {index !== contentRating.length - 1 && (
+                                <span>,&nbsp;</span>
+                              )}
+                            </span>
+                          ))}
                       </div>
                       <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
                         Seasons:&nbsp;{props.content.number_of_seasons}

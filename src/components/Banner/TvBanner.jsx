@@ -30,6 +30,23 @@ const TvBanner = (props) => {
     update();
   }, [tvId]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getImages();
+  }, [tvId]);
+
+  const getImages = async () => {
+    setInitialLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${tvId}/images?api_key=${apiKey}`
+      );
+      setImages(response.data.backdrops);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getEpisodes = async (id, sid) => {
     await axios
       .get(
