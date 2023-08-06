@@ -32,10 +32,6 @@ const TvBanner = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     update();
-  }, [tvId]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
     getImages();
   }, [tvId]);
 
@@ -43,20 +39,9 @@ const TvBanner = (props) => {
     setInitialLoading(true);
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${tvId}?api_key=${apiKey}&append_to_response=reviews,videos`
-      );
-      setReviews(response.data.reviews.results);
-      const filteredVideos = response.data.videos.results.filter(
-        (video) =>
-          video.type === "Trailer" ||
-          video.type === "Teaser" ||
-          video.type === "Official Teaser" ||
-          video.type === "Main Trailer" ||
-          video.type === "Featurette" ||
-          video.type === "Clip"
+        `https://api.themoviedb.org/3/tv/${tvId}/images?api_key=${apiKey}`
       );
       setImages(response.data.backdrops);
-      setVideos(filteredVideos);
     } catch (error) {
       console.log(error);
     }
@@ -79,10 +64,20 @@ const TvBanner = (props) => {
     setInitialLoading(true);
     await axios
       .get(
-        `${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US&append_to_response=reviews`
+        `${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US&append_to_response=reviews,videos`
       )
       .then((res) => {
         const mResults = res.data;
+        const filteredVideos = mResults.videos.results.filter(
+          (video) =>
+            video.type === "Trailer" ||
+            video.type === "Teaser" ||
+            video.type === "Official Teaser" ||
+            video.type === "Main Trailer" ||
+            video.type === "Featurette" ||
+            video.type === "Clip"
+        );
+        setVideos(filteredVideos);
         setTv(mResults);
         setReviews(mResults.reviews.results);
         setInitialLoading(false);
@@ -116,17 +111,6 @@ const TvBanner = (props) => {
   };
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-  };
-
-  const update = async () => {
-    setInitialLoading(true);
-    await axios
-      .get(`${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US`)
-      .then((res) => {
-        const mResults = res.data;
-        setTv(mResults);
-        setInitialLoading(false);
-      });
   };
 
   const splideOptions = {
