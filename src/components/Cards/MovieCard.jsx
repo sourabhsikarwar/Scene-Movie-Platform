@@ -24,6 +24,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { Dialog, Transition } from "@headlessui/react";
+
 const MovieCard = (props) => {
   const shareUrl = `${props.movie.title}`.replace(/\s/g, "%20");
   const shareTvUrl = `${props.movie.name}`.replace(/\s/g, "%20");
@@ -102,10 +103,9 @@ const MovieCard = (props) => {
               <FaShareAlt className="text-white" size={22} />
             </div>
           </div>
-          {props.type === "airingtoday" && (
-            <Link to={"/tv/" + props.movie.name + "/" + props.movie.id}>
+          <Link to={`/${props.type}/${props.title}/${props.movie.id}`}>
               <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
-                <p className="mb-2">{props.movie.name}</p>
+                <p className="mb-2">{props.title}</p>
               </div>
               <div style={{ marginBottom: "-38px", display: "flex" }}>
                 <CircleRating rating={props.movie.vote_average.toFixed(1)} />
@@ -117,39 +117,6 @@ const MovieCard = (props) => {
                 </span>
               </div>
             </Link>
-          )}
-          {props.type === "movie" && (
-            <Link to={"/movie/" + props.movie.title + "/" + props.movie.id}>
-              <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
-                <p className="mb-2">{props.movie.title}</p>
-              </div>
-              <div style={{ marginBottom: "-38px", display: "flex" }}>
-                <CircleRating rating={props.movie.vote_average.toFixed(1)} />
-                <span
-                  className="date right-3 text-dimWhite font-normal text-xs"
-                  style={{ paddingLeft: "20px" }}
-                >
-                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
-                </span>
-              </div>
-            </Link>
-          )}
-          {props.type === "tv" && (
-            <Link to={"/tv/" + props.movie.name + "/" + props.movie.id}>
-              <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
-                <p className="mb-2">{props.movie.name}</p>
-              </div>
-              <div style={{ marginBottom: "-38px", display: "flex" }}>
-                <CircleRating rating={props.movie.vote_average.toFixed(1)} />
-                <span
-                  className="date right-3 text-dimWhite font-normal text-xs"
-                  style={{ paddingLeft: "20px" }}
-                >
-                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
-                </span>
-              </div>
-            </Link>
-          )}
         </div>
       </div>
       {/* pop up code */}
@@ -170,7 +137,6 @@ const MovieCard = (props) => {
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
-
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex h-[30rem] items-center justify-center p-4 text-center">
               <Transition.Child
@@ -216,14 +182,14 @@ const MovieCard = (props) => {
                   <div className="flex flex-wrap justify-start m-4 gap-2 ">
                     <FacebookShareButton
                       hashtag={`sceneMoviePlatfrom #${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <FacebookIcon size={45} round={true} />
@@ -231,14 +197,14 @@ const MovieCard = (props) => {
 
                     <PinterestShareButton
                       description={`${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       } from Scene-movie-platform`}
                       media={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <PinterestIcon size={45} round={true} />
@@ -246,23 +212,23 @@ const MovieCard = (props) => {
 
                     <TwitterShareButton
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <TwitterIcon size={45} round={true} />
                     </TwitterShareButton>
                     <LinkedinShareButton
                       title={`${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <LinkedinIcon size={45} round={true} />
@@ -270,37 +236,37 @@ const MovieCard = (props) => {
 
                     <WhatsappShareButton
                       title={`${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <WhatsappIcon size={45} round={true} />
                     </WhatsappShareButton>
                     <TelegramShareButton
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <TelegramIcon size={45} round={true} />
                     </TelegramShareButton>
                     <RedditShareButton
                       title={`${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <RedditIcon size={45} round={true} />

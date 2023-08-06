@@ -15,6 +15,7 @@ const TvBanner = (props) => {
   const { tvId, title } = useParams();
   const [Tv, setTv] = useState({});
   const [reviews, setReviews] = useState({});
+  const [Images, setImages] = useState({});
   const [visibleReviews, setVisibleReviews] = useState(4);
   const [expandedReviews, setExpandedReviews] = useState({});
   const [activeTab, setActiveTab] = useState("details");
@@ -28,6 +29,7 @@ const TvBanner = (props) => {
   const [EpisodeDisplay, setEpisodeDisplay] = useState(false);
   const [EpisodeVideosDisplay, setEpisodeVideosDisplay] = useState(false);
   const [EpisodeVideos, setEpisodeVideos] = useState({});
+  const [displayDetails, setDisplayDetails] = useState(true);
   const loadMoreEpisodes = 7;
 
   const [initialLoading, setInitialLoading] = useState(true);
@@ -39,16 +41,16 @@ const TvBanner = (props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getreviews();
+    getImages();
   }, [tvId]);
 
-  const getreviews = async () => {
+  const getImages = async () => {
     setInitialLoading(true);
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${tvId}/reviews?api_key=${apiKey}`
+        `https://api.themoviedb.org/3/tv/${tvId}/images?api_key=${apiKey}`
       );
-      setReviews(response.data.results);
+      setImages(response.data.backdrops);
     } catch (error) {
       console.log(error);
     }
@@ -86,6 +88,32 @@ const TvBanner = (props) => {
     }
   };
 
+  // const getEpisodes = async (id, sid) => {
+  //   await axios
+  //     .get(
+  //       `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
+  //     )
+  //     .then((res) => {
+  //       const results = res.data;
+  //       setEpisodes(results);
+  //       setSelectedSeason(sid + 1);
+  //       setInitialLoading(false);
+  //     });
+  // };
+
+  const update = async () => {
+    setInitialLoading(true);
+    await axios
+      .get(
+        `${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US&append_to_response=reviews`
+      )
+      .then((res) => {
+        const mResults = res.data;
+        setTv(mResults);
+        setReviews(mResults.reviews.results);
+        setInitialLoading(false);
+      });
+  };
   const isValidURL = (url) => {
     return url.startsWith("https://") || url.startsWith("http://");
   };
@@ -114,21 +142,11 @@ const TvBanner = (props) => {
     const response = await axios.get(
       `https://api.themoviedb.org/3/tv/${id}/season/${tab}/videos?api_key=${apiKey}`
     );
+    console.log(response)
     setEpisodeVideos(response.data.results);
   };
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-  };
-
-  const update = async () => {
-    setInitialLoading(true);
-    await axios
-      .get(`${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US`)
-      .then((res) => {
-        const mResults = res.data;
-        setTv(mResults);
-        setInitialLoading(false);
-      });
   };
 
   const splideOptions = {
@@ -163,10 +181,10 @@ const TvBanner = (props) => {
           <CommonBanner type="tv" content={Tv} />
           {/* details/review header */}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8 border-b border-gray-400 dark:border-gray-300`}
+            className={`w-full mx-auto dark:bg-primary dark:text-white py-8 border-b border-gray-400 dark:border-gray-300`}
           >
-            <div className="details-navigation-container pl-6 text-lg">
-              <div className="details-navigation">
+            <div className={`${styles.boxWidth} details-navigation-container items-center px-6 text-lg`}>
+              <div className="details-navigation flex justify-between">
                 <ul className="flex gap-4">
                   <li
                     onClick={() => handleTabClick("details")}
@@ -175,9 +193,7 @@ const TvBanner = (props) => {
                       activeTab === "details"
                         ? "border-b-2 border-slate-900 dark:border-white"
                         : ""
-                    } ${
-                      styles.heading3
-                    } hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    } ${styles.heading4} hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
                   >
                     Details
                   </li>
@@ -186,17 +202,42 @@ const TvBanner = (props) => {
                       activeTab === "reviews"
                         ? "border-b-2 border-slate-900 dark:border-white"
                         : ""
-                    } ${
-                      styles.heading3
-                    } hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    } ${styles.heading4} hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
                     onClick={() => handleTabClick("reviews")}
                   >
                     Reviews
                   </li>
+                  <li
+                    className={`cursor-pointer ${
+                      activeTab === "snapshots"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    } ${styles.heading4} hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    onClick={() => handleTabClick("snapshots")}
+                  >
+                    Snapshots
+                  </li>
                 </ul>
+                <div className="flex items-center">
+                  {!displayDetails && (
+                    <ion-icon style={{cursor:"pointer"}}
+                    onClick={()=> {setActiveTab('details'); setDisplayDetails(true)}}
+                      name="chevron-down"
+                    ></ion-icon>
+                  )}
+                  {displayDetails && (
+                    <ion-icon style={{cursor:"pointer"}}
+                    onClick={()=> {setActiveTab(null); setDisplayDetails(false)}}
+                    name="chevron-up"
+                  ></ion-icon>
+                  )}
+                </div>
               </div>
             </div>
           </section>
+          {activeTab === "snapshots" && (
+            <Details type="tv" title="snapshots" Images={Images} />
+          )}
           {activeTab === "details" && (
             <Details type="tv" Tv={Tv} title="details" />
           )}
@@ -212,9 +253,10 @@ const TvBanner = (props) => {
             />
           )}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite pt-8	`}
+            className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
-            <div className="flex gap-4 flex-row flex-wrap items-center px-6 pb-6 border-b border-gray-400 dark:border-gray-300">
+            {/* <div className={`${styles.boxWidth}`}> */}
+            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-6 pb-6 border-b border-gray-400 dark:border-gray-300`}>
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
@@ -226,7 +268,7 @@ const TvBanner = (props) => {
                     activeSeasonTab === season.season_number
                       ? "text-cyan-500 dark:text-cyan-600"
                       : ""
-                  } ${styles.heading3} text-gray-900 dark:text-white`}
+                  } ${styles.heading4} text-gray-900 dark:text-white`}
                 >
                   {season.season_number === 0
                     ? "Specials "
@@ -235,8 +277,8 @@ const TvBanner = (props) => {
               ))}
             </div>
             {EpisodeHeader && (
-              <div className="flex flex-row flex-wrap items-center relative px-10 gap-4 py-6">
-                <ul className="flex gap-8 episode-header text-[22px]">
+              <div className={`${styles.boxWidth} flex flex-row justify-between flex-wrap items-center relative px-6 gap-4 py-6`}>
+                <ul className="flex gap-8 episode-header text-[19px]">
                   <li
                     onClick={() => {
                       getEpisodes(Tv.id, activeSeasonTab);
@@ -262,40 +304,47 @@ const TvBanner = (props) => {
                     Videos
                   </li>
                 </ul>
+                {(EpisodeDisplay || EpisodeVideosDisplay)  && (
+                  <ion-icon onClick={()=> {setEpisodeDisplay(false); setEpisodeHeader(false); setEpisodeVideosDisplay(false);}} style={{ cursor: "pointer" }} name="close-outline" size="large"></ion-icon>
+                )}
               </div>
             )}
             {EpisodeVideosDisplay && (
-              <div>
-                <div className="justify-center">
-                  <Splide options={splideOptions}>
-                    {EpisodeVideos.map((video) => (
-                      <SplideSlide key={video.key} style={{ padding: "20px" }}>
-                        <Youtube
-                          videoId={video.key}
-                          className={"youtube amru videos"}
-                          containerClassName={"youtube-container amru"}
-                          opts={{
-                            playerVars: {
-                              autoplay: 0,
-                              controls: 0,
-                              cc_load_policy: 0,
-                              fs: 0,
-                              iv_load_policy: 0,
-                              modestbranding: 0,
-                              rel: 0,
-                              showinfo: 0,
-                            },
-                          }}
-                        />
-                      </SplideSlide>
-                    ))}
-                  </Splide>
+              EpisodeVideos.length > 0 ? (
+                <div>
+                  <div className="justify-center">
+                    <Splide options={splideOptions}>
+                      {EpisodeVideos.map((video) => (
+                        <SplideSlide key={video.key} style={{ padding: "20px" }}>
+                          <Youtube
+                            videoId={video.key}
+                            className={"youtube amru videos"}
+                            containerClassName={"youtube-container amru"}
+                            opts={{
+                              playerVars: {
+                                autoplay: 0,
+                                controls: 0,
+                                cc_load_policy: 0,
+                                fs: 0,
+                                iv_load_policy: 0,
+                                modestbranding: 0,
+                                rel: 0,
+                                showinfo: 0,
+                              },
+                            }}
+                          />
+                        </SplideSlide>
+                      ))}
+                    </Splide>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className={`${styles.heading4} ${styles.boxWidth} flex px-12 py-6`}>No Videos !</div>
+              )
             )}
             <div>
               {EpisodeDisplay && selectedSeason && Episodes && (
-                <div className="flex p-8 flex-col w-full">
+                <div className={`${styles.boxWidth} flex p-8 flex-col w-full`}>
                   {Episodes.episodes
                     .slice(0, visibleEpisodes)
                     .map((episode) => (
@@ -369,6 +418,7 @@ const TvBanner = (props) => {
                 </div>
               )}
             </div>
+            {/* </div> */}
           </section>
         </>
       ) : (

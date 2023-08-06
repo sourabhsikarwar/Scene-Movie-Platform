@@ -2,11 +2,39 @@ import React, { useState, useEffect } from "react";
 import Youtube from "react-youtube";
 import styles from "../../style";
 import fetchData from "../../helper/fetchData";
+import axios from "axios";
 
 const CommonBanner = (props) => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
   const [trailer, setTrailer] = useState(null);
+  const [showFullContent, setShowFullContent] = useState(false);
+
+  // Function to toggle the content visibility
+  const toggleContentOverview = () => {
+    setShowFullContent(!showFullContent);
+  };
+  const [contentRating, setContentRating] = useState();
+  const apiKey = process.env.REACT_APP_API_KEY;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getContentRatings();
+  }, [props.content.id]);
+
+  const getContentRatings = async () => {
+    setInitialLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${props.content.id}/content_ratings?api_key=${apiKey}`
+      );
+      setContentRating(response.data.results);
+      // console.log(response.data.results)
+      setInitialLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleTrailer = async () => {
     setInitialLoading(true);
@@ -113,7 +141,7 @@ const CommonBanner = (props) => {
                       </span>
                     </div>
                     <div className="flex flex-row justify-between items-start md:text-lg lg:text-xl text-gray-300 mb-1">
-                      <div className="text-black dark:text-white mb-3 md:mb-4">
+                      <div className="text-black sm:text-white dark:text-white mb-3 md:mb-4">
                         {props.content.release_date.split("-")[0]}
                         <span className="mx-2">|</span>
                         {props.content.genres[0].name}
@@ -153,7 +181,27 @@ const CommonBanner = (props) => {
                         <p
                           className={`text-black sm:text-white sm:pl-0 mb-3 sm:mb-1 dark:text-white font-light leading-5 text-base md:text-lg lg:text-xl text-left`}
                         >
-                          {props.content.overview}
+                          {showFullContent ||
+                          props.content.overview.length < 200
+                            ? props.content.overview
+                            : props.content.overview.slice(0, 250) + " ..... "}
+                          {props.content.overview.length > 250 &&
+                            (showFullContent ? (
+                              <button
+                                className="text-zinc-500 font-medium"
+                                onClick={toggleContentOverview}
+                              >
+                                &nbsp;read less
+                              </button>
+                            ) : (
+                              <button
+                                className="text-zinc-500 font-medium"
+                                onClick={toggleContentOverview}
+                              >
+                                &nbsp;read more
+                              </button>
+                            ))}
+                          {/* {props.content.overview} */}
                         </p>
                         <div className="flex my-4 sm:pl-0">
                           <button
@@ -180,6 +228,27 @@ const CommonBanner = (props) => {
                         {Math.floor(props.content.vote_average % 10)} / 10
                       </div>
                       <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
+                        Content Rating:&nbsp;
+                        {contentRating &&
+                          contentRating.length >= 6 &&
+                          contentRating.slice(0, 5).map((ratings, index) => (
+                            <span>
+                              {ratings.rating}
+                              {index !== 4 && <span>,&nbsp;</span>}
+                            </span>
+                          ))}
+                        {contentRating &&
+                          contentRating.length < 6 &&
+                          contentRating.map((ratings, index) => (
+                            <span>
+                              {ratings.rating}
+                              {index !== contentRating.length - 1 && (
+                                <span>,&nbsp;</span>
+                              )}
+                            </span>
+                          ))}
+                      </div>
+                      <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
                         Seasons:&nbsp;{props.content.number_of_seasons}
                         <span className="mx-2">|</span>
                         Episodes:&nbsp;{props.content.number_of_episodes}
@@ -188,7 +257,25 @@ const CommonBanner = (props) => {
                     <p
                       className={`text-black sm:text-white mb-3 sm:mb-1 dark:text-white font-light leading-5 text-base md:text-lg lg:text-xl text-left`}
                     >
-                      {props.content.overview}
+                      {showFullContent || props.content.overview.length < 200
+                        ? props.content.overview
+                        : props.content.overview.slice(0, 250) + " ..... "}
+                      {props.content.overview.length > 250 &&
+                        (showFullContent ? (
+                          <button
+                            className="text-zinc-500 font-medium"
+                            onClick={toggleContentOverview}
+                          >
+                            &nbsp;read less
+                          </button>
+                        ) : (
+                          <button
+                            className="text-zinc-500 font-medium"
+                            onClick={toggleContentOverview}
+                          >
+                            &nbsp;read more
+                          </button>
+                        ))}
                     </p>
                   </>
                 )}

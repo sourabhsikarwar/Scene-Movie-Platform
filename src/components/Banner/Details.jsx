@@ -12,194 +12,202 @@ const Details = (props) => {
       {/* Details */}
       {props.title === "details" && (
         <section
-          className={`${styles.boxWidth} dark:bg-primary dark:text-white pt-8`}
+          className={`w-full mx-auto dark:bg-primary dark:text-white pt-8`}
         >
-          <div className="flex justify-between items-center px-4">
-            <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>
-              More Details
-            </h2>
-          </div>
-          {props.type === "movie" ? (
-            <div className="flex flex-wrap gap-0 max-md:justify-between  my-4 mx-auto px-8">
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Status</div>
-                <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                  {props.Movies.status}
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Release Date</div>
-                <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                  {props.Movies.release_date
-                    .toString()
-                    .split("-")
-                    .reverse()
-                    .join("-")}
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Duration</div>
-                <div className="flex flex-wrap">
-                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
-                    {Math.floor(props.Movies.runtime / 60)}h&nbsp;
-                    {Math.floor(props.Movies.runtime % 60)}m
-                  </span>
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 md:mt-5 mb-3">
-                <div className="font-medium">Genres</div>
-                <div className="flex flex-wrap">
-                  {props.Movies.genres.map((genre, index) => (
-                    <span
-                      key={genre.id}
-                      className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70"
-                    >
-                      {genre.name}
-                      {index !== props.Movies.genres.length - 1 && (
-                        <span>,&nbsp;</span>
-                      )}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Ratings</div>
-                <div className="flex flex-wrap">
-                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
-                    {props.Movies.vote_average} / 10
-                  </span>
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 md:mt-5 mb-3">
-                <div className="font-medium">Spoken Languages</div>
-                <div className="flex flex-wrap">
-                  {props.Movies.spoken_languages.map((lang, index) => (
-                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                      {lang.english_name}
-                      {index !== props.Movies.spoken_languages.length - 1 && (
-                        <span>,&nbsp;</span>
-                      )}
-                    </span>
-                  ))}
-                </div>
-              </div>
+          <div className={`${styles.boxWidth}`}>
+            <div className="flex justify-between items-center px-8">
+              <h2
+                className={`${styles.heading3} text-gray-900 dark:text-white`}
+              >
+                More Details
+              </h2>
             </div>
-          ) : (
-            <div className="flex flex-wrap gap-0 max-md:justify-between  py-4 mx-auto px-8">
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Status</div>
-                <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                  {props.Tv.status}
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Ratings</div>
-                <div className="flex flex-wrap">
-                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
-                    {props.Tv.vote_average} / 10
-                  </span>
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Total Seasons</div>
-                <div className="flex flex-wrap">
-                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
-                    {props.Tv.number_of_seasons}
-                  </span>
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 mb-3">
-                <div className="font-medium">Total Episodes</div>
-                <div className="flex flex-wrap">
-                  <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
-                    {props.Tv.number_of_episodes}
-                  </span>
-                </div>
-              </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">First Air Date</div>
-                <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                  {props.Tv.first_air_date
-                    .toString()
-                    .split("-")
-                    .reverse()
-                    .join("-")}
-                </div>
-              </div>
-              {props.Tv.last_episode_to_air ? (
-                <div className="w-1/2 lg:w-1/3 mb-3">
-                  <div className="font-medium">Last Episode</div>
-                  <div className="flex flex-wrap">
-                    <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                      #{props.Tv.last_episode_to_air.episode_number} :{" "}
-                      {props.Tv.last_episode_to_air.air_date
-                        .toString()
-                        .split("-")
-                        .reverse()
-                        .join("-")}
-                    </div>
+            {props.type === "movie" ? (
+              <div className="flex flex-wrap gap-0 max-md:justify-between  my-4 mx-auto px-8">
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Status</div>
+                  <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                    {props.Movies.status}
                   </div>
                 </div>
-              ) : (
-                ""
-              )}
-              {props.Tv.next_episode_to_air ? (
                 <div className="w-1/2 lg:w-1/3 my-3">
-                  <div className="font-medium">Next Episode</div>
+                  <div className="font-medium">Release Date</div>
                   <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                    #{props.Tv.next_episode_to_air.episode_number} :{" "}
-                    {props.Tv.next_episode_to_air.air_date
+                    {props.Movies.release_date
                       .toString()
                       .split("-")
                       .reverse()
                       .join("-")}
                   </div>
                 </div>
-              ) : (
-                ""
-              )}
-              <div className="w-1/2 lg:w-1/3 mb-3">
-                <div className="font-medium">Genres</div>
-                <div className="flex flex-wrap pr-5">
-                  {props.Tv.genres.map((genre, index) => (
-                    <span
-                      key={genre.id}
-                      className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70"
-                    >
-                      {genre.name}
-                      {index !== props.Tv.genres.length - 1 && (
-                        <span>,&nbsp;</span>
-                      )}
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Duration</div>
+                  <div className="flex flex-wrap">
+                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
+                      {Math.floor(props.Movies.runtime / 60)}h&nbsp;
+                      {Math.floor(props.Movies.runtime % 60)}m
                     </span>
-                  ))}
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 md:mt-5 mb-3">
+                  <div className="font-medium">Genres</div>
+                  <div className="flex flex-wrap">
+                    {props.Movies.genres.map((genre, index) => (
+                      <span
+                        key={genre.id}
+                        className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70"
+                      >
+                        {genre.name}
+                        {index !== props.Movies.genres.length - 1 && (
+                          <span>,&nbsp;</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Ratings</div>
+                  <div className="flex flex-wrap">
+                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
+                      {props.Movies.vote_average} / 10
+                    </span>
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 md:mt-5 mb-3">
+                  <div className="font-medium">Spoken Languages</div>
+                  <div className="flex flex-wrap">
+                    {props.Movies.spoken_languages.map((lang, index) => (
+                      <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                        {lang.english_name}
+                        {index !== props.Movies.spoken_languages.length - 1 && (
+                          <span>,&nbsp;</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="w-1/2 lg:w-1/3 my-3">
-                <div className="font-medium">Spoken Languages</div>
-                <div className="flex flex-wrap">
-                  {props.Tv.spoken_languages.map((lang, index) => (
-                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
-                      {lang.english_name}
-                      {index !== props.Tv.spoken_languages.length - 1 && (
-                        <span>,&nbsp;</span>
-                      )}
+            ) : (
+              <div className="flex flex-wrap gap-0 max-md:justify-between  py-4 mx-auto px-8">
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Status</div>
+                  <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                    {props.Tv.status}
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Ratings</div>
+                  <div className="flex flex-wrap">
+                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
+                      {props.Tv.vote_average} / 10
                     </span>
-                  ))}
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Total Seasons</div>
+                  <div className="flex flex-wrap">
+                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
+                      {props.Tv.number_of_seasons}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 mb-3">
+                  <div className="font-medium">Total Episodes</div>
+                  <div className="flex flex-wrap">
+                    <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-80">
+                      {props.Tv.number_of_episodes}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">First Air Date</div>
+                  <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                    {props.Tv.first_air_date
+                      .toString()
+                      .split("-")
+                      .reverse()
+                      .join("-")}
+                  </div>
+                </div>
+                {props.Tv.last_episode_to_air ? (
+                  <div className="w-1/2 lg:w-1/3 mb-3">
+                    <div className="font-medium">Last Episode</div>
+                    <div className="flex flex-wrap">
+                      <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                        #{props.Tv.last_episode_to_air.episode_number} :{" "}
+                        {props.Tv.last_episode_to_air.air_date
+                          .toString()
+                          .split("-")
+                          .reverse()
+                          .join("-")}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {props.Tv.next_episode_to_air ? (
+                  <div className="w-1/2 lg:w-1/3 my-3">
+                    <div className="font-medium">Next Episode</div>
+                    <div className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                      #{props.Tv.next_episode_to_air.episode_number} :{" "}
+                      {props.Tv.next_episode_to_air.air_date
+                        .toString()
+                        .split("-")
+                        .reverse()
+                        .join("-")}
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="w-1/2 lg:w-1/3 mb-3">
+                  <div className="font-medium">Genres</div>
+                  <div className="flex flex-wrap pr-5">
+                    {props.Tv.genres.map((genre, index) => (
+                      <span
+                        key={genre.id}
+                        className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70"
+                      >
+                        {genre.name}
+                        {index !== props.Tv.genres.length - 1 && (
+                          <span>,&nbsp;</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="w-1/2 lg:w-1/3 my-3">
+                  <div className="font-medium">Spoken Languages</div>
+                  <div className="flex flex-wrap">
+                    {props.Tv.spoken_languages.map((lang, index) => (
+                      <span className="dark:text-dimWhite text-gray-900 opacity-90 dark:opacity-70">
+                        {lang.english_name}
+                        {index !== props.Tv.spoken_languages.length - 1 && (
+                          <span>,&nbsp;</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </section>
       )}
       {/* Reviews */}
       {props.title === "reviews" && (
         <section
-          className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+          className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
         >
-          <div className="reviews-container px-16">
+          <div className={`${styles.boxWidth} reviews-container px-8`}>
             {" "}
             {!props.reviews.length ? (
-              <h2>No reviews</h2>
+              <span
+                className={`${styles.heading4} w-full mx-auto dark:bg-primary dark:text-dimWhite`}
+              >
+                No reviews !
+              </span>
             ) : (
               <>
                 {props.reviews.slice(0, props.visibleReviews).map((review) => (
@@ -235,24 +243,33 @@ const Details = (props) => {
                           {review.author}
                         </span>
                       </div>
-                      {review.author_details.rating ? (
-                        <div className="flex flex-row items-center gap-4 justify-start">
-                          <svg
-                            fill="currentColor"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            className="w-4 h-4 text-amber-500"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                          </svg>
-                          {review.author_details.rating}
-                        </div>
-                      ) : (
-                        ""
-                      )}
+                      <div className="flex flex-row justify-between items-center gap-4">
+                        {review.created_at && (
+                          <span className="text-gray-600 dark:text-gray-400 text-xs items-center">
+                            {new Date(review.created_at)
+                              .toLocaleDateString("en-GB")
+                              .replace(/\//g, "-")}
+                          </span>
+                        )}
+                        {review.author_details.rating ? (
+                          <div className="flex flex-row items-center gap-4 justify-start">
+                            <svg
+                              fill="currentColor"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              className="w-4 h-4 text-amber-500"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                            {review.author_details.rating}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </div>
                     <p className="review-para text-gray-600 dark:text-gray-400 px-4">
                       {props.expandedReviews[review.id]
@@ -269,7 +286,6 @@ const Details = (props) => {
                     </p>
                   </div>
                 ))}
-                {/* {console.log("rev",props)} */}
                 {props.reviews.length > 4 && (
                   <div className="see-more-less-container flex items-center justify-center mt-5">
                     <button
@@ -289,14 +305,18 @@ const Details = (props) => {
       {/* Snapshots */}
       {props.title === "snapshots" && (
         <section
-          className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+          className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
         >
-          <h2
-            className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
-          >
-            Movie Snapshots
-          </h2>
-          <div className="justify-center">
+          <div className={`${styles.boxWidth} px-6`}>
+            <h2
+              className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+            >
+              {props.type.charAt(0).toUpperCase() + props.type.slice(1)}{" "}
+              Snapshots
+            </h2>
+          </div>
+
+          <div className={`${styles.boxWidth} px-6 justify-center`}>
             <Splide
               options={{
                 type: "loop",
