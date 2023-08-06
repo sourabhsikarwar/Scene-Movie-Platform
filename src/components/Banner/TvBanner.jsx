@@ -12,6 +12,7 @@ const TvBanner = (props) => {
   const { tvId, title } = useParams();
   const [Tv, setTv] = useState({});
   const [reviews, setReviews] = useState({});
+  const [Images, setImages] = useState({});
   const [visibleReviews, setVisibleReviews] = useState(4);
   const [expandedReviews, setExpandedReviews] = useState({});
   const [activeTab, setActiveTab] = useState("details");
@@ -33,6 +34,23 @@ const TvBanner = (props) => {
     window.scrollTo(0, 0);
     getreviews();
   }, [tvId]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getImages();
+  }, [tvId]);
+
+  const getImages = async () => {
+    setInitialLoading(true);
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${tvId}/images?api_key=${apiKey}`
+      );
+      setImages(response.data.backdrops);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
   const getreviews = async () => {
@@ -109,9 +127,9 @@ const TvBanner = (props) => {
           <CommonBanner type="tv" content={Tv} />
           {/* details/review header */}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
           >
-            <div className="details-navigation-container pl-6 text-lg">
+            <div className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}>
               <div className="details-navigation">
                 <ul className="flex gap-4">
                   <li
@@ -135,20 +153,42 @@ const TvBanner = (props) => {
                   >
                     Reviews
                   </li>
+                  <li
+                    className={`cursor-pointer ${
+                      activeTab === "snapshots"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    onClick={() => handleTabClick("snapshots")}
+                  >
+                    Snapshots
+                  </li>
                 </ul>
               </div>
             </div>
           </section>
-          {activeTab === 'details' && (
-            <Details type='tv' Tv={Tv} title='details' />
+          {activeTab === "snapshots" && (
+            <Details type="tv" title="snapshots" Images={Images} />
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          {activeTab === "details" && (
+            <Details type="tv" Tv={Tv} title="details" />
+          )}
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              isValidURL={isValidURL}
+              reviews={reviews}
+            />
           )}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite pt-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
-            <div className="flex gap-4 flex-row flex-wrap items-center px-4">
+            {/* <div className={`${styles.boxWidth}`}> */}
+            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}>
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
@@ -169,7 +209,7 @@ const TvBanner = (props) => {
             </div>
             <div>
               {selectedSeason && Episodes && (
-                <div className="flex p-8 flex-col w-full">
+                <div className={`${styles.boxWidth} flex p-8 flex-col w-full`}>
                   {Episodes.episodes
                     .slice(0, visibleEpisodes)
                     .map((episode) => (
@@ -243,6 +283,7 @@ const TvBanner = (props) => {
                 </div>
               )}
             </div>
+            {/* </div> */}
           </section>
         </>
       ) : (

@@ -8,6 +8,12 @@ const CommonBanner = (props) => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
   const [trailer, setTrailer] = useState(null);
+  const [showFullContent, setShowFullContent] = useState(false);
+
+  // Function to toggle the content visibility
+  const toggleContentOverview = () => {
+    setShowFullContent(!showFullContent);
+  };
   const [contentRating, setContentRating] = useState();
   const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -175,7 +181,27 @@ const CommonBanner = (props) => {
                         <p
                           className={`text-black sm:text-white sm:pl-0 mb-3 sm:mb-1 dark:text-white font-light leading-5 text-base md:text-lg lg:text-xl text-left`}
                         >
-                          {props.content.overview}
+                          {showFullContent ||
+                          props.content.overview.length < 200
+                            ? props.content.overview
+                            : props.content.overview.slice(0, 250) + " ..... "}
+                          {props.content.overview.length > 250 &&
+                            (showFullContent ? (
+                              <button
+                                className="text-zinc-500 font-medium"
+                                onClick={toggleContentOverview}
+                              >
+                                &nbsp;read less
+                              </button>
+                            ) : (
+                              <button
+                                className="text-zinc-500 font-medium"
+                                onClick={toggleContentOverview}
+                              >
+                                &nbsp;read more
+                              </button>
+                            ))}
+                          {/* {props.content.overview} */}
                         </p>
                         <div className="flex my-4 sm:pl-0">
                           <button
@@ -231,7 +257,25 @@ const CommonBanner = (props) => {
                     <p
                       className={`text-black sm:text-white mb-3 sm:mb-1 dark:text-white font-light leading-5 text-base md:text-lg lg:text-xl text-left`}
                     >
-                      {props.content.overview}
+                      {showFullContent || props.content.overview.length < 200
+                        ? props.content.overview
+                        : props.content.overview.slice(0, 250) + " ..... "}
+                      {props.content.overview.length > 250 &&
+                        (showFullContent ? (
+                          <button
+                            className="text-zinc-500 font-medium"
+                            onClick={toggleContentOverview}
+                          >
+                            &nbsp;read less
+                          </button>
+                        ) : (
+                          <button
+                            className="text-zinc-500 font-medium"
+                            onClick={toggleContentOverview}
+                          >
+                            &nbsp;read more
+                          </button>
+                        ))}
                     </p>
                   </>
                 )}

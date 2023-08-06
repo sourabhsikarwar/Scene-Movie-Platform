@@ -248,6 +248,26 @@ input:-webkit-autofill:active {
   margin:0 auto 10% auto;
 }
 
+/* Customize the scroll bar track */
+.navbar-style::-webkit-scrollbar {
+  width: 6px;
+}
+
+.navbar-style::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Customize the scroll bar thumb */
+.navbar-style::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3); 
+  border-radius: 3px; 
+}
+
+/* Remove the arrows from the scroll bar */
+.navbar-style::-webkit-scrollbar-button {
+  display: none;
+}
+
 /* content toggle button */
 .content-toggle {
   right: 1rem;
