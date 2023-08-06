@@ -41,7 +41,7 @@ const NavLinks = ({ onNavbarLinkClick, setDropdownOpen, category }) => {
               <div>
                 <div className="absolute top-[60px] hidden group-hover:md:block hover:md:block z-50">
                   <div className="bg-gray-300 dark:text-dimWhite dark:bg-secondary p-8 grid grid-cols-3 gap-x-10 rounded-lg">
-                    <ul className="overflow-y-scroll">
+                    <ul>
                       {link.genres.map((sLink) => (
                         <li
                           key={sLink.id}
@@ -74,7 +74,7 @@ const NavLinks = ({ onNavbarLinkClick, setDropdownOpen, category }) => {
             }`}
           >
             <div className="grid grid-cols-2">
-              <ul>
+              <ul className="navbar-style overflow-y-scroll">
                 {link.genres.map((sLinks) => (
                   <li className="py-3 pl-7 font-light" key={sLinks.id}>
                     <Link

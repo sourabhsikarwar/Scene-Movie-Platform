@@ -120,7 +120,7 @@ const Trending = (props) => {
                 {Movies.map((movie) => {
                   return (
                     <SplideSlide key={movie.id}>
-                      <MovieCard type="movie" movie={movie} />
+                      <MovieCard type="movie" movie={movie} title={movie.title}/>
                     </SplideSlide>
                   );
                 })}
@@ -177,7 +177,7 @@ const Trending = (props) => {
                 {Tv.map((movie) => {
                   return (
                     <SplideSlide key={movie.id}>
-                      <MovieCard type="tv" movie={movie} />
+                      <MovieCard type="tv" movie={movie} title={movie.name} />
                     </SplideSlide>
                   );
                 })}
@@ -232,7 +232,7 @@ const Trending = (props) => {
                 {props.data.map((movie) => {
                   return (
                     <SplideSlide key={movie.id}>
-                      <MovieCard type="airingtoday" movie={movie} />
+                      <MovieCard type="tv" movie={movie} title={movie.name} />
                     </SplideSlide>
                   );
                 })}

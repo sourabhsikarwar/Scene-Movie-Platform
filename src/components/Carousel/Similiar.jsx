@@ -43,14 +43,15 @@ const Similiar = (props) => {
         </div>
       ) : (
         <div
-          className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite py-8`}
+          className={` dark:bg-primary dark:text-dimWhite py-8`}
         >
-          <div className='flex justify-between items-center px-4'>
+          <div className={`${styles.boxWidth} flex justify-between items-center px-4`}>
             <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>
               Similiar
             </h2>
           </div>
-          <Splide
+          <div className={`${styles.boxWidth}`}>
+            <Splide
             options={{
               type: 'loop',
               perPage: '6',
@@ -79,11 +80,18 @@ const Similiar = (props) => {
             {data.map((item) => {
               return (
                 <SplideSlide>
-                  <MovieCard type ={props.title} movie={item} key={item.id} />
+                  {props.title === 'movie' && (
+                    <MovieCard type ={props.title} movie={item} key={item.id} title={item.title} />
+                  )}
+                  {props.title === 'tv' && (
+                    <MovieCard type ={props.title} movie={item} key={item.id} title={item.name} />
+                  )}
                 </SplideSlide>
               )
             })}
           </Splide>
+          </div>
+          
         </div>
       )}
     </>
