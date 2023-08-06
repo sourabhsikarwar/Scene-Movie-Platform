@@ -237,24 +237,33 @@ const Details = (props) => {
                           {review.author}
                         </span>
                       </div>
-                      {review.author_details.rating ? (
-                        <div className="flex flex-row items-center gap-4 justify-start">
-                          <svg
-                            fill="currentColor"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            className="w-4 h-4 text-amber-500"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                          </svg>
-                          {review.author_details.rating}
-                        </div>
-                      ) : (
-                        ""
-                      )}
+                      <div className="flex flex-row justify-between items-center gap-4">
+                        {review.created_at && (
+                          <span className="text-gray-600 dark:text-gray-400 text-xs items-center">
+                            {new Date(review.created_at)
+                              .toLocaleDateString("en-GB")
+                              .replace(/\//g, "-")}
+                          </span>
+                        )}
+                        {review.author_details.rating ? (
+                          <div className="flex flex-row items-center gap-4 justify-start">
+                            <svg
+                              fill="currentColor"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              className="w-4 h-4 text-amber-500"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                            {review.author_details.rating}
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </div>
                     <p className="review-para text-gray-600 dark:text-gray-400 px-4">
                       {props.expandedReviews[review.id]
@@ -271,7 +280,6 @@ const Details = (props) => {
                     </p>
                   </div>
                 ))}
-                {/* {console.log("rev",props)} */}
                 {props.reviews.length > 4 && (
                   <div className="see-more-less-container flex items-center justify-center mt-5">
                     <button
