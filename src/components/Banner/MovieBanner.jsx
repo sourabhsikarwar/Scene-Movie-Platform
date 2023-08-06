@@ -124,9 +124,9 @@ const MovieBanner = (props) => {
           <CommonBanner type="movie" content={Movies} movieId={movieId} />
           {/* details/review header */}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
           >
-            <div className="details-navigation-container pl-6 text-lg">
+            <div className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}>
               <div className="details-navigation">
                 <ul className="flex gap-4">
                   <li
@@ -188,7 +188,7 @@ const MovieBanner = (props) => {
             />
           )}
           {activeTab === "snapshots" && (
-            <Details title="snapshots" Images={Images} />
+            <Details type="movie" title="snapshots" Images={Images} />
           )}
 
           {activeTab === "videos" ? (
