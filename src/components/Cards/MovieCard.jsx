@@ -170,7 +170,7 @@ const MovieCard = (props) => {
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
-
+{console.log(props)}
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex h-[30rem] items-center justify-center p-4 text-center">
               <Transition.Child
@@ -216,14 +216,14 @@ const MovieCard = (props) => {
                   <div className="flex flex-wrap justify-start m-4 gap-2 ">
                     <FacebookShareButton
                       hashtag={`sceneMoviePlatfrom #${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <FacebookIcon size={45} round={true} />
@@ -231,14 +231,14 @@ const MovieCard = (props) => {
 
                     <PinterestShareButton
                       description={`${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       } from Scene-movie-platform`}
                       media={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <PinterestIcon size={45} round={true} />
@@ -246,23 +246,23 @@ const MovieCard = (props) => {
 
                     <TwitterShareButton
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <TwitterIcon size={45} round={true} />
                     </TwitterShareButton>
                     <LinkedinShareButton
                       title={`${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <LinkedinIcon size={45} round={true} />
@@ -270,37 +270,37 @@ const MovieCard = (props) => {
 
                     <WhatsappShareButton
                       title={`${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <WhatsappIcon size={45} round={true} />
                     </WhatsappShareButton>
                     <TelegramShareButton
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <TelegramIcon size={45} round={true} />
                     </TelegramShareButton>
                     <RedditShareButton
                       title={`${
-                        props.movie.type === "movie"
+                        props.type === "movie"
                           ? props.movie.title
                           : props.movie.name
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
-                        props.movie.type
+                        props.type
                       }/${
-                        props.movie.type === "movie" ? shareUrl : shareTvUrl
+                        props.type === "movie" ? shareUrl : shareTvUrl
                       }/${props.movie.id}`}
                     >
                       <RedditIcon size={45} round={true} />
