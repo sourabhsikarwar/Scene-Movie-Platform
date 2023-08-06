@@ -13,12 +13,12 @@ const Home = () => {
   const [airingToday, setAiringToday] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [check, setCheck] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const [showMovies, setshowMovies] = useState(true);
   const [showTvShows, setshowTvShows] = useState(false);
 
   const toggleContent = () => {
-    setCheck(!check);
+    setToggle(!toggle);
     setshowMovies(!showMovies);
     setshowTvShows(!showTvShows);
   };
@@ -98,7 +98,7 @@ const Home = () => {
                     id="checkbox"
                     type="checkbox"
                     className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full p-1 z-10 cursor-pointer"
-                    checked={check}
+                    checked={toggle}
                     onChange={toggleContent}
                   />
                   <label
@@ -107,7 +107,7 @@ const Home = () => {
                   >
                     <span
                       className={`bg-secondary opacity-60 absolute w-6 h-7 right-8 border-2 rounded-full transition-transform ${
-                        !check ? "translate-x-8" : "translate-x-0"
+                        !toggle ? "translate-x-8" : "translate-x-0"
                       }`}
                     ></span>
                   </label>
