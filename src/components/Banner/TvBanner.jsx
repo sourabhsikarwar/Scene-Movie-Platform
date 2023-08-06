@@ -30,41 +30,32 @@ const TvBanner = (props) => {
     update();
   }, [tvId]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    getreviews();
-  }, [tvId]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    getImages();
-  }, [tvId]);
-
-  const getImages = async () => {
-    setInitialLoading(true);
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${tvId}/images?api_key=${apiKey}`
-      );
-      setImages(response.data.backdrops);
-    } catch (error) {
-      console.log(error);
-    }
+  const getEpisodes = async (id, sid) => {
+    await axios
+      .get(
+        `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
+      )
+      .then((res) => {
+        const results = res.data;
+        setEpisodes(results);
+        setSelectedSeason(sid + 1);
+        setInitialLoading(false);
+      });
   };
 
-
-  const getreviews = async () => {
+  const update = async () => {
     setInitialLoading(true);
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${tvId}/reviews?api_key=${apiKey}`
-      );
-      setReviews(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
+    await axios
+      .get(
+        `${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US&append_to_response=reviews`
+      )
+      .then((res) => {
+        const mResults = res.data;
+        setTv(mResults);
+        setReviews(mResults.reviews.results);
+        setInitialLoading(false);
+      });
   };
-
   const isValidURL = (url) => {
     return url.startsWith("https://") || url.startsWith("http://");
   };
@@ -88,36 +79,11 @@ const TvBanner = (props) => {
     );
   };
 
-  const getEpisodes = async (id, sid) => {
-    await axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
-      )
-      .then((res) => {
-        const results = res.data;
-        setEpisodes(results);
-        setSelectedSeason(sid + 1);
-
-        // setInitialLoading(false);
-      });
-  };
-
   const handleSeasonTabClick = (tab) => {
     setActiveSeasonTab(tab);
   };
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-  };
-
-  const update = async () => {
-    setInitialLoading(true);
-    await axios
-      .get(`${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US`)
-      .then((res) => {
-        const mResults = res.data;
-        setTv(mResults);
-        setInitialLoading(false);
-      });
   };
 
   return (
