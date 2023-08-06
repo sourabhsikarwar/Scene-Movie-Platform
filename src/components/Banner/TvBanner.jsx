@@ -126,9 +126,9 @@ const TvBanner = (props) => {
           <CommonBanner type="tv" content={Tv} />
           {/* details/review header */}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
           >
-            <div className="details-navigation-container pl-6 text-lg">
+            <div className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}>
               <div className="details-navigation">
                 <ul className="flex gap-4">
                   <li
@@ -184,9 +184,10 @@ const TvBanner = (props) => {
             />
           )}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite pt-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
-            <div className="flex gap-4 flex-row flex-wrap items-center px-4">
+            {/* <div className={`${styles.boxWidth}`}> */}
+            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}>
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
@@ -207,7 +208,7 @@ const TvBanner = (props) => {
             </div>
             <div>
               {selectedSeason && Episodes && (
-                <div className="flex p-8 flex-col w-full">
+                <div className={`${styles.boxWidth} flex p-8 flex-col w-full`}>
                   {Episodes.episodes
                     .slice(0, visibleEpisodes)
                     .map((episode) => (
@@ -281,6 +282,7 @@ const TvBanner = (props) => {
                 </div>
               )}
             </div>
+            {/* </div> */}
           </section>
         </>
       ) : (

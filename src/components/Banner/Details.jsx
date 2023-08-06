@@ -12,8 +12,9 @@ const Details = (props) => {
       {/* Details */}
       {props.title === "details" && (
         <section
-          className={`${styles.boxWidth} dark:bg-primary dark:text-white pt-8`}
+          className={`w-full mx-auto dark:bg-primary dark:text-white pt-8`}
         >
+          <div className={`${styles.boxWidth}`}>
           <div className="flex justify-between items-center px-4">
             <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>
               More Details
@@ -189,14 +190,15 @@ const Details = (props) => {
               </div>
             </div>
           )}
+          </div>
         </section>
       )}
       {/* Reviews */}
       {props.title === "reviews" && (
         <section
-          className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+          className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
         >
-          <div className="reviews-container px-16">
+          <div className={`${styles.boxWidth} reviews-container px-16`}>
             {" "}
             {!props.reviews.length ? (
               <h2>No reviews</h2>
@@ -289,14 +291,17 @@ const Details = (props) => {
       {/* Snapshots */}
       {props.title === "snapshots" && (
         <section
-          className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+          className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
         >
-          <h2
+          <div className={`${styles.boxWidth}`}>
+            <h2
             className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
           >
             {props.type.charAt(0).toUpperCase() + props.type.slice(1)} Snapshots
           </h2>
-          <div className="justify-center">
+          </div>
+          
+          <div className={`${styles.boxWidth} justify-center`}>
             <Splide
               options={{
                 type: "loop",
