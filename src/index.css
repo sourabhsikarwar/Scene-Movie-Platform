@@ -105,6 +105,16 @@ input:-webkit-autofill:active {
   opacity: 1 !important;
 }
 
+@media screen and (max-width: 500px) {
+  .splide__arrow{
+    margin-top: 10px !important;
+  }
+  .splide__arrow--prev{
+    left: 2px !important;
+
+  }
+}
+
 .bg-black-gradient {
   background: rgb(27, 25, 25);
   background: linear-gradient(
