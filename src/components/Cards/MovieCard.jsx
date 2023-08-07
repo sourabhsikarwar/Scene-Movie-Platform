@@ -107,10 +107,10 @@ const MovieCard = (props) => {
               <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
                 <p className="mb-2">{props.title}</p>
               </div>
-              <div style={{ marginBottom: "-38px", display: "flex" }}>
+              <div style={{ marginBottom: "-38px", display: "flex" }} className="xs:mb-[-32px]">
                 <CircleRating rating={props.movie.vote_average.toFixed(1)} />
                 <span
-                  className=" right-3date text-dimWhite font-normal text-xs"
+                  className=" right-3date text-dimWhite font-normal text-xs xs:mt-[-6px] text-[8px] leading-[12px]"
                   style={{ paddingLeft: "20px" }}
                 >
                   {dayjs(props.movie.release_date).format("MMM D, YYYY")}
