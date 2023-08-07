@@ -129,9 +129,21 @@ const MovieCard = (props) => {
               <FaShareAlt className="text-white" size={22} />
             </div>
           </div>
-          <Link to={`/${props.type}/${title}/${id}`}>
-            {/* Movie details */}
-          </Link>
+
+          <Link to={`/${props.type}/${props.title}/${props.movie.id}`}>
+              <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
+                <p className="mb-2">{props.title}</p>
+              </div>
+              <div className="flex mb-[-38px]">
+                <CircleRating rating={props.movie.vote_average.toFixed(1)} />
+                <span
+                  className="pl-[20px] right-3date text-dimWhite font-normal text-xs"
+                >
+                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
+                </span>
+              </div>
+            </Link>
+
         </div>
       </div>
       {/* Share dialog */}
@@ -153,7 +165,7 @@ const MovieCard = (props) => {
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
-          {/* Share dialog content */}
+
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex h-[30rem] items-center justify-center p-4 text-center">
               <Transition.Child

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Oval } from "react-loader-spinner";
-import "../SingleMovieCast/style.css";
 import { useParams } from "react-router-dom";
 import fetchData from "../../helper/fetchData";
 import styles from "../../style";
@@ -10,6 +9,8 @@ import "@splidejs/react-splide/css";
 import Youtube from "react-youtube";
 import Details from "./Details";
 import CommonBanner from "./CommonBanner";
+
+
 
 const MovieBanner = (props) => {
   const { movieId, title } = useParams();
