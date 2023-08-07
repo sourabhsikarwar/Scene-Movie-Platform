@@ -137,7 +137,6 @@ const MovieCard = (props) => {
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
-{console.log(props)}
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex h-[30rem] items-center justify-center p-4 text-center">
               <Transition.Child
