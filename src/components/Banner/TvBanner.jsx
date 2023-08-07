@@ -12,6 +12,7 @@ const TvBanner = (props) => {
   const { tvId, title } = useParams();
   const [Tv, setTv] = useState({});
   const [reviews, setReviews] = useState({});
+  const [Images, setImages] = useState({});
   const [visibleReviews, setVisibleReviews] = useState(4);
   const [expandedReviews, setExpandedReviews] = useState({});
   const [activeTab, setActiveTab] = useState("details");
@@ -31,21 +32,47 @@ const TvBanner = (props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    getreviews();
+    getImages();
   }, [tvId]);
 
-  const getreviews = async () => {
+  const getImages = async () => {
     setInitialLoading(true);
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${tvId}/reviews?api_key=${apiKey}`
+        `https://api.themoviedb.org/3/tv/${tvId}/images?api_key=${apiKey}`
       );
-      setReviews(response.data.results);
+      setImages(response.data.backdrops);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getEpisodes = async (id, sid) => {
+    await axios
+      .get(
+        `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
+      )
+      .then((res) => {
+        const results = res.data;
+        setEpisodes(results);
+        setSelectedSeason(sid + 1);
+        setInitialLoading(false);
+      });
+  };
+
+  const update = async () => {
+    setInitialLoading(true);
+    await axios
+      .get(
+        `${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US&append_to_response=reviews`
+      )
+      .then((res) => {
+        const mResults = res.data;
+        setTv(mResults);
+        setReviews(mResults.reviews.results);
+        setInitialLoading(false);
+      });
+  };
   const isValidURL = (url) => {
     return url.startsWith("https://") || url.startsWith("http://");
   };
@@ -69,36 +96,11 @@ const TvBanner = (props) => {
     );
   };
 
-  const getEpisodes = async (id, sid) => {
-    await axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
-      )
-      .then((res) => {
-        const results = res.data;
-        setEpisodes(results);
-        setSelectedSeason(sid + 1);
-
-        // setInitialLoading(false);
-      });
-  };
-
   const handleSeasonTabClick = (tab) => {
     setActiveSeasonTab(tab);
   };
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-  };
-
-  const update = async () => {
-    setInitialLoading(true);
-    await axios
-      .get(`${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US`)
-      .then((res) => {
-        const mResults = res.data;
-        setTv(mResults);
-        setInitialLoading(false);
-      });
   };
 
   return (
@@ -108,9 +110,9 @@ const TvBanner = (props) => {
           <CommonBanner type="tv" content={Tv} />
           {/* details/review header */}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
           >
-            <div className="details-navigation-container pl-6 text-lg">
+            <div className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}>
               <div className="details-navigation">
                 <ul className="flex gap-4">
                   <li
@@ -134,20 +136,42 @@ const TvBanner = (props) => {
                   >
                     Reviews
                   </li>
+                  <li
+                    className={`cursor-pointer ${
+                      activeTab === "snapshots"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    onClick={() => handleTabClick("snapshots")}
+                  >
+                    Snapshots
+                  </li>
                 </ul>
               </div>
             </div>
           </section>
-          {activeTab === 'details' && (
-            <Details type='tv' Tv={Tv} title='details' />
+          {activeTab === "snapshots" && (
+            <Details type="tv" title="snapshots" Images={Images} />
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          {activeTab === "details" && (
+            <Details type="tv" Tv={Tv} title="details" />
+          )}
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              isValidURL={isValidURL}
+              reviews={reviews}
+            />
           )}
           <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-dimWhite pt-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
-            <div className="flex gap-4 flex-row flex-wrap items-center px-4">
+            {/* <div className={`${styles.boxWidth}`}> */}
+            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}>
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
@@ -168,7 +192,7 @@ const TvBanner = (props) => {
             </div>
             <div>
               {selectedSeason && Episodes && (
-                <div className="flex p-8 flex-col w-full">
+                <div className={`${styles.boxWidth} flex p-8 flex-col w-full`}>
                   {Episodes.episodes
                     .slice(0, visibleEpisodes)
                     .map((episode) => (
@@ -242,6 +266,7 @@ const TvBanner = (props) => {
                 </div>
               )}
             </div>
+            {/* </div> */}
           </section>
         </>
       ) : (
