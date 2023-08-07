@@ -228,7 +228,7 @@ const TvBanner = (props) => {
                       activeTab === "videos"
                         ? "border-b-2 border-slate-900 dark:border-white"
                         : ""
-                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    } ${styles.heading4} hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
                     onClick={() => handleTabClick("videos")}
                   >
                     Videos
