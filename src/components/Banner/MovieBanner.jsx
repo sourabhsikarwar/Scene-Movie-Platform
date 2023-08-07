@@ -10,6 +10,8 @@ import Youtube from "react-youtube";
 import Details from "./Details";
 import CommonBanner from "./CommonBanner";
 
+
+
 const MovieBanner = (props) => {
   const { movieId, title } = useParams();
   const [Movies, setMovies] = useState({});
