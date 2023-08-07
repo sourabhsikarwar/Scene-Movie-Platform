@@ -84,19 +84,6 @@ const TvBanner = (props) => {
     }
   };
 
-  // const getEpisodes = async (id, sid) => {
-  //   await axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
-  //     )
-  //     .then((res) => {
-  //       const results = res.data;
-  //       setEpisodes(results);
-  //       setSelectedSeason(sid + 1);
-  //       setInitialLoading(false);
-  //     });
-  // };
-
   const update = async () => {
     setInitialLoading(true);
     await axios
