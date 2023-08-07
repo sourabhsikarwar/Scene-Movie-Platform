@@ -10,9 +10,7 @@ import "@splidejs/react-splide/css";
 import Youtube from "react-youtube";
 import Details from "./Details";
 import CommonBanner from "./CommonBanner";
-import { Splide } from "@splidejs/react-splide";
-import { SplideSlide } from "@splidejs/react-splide";
-import Youtube from "react-youtube";
+
 
 
 const MovieBanner = (props) => {
