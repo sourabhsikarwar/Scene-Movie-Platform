@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../../style";
-import Star from "../../assets/image/star.webp";
 import CircleRating from "../circleRating/CircleRating";
 import dayjs from "dayjs";
 
@@ -25,13 +24,12 @@ const MovieCard = (props) => {
               >
                 <div className="w-full opacity-90 text-white text-md font-medium mt-2">
                   <p>{props.movie.name}</p>
-                  <div style={{ marginBottom: "-30px", display: "flex" }}>
+                  <div className="flex mb-[-30px]">
                     <CircleRating
                       rating={props.movie.vote_average.toFixed(1)}
                     />
                     <span
-                      className=" right-3date text-dimWhite font-normal text-xs"
-                      style={{ paddingLeft: "20px" }}
+                      className="pl-[20px] right-3date text-dimWhite font-normal text-xs"
                     >
                       {dayjs(props.movie.release_date).format("MMM D, YYYY")}
                     </span>
@@ -57,13 +55,12 @@ const MovieCard = (props) => {
               >
                 <div className="w-full opacity-90 text-white text-md font-medium mt-2">
                   <p className="mb-2">{props.movie.title}</p>
-                  <div style={{ marginBottom: "-30px", display: "flex" }}>
+                  <div className="flex mb-[-30px]">
                     <CircleRating
                       rating={props.movie.vote_average.toFixed(1)}
                     />
                     <span
-                      className=" right-3date text-dimWhite font-normal text-xs"
-                      style={{ paddingLeft: "20px" }}
+                      className="pl-[20px] right-3date text-dimWhite font-normal text-xs"
                     >
                       {dayjs(props.movie.release_date).format("MMM D, YYYY")}
                     </span>

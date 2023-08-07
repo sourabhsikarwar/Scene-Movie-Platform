@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Oval } from "react-loader-spinner";
-import "../SingleMovieCast/style.css";
 import { useParams } from "react-router-dom";
 import styles from "../../style";
 import axios from "axios";
@@ -16,6 +15,7 @@ const TvBanner = (props) => {
   const [Tv, setTv] = useState({});
   const [reviews, setReviews] = useState({});
   const [Images, setImages] = useState({});
+  const [videos, setVideos] = useState({});
   const [visibleReviews, setVisibleReviews] = useState(4);
   const [expandedReviews, setExpandedReviews] = useState({});
   const [activeTab, setActiveTab] = useState("details");
@@ -37,10 +37,6 @@ const TvBanner = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     update();
-  }, [tvId]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
     getImages();
   }, [tvId]);
 
@@ -105,10 +101,20 @@ const TvBanner = (props) => {
     setInitialLoading(true);
     await axios
       .get(
-        `${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US&append_to_response=reviews`
+        `${MOVIE_API}/tv/${props.id}?api_key=${apiKey}&language=en-US&append_to_response=reviews,videos`
       )
       .then((res) => {
         const mResults = res.data;
+        const filteredVideos = mResults.videos.results.filter(
+          (video) =>
+            video.type === "Trailer" ||
+            video.type === "Teaser" ||
+            video.type === "Official Teaser" ||
+            video.type === "Main Trailer" ||
+            video.type === "Featurette" ||
+            video.type === "Clip"
+        );
+        setVideos(filteredVideos);
         setTv(mResults);
         setReviews(mResults.reviews.results);
         setInitialLoading(false);
@@ -217,6 +223,16 @@ const TvBanner = (props) => {
                   >
                     Snapshots
                   </li>
+                  <li
+                    className={`cursor-pointer ${
+                      activeTab === "videos"
+                        ? "border-b-2 border-slate-900 dark:border-white"
+                        : ""
+                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    onClick={() => handleTabClick("videos")}
+                  >
+                    Videos
+                  </li>
                 </ul>
                 <div className="flex items-center">
                   {!displayDetails && (
@@ -238,19 +254,47 @@ const TvBanner = (props) => {
           {activeTab === "snapshots" && (
             <Details type="tv" title="snapshots" Images={Images} />
           )}
-          {activeTab === "details" && (
-            <Details type="tv" Tv={Tv} title="details" />
+          {activeTab === 'details' && (
+            <Details type='tv' Tv={Tv} title='details' />
           )}
-          {activeTab === "reviews" && (
-            <Details
-              title="reviews"
-              visibleReviews={visibleReviews}
-              expandedReviews={expandedReviews}
-              handleToggleExpand={handleToggleExpand}
-              handleToggleVisibleReviews={handleToggleVisibleReviews}
-              isValidURL={isValidURL}
-              reviews={reviews}
-            />
+          {activeTab === 'reviews' && (
+            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          )}
+          {activeTab === 'videos' && (
+            <section
+            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+          >
+            <h2
+              className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+            >
+              Videos
+            </h2>
+            <div className="justify-center">
+              <Splide options={splideOptions}>
+                {videos.slice(0, 10).map((video) => (
+                  <SplideSlide key={video.key} style={{ padding: "20px" }}>
+                    <Youtube
+                      videoId={video.key}
+                      className={"youtube amru videos"}
+                      containerClassName={"youtube-container amru"}
+                      opts={{
+                        playerVars: {
+                          autoplay: 0,
+                          controls: 0,
+                          cc_load_policy: 0,
+                          fs: 0,
+                          iv_load_policy: 0,
+                          modestbranding: 0,
+                          rel: 0,
+                          showinfo: 0,
+                        },
+                      }}
+                    />
+                  </SplideSlide>
+                ))}
+              </Splide>
+            </div>
+          </section>
           )}
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
@@ -311,7 +355,7 @@ const TvBanner = (props) => {
             )}
             {EpisodeVideosDisplay && (
               EpisodeVideos.length > 0 ? (
-                <div>
+                <div className={`${styles.boxWidth}`}>
                   <div className="justify-center">
                     <Splide options={splideOptions}>
                       {EpisodeVideos.map((video) => (

@@ -69,8 +69,7 @@ const Contributor = () => {
           return (
             <div
               key={contributor.id}
-              style={{ padding: "30px" }}
-              className="flex flex-col items-center space-y-4 text-center divide-y divide-gray-700 hover:shadow-lg transition-shadow hover:dark:text-violet-400"
+              className="flex flex-col p-[30px] items-center space-y-4 text-center divide-y divide-gray-700 hover:shadow-lg transition-shadow hover:dark:text-violet-400"
             >
               <img
                 src={contributor.avatar_url}
