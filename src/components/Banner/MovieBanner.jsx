@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Oval } from "react-loader-spinner";
-import "../SingleMovieCast/style.css";
 import { useParams } from "react-router-dom";
 import fetchData from "../../helper/fetchData";
 import styles from "../../style";
