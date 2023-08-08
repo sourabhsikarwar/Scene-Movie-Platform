@@ -7,6 +7,7 @@ import axios from "axios";
 const CommonBanner = (props) => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
+  const [tvPlaying, setTvPlaying] = useState(false);
   const [trailer, setTrailer] = useState(null);
   const [showFullContent, setShowFullContent] = useState(false);
 
@@ -34,6 +35,12 @@ const CommonBanner = (props) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleTvTrailer = async () => {
+    setInitialLoading(true);
+    setTvPlaying(true);
+    setInitialLoading(false);
   };
 
   const handleTrailer = async () => {
@@ -254,29 +261,71 @@ const CommonBanner = (props) => {
                         Episodes:&nbsp;{props.content.number_of_episodes}
                       </div>
                     </div>
-                    <p
-                      className={`text-black sm:text-white mb-3 sm:mb-1 dark:text-white font-light leading-5 text-base md:text-lg lg:text-xl text-left`}
-                    >
-                      {showFullContent || props.content.overview.length < 200
-                        ? props.content.overview
-                        : props.content.overview.slice(0, 250) + " ..... "}
-                      {props.content.overview.length > 250 &&
-                        (showFullContent ? (
+                    {tvPlaying ? (
+                      <div className="trailer-container sm:pl-0">
+                        <Youtube
+                          videoId={props.tvTrailer.key}
+                          className={"youtube amru"}
+                          containerClassName={"youtube-container amru"}
+                          opts={{
+                            playerVars: {
+                              autoplay: 1,
+                              controls: 0,
+                              cc_load_policy: 0,
+                              fs: 0,
+                              iv_load_policy: 0,
+                              modestbranding: 0,
+                              rel: 0,
+                              showinfo: 0,
+                            },
+                          }}
+                        />
+                        <button
+                          onClick={() => setTvPlaying(false)}
+                          className={"button close-video"}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <p
+                          className={`text-black sm:text-white mb-3 sm:mb-1 dark:text-white font-light leading-5 text-base md:text-lg lg:text-xl text-left`}
+                        >
+                          {showFullContent ||
+                          props.content.overview.length < 200
+                            ? props.content.overview
+                            : props.content.overview.slice(0, 250) + " ..... "}
+                          {props.content.overview.length > 250 &&
+                            (showFullContent ? (
+                              <button
+                                className="text-zinc-500 font-medium"
+                                onClick={toggleContentOverview}
+                              >
+                                &nbsp;read less
+                              </button>
+                            ) : (
+                              <button
+                                className="text-zinc-500 font-medium"
+                                onClick={toggleContentOverview}
+                              >
+                                &nbsp;read more
+                              </button>
+                            ))}
+                        </p>
+                        <div className="flex my-4 sm:pl-0">
                           <button
-                            className="text-zinc-500 font-medium"
-                            onClick={toggleContentOverview}
+                            onClick={handleTvTrailer}
+                            className="flex bg-blue-gradient text-black border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded"
                           >
-                            &nbsp;read less
+                            Watch
                           </button>
-                        ) : (
-                          <button
-                            className="text-zinc-500 font-medium"
-                            onClick={toggleContentOverview}
-                          >
-                            &nbsp;read more
+                          <button className="rounded-full w-10 h-10 bg-white hover:bg-gray-100 duration-200 p-0 border-0 inline-flex items-center justify-center text-red-500 ml-4">
+                            <ion-icon name="heart"></ion-icon>
                           </button>
-                        ))}
-                    </p>
+                        </div>
+                      </>
+                    )}
                   </>
                 )}
               </div>

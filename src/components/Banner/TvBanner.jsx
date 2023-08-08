@@ -15,6 +15,7 @@ const TvBanner = (props) => {
   const [Tv, setTv] = useState({});
   const [reviews, setReviews] = useState({});
   const [Images, setImages] = useState({});
+  const [tvTrailer, setTvTrailer] = useState(null);
   const [videos, setVideos] = useState({});
   const [visibleReviews, setVisibleReviews] = useState(4);
   const [expandedReviews, setExpandedReviews] = useState({});
@@ -76,9 +77,16 @@ const TvBanner = (props) => {
             video.type === "Featurette" ||
             video.type === "Clip"
         );
+        const tvtrailer = mResults.videos.results.find(
+          (vid) =>
+            vid.name === "Official Trailer" ||
+            vid.name === "Official Teaser" ||
+            vid.name === "Main Trailer"
+        );
+        setTvTrailer(tvtrailer ? tvtrailer : mResults.videos.results[0]);
         setVideos(filteredVideos);
         setTv(mResults);
-        setReviews(mResults.reviews.results);
+        setReviews(mResults.reviews.results[0]);
         setInitialLoading(false);
       });
   };
@@ -141,12 +149,14 @@ const TvBanner = (props) => {
     <>
       {!initialLoading ? (
         <>
-          <CommonBanner type="tv" content={Tv} />
+          <CommonBanner type="tv" content={Tv} tvTrailer={tvTrailer} />
           {/* details/review header */}
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
           >
-            <div className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}>
+            <div
+              className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}
+            >
               <div className="details-navigation">
                 <ul className="flex gap-4">
                   <li
@@ -197,53 +207,62 @@ const TvBanner = (props) => {
           {activeTab === "snapshots" && (
             <Details type="tv" title="snapshots" Images={Images} />
           )}
-          {activeTab === 'details' && (
-            <Details type='tv' Tv={Tv} title='details' />
+          {activeTab === "details" && (
+            <Details type="tv" Tv={Tv} title="details" />
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              isValidURL={isValidURL}
+              reviews={reviews}
+            />
           )}
-          {activeTab === 'videos' && (
+          {activeTab === "videos" && (
             <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
-          >
-            <h2
-              className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
             >
-              Videos
-            </h2>
-            <div className="justify-center">
-              <Splide options={splideOptions}>
-                {videos.slice(0, 10).map((video) => (
-                  <SplideSlide key={video.key} style={{ padding: "20px" }}>
-                    <Youtube
-                      videoId={video.key}
-                      className={"youtube amru videos"}
-                      containerClassName={"youtube-container amru"}
-                      opts={{
-                        playerVars: {
-                          autoplay: 0,
-                          controls: 0,
-                          cc_load_policy: 0,
-                          fs: 0,
-                          iv_load_policy: 0,
-                          modestbranding: 0,
-                          rel: 0,
-                          showinfo: 0,
-                        },
-                      }}
-                    />
-                  </SplideSlide>
-                ))}
-              </Splide>
-            </div>
-          </section>
+              <h2
+                className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              >
+                Videos
+              </h2>
+              <div className="justify-center">
+                <Splide options={splideOptions}>
+                  {videos.slice(0, 10).map((video) => (
+                    <SplideSlide key={video.key} style={{ padding: "20px" }}>
+                      <Youtube
+                        videoId={video.key}
+                        className={"youtube amru videos"}
+                        containerClassName={"youtube-container amru"}
+                        opts={{
+                          playerVars: {
+                            autoplay: 0,
+                            controls: 0,
+                            cc_load_policy: 0,
+                            fs: 0,
+                            iv_load_policy: 0,
+                            modestbranding: 0,
+                            rel: 0,
+                            showinfo: 0,
+                          },
+                        }}
+                      />
+                    </SplideSlide>
+                  ))}
+                </Splide>
+              </div>
+            </section>
           )}
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
-            {/* <div className={`${styles.boxWidth}`}> */}
-            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}>
+            <div
+              className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}
+            >
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
@@ -338,7 +357,6 @@ const TvBanner = (props) => {
                 </div>
               )}
             </div>
-            {/* </div> */}
           </section>
         </>
       ) : (
