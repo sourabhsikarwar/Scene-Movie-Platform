@@ -285,7 +285,6 @@ const Details = (props) => {
                     <button
                       onClick={props.handleToggleVisibleReviews}
                       className="flex border-2 rounded-3xl py-2 px-4 border-sky-700 text-sky-700 dark:border-sky-700	dark:text-sky-500	"
-                      style={{}}
                     >
                       {props.visibleReviews === 4 ? "See More" : "See Less"}
                     </button>

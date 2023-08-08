@@ -141,7 +141,7 @@ const CommonBanner = (props) => {
                       </span>
                     </div>
                     <div className="flex flex-row justify-between items-start md:text-lg lg:text-xl text-gray-300 mb-1">
-                      <div className="text-black dark:text-white mb-3 md:mb-4">
+                      <div className="text-black sm:text-white dark:text-white mb-3 md:mb-4">
                         {props.content.release_date.split("-")[0]}
                         <span className="mx-2">|</span>
                         {props.content.genres[0].name}
