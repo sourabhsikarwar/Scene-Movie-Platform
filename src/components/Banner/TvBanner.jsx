@@ -146,7 +146,9 @@ const TvBanner = (props) => {
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
           >
-            <div className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}>
+            <div
+              className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}
+            >
               <div className="details-navigation">
                 <ul className="flex gap-4">
                   <li
@@ -197,53 +199,62 @@ const TvBanner = (props) => {
           {activeTab === "snapshots" && (
             <Details type="tv" title="snapshots" Images={Images} />
           )}
-          {activeTab === 'details' && (
-            <Details type='tv' Tv={Tv} title='details' />
+          {activeTab === "details" && (
+            <Details type="tv" Tv={Tv} title="details" />
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              isValidURL={isValidURL}
+              reviews={reviews}
+            />
           )}
-          {activeTab === 'videos' && (
+          {activeTab === "videos" && (
             <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
-          >
-            <h2
-              className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
             >
-              Videos
-            </h2>
-            <div className="justify-center">
-              <Splide options={splideOptions}>
-                {videos.slice(0, 10).map((video) => (
-                  <SplideSlide key={video.key} style={{ padding: "20px" }}>
-                    <Youtube
-                      videoId={video.key}
-                      className={"youtube amru videos"}
-                      containerClassName={"youtube-container amru"}
-                      opts={{
-                        playerVars: {
-                          autoplay: 0,
-                          controls: 0,
-                          cc_load_policy: 0,
-                          fs: 0,
-                          iv_load_policy: 0,
-                          modestbranding: 0,
-                          rel: 0,
-                          showinfo: 0,
-                        },
-                      }}
-                    />
-                  </SplideSlide>
-                ))}
-              </Splide>
-            </div>
-          </section>
+              <h2
+                className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              >
+                Videos
+              </h2>
+              <div className="justify-center">
+                <Splide options={splideOptions}>
+                  {videos.slice(0, 10).map((video) => (
+                    <SplideSlide key={video.key} style={{ padding: "20px" }}>
+                      <Youtube
+                        videoId={video.key}
+                        className={"youtube amru videos"}
+                        containerClassName={"youtube-container amru"}
+                        opts={{
+                          playerVars: {
+                            autoplay: 0,
+                            controls: 0,
+                            cc_load_policy: 0,
+                            fs: 0,
+                            iv_load_policy: 0,
+                            modestbranding: 0,
+                            rel: 0,
+                            showinfo: 0,
+                          },
+                        }}
+                      />
+                    </SplideSlide>
+                  ))}
+                </Splide>
+              </div>
+            </section>
           )}
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
-            {/* <div className={`${styles.boxWidth}`}> */}
-            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}>
+            <div
+              className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}
+            >
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
@@ -285,10 +296,12 @@ const TvBanner = (props) => {
                             }}
                           ></div>
                           <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
-                            <h2 className={`${styles.heading3}`}>
+                            <h2
+                              className={`${styles.heading3} text-xl sm:text-2xl`}
+                            >
                               {episode.name}
                             </h2>
-                            <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
+                            <div className="flex flex-row font-semibold text-sm sm:text-base md:text-xl text-center items-center pt-1 sm:pt-2">
                               {episode.season_number === 0 ? (
                                 <span>E{episode.episode_number}</span>
                               ) : (
@@ -320,7 +333,7 @@ const TvBanner = (props) => {
                                 <span>{Math.floor(episode.runtime % 60)}m</span>
                               )}
                             </div>
-                            <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
+                            <p className="text-gray-600 text-sm sm:text-base md:text-xl dark:text-dimWhite pt-1 sm:pt-2">
                               {episode.overview}
                             </p>
                           </div>
@@ -338,7 +351,6 @@ const TvBanner = (props) => {
                 </div>
               )}
             </div>
-            {/* </div> */}
           </section>
         </>
       ) : (
