@@ -29,7 +29,6 @@ const CommonBanner = (props) => {
         `https://api.themoviedb.org/3/tv/${props.content.id}/content_ratings?api_key=${apiKey}`
       );
       setContentRating(response.data.results);
-      // console.log(response.data.results)
       setInitialLoading(false);
     } catch (error) {
       console.log(error);

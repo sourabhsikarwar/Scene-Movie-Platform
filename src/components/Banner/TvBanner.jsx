@@ -3,9 +3,6 @@ import { Oval } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import styles from "../../style";
 import axios from "axios";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/react-splide/css";
-import Youtube from "react-youtube";
 import Details from "./Details";
 import CommonBanner from "./CommonBanner";
 
@@ -112,31 +109,6 @@ const TvBanner = (props) => {
     setActiveTab(tab);
   };
 
-  const splideOptions = {
-    type: "loop", // You can customize the options here based on your requirements.
-    perPage: 3,
-    perMove: 1,
-    pagination: false,
-    breakpoints: {
-      640: {
-        perPage: 1,
-      },
-      764: {
-        perPage: 2,
-      },
-      1024: {
-        perPage: 2,
-      },
-      1280: {
-        perPage: 3,
-      },
-      1400: {
-        perPage: 4,
-      },
-    },
-    arrows: true,
-  };
-
   return (
     <>
       {!initialLoading ? (
@@ -146,7 +118,9 @@ const TvBanner = (props) => {
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
           >
-            <div className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}>
+            <div
+              className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}
+            >
               <div className="details-navigation">
                 <ul className="flex gap-4">
                   <li
@@ -197,53 +171,27 @@ const TvBanner = (props) => {
           {activeTab === "snapshots" && (
             <Details type="tv" title="snapshots" Images={Images} />
           )}
-          {activeTab === 'details' && (
-            <Details type='tv' Tv={Tv} title='details' />
+          {activeTab === "details" && (
+            <Details type="tv" Tv={Tv} title="details" />
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              isValidURL={isValidURL}
+              reviews={reviews}
+            />
           )}
-          {activeTab === 'videos' && (
-            <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
-          >
-            <h2
-              className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
-            >
-              Videos
-            </h2>
-            <div className="justify-center">
-              <Splide options={splideOptions}>
-                {videos.slice(0, 10).map((video) => (
-                  <SplideSlide key={video.key} style={{ padding: "20px" }}>
-                    <Youtube
-                      videoId={video.key}
-                      className={"youtube amru videos"}
-                      containerClassName={"youtube-container amru"}
-                      opts={{
-                        playerVars: {
-                          autoplay: 0,
-                          controls: 0,
-                          cc_load_policy: 0,
-                          fs: 0,
-                          iv_load_policy: 0,
-                          modestbranding: 0,
-                          rel: 0,
-                          showinfo: 0,
-                        },
-                      }}
-                    />
-                  </SplideSlide>
-                ))}
-              </Splide>
-            </div>
-          </section>
-          )}
+          {activeTab === "videos" && <Details title="video" videos={videos} />}
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
-            {/* <div className={`${styles.boxWidth}`}> */}
-            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}>
+            <div
+              className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}
+            >
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
@@ -338,7 +286,6 @@ const TvBanner = (props) => {
                 </div>
               )}
             </div>
-            {/* </div> */}
           </section>
         </>
       ) : (
