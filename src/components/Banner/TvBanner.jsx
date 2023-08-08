@@ -301,7 +301,7 @@ const TvBanner = (props) => {
                             >
                               {episode.name}
                             </h2>
-                            <div className="flex flex-row font-semibold text-sm sm:text-base md:text-xl text-center items-center pt-1 sm:pt-2">
+                            <div className="flex flex-row font-semibold text-xs sm:text-base md:text-xl text-center items-center pt-1 sm:pt-2">
                               {episode.season_number === 0 ? (
                                 <span>E{episode.episode_number}</span>
                               ) : (
@@ -333,7 +333,7 @@ const TvBanner = (props) => {
                                 <span>{Math.floor(episode.runtime % 60)}m</span>
                               )}
                             </div>
-                            <p className="text-gray-600 text-sm sm:text-base md:text-xl dark:text-dimWhite pt-1 sm:pt-2">
+                            <p className="text-gray-600 text-xs sm:text-base md:text-xl dark:text-dimWhite pt-1 sm:pt-2">
                               {episode.overview}
                             </p>
                           </div>
