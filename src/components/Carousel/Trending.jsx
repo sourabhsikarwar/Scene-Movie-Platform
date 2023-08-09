@@ -66,179 +66,74 @@ const Trending = (props) => {
       {!initialLoading ? (
         <div className={`${styles.boxWidth} py-4`}>
           {" "}
-          {props.type === "movie" ? (
-            <>
-              <div className="flex justify-between items-center px-4">
-                {props.title === "Trending" ? (
-                  <h2
-                    className={`${styles.heading3} text-gray-900 dark:text-white`}
-                  >
-                    {props.title + " " + props.head}
-                  </h2>
-                ) : (
-                  <h2
-                    className={`${styles.heading3} text-gray-900 dark:text-white`}
-                  >
-                    {props.title}
-                  </h2>
-                )}
-                <p className="">
-                  <Link
-                    className={`${styles.paragraph} text-gray-900 dark:text-dimWhite dark:hover:text-white duration-200`}
-                    to={"/category/movie/" + props.title + "/" + props.id}
-                  >
-                    Show all
-                  </Link>
-                </p>
-              </div>
-              <Splide
-                options={{
-                  type: "loop",
-                  perPage: "6",
-                  pagination: false,
-                  breakpoints: {
-                    400: {
-                      perPage: 2,
-                    },
-                    764: {
-                      perPage: 3,
-                    },
-                    1024: {
-                      perPage: 4,
-                    },
-                    1280: {
-                      perPage: 5,
-                    },
-                    1400: {
-                      perPage: 6,
-                    },
-                  },
-                }}
-                aria-label="My Favorite Images"
-                className="justify-center"
+          <div className="flex justify-between items-center px-4">
+            <h2 className={`${styles.heading3} text-gray-900 dark:text-white`}>
+              {props.title}
+            </h2>
+            <p className="">
+              <Link
+                className={`${styles.paragraph} text-gray-900 dark:text-dimWhite dark:hover:text-white duration-200`}
+                to={`/category/${props.type}/${props.title}/${props.id}`}
               >
-                {Movies.map((movie) => {
-                  return (
-                    <SplideSlide key={movie.id}>
-                      <MovieCard type="movie" movie={movie} />
-                    </SplideSlide>
-                  );
-                })}
-              </Splide>{" "}
-            </>
-          ) : (
-            ""
-          )}
-          {props.type === "tv" ? (
-            <>
-              <div className="flex justify-between items-center px-4">
-                <h2
-                  className={`${styles.heading3} text-gray-900 dark:text-white`}
-                >
-                  {props.type === "tv" && props.title === "Trending"
-                    ? props.title + " " + props.head
-                    : props.title}
-                </h2>
-                <p className="">
-                  <Link
-                    className={`${styles.paragraph} text-gray-900 dark:text-dimWhite dark:hover:text-white duration-200`}
-                    to={"/category/tv/" + props.title + "/" + props.id}
-                  >
-                    Show all
-                  </Link>
-                </p>
-              </div>
-              <Splide
-                options={{
-                  type: "loop",
-                  perPage: "6",
-                  pagination: false,
-                  breakpoints: {
-                    400: {
-                      perPage: 2,
-                    },
-                    764: {
-                      perPage: 3,
-                    },
-                    1024: {
-                      perPage: 4,
-                    },
-                    1280: {
-                      perPage: 5,
-                    },
-                    1400: {
-                      perPage: 6,
-                    },
-                  },
-                }}
-                aria-label="My Favorite Images"
-                className="justify-center"
-              >
-                {Tv.map((movie) => {
-                  return (
-                    <SplideSlide key={movie.id}>
-                      <MovieCard type="tv" movie={movie} />
-                    </SplideSlide>
-                  );
-                })}
-              </Splide>{" "}
-            </>
-          ) : (
-            ""
-          )}
-          {props.type === "airingtoday" && (
-            <>
-              <div className="flex justify-between items-center px-4">
-                <h2
-                  className={`${styles.heading3} text-gray-900 dark:text-white`}
-                >
-                  Airing Today
-                </h2>
-                <p className="">
-                  <Link
-                    className={`${styles.paragraph} text-gray-900 dark:text-dimWhite dark:hover:text-white duration-200`}
-                    to={"/category/tv/" + props.title + "/" + props.id}
-                  >
-                    Show all
-                  </Link>
-                </p>
-              </div>
-              <Splide
-                options={{
-                  type: "loop",
-                  perPage: "6",
-                  pagination: false,
-                  breakpoints: {
-                    400: {
-                      perPage: 2,
-                    },
-                    764: {
-                      perPage: 3,
-                    },
-                    1024: {
-                      perPage: 4,
-                    },
-                    1280: {
-                      perPage: 5,
-                    },
-                    1400: {
-                      perPage: 6,
-                    },
-                  },
-                }}
-                aria-label="My Favorite Images"
-                className="justify-center"
-              >
-                {props.data.map((movie) => {
-                  return (
-                    <SplideSlide key={movie.id}>
-                      <MovieCard type="airingtoday" movie={movie} />
-                    </SplideSlide>
-                  );
-                })}
-              </Splide>{" "}
-            </>
-          )}
+                Show all
+              </Link>
+            </p>
+          </div>
+          <Splide
+            options={{
+              type: "loop",
+              perPage: "6",
+              pagination: false,
+              breakpoints: {
+                400: {
+                  perPage: 2,
+                },
+                764: {
+                  perPage: 3,
+                },
+                1024: {
+                  perPage: 4,
+                },
+                1280: {
+                  perPage: 5,
+                },
+                1400: {
+                  perPage: 6,
+                },
+              },
+            }}
+            aria-label="My Favorite Images"
+            className="justify-center"
+          >
+            {props.type === "movie" &&
+              Movies.map((movie) => {
+                return (
+                  <SplideSlide key={movie.id}>
+                    <MovieCard
+                      type={props.type}
+                      movie={movie}
+                      title={movie.title}
+                    />
+                  </SplideSlide>
+                );
+              })}
+            {props.type === "tv" &&
+              Tv.map((movie) => {
+                return (
+                  <SplideSlide key={movie.id}>
+                    <MovieCard type="tv" movie={movie} title={movie.name} />
+                  </SplideSlide>
+                );
+              })}
+            {props.type === "airingtoday" &&
+              props.data.map((movie) => {
+                return (
+                  <SplideSlide key={movie.id}>
+                    <MovieCard type="tv" movie={movie} title={movie.name} />
+                  </SplideSlide>
+                );
+              })}
+          </Splide>
         </div>
       ) : (
         <div className="flex justify-center py-8">

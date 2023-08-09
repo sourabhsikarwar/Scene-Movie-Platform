@@ -73,6 +73,10 @@ const Contributor = () => {
             style={{ padding: "30px" }}
             className="flex flex-col items-center space-y-4 text-center divide-y divide-gray-700 border-solid border-2 border-gray-700 cursor-pointer transition-1s hover:border-blue-700 hover:bg-slate-800"
           >
+ key={contributor.id}
+              className="flex flex-col p-[30px] items-center space-y-4 text-center divide-y divide-gray-700 hover:shadow-lg transition-shadow hover:dark:text-violet-400"
+            >
+
               <img
                 src={contributor.avatar_url}
                 alt={contributor.login}

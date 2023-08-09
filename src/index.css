@@ -105,6 +105,16 @@ input:-webkit-autofill:active {
   opacity: 1 !important;
 }
 
+@media screen and (max-width: 500px) {
+  .splide__arrow{
+    margin-top: 10px !important;
+  }
+  .splide__arrow--prev{
+    left: 2px !important;
+
+  }
+}
+
 .bg-black-gradient {
   background: rgb(27, 25, 25);
   background: linear-gradient(
@@ -248,6 +258,26 @@ input:-webkit-autofill:active {
   margin:0 auto 10% auto;
 }
 
+/* Customize the scroll bar track */
+.navbar-style::-webkit-scrollbar {
+  width: 6px;
+}
+
+.navbar-style::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Customize the scroll bar thumb */
+.navbar-style::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3); 
+  border-radius: 3px; 
+}
+
+/* Remove the arrows from the scroll bar */
+.navbar-style::-webkit-scrollbar-button {
+  display: none;
+}
+
 /* content toggle button */
 .content-toggle {
   right: 1rem;
@@ -256,7 +286,15 @@ input:-webkit-autofill:active {
   transform: translateY(-2rem,0);
 }
 
-@media screen and (max-width: 500px) {
+/* Video clips styling */
+
+.videos iframe {
+  width: 100%;
+  border-radius: 14px;
+}
+
+/* Additional styling for smaller devices */
+@media screen and (max-width: 640px) {
   .error-container .ops {
     width: 90%;
   }
@@ -266,40 +304,6 @@ input:-webkit-autofill:active {
   .error-container h3 {
     font-size: 14px;
   }
-  
-}
-
-/* @media screen and (max-width: 650px) {
-  .youtube iframe {
-    width: 100% !important;
-    height: 100% !important;
-  }
-  
-}
-.error-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  justify-content: center; 
-  align-items: center;
-  gap: 10px;
-}
-
-.error-text {
-  text-align: left; 
-  padding: 10% 0 10% 20%;
-  font-weight: bold;
-}
-
-.error-text h1 {
-  color: white;
-  font-size: 4vw; 
-  font-weight: bold;
-  line-height: 1.2; 
-  margin-bottom: 20px;
-}
-
-/* Additional styling for smaller devices */
-@media screen and (max-width: 600px) {
   .error-text h1 {
     font-size: 8vw; /* Set a different font size for smaller devices */
   }
@@ -314,7 +318,50 @@ input:-webkit-autofill:active {
     text-align: center; 
     padding: 5%;
   }
+  .trailer-container {
+    margin-top: 10px;
+  }
+  .trailer-container .youtube {
+    height: 250px;
+  }
+  .trailer-container .youtube iframe {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .main-container {
+    flex-direction: column-reverse !important;
+  }
+  .img-container-outer {
+    padding-bottom: 55%;
+    position: relative;
+  }
+  .info-container-inner {width: 100%;}
+  .img-container {
+    right: 0 !important;
+  }
+  .main-container .info-container::after {
+    background: none !important;
+    content: none !important;
+  }
+  .info-container {padding-bottom: 10px !important;}
 }
+
+@media screen and (min-width: 640px) {
+  .section-movie-banner {
+    background-color: #1a1a1a;
+  }
+  .info-container {width: 60%;}
+  .trailer-container .youtube iframe {
+    width: 160%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .trailer-container .youtube iframe {
+    width: 220%;
+  }
+}
+
 .main-container .info-container::after {
   background: linear-gradient(
     90deg,
@@ -351,4 +398,8 @@ input:-webkit-autofill:active {
   height: 10px;
   width: 10px;
   border-radius: 50%;
+}
+
+.alan-btn__chat-holder{
+  max-height: 520px !important;
 }
