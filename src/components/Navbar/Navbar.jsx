@@ -12,8 +12,9 @@ const Navbar = ({ handleThemeSwitch }) => {
   const { user } = useUserAuth();
   const location = useLocation();
   const navbarRef = useRef(null);
-  const [check, setCheck] = useState(false);
+
   const [dropdownOpen, setDropdownOpen] = useState(false); // Track the visibility of the movie dropdown
+  const [check, setCheck] = useState(true); // Set this to true to activate dark mode by default
 
   // Function to handle clicks links of the navbar
   const handleNavbarLinkClick = () => {
@@ -74,8 +75,8 @@ const Navbar = ({ handleThemeSwitch }) => {
                 htmlFor="checkbox"
                 className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border"
               >
-                <FaMoon color="f1c40f" />
-                <FaSun color="f39c12" />
+                <FaMoon color="#000A" />
+                <FaSun color="#000A" />
                 <span
                   className={`bg-secondary opacity-40 absolute w-6 h-7 right-8 rounded-full transition-transform ${
                     !check ? "translate-x-8" : "translate-x-0"
@@ -172,8 +173,8 @@ const Navbar = ({ handleThemeSwitch }) => {
               htmlFor="mobileCheckbox"
               className="cursor-pointer flex justify-between items-center w-14 h-7 rounded-full relative p-1 bg-gray-100 border"
             >
-              <FaMoon color="f1c40f" />
-              <FaSun color="f39c12" />
+              <FaMoon color="000b" />
+              <FaSun color="000b" />
               <span
                 className={`bg-secondary opacity-40 absolute w-6 h-7 right-8 rounded-full transition-transform ${
                   !check ? "translate-x-8" : "translate-x-0"
