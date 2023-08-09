@@ -17,6 +17,7 @@ const Profile=lazy(()=>import('./components/Profile'));
 const Home=lazy(()=>import('./pages/Home'));
 const Movie=lazy(()=>import('./pages/Movie'));
 const Tv=lazy(()=>import('./pages/Tv'));
+const Episode=lazy(()=>import('./pages/Episode'));
 const Categories=lazy(()=>import('./pages/Categories'));
 const NotFound404=lazy(()=>import('./pages/NotFound404'));
 const Favourite=lazy(()=>import('./components/Favourite'));
@@ -164,6 +165,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Categories />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/tv/:tid/:sid/:eid/:name"
+            element={
+              <ProtectedRoute>
+                <Episode />
               </ProtectedRoute>
             }
           />
