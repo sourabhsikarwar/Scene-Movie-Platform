@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Oval } from "react-loader-spinner";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "../../style";
 import axios from "axios";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
@@ -146,7 +146,9 @@ const TvBanner = (props) => {
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
           >
-            <div className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}>
+            <div
+              className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}
+            >
               <div className="details-navigation">
                 <ul className="flex gap-4">
                   <li
@@ -197,53 +199,63 @@ const TvBanner = (props) => {
           {activeTab === "snapshots" && (
             <Details type="tv" title="snapshots" Images={Images} />
           )}
-          {activeTab === 'details' && (
-            <Details type='tv' Tv={Tv} title='details' />
+          {activeTab === "details" && (
+            <Details type="tv" Tv={Tv} title="details" />
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              isValidURL={isValidURL}
+              reviews={reviews}
+            />
           )}
-          {activeTab === 'videos' && (
+          {activeTab === "videos" && (
             <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
-          >
-            <h2
-              className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
             >
-              Videos
-            </h2>
-            <div className="justify-center">
-              <Splide options={splideOptions}>
-                {videos.slice(0, 10).map((video) => (
-                  <SplideSlide key={video.key} style={{ padding: "20px" }}>
-                    <Youtube
-                      videoId={video.key}
-                      className={"youtube amru videos"}
-                      containerClassName={"youtube-container amru"}
-                      opts={{
-                        playerVars: {
-                          autoplay: 0,
-                          controls: 0,
-                          cc_load_policy: 0,
-                          fs: 0,
-                          iv_load_policy: 0,
-                          modestbranding: 0,
-                          rel: 0,
-                          showinfo: 0,
-                        },
-                      }}
-                    />
-                  </SplideSlide>
-                ))}
-              </Splide>
-            </div>
-          </section>
+              <h2
+                className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              >
+                Videos
+              </h2>
+              <div className="justify-center">
+                <Splide options={splideOptions}>
+                  {videos.slice(0, 10).map((video) => (
+                    <SplideSlide key={video.key} style={{ padding: "20px" }}>
+                      <Youtube
+                        videoId={video.key}
+                        className={"youtube amru videos"}
+                        containerClassName={"youtube-container amru"}
+                        opts={{
+                          playerVars: {
+                            autoplay: 0,
+                            controls: 0,
+                            cc_load_policy: 0,
+                            fs: 0,
+                            iv_load_policy: 0,
+                            modestbranding: 0,
+                            rel: 0,
+                            showinfo: 0,
+                          },
+                        }}
+                      />
+                    </SplideSlide>
+                  ))}
+                </Splide>
+              </div>
+            </section>
           )}
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
             {/* <div className={`${styles.boxWidth}`}> */}
-            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}>
+            <div
+              className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}
+            >
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
@@ -268,64 +280,79 @@ const TvBanner = (props) => {
                   {Episodes.episodes
                     .slice(0, visibleEpisodes)
                     .map((episode) => (
-                      <div className="flex flex-col mb-12 sm:mb-8">
-                        <div className="flex flex-row gap-8">
-                          <div
-                            className="flex w-2/6 sm:w-1/4"
-                            style={{
-                              backgroundImage: `url(https://image.tmdb.org/t/p/w500${
-                                episode.still_path ??
-                                `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
-                              })`,
-                              backgroundSize: "cover",
-                              backgroundPosition: "center",
-                              backgroundBlendMode: "multiply",
-                              height: "150px",
-                              borderRadius: "10px",
-                            }}
-                          ></div>
-                          <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
-                            <h2 className={`${styles.heading3}`}>
-                              {episode.name}
-                            </h2>
-                            <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
-                              {episode.season_number === 0 ? (
-                                <span>E{episode.episode_number}</span>
-                              ) : (
-                                <>
-                                  <span>S{episode.season_number}&nbsp;</span>
+                      <Link
+                        to={
+                          "/tv/" +
+                          Tv.id +
+                          "/" +
+                          episode.season_number +
+                          "/" +
+                          episode.episode_number +
+                          "/" +
+                          episode.name
+                        }
+                      >
+                        <div className="flex flex-col mb-12 sm:mb-8">
+                          <div className="flex flex-row gap-8">
+                            <div
+                              className="flex w-2/6 sm:w-1/4"
+                              style={{
+                                backgroundImage: `url(https://image.tmdb.org/t/p/w500${
+                                  episode.still_path ??
+                                  `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
+                                })`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                backgroundBlendMode: "multiply",
+                                height: "150px",
+                                borderRadius: "10px",
+                              }}
+                            ></div>
+                            <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
+                              <h2 className={`${styles.heading3}`}>
+                                {episode.name}
+                              </h2>
+                              <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
+                                {episode.season_number === 0 ? (
                                   <span>E{episode.episode_number}</span>
-                                </>
-                              )}
-                              <span className="mx-2">|</span>
-                              {episode.air_date && (
-                                <>
-                                  <span className="">
-                                    {episode.air_date
-                                      .toString()
-                                      .split("-")
-                                      .reverse()
-                                      .join("-")}
+                                ) : (
+                                  <>
+                                    <span>S{episode.season_number}&nbsp;</span>
+                                    <span>E{episode.episode_number}</span>
+                                  </>
+                                )}
+                                <span className="mx-2">|</span>
+                                {episode.air_date && (
+                                  <>
+                                    <span className="">
+                                      {episode.air_date
+                                        .toString()
+                                        .split("-")
+                                        .reverse()
+                                        .join("-")}
+                                    </span>
+                                    <span className="mx-2">|</span>
+                                  </>
+                                )}
+                                {episode.runtime > 60 ||
+                                episode.runtime === 60 ? (
+                                  <span>
+                                    {Math.floor(episode.runtime / 60)}hr&nbsp;
+                                    {Math.floor(episode.runtime % 60)}m
                                   </span>
-                                  <span className="mx-2">|</span>
-                                </>
-                              )}
-                              {episode.runtime > 60 ||
-                              episode.runtime === 60 ? (
-                                <span>
-                                  {Math.floor(episode.runtime / 60)}hr&nbsp;
-                                  {Math.floor(episode.runtime % 60)}m
-                                </span>
-                              ) : (
-                                <span>{Math.floor(episode.runtime % 60)}m</span>
-                              )}
+                                ) : (
+                                  <span>
+                                    {Math.floor(episode.runtime % 60)}m
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
+                                {episode.overview}
+                              </p>
                             </div>
-                            <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
-                              {episode.overview}
-                            </p>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   {visibleEpisodes < Episodes.episodes.length && (
                     <button
