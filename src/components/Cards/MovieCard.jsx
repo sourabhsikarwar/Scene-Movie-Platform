@@ -104,7 +104,7 @@ const MovieCard = (props) => {
           </div>
         <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
           <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
-            <p className='' >{props.movie.title}</p>
+            <p className='' >{props.movie.name}</p>
           </div>
           <div style={{ marginBottom: '-38px', display:'flex' }}>
             <CircleRating rating={props.movie.vote_average.toFixed(1)} />
@@ -117,18 +117,12 @@ const MovieCard = (props) => {
             <Link to={'/movie/' + props.movie.title + '/' + props.movie.id}>
               <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
                 <p className=''>{props.movie.title}</p>
-                <p className='text-dimWhite font-normal text-xs mt-2'>
-                  {props.movie.vote_average}/10
-                </p>
               </div>
             </Link>
           ): (
             <Link to={'/tv/' + props.movie.name + '/' + props.movie.id}>
               <div className='w-full opacity-90 text-white text-md font-medium mt-2 '>
-                <p className=''>{props.movie.name}</p>
-                <p className='text-dimWhite font-normal text-xs mt-2'>
-                  {props.movie.vote_average}/10
-                </p>
+                {/* <p className=''>{props.movie.name}</p> */}
               </div>
             </Link>
           )}
