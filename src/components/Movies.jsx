@@ -46,7 +46,7 @@ function Movies(props) {
         return e
       })
   }
-  return (
+    return (
     <>
       {!initialLoading ? (
         <div className='bg-gray-200 text-gray-900 dark:bg-primary dark:text-white'>

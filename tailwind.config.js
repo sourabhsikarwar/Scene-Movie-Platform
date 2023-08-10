@@ -31,6 +31,9 @@ module.exports = {
           },
         }
       },
+      screens: {
+        'xs': '400px',
+      },
       animation: {
         'arrow-updown': 'updown 3s linear infinite',
       },

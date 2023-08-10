@@ -67,9 +67,9 @@ const MovieCard = (props) => {
 
   return (
     <>
-      <div className={`shadow flex my-4 p-3 group`} key={props.movie.id}>
+      <div className={`shadow flex my-4 p-3 group `} key={props.movie.id}>
         <div
-          className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
+          className={`${styles.MovieCard} relative flex justify-start items-end p-4 xs:p-0 duration-200 rounded-[6px]`}
           alt="movie poster"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original/${props.movie.poster_path}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
@@ -107,10 +107,11 @@ const MovieCard = (props) => {
               <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
                 <p className="mb-2">{props.title}</p>
               </div>
-              <div className="flex mb-[-38px]">
+              <div className=" mb-[-38px] flex xs:mb-[-20px]">
                 <CircleRating rating={props.movie.vote_average.toFixed(1)} />
                 <span
-                  className="pl-[20px] right-3date text-dimWhite font-normal text-xs"
+                  className="right-3date text-dimWhite font-normal text-xs xs:text-[10px]"
+                  
                 >
                   {dayjs(props.movie.release_date).format("MMM D, YYYY")}
                 </span>

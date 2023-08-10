@@ -26,7 +26,6 @@ const Home = () => {
     setInitialLoading(true);
     try {
       const response = await fetchData("get-all-genres", 1);
-      //  console.log('response:', response.data)
       if (response.success) {
         setGenreMovie(response.data.genres);
         setInitialLoading(false);
@@ -35,11 +34,9 @@ const Home = () => {
       console.log(error);
     }
   };
-
   useEffect(() => {
     uploadMovie();
   }, []);
-
   useEffect(() => {
     uploadTv();
   }, []);
