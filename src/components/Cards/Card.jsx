@@ -30,7 +30,7 @@ const MovieCard = (props) => {
               <div className="flex mb-[-30px]">
                 <CircleRating rating={props.movie.vote_average.toFixed(1)} />
                 <span className="pl-[20px] right-3date text-dimWhite font-normal text-xs">
-                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
+                  {dayjs(props.type=== 'movie' ? props.movie.release_date : props.movie.first_air_date).format("MMM D, YYYY")}
                 </span>
               </div>
             </div>

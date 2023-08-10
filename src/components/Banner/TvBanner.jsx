@@ -15,6 +15,7 @@ const TvBanner = (props) => {
   const [Tv, setTv] = useState({});
   const [reviews, setReviews] = useState({});
   const [Images, setImages] = useState({});
+  const [tvTrailer, setTvTrailer] = useState(null);
   const [videos, setVideos] = useState({});
   const [visibleReviews, setVisibleReviews] = useState(4);
   const [expandedReviews, setExpandedReviews] = useState({});
@@ -126,9 +127,16 @@ const TvBanner = (props) => {
             video.type === "Featurette" ||
             video.type === "Clip"
         );
+        const tvtrailer = mResults.videos.results.find(
+          (vid) =>
+            vid.name === "Official Trailer" ||
+            vid.name === "Official Teaser" ||
+            vid.name === "Main Trailer"
+        );
+        setTvTrailer(tvtrailer ? tvtrailer : mResults.videos.results[0]);
         setVideos(filteredVideos);
         setTv(mResults);
-        setReviews(mResults.reviews.results);
+        setReviews(mResults.reviews.results[0]);
         setInitialLoading(false);
       });
   };
@@ -171,7 +179,7 @@ const TvBanner = (props) => {
     <>
       {!initialLoading ? (
         <>
-          <CommonBanner type="tv" content={Tv} />
+          <CommonBanner type="tv" content={Tv} tvTrailer={tvTrailer} />
           {/* details/review header */}
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-white py-8 border-b border-gray-400 dark:border-gray-300`}
@@ -244,8 +252,16 @@ const TvBanner = (props) => {
           {activeTab === "details" && (
             <Details type="tv" Tv={Tv} title="details" />
           )}
-          {activeTab === 'reviews' && (
-            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
+          {activeTab === "reviews" && (
+            <Details
+              title="reviews"
+              visibleReviews={visibleReviews}
+              expandedReviews={expandedReviews}
+              handleToggleExpand={handleToggleExpand}
+              handleToggleVisibleReviews={handleToggleVisibleReviews}
+              isValidURL={isValidURL}
+              reviews={reviews}
+            />
           )}
           {activeTab === "videos" && <Details title="video" videos={videos} />}
           <section
