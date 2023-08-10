@@ -161,6 +161,15 @@ function App() {
           />
           <Route
             exact
+            path="/tv/:tid/:sid/:eid/:name"
+            element={
+              <ProtectedRoute>
+                <Episode />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
             path="/category/:content/:title/:id"
             element={
               <ProtectedRoute>
