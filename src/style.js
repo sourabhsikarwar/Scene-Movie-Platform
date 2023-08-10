@@ -7,6 +7,10 @@ const styles = {
     "font-poppins font-medium md:text-[36px] text-[24px] text-black dark:text-white leading-relaxed",
   heading3:
     "font-poppins font-medium md:text-[24px] text-[24px] leading-relaxed",
+  heading4:
+    "font-poppins font-medium md:text-[22px] text-[22px] leading-relaxed",
+  heading5:
+    "font-poppins font-medium md:text-[18px] text-[18px] leading-relaxed",
   paragraph:
     "font-poppins font-normal text-dimWhite text-[14px] leading-[24px]",
 

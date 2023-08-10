@@ -67,57 +67,55 @@ const MovieCard = (props) => {
 
   return (
     <>
-      <div className={`shadow flex my-4 p-3 group`} key={props.movie.id}>
-        <div
-          className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
-          alt="movie poster"
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original/${props.movie.poster_path}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
-            backgroundSize: "cover",
-            backgroundPositionX: "center",
-            backgroundBlendMode: "multiply",
-          }}
-        >
+      <Link to={`/${props.type}/${props.title}/${props.movie.id}`}>
+        <div className={`shadow flex my-4 p-3 group`} key={props.movie.id}>
           <div
-            className={`absolute w-[40px] h-[40px] right-0 top-0 cursor-pointer group-hover:flex hidden sidebar m-3 shadow`}
+            className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
+            alt="movie poster"
+            style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/original/${props.movie.poster_path}), linear-gradient(0deg, #0D1117 0%, #161B22 10%, #0D1117 20%, transparent 100%)`,
+              backgroundSize: "cover",
+              backgroundPositionX: "center",
+              backgroundBlendMode: "multiply",
+            }}
           >
             <div
-              className="bg-blue-gradient w-full h-full rounded-full flex items-center justify-center"
-              onClick={saveShow}
+              className={`absolute w-[40px] h-[40px] right-0 top-0 cursor-pointer group-hover:flex hidden sidebar m-3 shadow`}
             >
-              {like ? (
-                <FaHeart className="text-white" size={24} />
-              ) : (
-                <FaRegHeart className="text-white" size={24} />
-              )}
+              <div
+                className="bg-blue-gradient w-full h-full rounded-full flex items-center justify-center"
+                onClick={saveShow}
+              >
+                {like ? (
+                  <FaHeart className="text-white" size={24} />
+                ) : (
+                  <FaRegHeart className="text-white" size={24} />
+                )}
+              </div>
             </div>
-          </div>
-          {/* This is share icon */}
-          <div
-            className={`absolute w-[40px] h-[40px] right-12 top-0 cursor-pointer group-hover:flex hidden sidebar m-3 shadow`}
-          >
+            {/* This is share icon */}
             <div
-              className="bg-blue-gradient w-full h-full rounded-full flex items-center justify-center"
-              onClick={() => setOpenFilter(!openFilter)}
+              className={`absolute w-[40px] h-[40px] right-12 top-0 cursor-pointer group-hover:flex hidden sidebar m-3 shadow`}
             >
-              <FaShareAlt className="text-white" size={22} />
+              <div
+                className="bg-blue-gradient w-full h-full rounded-full flex items-center justify-center"
+                onClick={() => setOpenFilter(!openFilter)}
+              >
+                <FaShareAlt className="text-white" size={22} />
+              </div>
+            </div>
+            <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
+              <p className="mb-2">{props.title}</p>
+            </div>
+            <div className="flex mb-[-38px]">
+              <CircleRating rating={props.movie.vote_average.toFixed(1)} />
+              <span className="pl-[20px] right-3date text-dimWhite font-normal text-xs">
+                {dayjs(props.movie.release_date).format("MMM D, YYYY")}
+              </span>
             </div>
           </div>
-          <Link to={`/${props.type}/${props.title}/${props.movie.id}`}>
-              <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
-                <p className="mb-2">{props.title}</p>
-              </div>
-              <div className="flex mb-[-38px]">
-                <CircleRating rating={props.movie.vote_average.toFixed(1)} />
-                <span
-                  className="pl-[20px] right-3date text-dimWhite font-normal text-xs"
-                >
-                  {dayjs(props.movie.release_date).format("MMM D, YYYY")}
-                </span>
-              </div>
-            </Link>
         </div>
-      </div>
+      </Link>
       {/* pop up code */}
       <Transition appear show={openFilter} as={Fragment}>
         <Dialog
@@ -187,9 +185,9 @@ const MovieCard = (props) => {
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
                         props.type
-                      }/${
-                        props.type === "movie" ? shareUrl : shareTvUrl
-                      }/${props.movie.id}`}
+                      }/${props.type === "movie" ? shareUrl : shareTvUrl}/${
+                        props.movie.id
+                      }`}
                     >
                       <FacebookIcon size={45} round={true} />
                     </FacebookShareButton>
@@ -202,9 +200,9 @@ const MovieCard = (props) => {
                       } from Scene-movie-platform`}
                       media={`https://scene-movie-platform.vercel.app/${
                         props.type
-                      }/${
-                        props.type === "movie" ? shareUrl : shareTvUrl
-                      }/${props.movie.id}`}
+                      }/${props.type === "movie" ? shareUrl : shareTvUrl}/${
+                        props.movie.id
+                      }`}
                     >
                       <PinterestIcon size={45} round={true} />
                     </PinterestShareButton>
@@ -212,9 +210,9 @@ const MovieCard = (props) => {
                     <TwitterShareButton
                       url={`https://scene-movie-platform.vercel.app/${
                         props.type
-                      }/${
-                        props.type === "movie" ? shareUrl : shareTvUrl
-                      }/${props.movie.id}`}
+                      }/${props.type === "movie" ? shareUrl : shareTvUrl}/${
+                        props.movie.id
+                      }`}
                     >
                       <TwitterIcon size={45} round={true} />
                     </TwitterShareButton>
@@ -226,9 +224,9 @@ const MovieCard = (props) => {
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
                         props.type
-                      }/${
-                        props.type === "movie" ? shareUrl : shareTvUrl
-                      }/${props.movie.id}`}
+                      }/${props.type === "movie" ? shareUrl : shareTvUrl}/${
+                        props.movie.id
+                      }`}
                     >
                       <LinkedinIcon size={45} round={true} />
                     </LinkedinShareButton>
@@ -241,18 +239,18 @@ const MovieCard = (props) => {
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
                         props.type
-                      }/${
-                        props.type === "movie" ? shareUrl : shareTvUrl
-                      }/${props.movie.id}`}
+                      }/${props.type === "movie" ? shareUrl : shareTvUrl}/${
+                        props.movie.id
+                      }`}
                     >
                       <WhatsappIcon size={45} round={true} />
                     </WhatsappShareButton>
                     <TelegramShareButton
                       url={`https://scene-movie-platform.vercel.app/${
                         props.type
-                      }/${
-                        props.type === "movie" ? shareUrl : shareTvUrl
-                      }/${props.movie.id}`}
+                      }/${props.type === "movie" ? shareUrl : shareTvUrl}/${
+                        props.movie.id
+                      }`}
                     >
                       <TelegramIcon size={45} round={true} />
                     </TelegramShareButton>
@@ -264,9 +262,9 @@ const MovieCard = (props) => {
                       }`}
                       url={`https://scene-movie-platform.vercel.app/${
                         props.type
-                      }/${
-                        props.type === "movie" ? shareUrl : shareTvUrl
-                      }/${props.movie.id}`}
+                      }/${props.type === "movie" ? shareUrl : shareTvUrl}/${
+                        props.movie.id
+                      }`}
                     >
                       <RedditIcon size={45} round={true} />
                     </RedditShareButton>
