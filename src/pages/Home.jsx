@@ -10,14 +10,15 @@ import fetchData from "../helper/fetchData";
 const Home = () => {
   const [genreMovie, setGenreMovie] = useState([]);
   const [genreTv, setGenreTv] = useState([]);
+  const [airingToday, setAiringToday] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
   const apiKey = process.env.REACT_APP_API_KEY;
-  const [check, setCheck] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const [showMovies, setshowMovies] = useState(true);
   const [showTvShows, setshowTvShows] = useState(false);
 
   const toggleContent = () => {
-    setCheck(!check);
+    setToggle(!toggle);
     setshowMovies(!showMovies);
     setshowTvShows(!showTvShows);
   };
@@ -39,6 +40,31 @@ const Home = () => {
     uploadMovie();
   }, []);
 
+  useEffect(() => {
+    uploadTv();
+  }, []);
+
+  useEffect(() => {
+    getAiringToday();
+  }, []);
+
+  const getAiringToday = async () => {
+    setInitialLoading(true);
+    await axios
+      .get(
+        `https://api.themoviedb.org/3/tv/airing_today?api_key=${apiKey}&language=en-US`
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setAiringToday(res.data.results);
+          setInitialLoading(false);
+        }
+      })
+      .catch((e) => {
+        return e.message;
+      });
+  };
+
   const uploadTv = async () => {
     setInitialLoading(true);
     await axios
@@ -56,9 +82,6 @@ const Home = () => {
       });
   };
 
-  useEffect(() => {
-    uploadTv();
-  }, []);
 
   return (
     <div className="bg-gray-200 text-gray-900 dark:bg-primary dark:text-dimWhite">
@@ -75,7 +98,7 @@ const Home = () => {
                     id="checkbox"
                     type="checkbox"
                     className="opacity-0 absolute flex justify-between items-center w-14 h-7 rounded-full p-1 z-10 cursor-pointer"
-                    checked={check}
+                    checked={toggle}
                     onChange={toggleContent}
                   />
                   <label
@@ -84,7 +107,7 @@ const Home = () => {
                   >
                     <span
                       className={`bg-secondary opacity-60 absolute w-6 h-7 right-8 border-2 rounded-full transition-transform ${
-                        !check ? "translate-x-8" : "translate-x-0"
+                        !toggle ? "translate-x-8" : "translate-x-0"
                       }`}
                     ></span>
                   </label>
@@ -114,6 +137,7 @@ const Home = () => {
           {showTvShows && (
             <>
               <Trending title="Trending" id="1" type="tv" head="TV Shows" />
+              <Trending title="Airing Today" type="airingtoday" data={airingToday} />
               {genreTv &&
                 genreTv.map((item, index) => {
                   return (
