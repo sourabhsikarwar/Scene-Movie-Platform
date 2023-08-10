@@ -9,6 +9,7 @@ const Episode = (props) => {
   const [Episode, setEpisode] = useState({});
   const [NextEpisodes, setNextEpisodes] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("next");
   const apiKey = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
@@ -16,6 +17,10 @@ const Episode = (props) => {
     getEpisode(tid, sid, eid);
     getAllEpisodes(tid, sid, eid);
   }, [tid, sid, eid]);
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
 
   const getAllEpisodes = (tid, sid, eid) => {
     setInitialLoading(true);
@@ -115,92 +120,96 @@ const Episode = (props) => {
               className={`w-full mx-auto dark:bg-primary dark:text-dimWhite px-4 pt-8`}
             >
               <h2
-                className={`${styles.heading3} mx-4 text-gray-900 mb-6 dark:text-white`}
+                className={`${styles.heading3} mx-4 text-gray-900 mb-6 dark:text-white cursor-pointer`}
+                onClick={() => handleTabClick("next")}
               >
                 Next Episodes
               </h2>
-              <div
-                className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}
-              >
-                {NextEpisodes &&
-                  NextEpisodes.map((nextepisode) => (
-                    <Link
-                      to={
-                        "/tv/" +
-                        tid +
-                        "/" +
-                        sid +
-                        "/" +
-                        nextepisode.episode_number +
-                        "/" +
-                        nextepisode.name
-                      }
-                    >
-                      <div className="flex flex-col mb-12 sm:mb-8">
-                        <div className="flex flex-row gap-8">
-                          <div
-                            className="flex w-2/6 sm:w-1/4"
-                            style={{
-                              backgroundImage: `url(https://image.tmdb.org/t/p/w500${
-                                nextepisode.still_path ??
-                                `https://image.tmdb.org/t/p/w500${nextepisode.poster_path}`
-                              })`,
-                              backgroundSize: "cover",
-                              backgroundPosition: "center",
-                              backgroundBlendMode: "multiply",
-                              height: "150px",
-                              borderRadius: "10px",
-                            }}
-                          ></div>
-                          <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
-                            <h2 className={`${styles.heading3}`}>
-                              {nextepisode.name}
-                            </h2>
-                            <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
-                              {nextepisode.season_number === 0 ? (
-                                <span>E{nextepisode.episode_number}</span>
-                              ) : (
-                                <>
-                                  <span>
-                                    S{nextepisode.season_number}&nbsp;
-                                  </span>
+              {activeTab === "next" && (
+                <div
+                  className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}
+                >
+                  {NextEpisodes &&
+                    NextEpisodes.map((nextepisode) => (
+                      <Link
+                        to={
+                          "/tv/" +
+                          tid +
+                          "/" +
+                          sid +
+                          "/" +
+                          nextepisode.episode_number +
+                          "/" +
+                          nextepisode.name
+                        }
+                      >
+                        <div className="flex flex-col mb-12 sm:mb-8">
+                          <div className="flex flex-row gap-8">
+                            <div
+                              className="flex w-2/6 sm:w-1/4"
+                              style={{
+                                backgroundImage: `url(https://image.tmdb.org/t/p/w500${
+                                  nextepisode.still_path ??
+                                  `https://image.tmdb.org/t/p/w500${nextepisode.poster_path}`
+                                })`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                backgroundBlendMode: "multiply",
+                                height: "150px",
+                                borderRadius: "10px",
+                              }}
+                            ></div>
+                            <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
+                              <h2 className={`${styles.heading3}`}>
+                                {nextepisode.name}
+                              </h2>
+                              <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
+                                {nextepisode.season_number === 0 ? (
                                   <span>E{nextepisode.episode_number}</span>
-                                </>
-                              )}
-                              <span className="mx-2">|</span>
-                              {nextepisode.air_date && (
-                                <>
-                                  <span className="">
-                                    {nextepisode.air_date
-                                      .toString()
-                                      .split("-")
-                                      .reverse()
-                                      .join("-")}
+                                ) : (
+                                  <>
+                                    <span>
+                                      S{nextepisode.season_number}&nbsp;
+                                    </span>
+                                    <span>E{nextepisode.episode_number}</span>
+                                  </>
+                                )}
+                                <span className="mx-2">|</span>
+                                {nextepisode.air_date && (
+                                  <>
+                                    <span className="">
+                                      {nextepisode.air_date
+                                        .toString()
+                                        .split("-")
+                                        .reverse()
+                                        .join("-")}
+                                    </span>
+                                    <span className="mx-2">|</span>
+                                  </>
+                                )}
+                                {nextepisode.runtime > 60 ||
+                                nextepisode.runtime === 60 ? (
+                                  <span>
+                                    {Math.floor(nextepisode.runtime / 60)}
+                                    hr&nbsp;
+                                    {Math.floor(nextepisode.runtime % 60)}m
                                   </span>
-                                  <span className="mx-2">|</span>
-                                </>
-                              )}
-                              {nextepisode.runtime > 60 ||
-                              nextepisode.runtime === 60 ? (
-                                <span>
-                                  {Math.floor(nextepisode.runtime / 60)}hr&nbsp;
-                                  {Math.floor(nextepisode.runtime % 60)}m
-                                </span>
-                              ) : (
-                                <span>
-                                  {Math.floor(nextepisode.runtime % 60)}m
-                                </span>
-                              )}
+                                ) : (
+                                  <span>
+                                    {Math.floor(nextepisode.runtime % 60)}m
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
+                                {nextepisode.overview}
+                              </p>
                             </div>
-                            <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
-                              {nextepisode.overview}
-                            </p>
                           </div>
                         </div>
-                      </div>
-                    </Link>
-                  ))}
-              </div>
+                      </Link>
+                    ))}
+                </div>
+              )}
             </section>
           ) : (
             ""
