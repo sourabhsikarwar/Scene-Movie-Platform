@@ -241,6 +241,27 @@ const CommonBanner = (props) => {
                         <span className="mx-2">|</span>
                         {Math.floor(props.content.vote_average % 10)} / 10
                       </div>
+                      <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
+                        Content Rating:&nbsp;
+                        {contentRating &&
+                          contentRating.length >= 6 &&
+                          contentRating.slice(0, 5).map((ratings, index) => (
+                            <span className="dark:text-dimWhite text-gray-900 sm:text-dimWhite opacity-70 dark:opacity-70">
+                              {ratings.rating}
+                              {index !== 4 && <span>,&nbsp;</span>}
+                            </span>
+                          ))}
+                        {contentRating &&
+                          contentRating.length < 6 &&
+                          contentRating.map((ratings, index) => (
+                            <span className="dark:text-dimWhite text-gray-900 sm:text-dimWhite opacity-70 dark:opacity-70">
+                              {ratings.rating}
+                              {index !== contentRating.length - 1 && (
+                                <span>,&nbsp;</span>
+                              )}
+                            </span>
+                          ))}
+                      </div>
                       {props.contentRating ? (
                         <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
                           Content Rating:&nbsp;
@@ -265,9 +286,15 @@ const CommonBanner = (props) => {
                         </div>
                       ):("")}
                       <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
-                        Seasons:&nbsp;{props.content.number_of_seasons}
+                        Seasons:&nbsp;
+                        <span className="dark:text-dimWhite text-gray-900 sm:text-dimWhite opacity-70 dark:opacity-70">
+                          {props.content.number_of_seasons}
+                        </span>
                         <span className="mx-2">|</span>
-                        Episodes:&nbsp;{props.content.number_of_episodes}
+                        Episodes:&nbsp;
+                        <span className="dark:text-dimWhite text-gray-900 sm:text-dimWhite opacity-70 dark:opacity-70">
+                          {props.content.number_of_episodes}
+                        </span>
                       </div>
                     </div>
                     {tvPlaying ? (
