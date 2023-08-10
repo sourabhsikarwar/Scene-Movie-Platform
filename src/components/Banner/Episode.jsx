@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "../../style";
 import { Oval } from "react-loader-spinner";
@@ -9,6 +9,7 @@ import "@splidejs/react-splide/css";
 const Episode = (props) => {
   const { tid, sid, eid, name } = useParams();
   const [Episode, setEpisode] = useState({});
+  const [NextEpisodes, setNextEpisodes] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("next");
   const apiKey = process.env.REACT_APP_API_KEY;
@@ -16,10 +17,27 @@ const Episode = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     getEpisode(tid, sid, eid);
-  }, []);
+    getAllEpisodes(tid, sid, eid);
+  }, [tid, sid, eid]);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+  };
+
+  const getAllEpisodes = (tid, sid, eid) => {
+    setInitialLoading(true);
+    axios
+      .get(
+        `https://api.themoviedb.org/3/tv/${tid}/season/${sid}?api_key=${apiKey}`
+      )
+      .then((res) => {
+        const results = res.data;
+        const nextEpisodes = results.episodes.filter(
+          (episode) => episode.episode_number > eid
+        );
+        setNextEpisodes(nextEpisodes);
+        setInitialLoading(false);
+      });
   };
 
   const getEpisode = () => {
@@ -99,73 +117,191 @@ const Episode = (props) => {
               </div>
             </div>
           </section>
-          <section
-            className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
-          >
-            <h2
-              className={`${styles.heading3} mx-4 text-gray-900 dark:text-white cursor-pointer`}
-              onClick={() => handleTabClick("cast")}
+          {NextEpisodes.length ? (
+            <section
+              className={`w-full mx-auto dark:bg-primary dark:text-dimWhite px-4 pt-8`}
             >
-              Guest Stars
-            </h2>
-            {activeTab === "cast" && (
-              <Splide
-                options={{
-                  type: "loop", // You can customize the options here based on your requirements.
-                  perPage: 5,
-                  perMove: 1,
-                  pagination: false,
-                  breakpoints: {
-                    340: {
-                      perPage: 1,
-                    },
-                    640: {
-                      perPage: 2,
-                    },
-                    764: {
-                      perPage: 3,
-                    },
-                    1024: {
-                      perPage: 4,
-                    },
-                    1280: {
-                      perPage: 5,
-                    },
-                    1400: {
-                      perPage: 6,
-                    },
-                  },
-                  arrows: true,
-                }}
+              <div
+                className={`${styles.boxWidth} details-navigation-container items-center px-6 text-lg`}
               >
-                {Episode.guest_stars.map((star) => (
-                  <SplideSlide key={star.id}>
-                    <div className={`shadow flex my-4 p-3 `} key={star.id}>
-                      <div
-                        className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
-                        alt="movie poster"
-                        style={{
-                          backgroundImage: `url(https://image.tmdb.org/t/p/original/${star.profile_path}), 
-                        linear-gradient(0deg, #0D1117 0%, #131922 10%, #19212D 20%, transparent 100%)`,
-                          backgroundSize: "cover",
-                          backgroundPositionX: "center",
-                          backgroundBlendMode: "multiply",
-                        }}
+                <div className="details-navigation pb-10 flex justify-between">
+                  <ul className="flex gap-4">
+                    <li
+                      onClick={() => handleTabClick("next")}
+                      style={{ cursor: "pointer", transitionDuration: "75ms" }}
+                      className={`cursor-pointer ${
+                        activeTab === "details"
+                          ? "border-b-2 border-slate-900 dark:border-white"
+                          : ""
+                      } ${
+                        styles.heading4
+                      } hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    >
+                      Next Episodes
+                    </li>
+                    <li
+                      className={`cursor-pointer ${
+                        activeTab === "reviews"
+                          ? "border-b-2 border-slate-900 dark:border-white"
+                          : ""
+                      } ${
+                        styles.heading4
+                      } hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                      onClick={() => handleTabClick("cast")}
+                    >
+                      Guest Stars
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              {activeTab === "next" && (
+                <div
+                  className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}
+                >
+                  {NextEpisodes &&
+                    NextEpisodes.map((nextepisode) => (
+                      <Link
+                        to={
+                          "/tv/" +
+                          tid +
+                          "/" +
+                          sid +
+                          "/" +
+                          nextepisode.episode_number +
+                          "/" +
+                          nextepisode.name
+                        }
                       >
-                        <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
-                          <p>{star.original_name}</p>
-                          <span className="flex text-gray-400">
-                            <p className="opacity-70">as&nbsp;</p>
-                            <p className="mb-0 opacity-90">{star.character}</p>
-                          </span>
+                        <div className="flex flex-col mb-12 sm:mb-8">
+                          <div className="flex flex-row gap-8">
+                            <div
+                              className="flex w-2/6 sm:w-1/4"
+                              style={{
+                                backgroundImage: `url(https://image.tmdb.org/t/p/w500${
+                                  nextepisode.still_path ??
+                                  `https://image.tmdb.org/t/p/w500${nextepisode.poster_path}`
+                                })`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                backgroundBlendMode: "multiply",
+                                height: "150px",
+                                borderRadius: "10px",
+                              }}
+                            ></div>
+                            <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
+                              <h2 className={`${styles.heading3}`}>
+                                {nextepisode.name}
+                              </h2>
+                              <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
+                                {nextepisode.season_number === 0 ? (
+                                  <span>E{nextepisode.episode_number}</span>
+                                ) : (
+                                  <>
+                                    <span>
+                                      S{nextepisode.season_number}&nbsp;
+                                    </span>
+                                    <span>E{nextepisode.episode_number}</span>
+                                  </>
+                                )}
+                                <span className="mx-2">|</span>
+                                {nextepisode.air_date && (
+                                  <>
+                                    <span className="">
+                                      {nextepisode.air_date
+                                        .toString()
+                                        .split("-")
+                                        .reverse()
+                                        .join("-")}
+                                    </span>
+                                    <span className="mx-2">|</span>
+                                  </>
+                                )}
+                                {nextepisode.runtime > 60 ||
+                                nextepisode.runtime === 60 ? (
+                                  <span>
+                                    {Math.floor(nextepisode.runtime / 60)}
+                                    hr&nbsp;
+                                    {Math.floor(nextepisode.runtime % 60)}m
+                                  </span>
+                                ) : (
+                                  <span>
+                                    {Math.floor(nextepisode.runtime % 60)}m
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
+                                {nextepisode.overview}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                </div>
+              )}
+              {activeTab === "cast" && (
+                <Splide
+                  options={{
+                    type: "loop", // You can customize the options here based on your requirements.
+                    perPage: 5,
+                    perMove: 1,
+                    pagination: false,
+                    breakpoints: {
+                      340: {
+                        perPage: 1,
+                      },
+                      640: {
+                        perPage: 2,
+                      },
+                      764: {
+                        perPage: 3,
+                      },
+                      1024: {
+                        perPage: 4,
+                      },
+                      1280: {
+                        perPage: 5,
+                      },
+                      1400: {
+                        perPage: 6,
+                      },
+                    },
+                    arrows: true,
+                  }}
+                >
+                  {Episode.guest_stars.map((star) => (
+                    <SplideSlide key={star.id}>
+                      <div className={`shadow flex my-4 p-3 `} key={star.id}>
+                        <div
+                          className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
+                          alt="movie poster"
+                          style={{
+                            backgroundImage: `url(https://image.tmdb.org/t/p/original/${star.profile_path}), 
+                        linear-gradient(0deg, #0D1117 0%, #131922 10%, #19212D 20%, transparent 100%)`,
+                            backgroundSize: "cover",
+                            backgroundPositionX: "center",
+                            backgroundBlendMode: "multiply",
+                          }}
+                        >
+                          <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
+                            <p>{star.original_name}</p>
+                            <span className="flex text-gray-400">
+                              <p className="opacity-70">as&nbsp;</p>
+                              <p className="mb-0 opacity-90">
+                                {star.character}
+                              </p>
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </SplideSlide>
-                ))}
-              </Splide>
-            )}
-          </section>
+                    </SplideSlide>
+                  ))}
+                </Splide>
+              )}
+            </section>
+          ) : (
+            ""
+          )}
         </>
       ) : (
         <div className="flex justify-center my-8">
