@@ -1,0 +1,38 @@
+name: "🪲 Bug"
+description: "Create a report to help us to improve our project."
+title: "[BUG]: <write a small description about the bug>"
+
+body:
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Describe the bug
+      description: Please provide a clear and concise description of the issue encountered.
+
+  - type: textarea
+    id: bug_location
+    attributes:
+      label: Location of the bug
+      description: If known, please specify the file location where the bug was identified.
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: What should happen instead of the observed bug?
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (if any)
+      description: Drag and drop any relevant screenshots here.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: "I am willing to work on this issue (optional)"
+          required: false
+        - label: "I am a GSSoC'23 contributor (optional)"
+          required: false

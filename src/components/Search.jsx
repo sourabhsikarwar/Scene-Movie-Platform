@@ -32,11 +32,11 @@ const Search = () => {
   return (
     <div className={`${styles.boxWidth} px-4 my-8`}>
       <div className='flex md:gap-8 gap-4 w-full items-center'>
-        <h1 className='text-2xl text-gray-900 dark:text-white'>Search: </h1>
+        <h1 className='text-xl sm:text-2xl text-gray-900 dark:text-white'>Search: </h1>
         <input
           type='search'
           placeholder='Search'
-          style={{ color: 'black', padding: "8px 10px"}}
+          style={{ color: 'black', padding: "8px 10px", maxWidth: "60%"}}
           onChange={(e) => setQuery(e.target.value)}
           className='rounded text-black border-none ring-1 ring-blue-300 outline-none w-auto'
         />

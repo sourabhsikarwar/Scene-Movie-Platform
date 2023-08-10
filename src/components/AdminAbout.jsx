@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 const AdminAbout = () => {
   return (
     <div
-    style={{ padding: "30px" }}
-    className="flex flex-col items-center space-y-4 text-center divide-y divide-gray-700 "
+    className="flex p-[30px] flex-col items-center space-y-4 text-center divide-y divide-gray-700 "
   >
     <img
       src="https://avatars.githubusercontent.com/u/85223699?v=4"
