@@ -24,7 +24,7 @@ const Contributor = () => {
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = contributors.slice(indexOfFirstUser, indexOfLastUser);
 
-  // Change page
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
