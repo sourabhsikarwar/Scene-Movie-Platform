@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "../../style";
 import { Oval } from "react-loader-spinner";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 
 const Episode = (props) => {
   const { tid, sid, eid, name } = useParams();
@@ -119,12 +121,39 @@ const Episode = (props) => {
             <section
               className={`w-full mx-auto dark:bg-primary dark:text-dimWhite px-4 pt-8`}
             >
-              <h2
-                className={`${styles.heading3} mx-4 text-gray-900 mb-6 dark:text-white cursor-pointer`}
-                onClick={() => handleTabClick("next")}
+              <div
+                className={`${styles.boxWidth} details-navigation-container items-center px-6 text-lg`}
               >
-                Next Episodes
-              </h2>
+                <div className="details-navigation pb-10 flex justify-between">
+                  <ul className="flex gap-4">
+                    <li
+                      onClick={() => handleTabClick("next")}
+                      style={{ cursor: "pointer", transitionDuration: "75ms" }}
+                      className={`cursor-pointer ${
+                        activeTab === "details"
+                          ? "border-b-2 border-slate-900 dark:border-white"
+                          : ""
+                      } ${
+                        styles.heading4
+                      } hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    >
+                      Next Episodes
+                    </li>
+                    <li
+                      className={`cursor-pointer ${
+                        activeTab === "reviews"
+                          ? "border-b-2 border-slate-900 dark:border-white"
+                          : ""
+                      } ${
+                        styles.heading4
+                      } hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                      onClick={() => handleTabClick("cast")}
+                    >
+                      Guest Stars
+                    </li>
+                  </ul>
+                </div>
+              </div>
               {activeTab === "next" && (
                 <div
                   className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}
@@ -209,6 +238,65 @@ const Episode = (props) => {
                       </Link>
                     ))}
                 </div>
+              )}
+              {activeTab === "cast" && (
+                <Splide
+                  options={{
+                    type: "loop", // You can customize the options here based on your requirements.
+                    perPage: 5,
+                    perMove: 1,
+                    pagination: false,
+                    breakpoints: {
+                      340: {
+                        perPage: 1,
+                      },
+                      640: {
+                        perPage: 2,
+                      },
+                      764: {
+                        perPage: 3,
+                      },
+                      1024: {
+                        perPage: 4,
+                      },
+                      1280: {
+                        perPage: 5,
+                      },
+                      1400: {
+                        perPage: 6,
+                      },
+                    },
+                    arrows: true,
+                  }}
+                >
+                  {Episode.guest_stars.map((star) => (
+                    <SplideSlide key={star.id}>
+                      <div className={`shadow flex my-4 p-3 `} key={star.id}>
+                        <div
+                          className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
+                          alt="movie poster"
+                          style={{
+                            backgroundImage: `url(https://image.tmdb.org/t/p/original/${star.profile_path}), 
+                        linear-gradient(0deg, #0D1117 0%, #131922 10%, #19212D 20%, transparent 100%)`,
+                            backgroundSize: "cover",
+                            backgroundPositionX: "center",
+                            backgroundBlendMode: "multiply",
+                          }}
+                        >
+                          <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
+                            <p>{star.original_name}</p>
+                            <span className="flex text-gray-400">
+                              <p className="opacity-70">as&nbsp;</p>
+                              <p className="mb-0 opacity-90">
+                                {star.character}
+                              </p>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </SplideSlide>
+                  ))}
+                </Splide>
               )}
             </section>
           ) : (
