@@ -5,6 +5,9 @@ import styles from "../../style";
 import axios from "axios";
 import Details from "./Details";
 import CommonBanner from "./CommonBanner";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
+import Youtube from "react-youtube";
 
 const TvBanner = (props) => {
   const MOVIE_API = "https://api.themoviedb.org/3";
@@ -21,6 +24,12 @@ const TvBanner = (props) => {
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [visibleEpisodes, setVisibleEpisodes] = useState(10);
   const [activeSeasonTab, setActiveSeasonTab] = useState();
+  const [activeHeaderTab, setActiveHeaderTab] = useState(false);
+  const [EpisodeHeader, setEpisodeHeader] = useState(false);
+  const [EpisodeDisplay, setEpisodeDisplay] = useState(false);
+  const [EpisodeVideosDisplay, setEpisodeVideosDisplay] = useState(false);
+  const [EpisodeVideos, setEpisodeVideos] = useState({});
+  const [displayDetails, setDisplayDetails] = useState(true);
   const loadMoreEpisodes = 7;
 
   const [initialLoading, setInitialLoading] = useState(true);
@@ -43,7 +52,35 @@ const TvBanner = (props) => {
     }
   };
 
+  const splideOptions = {
+    type: "loop", // You can customize the options here based on your requirements.
+    perPage: 3,
+    perMove: 1,
+    pagination: false,
+    breakpoints: {
+      640: {
+        perPage: 1,
+      },
+      764: {
+        perPage: 2,
+      },
+      1024: {
+        perPage: 2,
+      },
+      1280: {
+        perPage: 3,
+      },
+      1400: {
+        perPage: 4,
+      },
+    },
+    arrows: true,
+  };
+
   const getEpisodes = async (id, sid) => {
+    setActiveHeaderTab(false);
+    setEpisodeDisplay(true);
+    setEpisodeVideosDisplay(false);
     await axios
       .get(
         `https://api.themoviedb.org/3/tv/${id}/season/${sid}?api_key=${apiKey}`
@@ -52,8 +89,24 @@ const TvBanner = (props) => {
         const results = res.data;
         setEpisodes(results);
         setSelectedSeason(sid + 1);
-        setInitialLoading(false);
+
+        // setInitialLoading(false);
       });
+  };
+
+  const showEpisodeHeader = (no) => {
+    setEpisodeHeader(true);
+  };
+
+  const showEpisodeVideo = async (id, no) => {
+    setEpisodeVideosDisplay(true);
+    setActiveHeaderTab(true);
+    setEpisodeDisplay(false);
+    try {
+      // console.log("fil",response.data.results)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const update = async () => {
@@ -102,8 +155,13 @@ const TvBanner = (props) => {
     );
   };
 
-  const handleSeasonTabClick = (tab) => {
+  const handleSeasonTabClick = async (id, tab) => {
     setActiveSeasonTab(tab);
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/tv/${id}/season/${tab}/videos?api_key=${apiKey}`
+    );
+    console.log(response)
+    setEpisodeVideos(response.data.results);
   };
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -116,12 +174,10 @@ const TvBanner = (props) => {
           <CommonBanner type="tv" content={Tv} />
           {/* details/review header */}
           <section
-            className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
+            className={`w-full mx-auto dark:bg-primary dark:text-white py-8 border-b border-gray-400 dark:border-gray-300`}
           >
-            <div
-              className={`${styles.boxWidth} details-navigation-container pl-6 text-lg`}
-            >
-              <div className="details-navigation">
+            <div className={`${styles.boxWidth} details-navigation-container items-center px-6 text-lg`}>
+              <div className="details-navigation flex justify-between">
                 <ul className="flex gap-4">
                   <li
                     onClick={() => handleTabClick("details")}
@@ -130,7 +186,7 @@ const TvBanner = (props) => {
                       activeTab === "details"
                         ? "border-b-2 border-slate-900 dark:border-white"
                         : ""
-                    } hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    } ${styles.heading4} hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
                   >
                     Details
                   </li>
@@ -139,7 +195,7 @@ const TvBanner = (props) => {
                       activeTab === "reviews"
                         ? "border-b-2 border-slate-900 dark:border-white"
                         : ""
-                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    } ${styles.heading4} hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
                     onClick={() => handleTabClick("reviews")}
                   >
                     Reviews
@@ -149,7 +205,7 @@ const TvBanner = (props) => {
                       activeTab === "snapshots"
                         ? "border-b-2 border-slate-900 dark:border-white"
                         : ""
-                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    } ${styles.heading4} hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
                     onClick={() => handleTabClick("snapshots")}
                   >
                     Snapshots
@@ -159,12 +215,26 @@ const TvBanner = (props) => {
                       activeTab === "videos"
                         ? "border-b-2 border-slate-900 dark:border-white"
                         : ""
-                    }hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
+                    } ${styles.heading4} hover:border-b-2 border-slate-900 dark:border-white hover:text-gray-600 dark:hover:text-gray-400 duration-75`}
                     onClick={() => handleTabClick("videos")}
                   >
                     Videos
                   </li>
                 </ul>
+                <div className="flex items-center">
+                  {!displayDetails && (
+                    <ion-icon style={{cursor:"pointer"}}
+                    onClick={()=> {setActiveTab('details'); setDisplayDetails(true)}}
+                      name="chevron-down"
+                    ></ion-icon>
+                  )}
+                  {displayDetails && (
+                    <ion-icon style={{cursor:"pointer"}}
+                    onClick={()=> {setActiveTab(null); setDisplayDetails(false)}}
+                    name="chevron-up"
+                  ></ion-icon>
+                  )}
+                </div>
               </div>
             </div>
           </section>
@@ -174,35 +244,27 @@ const TvBanner = (props) => {
           {activeTab === "details" && (
             <Details type="tv" Tv={Tv} title="details" />
           )}
-          {activeTab === "reviews" && (
-            <Details
-              title="reviews"
-              visibleReviews={visibleReviews}
-              expandedReviews={expandedReviews}
-              handleToggleExpand={handleToggleExpand}
-              handleToggleVisibleReviews={handleToggleVisibleReviews}
-              isValidURL={isValidURL}
-              reviews={reviews}
-            />
+          {activeTab === 'reviews' && (
+            <Details title="reviews" visibleReviews={visibleReviews} expandedReviews={expandedReviews} handleToggleExpand={handleToggleExpand} handleToggleVisibleReviews={handleToggleVisibleReviews} isValidURL={isValidURL} reviews={reviews} />
           )}
           {activeTab === "videos" && <Details title="video" videos={videos} />}
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >
-            <div
-              className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-4`}
-            >
+            {/* <div className={`${styles.boxWidth}`}> */}
+            <div className={`${styles.boxWidth} flex gap-4 flex-row flex-wrap items-center px-6 pb-6 border-b border-gray-400 dark:border-gray-300`}>
               {Tv.seasons.map((season) => (
                 <button
                   onClick={() => {
                     getEpisodes(Tv.id, season.season_number);
-                    handleSeasonTabClick(season.season_number);
+                    handleSeasonTabClick(Tv.id, season.season_number);
+                    showEpisodeHeader(season.season_number);
                   }}
                   className={`${
                     activeSeasonTab === season.season_number
                       ? "text-cyan-500 dark:text-cyan-600"
                       : ""
-                  } text-gray-900 dark:text-dimWhite`}
+                  } ${styles.heading4} text-gray-900 dark:text-white`}
                 >
                   {season.season_number === 0
                     ? "Specials "
@@ -210,8 +272,74 @@ const TvBanner = (props) => {
                 </button>
               ))}
             </div>
+            {EpisodeHeader && (
+              <div className={`${styles.boxWidth} flex flex-row justify-between flex-wrap items-center relative px-6 gap-4 py-6`}>
+                <ul className="flex gap-8 episode-header text-[19px]">
+                  <li
+                    onClick={() => {
+                      getEpisodes(Tv.id, activeSeasonTab);
+                    }}
+                    className={`${
+                      activeSeasonTab && !activeHeaderTab
+                        ? "text-cyan-500 dark:text-cyan-600"
+                        : ""
+                    }`}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Episodes
+                  </li>
+                  <li
+                    onClick={() => {
+                      showEpisodeVideo(Tv.id, activeSeasonTab);
+                    }}
+                    className={`${
+                      activeHeaderTab ? "text-cyan-500 dark:text-cyan-600" : ""
+                    }`}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Videos
+                  </li>
+                </ul>
+                {(EpisodeDisplay || EpisodeVideosDisplay)  && (
+                  <ion-icon onClick={()=> {setEpisodeDisplay(false); setEpisodeHeader(false); setEpisodeVideosDisplay(false);}} style={{ cursor: "pointer" }} name="close-outline" size="large"></ion-icon>
+                )}
+              </div>
+            )}
+            {EpisodeVideosDisplay && (
+              EpisodeVideos.length > 0 ? (
+                <div className={`${styles.boxWidth}`}>
+                  <div className="justify-center">
+                    <Splide options={splideOptions}>
+                      {EpisodeVideos.map((video) => (
+                        <SplideSlide key={video.key} style={{ padding: "20px" }}>
+                          <Youtube
+                            videoId={video.key}
+                            className={"youtube amru videos"}
+                            containerClassName={"youtube-container amru"}
+                            opts={{
+                              playerVars: {
+                                autoplay: 0,
+                                controls: 0,
+                                cc_load_policy: 0,
+                                fs: 0,
+                                iv_load_policy: 0,
+                                modestbranding: 0,
+                                rel: 0,
+                                showinfo: 0,
+                              },
+                            }}
+                          />
+                        </SplideSlide>
+                      ))}
+                    </Splide>
+                  </div>
+                </div>
+              ) : (
+                <div className={`${styles.heading4} ${styles.boxWidth} flex px-12 py-6`}>No Videos !</div>
+              )
+            )}
             <div>
-              {selectedSeason && Episodes && (
+              {EpisodeDisplay && selectedSeason && Episodes && (
                 <div className={`${styles.boxWidth} flex p-8 flex-col w-full`}>
                   {Episodes.episodes
                     .slice(0, visibleEpisodes)

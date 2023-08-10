@@ -42,7 +42,7 @@ const Details = (props) => {
           className={`w-full mx-auto dark:bg-primary dark:text-white pt-8`}
         >
           <div className={`${styles.boxWidth}`}>
-            <div className="flex justify-between items-center px-4">
+            <div className="flex justify-between items-center px-8">
               <h2
                 className={`${styles.heading3} text-gray-900 dark:text-white`}
               >
@@ -227,10 +227,14 @@ const Details = (props) => {
         <section
           className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
         >
-          <div className={`${styles.boxWidth} reviews-container px-16`}>
+          <div className={`${styles.boxWidth} reviews-container px-8`}>
             {" "}
             {!props.reviews.length ? (
-              <h2>No reviews</h2>
+              <span
+                className={`${styles.heading4} w-full mx-auto dark:bg-primary dark:text-dimWhite`}
+              >
+                No reviews !
+              </span>
             ) : (
               <>
                 {props.reviews.slice(0, props.visibleReviews).map((review) => (
@@ -329,7 +333,7 @@ const Details = (props) => {
         <section
           className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
         >
-          <div className={`${styles.boxWidth}`}>
+          <div className={`${styles.boxWidth} px-6`}>
             <h2
               className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
             >
@@ -338,7 +342,7 @@ const Details = (props) => {
             </h2>
           </div>
 
-          <div className={`${styles.boxWidth} justify-center`}>
+          <div className={`${styles.boxWidth} px-6 justify-center`}>
             <Splide
               options={{
                 type: "loop",
