@@ -10,12 +10,17 @@ const Episode = (props) => {
   const { tid, sid, eid, name } = useParams();
   const [Episode, setEpisode] = useState({});
   const [initialLoading, setInitialLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("next");
   const apiKey = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
     window.scrollTo(0, 0);
     getEpisode(tid, sid, eid);
   }, []);
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
 
   const getEpisode = () => {
     setInitialLoading(true);
@@ -24,7 +29,6 @@ const Episode = (props) => {
         `https://api.themoviedb.org/3/tv/${tid}/season/${sid}/episode/${eid}?api_key=${apiKey}`
       )
       .then((res) => {
-        console.log(res.data);
         const results = res.data;
         setEpisode(results);
         setInitialLoading(false);
@@ -99,65 +103,68 @@ const Episode = (props) => {
             className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
           >
             <h2
-              className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              className={`${styles.heading3} mx-4 text-gray-900 dark:text-white cursor-pointer`}
+              onClick={() => handleTabClick("cast")}
             >
               Guest Stars
             </h2>
-            <Splide
-              options={{
-                type: "loop", // You can customize the options here based on your requirements.
-                perPage: 5,
-                perMove: 1,
-                pagination: false,
-                breakpoints: {
-                  340: {
-                    perPage: 1,
+            {activeTab === "cast" && (
+              <Splide
+                options={{
+                  type: "loop", // You can customize the options here based on your requirements.
+                  perPage: 5,
+                  perMove: 1,
+                  pagination: false,
+                  breakpoints: {
+                    340: {
+                      perPage: 1,
+                    },
+                    640: {
+                      perPage: 2,
+                    },
+                    764: {
+                      perPage: 3,
+                    },
+                    1024: {
+                      perPage: 4,
+                    },
+                    1280: {
+                      perPage: 5,
+                    },
+                    1400: {
+                      perPage: 6,
+                    },
                   },
-                  640: {
-                    perPage: 2,
-                  },
-                  764: {
-                    perPage: 3,
-                  },
-                  1024: {
-                    perPage: 4,
-                  },
-                  1280: {
-                    perPage: 5,
-                  },
-                  1400: {
-                    perPage: 6,
-                  },
-                },
-                arrows: true,
-              }}
-            >
-              {Episode.guest_stars.map((star) => (
-                <SplideSlide key={star.id}>
-                  <div className={`shadow flex my-4 p-3 `} key={star.id}>
-                    <div
-                      className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
-                      alt="movie poster"
-                      style={{
-                        backgroundImage: `url(https://image.tmdb.org/t/p/original/${star.profile_path}), 
+                  arrows: true,
+                }}
+              >
+                {Episode.guest_stars.map((star) => (
+                  <SplideSlide key={star.id}>
+                    <div className={`shadow flex my-4 p-3 `} key={star.id}>
+                      <div
+                        className={`${styles.MovieCard} relative flex justify-start items-end p-4 duration-200 rounded-[6px]`}
+                        alt="movie poster"
+                        style={{
+                          backgroundImage: `url(https://image.tmdb.org/t/p/original/${star.profile_path}), 
                         linear-gradient(0deg, #0D1117 0%, #131922 10%, #19212D 20%, transparent 100%)`,
-                        backgroundSize: "cover",
-                        backgroundPositionX: "center",
-                        backgroundBlendMode: "multiply",
-                      }}
-                    >
-                      <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
-                        <p>{star.original_name}</p>
-                        <span className="flex text-gray-400">
-                        <p className="opacity-70">as&nbsp;</p>
-                        <p className="mb-0 opacity-90">{star.character}</p>
-                        </span>
+                          backgroundSize: "cover",
+                          backgroundPositionX: "center",
+                          backgroundBlendMode: "multiply",
+                        }}
+                      >
+                        <div className="w-full opacity-90 text-white text-md font-medium mt-2 ">
+                          <p>{star.original_name}</p>
+                          <span className="flex text-gray-400">
+                            <p className="opacity-70">as&nbsp;</p>
+                            <p className="mb-0 opacity-90">{star.character}</p>
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </SplideSlide>
-              ))}
-            </Splide>
+                  </SplideSlide>
+                ))}
+              </Splide>
+            )}
           </section>
         </>
       ) : (
