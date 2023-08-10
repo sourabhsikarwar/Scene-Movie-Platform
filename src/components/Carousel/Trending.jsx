@@ -73,7 +73,9 @@ const Trending = (props) => {
             <p className="">
               <Link
                 className={`${styles.paragraph} text-gray-900 dark:text-dimWhite dark:hover:text-white duration-200`}
-                to={`/category/${props.type}/${props.title}/${props.id}`}
+                to={`/category/${
+                  props.type === "airingtoday" ? "tv" : props.type
+                }/${props.title}/${props.id}`}
               >
                 Show all
               </Link>
