@@ -263,7 +263,42 @@ const TvBanner = (props) => {
               reviews={reviews}
             />
           )}
-          {activeTab === "videos" && <Details title="video" videos={videos} />}
+          {activeTab === "videos" && (
+            <section
+              className={`${styles.boxWidth} dark:bg-primary dark:text-white py-8`}
+            >
+              <h2
+                className={`${styles.heading3} mx-4 text-gray-900 dark:text-white`}
+              >
+                Videos
+              </h2>
+              <div className="justify-center">
+                <Splide options={splideOptions}>
+                  {videos.slice(0, 10).map((video) => (
+                    <SplideSlide key={video.key} style={{ padding: "20px" }}>
+                      <Youtube
+                        videoId={video.key}
+                        className={"youtube amru videos"}
+                        containerClassName={"youtube-container amru"}
+                        opts={{
+                          playerVars: {
+                            autoplay: 0,
+                            controls: 0,
+                            cc_load_policy: 0,
+                            fs: 0,
+                            iv_load_policy: 0,
+                            modestbranding: 0,
+                            rel: 0,
+                            showinfo: 0,
+                          },
+                        }}
+                      />
+                    </SplideSlide>
+                  ))}
+                </Splide>
+              </div>
+            </section>
+          )}
           <section
             className={`w-full mx-auto dark:bg-primary dark:text-dimWhite pt-8`}
           >

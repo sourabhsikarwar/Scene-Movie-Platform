@@ -2,37 +2,11 @@ import React from "react";
 import styles from "../../style";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-import Youtube from "react-youtube";
 
 const Details = (props) => {
   const isValidURL = (url) => {
     return url.startsWith("https://") || url.startsWith("http://");
   };
-  const splideOptions = {
-    type: "loop", // You can customize the options here based on your requirements.
-    perPage: 3,
-    perMove: 1,
-    pagination: false,
-    breakpoints: {
-      640: {
-        perPage: 1,
-      },
-      764: {
-        perPage: 2,
-      },
-      1024: {
-        perPage: 2,
-      },
-      1280: {
-        perPage: 3,
-      },
-      1400: {
-        perPage: 4,
-      },
-    },
-    arrows: true,
-  };
-
   return (
     <>
       {/* Details */}
@@ -384,42 +358,6 @@ const Details = (props) => {
                   </SplideSlide>
                 );
               })}
-            </Splide>
-          </div>
-        </section>
-      )}
-      {props.title === "video" && (
-        <section
-          className={`w-full mx-auto dark:bg-primary dark:text-white py-8`}
-        >
-          <h2
-            className={`${styles.heading3} ${styles.boxWidth} px-4 text-gray-900 dark:text-white`}
-          >
-            Videos
-          </h2>
-          <div className={`justify-center ${styles.boxWidth}`}>
-            <Splide options={splideOptions}>
-              {props.videos.slice(0, 10).map((video) => (
-                <SplideSlide key={video.key} style={{ padding: "20px" }}>
-                  <Youtube
-                    videoId={video.key}
-                    className={"youtube amru videos"}
-                    containerClassName={"youtube-container amru"}
-                    opts={{
-                      playerVars: {
-                        autoplay: 0,
-                        controls: 0,
-                        cc_load_policy: 0,
-                        fs: 0,
-                        iv_load_policy: 0,
-                        modestbranding: 0,
-                        rel: 0,
-                        showinfo: 0,
-                      },
-                    }}
-                  />
-                </SplideSlide>
-              ))}
             </Splide>
           </div>
         </section>
