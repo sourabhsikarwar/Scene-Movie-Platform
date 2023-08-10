@@ -393,14 +393,15 @@ const TvBanner = (props) => {
                                 {episode.name}
                               </h2>
                               <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
-                                {episode.season_number === 0 ? (
+                              {episode.episode_number && (
+                                episode.season_number === 0 ? (
                                   <span>E{episode.episode_number}</span>
                                 ) : (
                                   <>
                                     <span>S{episode.season_number}&nbsp;</span>
                                     <span>E{episode.episode_number}</span>
                                   </>
-                                )}
+                                ))}
                                 <span className="mx-2">|</span>
                                 {episode.air_date && (
                                   <>
