@@ -238,7 +238,7 @@ const CommonBanner = (props) => {
                         {contentRating &&
                           contentRating.length >= 6 &&
                           contentRating.slice(0, 5).map((ratings, index) => (
-                            <span>
+                            <span className="dark:text-dimWhite text-gray-900 sm:text-dimWhite opacity-70 dark:opacity-70">
                               {ratings.rating}
                               {index !== 4 && <span>,&nbsp;</span>}
                             </span>
@@ -246,7 +246,7 @@ const CommonBanner = (props) => {
                         {contentRating &&
                           contentRating.length < 6 &&
                           contentRating.map((ratings, index) => (
-                            <span>
+                            <span className="dark:text-dimWhite text-gray-900 sm:text-dimWhite opacity-70 dark:opacity-70">
                               {ratings.rating}
                               {index !== contentRating.length - 1 && (
                                 <span>,&nbsp;</span>
@@ -255,9 +255,15 @@ const CommonBanner = (props) => {
                           ))}
                       </div>
                       <div className="text-black sm:text-white dark:text-white mb-2 md:mb-4">
-                        Seasons:&nbsp;{props.content.number_of_seasons}
+                        Seasons:&nbsp;
+                        <span className="dark:text-dimWhite text-gray-900 sm:text-dimWhite opacity-70 dark:opacity-70">
+                          {props.content.number_of_seasons}
+                        </span>
                         <span className="mx-2">|</span>
-                        Episodes:&nbsp;{props.content.number_of_episodes}
+                        Episodes:&nbsp;
+                        <span className="dark:text-dimWhite text-gray-900 sm:text-dimWhite opacity-70 dark:opacity-70">
+                          {props.content.number_of_episodes}
+                        </span>
                       </div>
                     </div>
                     {tvPlaying ? (
