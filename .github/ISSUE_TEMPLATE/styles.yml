@@ -1,5 +1,5 @@
 name: 👯‍♂️ Style Changing Request
-description: Suggest a style designs
+description: Suggest a style design
 title: '[style]'
 labels: ["enhancement"]
 
@@ -14,9 +14,8 @@ body:
     attributes:
       label: What's the style idea?
       placeholder: Add descriptions
+      required: true
       value: 'We need to improve'
-      validations:
-          required: true
 
   - type: checkboxes
     id: terms
