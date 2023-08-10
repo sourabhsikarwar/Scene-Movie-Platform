@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Oval } from "react-loader-spinner";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "../../style";
 import axios from "axios";
 import Details from "./Details";
@@ -360,64 +360,79 @@ const TvBanner = (props) => {
                   {Episodes.episodes
                     .slice(0, visibleEpisodes)
                     .map((episode) => (
-                      <div className="flex flex-col mb-12 sm:mb-8">
-                        <div className="flex flex-row gap-8">
-                          <div
-                            className="flex w-2/6 sm:w-1/4"
-                            style={{
-                              backgroundImage: `url(https://image.tmdb.org/t/p/w500${
-                                episode.still_path ??
-                                `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
-                              })`,
-                              backgroundSize: "cover",
-                              backgroundPosition: "center",
-                              backgroundBlendMode: "multiply",
-                              height: "150px",
-                              borderRadius: "10px",
-                            }}
-                          ></div>
-                          <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
-                            <h2 className={`${styles.heading3}`}>
-                              {episode.name}
-                            </h2>
-                            <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
-                              {episode.season_number === 0 ? (
-                                <span>E{episode.episode_number}</span>
-                              ) : (
-                                <>
-                                  <span>S{episode.season_number}&nbsp;</span>
+                      <Link
+                        to={
+                          "/tv/" +
+                          Tv.id +
+                          "/" +
+                          episode.season_number +
+                          "/" +
+                          episode.episode_number +
+                          "/" +
+                          episode.name
+                        }
+                      >
+                        <div className="flex flex-col mb-12 sm:mb-8">
+                          <div className="flex flex-row gap-8">
+                            <div
+                              className="flex w-2/6 sm:w-1/4"
+                              style={{
+                                backgroundImage: `url(https://image.tmdb.org/t/p/w500${
+                                  episode.still_path ??
+                                  `https://image.tmdb.org/t/p/w500${Episodes.poster_path}`
+                                })`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                backgroundBlendMode: "multiply",
+                                height: "150px",
+                                borderRadius: "10px",
+                              }}
+                            ></div>
+                            <div className="flex flex-col w-8/12 sm:w-3/4 text-black dark:text-white">
+                              <h2 className={`${styles.heading3}`}>
+                                {episode.name}
+                              </h2>
+                              <div className="flex flex-row font-semibold text-center items-center pt-1 sm:pt-2">
+                                {episode.season_number === 0 ? (
                                   <span>E{episode.episode_number}</span>
-                                </>
-                              )}
-                              <span className="mx-2">|</span>
-                              {episode.air_date && (
-                                <>
-                                  <span className="">
-                                    {episode.air_date
-                                      .toString()
-                                      .split("-")
-                                      .reverse()
-                                      .join("-")}
+                                ) : (
+                                  <>
+                                    <span>S{episode.season_number}&nbsp;</span>
+                                    <span>E{episode.episode_number}</span>
+                                  </>
+                                )}
+                                <span className="mx-2">|</span>
+                                {episode.air_date && (
+                                  <>
+                                    <span className="">
+                                      {episode.air_date
+                                        .toString()
+                                        .split("-")
+                                        .reverse()
+                                        .join("-")}
+                                    </span>
+                                    <span className="mx-2">|</span>
+                                  </>
+                                )}
+                                {episode.runtime > 60 ||
+                                episode.runtime === 60 ? (
+                                  <span>
+                                    {Math.floor(episode.runtime / 60)}hr&nbsp;
+                                    {Math.floor(episode.runtime % 60)}m
                                   </span>
-                                  <span className="mx-2">|</span>
-                                </>
-                              )}
-                              {episode.runtime > 60 ||
-                              episode.runtime === 60 ? (
-                                <span>
-                                  {Math.floor(episode.runtime / 60)}hr&nbsp;
-                                  {Math.floor(episode.runtime % 60)}m
-                                </span>
-                              ) : (
-                                <span>{Math.floor(episode.runtime % 60)}m</span>
-                              )}
+                                ) : (
+                                  <span>
+                                    {Math.floor(episode.runtime % 60)}m
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
+                                {episode.overview}
+                              </p>
                             </div>
-                            <p className="text-gray-600 dark:text-dimWhite pt-1 sm:pt-2">
-                              {episode.overview}
-                            </p>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   {visibleEpisodes < Episodes.episodes.length && (
                     <button
