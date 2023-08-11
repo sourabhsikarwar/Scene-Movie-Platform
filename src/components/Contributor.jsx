@@ -26,7 +26,7 @@ const Contributor = () => {
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = contributors.slice(indexOfFirstUser, indexOfLastUser);
 
-  // Change page
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -55,7 +55,15 @@ const Contributor = () => {
         </p>
       </div>
 
-      <div className=" flex justify-center mt-8">
+      <div className="flex flex-wrap justify-center p-6 gap-4 rounded-xl sm:p-12 dark:text-gray-100 ml-2 ">
+        {currentUsers.map((contributor) => {
+          return (
+            <div
+            key={contributor.id}
+            style={{ padding: "30px" }}
+            className="flex flex-col items-center space-y-4 text-center divide-y divide-gray-700 border-solid border-2 border-gray-700 cursor-pointer transition-1s hover:border-blue-700 hover:bg-slate-800"
+          >
+    <div className=" flex justify-center mt-8">
       <input
           type="text"
           placeholder="Search Contributor"
@@ -77,7 +85,7 @@ const Contributor = () => {
                 className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square"
               />
               <div style={{ border: "none" }} className=" space-y-1">
-                <h2 className="text-xl text-[#6058f2] font-semibold sm:text-2xl">
+                <h2 className="text-l text-[#6058f2] font-semibold sm:text-m">
                   {contributor.login}
                 </h2>
                 <p className="px-5 text-xs sm:text-base dark:text-gray-400">{`Contributions: ${contributor.contributions}`}</p>
