@@ -102,7 +102,7 @@ const Navbar = ({ handleThemeSwitch }) => {
 
           {user ? (
             <div
-              className="text-3xl my-auto md:hidden"
+              className="text-3xl my-auto md:hidden flex items-center"
               onClick={() => setOpen(!open)}
             >
               <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
