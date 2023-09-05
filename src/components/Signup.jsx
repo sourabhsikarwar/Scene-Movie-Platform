@@ -191,9 +191,9 @@ const Signup = () => {
               onKeyDown={handleKeyDown}
               countryCodeEditable={false}
               inputClass="focus:ring-0"
-              inputStyle={{ border: "0px"}}
+              inputStyle={{ border: "0px",width:"100%"}}
               containerClass="border-none outline-none focus:ring-0"
-              className={`w-full bg-white rounded border ${
+              className={`bg-white rounded border ${
                 errors.phoneNumberError ? "border-red-500" : "border-gray-300"
               } focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 text-gray-700 leading-8 transition-colors duration-200 ease-in-out`}
               aria-labelledby="phone number"
