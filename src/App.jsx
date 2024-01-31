@@ -79,15 +79,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route
-            exact
-            path="/search/:query"
-            element={
-              <ProtectedRoute>
-                <Search />
-              </ProtectedRoute>
-            }
-          /> */}
         </Routes>
         <Footer />
       </UserAuthContextProvider>

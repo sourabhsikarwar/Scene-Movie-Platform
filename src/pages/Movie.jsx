@@ -5,7 +5,6 @@ import Similiar from "../components/Carousel/Similiar";
 
 const Movie = () => {
   const { movieId, title } = useParams();
-  console.log(movieId);
   return (
     <>
       <MovieBanner id={movieId} title={title}/>

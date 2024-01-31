@@ -4,7 +4,6 @@ import avatar from "../assets/image/avatar.jpg";
 
 const Profile = () => {
   const { userData } = useUserAuth();
-  console.log(userData)
 
   return (
     <section className="text-white body-font bg-primary">

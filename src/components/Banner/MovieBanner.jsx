@@ -4,22 +4,33 @@ import styles from "../../style";
 
 const MovieBanner = (props) => {
   const [Movies, setMovies] = useState({});
+  const [loading, setLoading] = useState(false);
   const apiKey = process.env.REACT_APP_API_KEY
 
   useEffect(() => {
     const update = async () => {
+      window.scrollTo(0, 0);
+      setLoading(true);
       await axios
       .get(
         `https://api.themoviedb.org/3/movie/${props.id}?api_key=${apiKey}&language=en-US`
       )
       .then((res) => {
         const mResults = res.data;
-        console.log(mResults);
         setMovies(mResults);
+        setLoading(false);
       });
     }
     update()
   }, [props.id, apiKey]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-4 border-cyan-400"></div>
+      </div>
+    );
+  }
 
   return (
     <>

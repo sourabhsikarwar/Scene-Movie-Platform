@@ -54,7 +54,7 @@ const NavLinks = () => {
                   }`}
                 ></ion-icon>
               </span>
-              <span className="text-xl md:mt-1 ml-2 md:block hidden group-hover:rotate-180 group-hover:-mt-2 duration-300">
+              <span className="text-xl md:mt-1 ml-2 md:block hidden group-hover:rotate-180 transition-all duration-500">
                 <ion-icon name="chevron-down"></ion-icon>
               </span>
             </h1>
